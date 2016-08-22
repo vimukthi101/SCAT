@@ -30,21 +30,6 @@
 	<div class="row" style="padding:10px;" id="side">
     	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Delete Trains</font>
     </div>
-    <div class="row" style="padding:10px;">
-    	<label style="color:rgb(204,204,204)">Stations Management</label>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Add New Stations</font>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Stations</font>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Stations</font>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Delete Stations</font>
-    </div>
 </div>
 </body>
 </html>

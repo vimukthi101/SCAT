@@ -10,7 +10,7 @@
 
 <body>
 <?php
-	include_once('../ssi/adminHeader.php');
+	include_once('../ssi/Header.php');
 ?>
 <div class="">
 <?php

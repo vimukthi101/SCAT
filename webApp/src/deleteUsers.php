@@ -11,7 +11,7 @@
 <body  style="background-image:url(../images/4.jpg);background-repeat:no-repeat;background-size:cover;">
 <div>
 	<?php
-        include_once('../ssi/adminHeader.php');
+        include_once('../ssi/Header.php');
     ?>
 </div>
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">

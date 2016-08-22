@@ -1,9 +1,16 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('links.html');
+	//remove this when the login is done
+	$_SESSION['position'] = "admin";
 ?>
 <style>
 #box:hover {
@@ -16,29 +23,55 @@
 <!--header start-->
 <div class="container-fluid navbar-fixed-top" style="background-color:rgb(0,102,255);">
 	<div class="row text-center text-capitalize">
-    	<div class="col-md-2" style="padding:10px;"> 
-        	<font face="Verdana, Geneva, sans-serif" size="+1">SCAT ADMIN PORTAL</font>
+    <?php
+		if(isset($_SESSION['position'])){
+			if($_SESSION['position'] == "admin"){
+	?>
+        <div class="col-md-2" style="padding:10px;text-align:left;"> 
+            <a href="../src/adminHome.php" style="text-decoration:none;color:rgb(0,0,0);">
+                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT ADMIN PORTAL</font>
+            </a>
         </div>
-    	<a href="../src/userRegistration.php?position=Manager" style="text-decoration:none;color:rgb(255,255,255);">
-	        <div class="col-md-2" style="padding:11px;" id="box">
-    	        <font face="Verdana, Geneva, sans-serif" size="3px" data-toggle="tooltip" title="Add/ View/ Update/ Remove Users From The System" data-placement="bottom">Users Portal</font>
-       		</div>
-        </a>
-        <a href="../src/addCard.php" style="text-decoration:none;color:rgb(255,255,255);">
-	        <div class="col-md-2" style="padding:11px;" id="box">
-    	        <font face="Verdana, Geneva, sans-serif" size="3px" data-toggle="tooltip" title="Add/ View/ Update/ Remove S.C.A.T cards from the system and Issue cards" data-placement="bottom">Cards Portal</font>
-        	</div>
-        </a>
-        <a href="../src/addTrains.php" style="text-decoration:none;color:rgb(255,255,255);">
-        	<div class="col-md-2" style="padding:11px;" id="box">
-            	<font face="Verdana, Geneva, sans-serif" size="3px" data-toggle="tooltip" title="Add/ View/ Update/ Remove Trains and Stations from the system" data-placement="bottom">Train/ Station Portal</font>
-        	</div>
-        </a>
-        <a href="../src/registrationFee.php" style="text-decoration:none;color:rgb(255,255,255);">
-	        <div class="col-md-2" style="padding:11px;" id="box">
-    	        <font face="Verdana, Geneva, sans-serif" size="3px" data-toggle="tooltip" title="Add/ Update Registration fee and Ticket fee" data-placement="bottom">Systems Portal</font>    
-        	</div>
-        </a>
+    <?php
+			} else if ($_SESSION['position'] == "stationMaster"){
+	?>
+        <div class="col-md-3" style="padding:10px;text-align:left;"> 
+            <a href="../src/stationMasterHome.php" style="text-decoration:none;color:rgb(0,0,0);">
+                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT STATION MASTER PORTAL</font>
+            </a>
+        </div>
+    <?php
+			} else if ($_SESSION['position'] == "manager"){
+	?>
+        <div class="col-md-3" style="padding:10px;text-align:left;"> 
+            <a href="../src/managerHome.php" style="text-decoration:none;color:rgb(0,0,0);">
+                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT MANAGER PORTAL</font>
+            </a>
+        </div>
+    <?php			
+			} else if ($_SESSION['position'] == "registrar"){
+	?>
+        <div class="col-md-3" style="padding:10px;text-align:left;"> 
+            <a href="../src/registrarHome.php" style="text-decoration:none;color:rgb(0,0,0);">
+                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT REGISTRAR PORTAL</font>
+            </a>
+        </div>
+    <?php			
+			} else if ($_SESSION['position'] == "topup"){
+	?>
+        <div class="col-md-3" style="padding:10px;text-align:left;"> 
+            <a href="../src/topupHome.php" style="text-decoration:none;color:rgb(0,0,0);">
+                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT TOPUP AGENT PORTAL</font>
+            </a>
+        </div>
+    <?php			
+			} else {
+				echo $_SESSION['position'];	
+			}
+		} else {
+			echo $_SESSION['position'];	
+		}
+	?>
         <div class="col-md-2 dropdown pull-right">
         	<button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
     	    	<img src="../images/Contact-icon.png" alt="profile" width="30px" height="30px"/>

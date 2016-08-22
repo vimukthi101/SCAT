@@ -14,7 +14,7 @@
 ?>
 <div class="">
 <?php
-include_once('../ssi/adminLeftPanelSystem.php');
+include_once('../ssi/adminLeftPanelStations.php');
 ?>
 	<div>
     
