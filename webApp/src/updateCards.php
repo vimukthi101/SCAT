@@ -5,7 +5,7 @@
 <?php
 	include_once('../ssi/links.html');
 ?>
-<title>Cards Management</title>
+<title>User Management</title>
 </head>
 
 <body style="background-image:url(../images/4.jpg);background-repeat:no-repeat;background-size:cover;">
@@ -23,33 +23,41 @@
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
         <div class="text-center" style="padding:10px;">
             <font face="Verdana, Geneva, sans-serif" size="+1">
-            	<u>Add New S.C.A.T. Cards</u>
+            <u>Update S.C.A.T. Cards</u>
             </font>
         </div>
         <div style="padding:10px;"> 
             <form role="form" class="form-horizontal">
             	<div class="form-group">
-                    <label for="cardNo" class="control-label col-md-3">Card No</label>
+                    <label for="cardNo" class="control-label col-md-3">Search By Card No : </label>
                     <div class="col-md-8">
                     	<input class="form-control" type="text" name="cardNo" id="cardNo" />
-                	</div>
+                    </div>
+                    <div>
+                    	<input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="pin" class="control-label col-md-3">Pin</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="pin" id="pin"/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="confirmPin" class="control-label col-md-3">Confirm Pin</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="cPin" id="cPin"/>
-                	</div>
-                </div>
-                <div class="form-group col-md-11 text-center">
-                    <input type="submit" value="Add" class="btn btn-success" />
-                    <input type="reset" value="Clear" class="btn btn-danger" />
-                </div>
+                <hr/>
+            </form>
+            <script>
+			function showHint(str) {
+				if (str.length == 0) { 
+					document.getElementById("txtHint").innerHTML = "";
+					return;
+				} else {
+					var xmlhttp = new XMLHttpRequest();
+					xmlhttp.onreadystatechange = function() {
+						if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+						}
+					};
+					xmlhttp.open("GET", "getCardInfo.php?p=update&q=" + str, true);
+					xmlhttp.send();
+				}
+			}
+			</script>
+            <form role="form" class="form-horizontal">
+            	<div style="padding-left:70px;" id="txtHint"></div>
             </form>
         </div>
     </div>

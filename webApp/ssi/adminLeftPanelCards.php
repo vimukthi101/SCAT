@@ -18,30 +18,44 @@
 	<div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">S.C.A.T. Card Management</label>
     </div>
-	<div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Add New Cards</font>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Cards</font>
-    </div>
-	<div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Cards</font>
-    </div>
-	<div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Delete Cards</font>
-    </div>
+    <a href="../src/addCard.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Add New Cards</font>
+        </div>
+    </a>
+    <a href="../src/viewCards.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Cards</font>
+        </div>
+    </a>
+    <a href="../src/updateCards.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Cards</font>
+        </div>
+    </a>
+    <a href="../src/deleteCards.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Delete Cards</font>
+        </div>
+    </a>
     <div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">Issue Cards for Requests</label>
     </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Requests</font>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Issue Cards</font>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Issued Lists</font>
-    </div>
+    <a href="../src/viewCardRequests.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Requests</font>
+        </div>
+    </a>
+    <a href="../src/issueCards.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Issue Cards</font>
+        </div>
+    </a>
+    <a href="../src/viewCardsList.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Issued/ Rejected List</font>
+        </div>
+    </a>
 </div>
 </body>
 </html>

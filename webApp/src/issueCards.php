@@ -23,32 +23,44 @@
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
         <div class="text-center" style="padding:10px;">
             <font face="Verdana, Geneva, sans-serif" size="+1">
-            	<u>Add New S.C.A.T. Cards</u>
+            	<u>Issue S.C.A.T. Cards</u>
             </font>
         </div>
         <div style="padding:10px;"> 
             <form role="form" class="form-horizontal">
             	<div class="form-group">
-                    <label for="cardNo" class="control-label col-md-3">Card No</label>
+                    <label for="rID" class="control-label col-md-3">Request ID</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="cardNo" id="cardNo" />
+                    	<input class="form-control" type="text" name="rID" id="rID" readonly="readonly"/>
                 	</div>
                 </div>
                 <div class="form-group">
-                    <label for="pin" class="control-label col-md-3">Pin</label>
+                    <label for="station" class="control-label col-md-3">Station Name</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="pin" id="pin"/>
+                    	<input class="form-control" type="text" name="station" id="station" readonly="readonly"/>
                 	</div>
                 </div>
                 <div class="form-group">
-                    <label for="confirmPin" class="control-label col-md-3">Confirm Pin</label>
+                    <label for="stationMaster" class="control-label col-md-3">Station Master</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="cPin" id="cPin"/>
+                    	<input class="form-control" type="text" name="stationMaster" id="stationMaster" readonly="readonly"/>
+                	</div>
+                </div>
+                <div class="form-group">
+                    <label for="nRequest" class="control-label col-md-3">Number of Cards Requested</label>
+                    <div class="col-md-8">
+                    	<input class="form-control" type="text" name="nRequest" id="nRequest" readonly="readonly"/>
+                	</div>
+                </div>
+                <div class="form-group">
+                    <label for="nSend" class="control-label col-md-3">Number of Cards to Send</label>
+                    <div class="col-md-8">
+                    	<input class="form-control" type="text" name="nSend" id="nSend"/>
                 	</div>
                 </div>
                 <div class="form-group col-md-11 text-center">
-                    <input type="submit" value="Add" class="btn btn-success" />
-                    <input type="reset" value="Clear" class="btn btn-danger" />
+                    <input type="submit" value="Issue" class="btn btn-success" />
+                    <input type="reset" value="Reject" class="btn btn-danger" />
                 </div>
             </form>
         </div>
