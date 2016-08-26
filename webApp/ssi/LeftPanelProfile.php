@@ -18,15 +18,21 @@
 	<div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">Profile Management</label>
     </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View My Profile</font>
-    </div>
-	<div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Edit My Profile</font>
-    </div>
-	<div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Change Password</font>
-    </div>
+    <a href="../src/Profile.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View My Profile</font>
+        </div>
+    </a>
+    <a href="../src/editProfile.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Edit My Profile</font>
+        </div>
+    </a>
+    <a href="../src/changePassword.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Change Password</font>
+        </div>
+    </a>
 </div>
 </body>
 </html>

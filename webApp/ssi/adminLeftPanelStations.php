@@ -18,18 +18,26 @@
     <div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">Stations Management</label>
     </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Add New Stations</font>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Stations</font>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Stations</font>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Delete Stations</font>
-    </div>
+    <a href="../src/addStations.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Add New Stations</font>
+        </div>
+    </a>
+    <a href="../src/viewStations.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Stations</font>
+        </div>
+    </a>
+    <a href="../src/updateStations.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Stations</font>
+        </div>
+    </a>
+    <a href="../src/deleteStations.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Stations</font>
+        </div>
+    </a>
 </div>
 </body>
 </html>

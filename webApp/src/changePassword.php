@@ -5,7 +5,7 @@
 <?php
 	include_once('../ssi/links.html');
 ?>
-<title>Stations Management</title>
+<title>User Profile</title>
 </head>
 
 <body style="background-image:url(../images/4.jpg);background-repeat:no-repeat;background-size:cover;">
@@ -17,41 +17,37 @@
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-            include_once('../ssi/adminLeftPanelStations.php');
+            include_once('../ssi/LeftPanelProfile.php');
         ?>
     </div>
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
         <div class="text-center" style="padding:10px;">
             <font face="Verdana, Geneva, sans-serif" size="+1">
-            	<u>Add New Stations</u>
+            	<u>Change Password</u>
             </font>
         </div>
         <div style="padding:10px;"> 
-            <form role="form" class="form-horizontal">
+			<form role="form" class="form-horizontal">
             	<div class="form-group">
-                    <label for="sCode" class="control-label col-md-3">Station Code</label>
+                    <label for="pass" class="control-label col-md-3">Existing Password</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="sCode" id="sCode" />
+                    	<input class="form-control" type="password" name="pass" id="pass" />
                 	</div>
                 </div>
                 <div class="form-group">
-                    <label for="sName" class="control-label col-md-3">Name of the Station</label>
+                    <label for="nPass" class="control-label col-md-3">New Password</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="sName" id="sName"/>
+                    	<input class="form-control" type="password" name="nPass" id="nPass"/>
                 	</div>
-                </div> 
-                <div class="form-group">
-                    <label for="smName" class="control-label col-md-3">Station Master's Name</label>
+                </div>
+				<div class="form-group">
+                    <label for="cnPass" class="control-label col-md-3">Confirm New Password</label>
                     <div class="col-md-8">
-                    	<select name="smName" id="smName" class="form-control">
-                          <option selected="selected" disabled="disabled">--Select the Station Master--</option>
-                          <option value="kusal">kusal</option>
-                          <option value="sangakkara">sangakkara</option>
-                        </select>
+                    	<input class="form-control" type="password" name="cnPass" id="cnPass"/>
                 	</div>
-                </div> 
+                </div>
                 <div class="form-group col-md-11 text-center">
-                    <input type="submit" value="Add" class="btn btn-success" />
+                    <input type="submit" value="Update" class="btn btn-success" />
                     <input type="reset" value="Clear" class="btn btn-danger" />
                 </div>
             </form>

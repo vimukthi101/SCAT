@@ -35,7 +35,7 @@
     </a>
     <a href="../src/deleteCards.php" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Delete Cards</font>
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Cards</font>
         </div>
     </a>
     <div class="row" style="padding:10px;">

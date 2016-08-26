@@ -5,7 +5,7 @@
 <?php
 	include_once('../ssi/links.html');
 ?>
-<title>User Management</title>
+<title>System Configurations</title>
 </head>
 
 <body style="background-image:url(../images/4.jpg);background-repeat:no-repeat;background-size:cover;">
@@ -17,48 +17,37 @@
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-            include_once('../ssi/adminLeftPanelCards.php');
+            include_once('../ssi/adminLeftPanelSystem.php');
         ?>
     </div>
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
         <div class="text-center" style="padding:10px;">
             <font face="Verdana, Geneva, sans-serif" size="+1">
-            <u>Remove S.C.A.T. Cards</u>
+            <u>Update Registration Fee</u>
             </font>
         </div>
         <div style="padding:10px;"> 
-            <form role="form" class="form-horizontal">
+        	<form role="form" class="form-horizontal">
             	<div class="form-group">
-                    <label for="cardNo" class="control-label col-md-3">Search By Card No : </label>
+                    <label for="regFee" class="control-label col-md-3">Registration Fee : </label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="cardNo" id="cardNo" />
-                    </div>
-                    <div>
-                    	<input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/>
+                    	<input class="form-control" type="text" name="rFee" id="rFee" readonly="readonly"/>
                     </div>
                 </div>
                 <hr/>
-            </form>
-            <script>
-			function showHint(str) {
-				if (str.length == 0) { 
-					document.getElementById("txtHint").innerHTML = "";
-					return;
-				} else {
-					var xmlhttp = new XMLHttpRequest();
-					xmlhttp.onreadystatechange = function() {
-						if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-						}
-					};
-					xmlhttp.open("GET", "getCardInfo.php?p=delete&q=" + str, true);
-					xmlhttp.send();
-				}
-			}
-			</script>
+            </form> 
             <form role="form" class="form-horizontal">
-            	<div style="padding-left:70px;" id="txtHint"></div>
-            </form>
+            	<div class="form-group">
+                    <label for="regFee" class="control-label col-md-3">New Registration Fee : </label>
+                    <div class="col-md-8">
+                    	<input class="form-control" type="text" name="regFee" id="regFee" />
+                    </div>
+                    <div>
+                    	<input type="submit" value="Update" class="btn btn-success"/>
+                    </div>
+                </div>
+                <hr/>
+            </form> 
         </div>
     </div>
 </div>

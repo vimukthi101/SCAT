@@ -23,7 +23,7 @@
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
         <div class="text-center" style="padding:10px;">
             <font face="Verdana, Geneva, sans-serif" size="+1">
-            	<u>My Profile</u>
+            	<u>Edit My Profile</u>
             </font>
         </div>
         <div style="padding:10px;"> 
@@ -52,44 +52,48 @@
                 <div class="form-group">
                     <label for="employeefName" class="control-label col-md-3">First Name</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="fname" id="fname" readonly="readonly"/>
+                    	<input class="form-control" type="text" name="fname" id="fname"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="employeemName" class="control-label col-md-3">Middle Name</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="mname" id="mname" readonly="readonly"/>
+                    	<input class="form-control" type="text" name="mname" id="mname"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="employeelName" class="control-label col-md-3">Last Name</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="lname" id="lname" readonly="readonly" />
+                    	<input class="form-control" type="text" name="lname" id="lname"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="addressNo" class="control-label col-md-3">Address Number</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="addresNo" id="addressNo" readonly="readonly"/>
+                    	<input class="form-control" type="text" name="addresNo" id="addressNo"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="addressLane" class="control-label col-md-3">Lane/ Street</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="lane" id="lane" readonly="readonly"/>
+                    	<input class="form-control" type="text" name="lane" id="lane"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="addressCity" class="control-label col-md-3">City</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="city" id="city" readonly="readonly"/>
+                    	<input class="form-control" type="text" name="city" id="city"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="employeeContact" class="control-label col-md-3">Contact Number</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="contact" id="contact" readonly="readonly"/>
+                    	<input class="form-control" type="text" name="contact" id="contact"/>
                 	</div>
+                </div>
+                <div class="form-group col-md-11 text-center">
+                    <input type="submit" value="Update" class="btn btn-success" />
+                    <input type="reset" value="Clear" class="btn btn-danger" />
                 </div>
             </form>
         </div>

@@ -18,18 +18,26 @@
 	<div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">Trains Management</label>
     </div>
-	<div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Add New Trains</font>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Trains</font>
-    </div>
-	<div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Trains</font>
-    </div>
-	<div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Delete Trains</font>
-    </div>
+    <a href="../src/addTrains.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Add New Trains</font>
+        </div>
+    </a>
+    <a href="../src/viewTrains.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Trains</font>
+        </div>
+    </a>
+    <a href="../src/updateTrains.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Trains</font>
+        </div>
+    </a>
+    <a href="../src/deleteTrains.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Trains</font>
+        </div>
+    </a>
 </div>
 </body>
 </html>

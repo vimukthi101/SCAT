@@ -18,21 +18,29 @@
 	<div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">System Configurations</label>
     </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Registration Fee</font>
-    </div>
+    <a href="../src/updateRegistrationFee.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Registration Fee</font>
+        </div>
+    </a>
     <div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">Ticket Management</label>
     </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Add Ticket Fee</font>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Ticket Fee</font>
-    </div>
-    <div class="row" style="padding:10px;" id="side">
-    	<font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Ticket Fee</font>
-    </div>
+    <a href="../src/addTickets.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Add Ticket Fee</font>
+        </div>
+    </a>
+    <a href="../src/viewTickets.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Ticket Fee</font>
+        </div>
+    </a>
+    <a href="../src/updateTickets.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Ticket Fee</font>
+        </div>
+    </a>
 </div>
 </body>
 </html>
