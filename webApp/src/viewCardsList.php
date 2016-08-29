@@ -4,6 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('../ssi/links.html');
+	//remove this when the login is done
+	$_SESSION['position'] = "stationMaster";
 ?>
 <title>Cards Management</title>
 </head>
@@ -17,7 +19,11 @@
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-            include_once('../ssi/adminLeftPanelCards.php');
+            if($_SESSION['position']=="admin"){
+				include_once('../ssi/adminLeftPanelCards.php');
+			} else if($_SESSION['position']=="stationMaster"){
+				include_once('../ssi/stationMasterLeftPanelCards.php');
+			}
         ?>
     </div>
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
@@ -33,26 +39,44 @@
                     <div class="col-md-8">
                     	<select onchange="load(this);" name="searchBy" id="searchBy" class="form-control">
                           <option selected="selected" disabled="disabled">--Select the search criteria--</option>
-                          <option value="station">Station Name</option>
-                          <option value="status">Status</option>
+                          <?php if($_SESSION['position'] == "admin"){ ?>
+                              <option value="station">Station Name</option>
+                              <option value="status">Status</option>
+                          <?php } else if($_SESSION['position'] == "stationMaster"){?>
+                          	  <option value="status">Status</option>
+                          <?php }?>
                         </select>
                 	</div>
                 </div>
                 <hr/>
             </form>
-            <script type="text/javascript">
-				 function load(selectObj) { 
-					 var idx = selectObj.selectedIndex; 
-					 var which = selectObj.options[idx].value; 
-					 if(which=='station'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="stationName" class="control-label col-md-3">Station Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value);" type="text" name="stationName" id="stationName" /></div></div><hr/>'; 
-					 } else if(which=='status'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="cardStatus" class="control-label col-md-3">Status</label><div class="col-md-8"><select onchange="showHint(this.value);" name="cardStatus" id="cardStatus" class="form-control"><option selected="selected" disabled="disabled">--Select the Card Status--</option><option value="all">All</option><option value="issued">Issued</option><option value="received">Received</option><option value="rejected">Rejected</option></select></div></div><hr/>';
-					 } else {
-						 document.getElementById('new').innerHTML = '';
-					 }
-				 } 
-			</script>
+            <?php if($_SESSION['position'] == "admin"){ ?>
+				<script type="text/javascript">
+                     function load(selectObj) { 
+                         var idx = selectObj.selectedIndex; 
+                         var which = selectObj.options[idx].value; 
+                         if(which=='station'){
+                             document.getElementById('new').innerHTML = '<div class="form-group"><label for="stationName" class="control-label col-md-3">Station Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value);" type="text" name="stationName" id="stationName" /></div></div><hr/>'; 
+                         } else if(which=='status'){
+                             document.getElementById('new').innerHTML = '<div class="form-group"><label for="cardStatus" class="control-label col-md-3">Status</label><div class="col-md-8"><select onchange="showHint(this.value);" name="cardStatus" id="cardStatus" class="form-control"><option selected="selected" disabled="disabled">--Select the Card Status--</option><option value="all">All</option><option value="issued">Issued</option><option value="received">Received</option><option value="rejected">Rejected</option></select></div></div><hr/>';
+                         } else {
+                             document.getElementById('new').innerHTML = '';
+                         } 
+                     } 
+                </script>
+            <?php } else if($_SESSION['position'] == "stationMaster"){?>
+				<script type="text/javascript">
+                     function load(selectObj) { 
+                         var idx = selectObj.selectedIndex; 
+                         var which = selectObj.options[idx].value; 
+                         if(which=='status'){
+                             document.getElementById('new').innerHTML = '<div class="form-group"><label for="cardStatus" class="control-label col-md-3">Status</label><div class="col-md-8"><select onchange="showHint(this.value);" name="cardStatus" id="cardStatus" class="form-control"><option selected="selected" disabled="disabled">--Select the Card Status--</option><option value="all">All</option><option value="issued">Issued</option><option value="received">Received</option><option value="rejected">Rejected</option></select></div></div><hr/>';
+                         } else {
+                             document.getElementById('new').innerHTML = '';
+                         } 
+                     } 
+                </script>
+            <?php }?>
             <script>
 			function showHint(str) {
 				if (str.length == 0) { 

@@ -7,7 +7,7 @@
 	//remove this when the login is done
 	$_SESSION['position'] = "stationMaster";
 ?>
-<title>User Management</title>
+<title>Commuter Management</title>
 </head>
 
 <body style="background-image:url(../images/4.jpg);background-repeat:no-repeat;background-size:cover;">
@@ -19,38 +19,17 @@
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-            if($_SESSION['position']=="admin"){
-				include_once('../ssi/adminLeftPanelUsers.php');
-			} else if($_SESSION['position']=="stationMaster"){
-				include_once('../ssi/stationMasterLeftPanelUsers.php');
-			} else if($_SESSION['position']=="manager"){
-				include_once('../ssi/managerLeftPanelUsers.php');
-			}  
+        	include_once('../ssi/registrarLeftPanelUsers.php'); 
         ?>
     </div>
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
         <div class="text-center" style="padding:10px;">
-            <font face="Verdana, Geneva, sans-serif" size="+1"><u>Register a new 
-                <?php
-                    echo $_GET['position'];
-                ?>
-            </u>
+            <font face="Verdana, Geneva, sans-serif" size="+1">
+            	<u>Register a new Commuter</u>
             </font>
         </div>
         <div style="padding:10px;"> 
             <form role="form" class="form-horizontal">
-            	<div class="form-group">
-                    <label for="employeeId" class="control-label col-md-3">Employee ID</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="eId" id="eId" />
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="employeePosition" class="control-label col-md-3">Position</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="position" id="position" value="<?php echo $_GET['position']; ?>" readonly="readonly"/>
-                	</div>
-                </div>
                 <div class="form-group text-center">
                     <label class="col-md-11">Personal Information</label> 
                 </div>
@@ -100,6 +79,15 @@
                     <label for="employeeContact" class="control-label col-md-3">Contact Number</label>
                     <div class="col-md-8">
                     	<input class="form-control" type="text" name="contact" id="contact" />
+                	</div>
+                </div>
+                <div class="form-group text-center">
+                    <label class="col-md-11">S.C.A.T. Card Information</label> 
+                </div>
+                <div class="form-group">
+                    <label for="cardNo" class="control-label col-md-3">Card Number</label>
+                    <div class="col-md-8">
+                    	<input class="form-control" type="text" name="cardNo" id="cardNo" />
                 	</div>
                 </div>
                 <div class="form-group col-md-11 text-center">

@@ -10,7 +10,7 @@ if(!isset($_SESSION[''])){
 <?php
 	include_once('links.html');
 	//remove this when the login is done
-	$_SESSION['position'] = "admin";
+	$_SESSION['position'] = "topup";
 ?>
 <style>
 #box:hover {

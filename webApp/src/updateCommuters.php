@@ -7,7 +7,7 @@
 	//remove this when the login is done
 	$_SESSION['position'] = "stationMaster";
 ?>
-<title>User Management</title>
+<title>Commuter Management</title>
 </head>
 
 <body style="background-image:url(../images/4.jpg);background-repeat:no-repeat;background-size:cover;">
@@ -19,22 +19,13 @@
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-            if($_SESSION['position']=="admin"){
-				include_once('../ssi/adminLeftPanelUsers.php');
-			} else if($_SESSION['position']=="stationMaster"){
-				include_once('../ssi/stationMasterLeftPanelUsers.php');
-			} else if($_SESSION['position']=="manager"){
-				include_once('../ssi/managerLeftPanelUsers.php');
-			}  
+			include_once('../ssi/registrarLeftPanelUsers.php');  
         ?>
     </div>
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
         <div class="text-center" style="padding:10px;">
-            <font face="Verdana, Geneva, sans-serif" size="+1"><u>Update  
-                <?php
-                    echo $_GET['position'].'s';
-                ?>
-            </u>
+            <font face="Verdana, Geneva, sans-serif" size="+1">
+            	<u>Update Commuters</u>
             </font>
         </div>
         <div style="padding:10px;"> 
@@ -44,7 +35,7 @@
                     <div class="col-md-8">
                     	<select onchange="load(this);" name="searchBy" id="searchBy" class="form-control">
                           <option selected="selected" disabled="disabled">--Select the search criteria--</option>
-                          <option value="eid">Employee ID</option>
+                          <option value="cNo">Card Number</option>
                           <option value="nic">NIC</option>
                           <option value="fname">First Name</option>
                           <option value="lname">Last Name</option>
@@ -57,8 +48,8 @@
 				 function load(selectObj) { 
 					 var idx = selectObj.selectedIndex; 
 					 var which = selectObj.options[idx].value; 
-					 if(which=='eid'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeeId" class="control-label col-md-3">Employee ID</label><div class="col-md-8"><input class="form-control" type="text" name="eId" id="eId" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>'; 
+					 if(which=='cNo'){
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="CardNo" class="control-label col-md-3">Card Number</label><div class="col-md-8"><input class="form-control" type="text" name="CardNo" id="CardNo" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>'; 
 					 } else if(which=='nic'){
 						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="nic" id="nic" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>';
 					 } else if(which=='fname'){
@@ -82,7 +73,7 @@
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getUserInfo.php?p=update&q=" + str, true);
+					xmlhttp.open("GET", "getCommuterInfo.php?p=update&q=" + str, true);
 					xmlhttp.send();
 				}
 			}

@@ -4,6 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('../ssi/links.html');
+	//remove this when the login is done
+	$_SESSION['position'] = "stationMaster";
 ?>
 <title>User Management</title>
 </head>
@@ -17,7 +19,13 @@
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-            include_once('../ssi/adminLeftPanelUsers.php');
+            if($_SESSION['position']=="admin"){
+				include_once('../ssi/adminLeftPanelUsers.php');
+			} else if($_SESSION['position']=="stationMaster"){
+				include_once('../ssi/stationMasterLeftPanelUsers.php');
+			} else if($_SESSION['position']=="manager"){
+				include_once('../ssi/managerLeftPanelUsers.php');
+			}  
         ?>
     </div>
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
