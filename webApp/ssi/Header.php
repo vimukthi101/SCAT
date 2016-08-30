@@ -10,7 +10,7 @@ if(!isset($_SESSION[''])){
 <?php
 	include_once('links.html');
 	//remove this when the login is done
-	$_SESSION['position'] = "topup";
+	$_SESSION['position'] = "manager";
 ?>
 <style>
 #box:hover {
@@ -29,7 +29,7 @@ if(!isset($_SESSION[''])){
 	?>
         <div class="col-md-2" style="padding:10px;text-align:left;"> 
             <a href="../src/adminHome.php" style="text-decoration:none;color:rgb(0,0,0);">
-                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT ADMIN PORTAL</font>
+                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT ADMIN PANEL</font>
             </a>
         </div>
     <?php
@@ -37,7 +37,7 @@ if(!isset($_SESSION[''])){
 	?>
         <div class="col-md-3" style="padding:10px;text-align:left;"> 
             <a href="../src/stationMasterHome.php" style="text-decoration:none;color:rgb(0,0,0);">
-                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT STATION MASTER PORTAL</font>
+                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT STATION MASTER PANEL</font>
             </a>
         </div>
     <?php
@@ -45,7 +45,7 @@ if(!isset($_SESSION[''])){
 	?>
         <div class="col-md-3" style="padding:10px;text-align:left;"> 
             <a href="../src/managerHome.php" style="text-decoration:none;color:rgb(0,0,0);">
-                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT MANAGER PORTAL</font>
+                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT MANAGER PANEL</font>
             </a>
         </div>
     <?php			
@@ -53,7 +53,7 @@ if(!isset($_SESSION[''])){
 	?>
         <div class="col-md-3" style="padding:10px;text-align:left;"> 
             <a href="../src/registrarHome.php" style="text-decoration:none;color:rgb(0,0,0);">
-                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT REGISTRAR PORTAL</font>
+                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT REGISTRAR PANEL</font>
             </a>
         </div>
     <?php			
@@ -61,14 +61,24 @@ if(!isset($_SESSION[''])){
 	?>
         <div class="col-md-3" style="padding:10px;text-align:left;"> 
             <a href="../src/topupHome.php" style="text-decoration:none;color:rgb(0,0,0);">
-                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT TOPUP AGENT PORTAL</font>
+                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT TOPUP AGENT PANEL</font>
+            </a>
+        </div>
+    <?php			
+			} else if ($_SESSION['position'] == "timeTableUpdater"){
+	?>
+        <div class="col-md-3" style="padding:10px;text-align:left;"> 
+            <a href="../src/timeTableUpdaterHome.php" style="text-decoration:none;color:rgb(0,0,0);">
+                <font face="Verdana, Geneva, sans-serif" size="+1">SCAT UPDATER PANEL</font>
             </a>
         </div>
     <?php			
 			} else {
+				//redirect to error page
 				echo $_SESSION['position'];	
 			}
 		} else {
+			//redirect to error page
 			echo $_SESSION['position'];	
 		}
 	?>
@@ -79,8 +89,8 @@ if(!isset($_SESSION[''])){
             </button>
             <ul class="dropdown-menu">
               <li><a href="../src/Profile.php">View Profile</a></li>
-              <li><a href="../src/Profile.php">Edit Profile</a></li>
-              <li><a href="../src/Profile.php">Change Password</a></li>
+              <li><a href="../src/editProfile.php">Edit Profile</a></li>
+              <li><a href="../src/changePassword.php">Change Password</a></li>
               <li><a  data-toggle="modal" data-target="#myModal">Log Out</a></li>
    		 	</ul>
        	</div>
