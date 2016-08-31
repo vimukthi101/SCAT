@@ -1,2 +1,2 @@
-add home page for display updater
-add forms and other inside pages for all the users
+change home page
+create reports pages
