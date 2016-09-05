@@ -9,8 +9,6 @@ if(!isset($_SESSION[''])){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('links.html');
-	//remove this when the login is done
-	$_SESSION['position'] = "manager";
 ?>
 <style>
 #box:hover {
@@ -25,7 +23,7 @@ if(!isset($_SESSION[''])){
 	<div class="row text-center text-capitalize">
     <?php
 		if(isset($_SESSION['position'])){
-			if($_SESSION['position'] == "admin"){
+			if($_SESSION['position'] == "sysadmin"){
 	?>
         <div class="col-md-2" style="padding:10px;text-align:left;"> 
             <a href="../src/adminHome.php" style="text-decoration:none;color:rgb(0,0,0);">
@@ -74,12 +72,12 @@ if(!isset($_SESSION[''])){
         </div>
     <?php			
 			} else {
-				//redirect to error page
-				echo $_SESSION['position'];	
+				//redirect to login page
+				header('../index.php?error=np');
 			}
 		} else {
-			//redirect to error page
-			echo $_SESSION['position'];	
+			//redirect to login page
+			header('../index.php?error=np');	
 		}
 	?>
         <div class="col-md-2 dropdown pull-right">
@@ -109,7 +107,7 @@ if(!isset($_SESSION[''])){
           <p>Are You sure that you want to Log Out?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal">YES</button>
+          <button type="button" class="btn btn-success" onclick="location.href = 'controller/logout.php'" data-dismiss="modal">YES</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
         </div>
       </div>

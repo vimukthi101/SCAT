@@ -27,27 +27,53 @@
             </font>
         </div>
         <div style="padding:10px;"> 
-			<form role="form" class="form-horizontal">
+			<form role="form" class="form-horizontal" action="controller/changePasswordController.php" method="post">
             	<div class="form-group">
                     <label for="pass" class="control-label col-md-3">Existing Password</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="password" name="pass" id="pass" />
+                    	<input class="form-control" type="password" name="pass" id="pass" pattern="\S*" title="Password Cannot Be Empty" />
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="nPass" class="control-label col-md-3">New Password</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="password" name="nPass" id="nPass"/>
+                    	<input class="form-control" type="password" name="nPass" id="nPass" pattern="\S*" title="Password Cannot Be Empty"/>
                 	</div>
                 </div>
 				<div class="form-group">
                     <label for="cnPass" class="control-label col-md-3">Confirm New Password</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="password" name="cnPass" id="cnPass"/>
+                    	<input class="form-control" type="password" name="cnPass" id="cnPass" pattern="\S*" title="Password Cannot Be Empty"/>
                 	</div>
                 </div>
+                <?php
+					if(isset($_GET['error'])){
+						$error = $_GET['error'];
+						if($error == "ns"){
+							echo '<div class="form-group col-md-10 text-center" style="padding:10px;margin-left:100px;">
+								<label class="form-control col-md-3">Please Submit The Form To Continue</label>
+							</div>';
+						} else if($error == "pe"){
+							echo '<div class="form-group col-md-10 text-center" style="padding:10px;margin-left:100px;">
+								<label class="form-control col-md-3">Above FIelds Cannot Be Empty.</label>
+							</div>';
+						} else if($error == "dm"){
+							echo '<div class="form-group col-md-10 text-center" style="padding:10px;margin-left:100px;">
+								<label class="form-control col-md-3">New Password And Confirm Password Does Not Match.</label>
+							</div>';
+						} else if($error == "tl"){
+							echo '<div class="form-group col-md-10 text-center" style="padding:10px;margin-left:100px;">
+								<label class="form-control col-md-3">Could Not Change Your Password. Please Try Again Later.</label>
+							</div>';
+						} else if($error == "wp"){
+							echo '<div class="form-group col-md-10 text-center" style="padding:10px;margin-left:100px;">
+								<label class="form-control col-md-3">Your Existing Password Does Not Match With What You Enter.</label>
+							</div>';
+						}
+					}
+				?>
                 <div class="form-group col-md-11 text-center">
-                    <input type="submit" value="Update" class="btn btn-success" />
+                    <input type="submit" name="submit" id="submit" value="Update" class="btn btn-success" />
                     <input type="reset" value="Clear" class="btn btn-danger" />
                 </div>
             </form>

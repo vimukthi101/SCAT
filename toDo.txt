@@ -1,2 +1,3 @@
-change home page
-create reports pages
+mysqli_insert_id(); 
+
+get the inserted coulmn no

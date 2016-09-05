@@ -4,8 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('../ssi/links.html');
-	//remove this when the login is done
-	$_SESSION['position'] = "stationMaster";
 ?>
 <title>User Management</title>
 </head>
@@ -19,7 +17,7 @@
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-            if($_SESSION['position']=="admin"){
+            if($_SESSION['position']=="sysadmin"){
 				include_once('../ssi/adminLeftPanelUsers.php');
 			} else if($_SESSION['position']=="stationMaster"){
 				include_once('../ssi/stationMasterLeftPanelUsers.php');
