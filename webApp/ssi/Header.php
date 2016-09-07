@@ -1,8 +1,3 @@
-<?php
-if(!isset($_SESSION[''])){
-	session_start();
-}
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -55,7 +50,7 @@ if(!isset($_SESSION[''])){
             </a>
         </div>
     <?php			
-			} else if ($_SESSION['position'] == "topup"){
+			} else if ($_SESSION['position'] == "topupAgent"){
 	?>
         <div class="col-md-3" style="padding:10px;text-align:left;"> 
             <a href="../src/topupHome.php" style="text-decoration:none;color:rgb(0,0,0);">

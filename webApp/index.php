@@ -64,6 +64,10 @@
 							echo '<div style="padding:10px;">
 									<label class="form-control" style="height:55px;">Password Changed Successfully. Please Login To Continue.</label>
 								</div>';
+						} else if($error == 'ab'){
+							echo '<div style="padding:10px;">
+									<label class="form-control" style="height:70px;">Your Account Is Deactivated Due To Three Unsuccessfull Login Attempts. Please Check Your Email For New Password.</label>
+								</div>';
 						}
 					}
 					?>

@@ -1,3 +1,5 @@
-mysqli_insert_id(); 
+finish userRegistartionController
 
-get the inserted coulmn no
+add error messages to userRegistraion
+
+change viewUser access preferences

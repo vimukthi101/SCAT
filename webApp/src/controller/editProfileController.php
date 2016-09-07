@@ -15,15 +15,15 @@
 			$city = trim($_POST['city']);
 			$phone = trim($_POST['contact']);
 			$em = trim($_POST['email']);
-			$firstName = htmlspecialchars(mysqli_real_escape_string($fn));
-			$middleName = htmlspecialchars(mysqli_real_escape_string($fn));
-			$lastName = htmlspecialchars(mysqli_real_escape_string($fn));
-			$addressNo = htmlspecialchars(mysqli_real_escape_string($fn));
-			$addressLane = htmlspecialchars(mysqli_real_escape_string($fn));
-			$addressCity = htmlspecialchars(mysqli_real_escape_string($fn));
-			$contactNo = htmlspecialchars(mysqli_real_escape_string($phone));
-			$email = htmlspecialchars(mysqli_real_escape_string($em));
-			$updateEmployee = "UPDATE NAME SET first_name='".$firstName."', second_name='".$middleName."', last_name='".$lastName."' WHERE name_id='".$_SESSION['name_id']."'";
+			$firstName = htmlspecialchars(mysqli_real_escape_string($con, $fn));
+			$middleName = htmlspecialchars(mysqli_real_escape_string($con, $mn));
+			$lastName = htmlspecialchars(mysqli_real_escape_string($con, $ln));
+			$addressNo = htmlspecialchars(mysqli_real_escape_string($con, $no));
+			$addressLane = htmlspecialchars(mysqli_real_escape_string($con, $lane));
+			$addressCity = htmlspecialchars(mysqli_real_escape_string($con, $city));
+			$contactNo = htmlspecialchars(mysqli_real_escape_string($con, $phone));
+			$email = htmlspecialchars(mysqli_real_escape_string($con, $em));
+			$updateEmployee = "UPDATE name SET first_name='".$firstName."', second_name='".$middleName."', last_name='".$lastName."' WHERE name_id='".$_SESSION['name_id']."'";
 			if(mysqli_query($con, $updateEmployee)){
 				$updateEmployeeAddress = "UPDATE address SET address_no='".$addressNo."', address_lane='".$addressLane."', address_city='".$addressCity."' WHERE address_id='".$_SESSION['address_id']."'";
 				if(mysqli_query($con, $updateEmployeeAddress)){

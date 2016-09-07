@@ -1,3 +1,9 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+if(isset($_SESSION['position'])){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -108,7 +114,7 @@
             	<div class="form-group">
                     <label for="employeeId" class="control-label col-md-3">Employee ID</label>
                     <div class="col-md-8">
-                    	<input class="form-control text-capitalize" type="text" name="eId" id="eId" readonly="readonly" value="<?php echo $eId; ?>"/>
+                    	<input class="form-control text-capitalize" type="text" name="eId" id="eId" readonly="readonly" value="<?php echo $eID; ?>"/>
                 	</div>
                 </div>
                 <div class="form-group">
@@ -157,7 +163,7 @@
                 <div class="form-group">
                     <label for="email" class="control-label col-md-3">E-Mail</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="email" id="email" value="<?php echo $eEmail; ?>"/>
+                    	<input class="form-control" pattern="[^\s]+@(gmail|yahoo|hotmail)\.(com|lk)" title="Should Be A Valid EMail Address" type="text" name="email" id="email" value="<?php echo $eEmail; ?>"/>
                 	</div>
                 </div>
                 <div class="form-group">
@@ -197,3 +203,8 @@
 ?>
 </body>
 </html>
+<?php
+} else {
+	echo 'error';
+}
+?>

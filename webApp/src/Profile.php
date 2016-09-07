@@ -1,3 +1,9 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+if(isset($_SESSION['position'])){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -57,7 +63,7 @@
 					}
 					//get eID
 					if($eInternal == '1'){
-						$getID = "SELECT * FROM staff WHERE employee_nic='".$nic."'";
+						$getID = "SELECT employee_id FROM staff WHERE employee_nic='".$nic."'";
 						$resultGetID = mysqli_query($con, $getID) or die();
 						if(mysqli_num_rows($resultGetID) != 0){
 							while($rowGetID = mysqli_fetch_array($resultGetID)){
@@ -105,10 +111,22 @@
 		?>
         <div style="padding:10px;"> 
 			<form role="form" class="form-horizontal">
+            	<?php
+				if(isset($_GET['error'])){
+					if(!empty($_GET['error'])){
+						$error = $_GET['error'];
+						if($error == "su"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control label-success" style="height:35px;">Your Profile Updated Successfully.</label>
+								</div>';
+						}
+					}
+				}
+				?>
             	<div class="form-group">
                     <label for="employeeId" class="control-label col-md-3">Employee ID</label>
                     <div class="col-md-8">
-                    	<input class="form-control text-capitalize" type="text" name="eId" id="eId" readonly="readonly" value="<?php echo $eId; ?>"/>
+                    	<input class="form-control text-capitalize" type="text" name="eId" id="eId" readonly="readonly" value="<?php echo $eID; ?>"/>
                 	</div>
                 </div>
                 <div class="form-group">
@@ -193,3 +211,8 @@
 ?>
 </body>
 </html>
+<?php
+} else {
+	echo 'error';
+}
+?>

@@ -40,14 +40,13 @@
 										if(mysqli_num_rows($resultPositionForBlock) != 0){
 											while($blockPositionRow = mysqli_fetch_array($resultPositionForBlock)){
 												$blockPosition = $blockPositionRow['position'];
-												if($blockPosition == "sysadmin"){
+												if($blockPosition == 'sysadmin'){
 													//send email with randomly generated password
 													$rand = rand(1000,9999);
 													$md5Rand = md5($rand);
-													$updateBlockedAdmin = "UPDATE employee SET password='".$md5Rand."', previous_passowrd='', login_attempt='0', status='1' WHERE nic='".$userName."'";
+													$updateBlockedAdmin = "UPDATE employee SET PASSWORD='".$md5Rand."', previous_password='', login_attempt='0', STATUS='1' WHERE nic='".$userName."'";
 													if(mysqli_query($con, $updateBlockedAdmin)){
 														//send email with new password
-														echo 'mail';
 														$to = $email;
 														$subject = "Password Reset";
 														$message = "<p>Hi SysAdmin,</p>
@@ -60,6 +59,8 @@
 														$headers = "MIME-Version: 1.0" . "\r\n";
 														$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 														mail($to, $subject, $message, $headers);
+														//account deactivated, contact admin error message
+														header('Location:../../index.php?error=ab');
 													}
 												} else {
 													//send email to meet admin
@@ -74,6 +75,8 @@
 													$headers = "MIME-Version: 1.0" . "\r\n";
 													$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 													mail($to, $subject, $message, $headers);
+													//account deactivated, contact admin error message
+													header('Location:../../index.php?error=da');
 												}	
 											}	
 										}
@@ -90,9 +93,9 @@
 										$headers = "MIME-Version: 1.0" . "\r\n";
 										$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 										mail($to, $subject, $message, $headers);
+										//account deactivated, contact admin error message
+										header('Location:../../index.php?error=da');
 									}
-									//account deactivated, contact admin error message
-									header('Location:../../index.php?error=da');
 								} else {
 									//wrong password error message
 									header('Location:../../index.php?error=wp');	
@@ -119,9 +122,13 @@
 					$employeeEmail = $row['employee_email'];
 					$employeePassword = $row['password'];
 					$employeeStatus = $row['status'];
-					$employeePreviousPassword = $row['previous_passowrd'];
-					$_SESSION['nic'] = $employeeNIC;
+					$employeePreviousPassword = $row['previous_password'];
 					$employeeInternal = $row['internal'];
+					//sessions
+					$_SESSION['name_id'] = $employeeNameId;
+					$_SESSION['nic'] = $employeeNIC;
+					$_SESSION['address_id'] = $employeeAddressID;
+					$_SESSION['email'] = $employeeEmail;
 					if($employeeInternal == 1){
 						//mysql query to get position
 						$getPosition = "SELECT * FROM employee_position WHERE position_id IN (SELECT employee_position_position_id FROM staff where employee_nic='".$employeeNIC."')";
@@ -146,7 +153,7 @@
 								header('Location:../adminHome.php');		
 							} else if($_SESSION['position'] == "manager"){
 								header('Location:../managerHome.php');
-							} else if($_SESSION['position'] == "topup"){
+							} else if($_SESSION['position'] == "topupAgent"){
 								header('Location:../topupHome.php');
 							} else if($_SESSION['position'] == "registrar"){
 								header('Location:../registrarHome.php');
@@ -154,8 +161,6 @@
 								header('Location:../timeTableUpdaterHome.php');
 							} else if($_SESSION['position'] == "stationMaster"){
 								header('Location:../stationMasterHome.php');
-							} else if($_SESSION['position'] == "topupAgent"){
-								header('Location:../topupHome.php');
 							} else {
 								//wrong position then redirect to login
 								session_unset();
