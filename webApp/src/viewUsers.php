@@ -1,11 +1,16 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+if(isset($_SESSION['position'])){
+	if($_SESSION['position'] == "sysadmin" || $_SESSION['position'] == "stationMaster" || $_SESSION['position'] == "manager"){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('../ssi/links.html');
-	//remove this when the login is done
-	$_SESSION['position'] = "stationMaster";
 ?>
 <title>User Management</title>
 </head>
@@ -19,7 +24,7 @@
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-			if($_SESSION['position']=="admin"){
+			if($_SESSION['position']=="sysadmin"){
 				include_once('../ssi/adminLeftPanelUsers.php');
 			} else if($_SESSION['position']=="stationMaster"){
 				include_once('../ssi/stationMasterLeftPanelUsers.php');
@@ -99,3 +104,11 @@
 ?>
 </body>
 </html>
+<?php
+	} else {
+		echo 'error';	
+	}
+} else {
+	echo 'error';
+}
+?>

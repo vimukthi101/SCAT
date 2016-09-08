@@ -1,5 +1,1 @@
-finish userRegistartionController
-
-add error messages to userRegistraion
-
-change viewUser access preferences
+user view, update, delete

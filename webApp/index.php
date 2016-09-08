@@ -27,7 +27,7 @@
                      <input type="text" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and 'v'" class="form-control" id="userNIC" name="userNIC" placeholder="Enter User NIC">
                     </div>
                     <div style="padding:10px;">
-                     <input type="password" class="form-control" pattern="\S*" title="Password should not be empty" id="password" name="password" placeholder="Enter Password">
+                     <input type="password" class="form-control" pattern="\S+" title="Password should not be empty" id="password" name="password" placeholder="Enter Password">
                     </div>
                     <?php
 					if(isset($_GET['error'])){
@@ -67,6 +67,14 @@
 						} else if($error == 'ab'){
 							echo '<div style="padding:10px;">
 									<label class="form-control" style="height:70px;">Your Account Is Deactivated Due To Three Unsuccessfull Login Attempts. Please Check Your Email For New Password.</label>
+								</div>';
+						} else if($error == 'ip'){
+							echo '<div style="padding:10px;">
+									<label class="form-control" style="height:35px;">Password Does Not Match The Input Criteria.</label>
+								</div>';
+						} else if($error == 'in'){
+							echo '<div style="padding:10px;">
+									<label class="form-control" style="height:35px;">Please Enter A Valid NIC Of 9 Digits And \'v\'.</label>
 								</div>';
 						}
 					}

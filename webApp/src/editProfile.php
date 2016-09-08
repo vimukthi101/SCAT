@@ -110,15 +110,55 @@ if(isset($_SESSION['position'])){
 			}
 		?>
         <div style="padding:10px;"> 
+        	<?php
+				if(isset($_GET['error'])){
+					if(!empty($_GET['error'])){
+						$error = $_GET['error'];
+						if($error == "wf"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">First Name Should Be Letters. Cannot Be Empty.</label>
+								</div>';
+						} else if($error == "wm"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">Middle Name Should Be Letters.</label>
+								</div>';
+						} else if($error == "wl"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">Last Name Should Be Letters. Cannot Be Empty.</label>
+								</div>';
+						} else if($error == "wn"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">Should Be Letters, Numbers, / or \. Cannot Be Empty.</label>
+								</div>';
+						} else if($error == "wa"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">Lane Should Be Letters. Cannot Be Empty.</label>
+								</div>';
+						} else if($error == "wc"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">City Should Be Letters. Cannot Be Empty.</label>
+								</div>';
+						} else if($error == "wp"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">Contact Number Should Be A Valid Number With 10 Digits.</label>
+								</div>';
+						} else if($error == "we"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">Should Be A Valid EMail Address</label>
+								</div>';
+						}
+					}
+				}
+			?>
 			<form role="form" class="form-horizontal" method="post" action="controller/editProfileController.php">
             	<div class="form-group">
-                    <label for="employeeId" class="control-label col-md-3">Employee ID</label>
+                    <label for="employeeId" class="control-label col-md-3">Employee ID <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
                     	<input class="form-control text-capitalize" type="text" name="eId" id="eId" readonly="readonly" value="<?php echo $eID; ?>"/>
                 	</div>
                 </div>
                 <div class="form-group">
-                    <label for="employeePosition" class="control-label col-md-3">Position</label>
+                    <label for="employeePosition" class="control-label col-md-3">Position <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
                     	<input class="form-control text-capitalize" type="text" name="position" id="position" readonly="readonly" value="<?php echo $position; ?>"/>
                 	</div>
@@ -126,7 +166,7 @@ if(isset($_SESSION['position'])){
                 <?php
 				if($position == "topupAgent"){ ?>
 					<div class="form-group">
-						<label for="employeelNIC" class="control-label col-md-3">Registered Date</label>
+						<label for="employeelNIC" class="control-label col-md-3">Registered Date <span style="color:rgb(255,0,0);">*</span></label>
 						<div class="col-md-8">
 							<input class="form-control" type="text" name="nic" id="nic" readonly="readonly" value="<?php echo $eRegDate; ?>"/>
 						</div>
@@ -137,13 +177,13 @@ if(isset($_SESSION['position'])){
                     <label class="col-md-11">Personal Information</label> 
                 </div>
                 <div class="form-group">
-                    <label for="employeelNIC" class="control-label col-md-3">NIC</label>
+                    <label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
                     	<input class="form-control" type="text" name="nic" id="nic" readonly="readonly" value="<?php echo $nic; ?>"/>
                 	</div>
                 </div>
                 <div class="form-group">
-                    <label for="employeefName" class="control-label col-md-3">First Name</label>
+                    <label for="employeefName" class="control-label col-md-3">First Name <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
                     	<input class="form-control text-capitalize" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="fname" id="fname" value="<?php echo $eFName; ?>"/>
                 	</div>
@@ -155,31 +195,31 @@ if(isset($_SESSION['position'])){
                 	</div>
                 </div>
                 <div class="form-group">
-                    <label for="employeelName" class="control-label col-md-3">Last Name</label>
+                    <label for="employeelName" class="control-label col-md-3">Last Name <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8"> 
                     	<input class="form-control text-capitalize" type="text" name="lname" id="lname" value="<?php echo $eLName; ?>" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty."/>
                 	</div>
                 </div>
                 <div class="form-group">
-                    <label for="email" class="control-label col-md-3">E-Mail</label>
+                    <label for="email" class="control-label col-md-3">E-Mail <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" pattern="[^\s]+@(gmail|yahoo|hotmail)\.(com|lk)" title="Should Be A Valid EMail Address" type="text" name="email" id="email" value="<?php echo $eEmail; ?>"/>
+                    	<input class="form-control" pattern="^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$" title="Should Be A Valid EMail Address" type="text" name="email" id="email" value="<?php echo $eEmail; ?>"/>
                 	</div>
                 </div>
                 <div class="form-group">
-                    <label for="addressNo" class="control-label col-md-3">Address Number</label>
+                    <label for="addressNo" class="control-label col-md-3">Address Number <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
                     	<input class="form-control text-capitalize" type="text" name="addresNo" id="addressNo" value="<?php echo $eAno; ?>" pattern="^([0-9].*[\\/][a-zA-Z0-9]*)|([0-9].*)$" title="Should Be Letters, Numbers, / or \. Cannot Be Empty."/>
                 	</div>
                 </div>
                 <div class="form-group">
-                    <label for="addressLane" class="control-label col-md-3">Lane/ Street</label>
+                    <label for="addressLane" class="control-label col-md-3">Lane/ Street <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control text-capitalize" type="text" name="lane" id="lane" value="<?php echo $eALane; ?>" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty."/>
+                    	<input class="form-control text-capitalize" type="text" name="lane" id="lane" value="<?php echo $eALane; ?>" pattern="^[a-zA-Z ]+$" title="Should Be Letters. Cannot Be Empty."/>
                 	</div>
                 </div>
                 <div class="form-group">
-                    <label for="addressCity" class="control-label col-md-3">City</label>
+                    <label for="addressCity" class="control-label col-md-3">City <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
                     	<input class="form-control text-capitalize" type="text" name="city" id="city" value="<?php echo $eACity; ?>" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty."/>
                 	</div>
@@ -187,8 +227,11 @@ if(isset($_SESSION['position'])){
                 <div class="form-group">
                     <label for="employeeContact" class="control-label col-md-3">Contact Number</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="contact" id="contact" value="<?php echo $eContact; ?>" pattern="^\d{10}$" title="Should Be A Valid Number With 10 Digits."/>
+                    	<input class="form-control" type="text" name="contact" id="contact" value="<?php echo $eContact; ?>" pattern="^(\d{10})|(^$)$" title="Should Be A Valid Number With 10 Digits."/>
                 	</div>
+                </div>
+                <div class="form-group" style="text-align:center;">
+                    <label for="employeeContact" style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
                 </div>
                 <div class="form-group col-md-11 text-center">
                     <input type="submit" value="Update" id="submit" name="submit" class="btn btn-success" />
