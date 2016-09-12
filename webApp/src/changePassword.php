@@ -37,19 +37,19 @@ if(isset($_SESSION['position'])){
             	<div class="form-group">
                     <label for="pass" class="control-label col-md-3">Existing Password <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="password" name="pass" id="pass" pattern="\S*" title="Password Cannot Be Empty" />
+                    	<input class="form-control" type="password" name="pass" id="pass" pattern="\S*" title="Password Cannot Be Empty" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="nPass" class="control-label col-md-3">New Password <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="password" name="nPass" id="nPass" pattern="\S*" title="Password Cannot Be Empty"/>
+                    	<input class="form-control" type="password" name="nPass" id="nPass" pattern="\S*" title="Password Cannot Be Empty" required="required"/>
                 	</div>
                 </div>
 				<div class="form-group">
                     <label for="cnPass" class="control-label col-md-3">Confirm New Password <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="password" name="cnPass" id="cnPass" pattern="\S*" title="Password Cannot Be Empty"/>
+                    	<input class="form-control" type="password" name="cnPass" id="cnPass" pattern="\S*" title="Password Cannot Be Empty" required="required"/>
                 	</div>
                 </div>
                	<div class="form-group" style="text-align:center;">

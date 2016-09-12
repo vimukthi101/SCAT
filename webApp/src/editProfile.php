@@ -154,13 +154,13 @@ if(isset($_SESSION['position'])){
             	<div class="form-group">
                     <label for="employeeId" class="control-label col-md-3">Employee ID <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control text-capitalize" type="text" name="eId" id="eId" readonly="readonly" value="<?php echo $eID; ?>"/>
+                    	<input class="form-control text-capitalize" type="text" name="eId" id="eId" readonly="readonly" value="<?php echo $eID; ?>" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="employeePosition" class="control-label col-md-3">Position <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control text-capitalize" type="text" name="position" id="position" readonly="readonly" value="<?php echo $position; ?>"/>
+                    	<input class="form-control text-capitalize" type="text" name="position" id="position" readonly="readonly" value="<?php echo $position; ?>" required="required"/>
                 	</div>
                 </div>
                 <?php
@@ -168,7 +168,7 @@ if(isset($_SESSION['position'])){
 					<div class="form-group">
 						<label for="employeelNIC" class="control-label col-md-3">Registered Date <span style="color:rgb(255,0,0);">*</span></label>
 						<div class="col-md-8">
-							<input class="form-control" type="text" name="nic" id="nic" readonly="readonly" value="<?php echo $eRegDate; ?>"/>
+							<input class="form-control" type="text" name="nic" id="nic" readonly="readonly" value="<?php echo $eRegDate; ?>" required="required"/>
 						</div>
                		 </div>
 				<?php }
@@ -179,13 +179,13 @@ if(isset($_SESSION['position'])){
                 <div class="form-group">
                     <label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="nic" id="nic" readonly="readonly" value="<?php echo $nic; ?>"/>
+                    	<input class="form-control" type="text" name="nic" id="nic" readonly="readonly" value="<?php echo $nic; ?>" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="employeefName" class="control-label col-md-3">First Name <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control text-capitalize" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="fname" id="fname" value="<?php echo $eFName; ?>"/>
+                    	<input class="form-control text-capitalize" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="fname" id="fname" value="<?php echo $eFName; ?>" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
@@ -197,31 +197,31 @@ if(isset($_SESSION['position'])){
                 <div class="form-group">
                     <label for="employeelName" class="control-label col-md-3">Last Name <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8"> 
-                    	<input class="form-control text-capitalize" type="text" name="lname" id="lname" value="<?php echo $eLName; ?>" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty."/>
+                    	<input class="form-control text-capitalize" type="text" name="lname" id="lname" value="<?php echo $eLName; ?>" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="email" class="control-label col-md-3">E-Mail <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" pattern="^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$" title="Should Be A Valid EMail Address" type="text" name="email" id="email" value="<?php echo $eEmail; ?>"/>
+                    	<input class="form-control" pattern="^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$" title="Should Be A Valid EMail Address" type="text" name="email" id="email" value="<?php echo $eEmail; ?>" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="addressNo" class="control-label col-md-3">Address Number <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control text-capitalize" type="text" name="addresNo" id="addressNo" value="<?php echo $eAno; ?>" pattern="^([0-9].*[\\/][a-zA-Z0-9]*)|([0-9].*)$" title="Should Be Letters, Numbers, / or \. Cannot Be Empty."/>
+                    	<input class="form-control text-capitalize" type="text" name="addresNo" id="addressNo" value="<?php echo $eAno; ?>" pattern="^([0-9].*[\\/][a-zA-Z0-9]*)|([0-9].*)$" title="Should Be Letters, Numbers, / or \. Cannot Be Empty." required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="addressLane" class="control-label col-md-3">Lane/ Street <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control text-capitalize" type="text" name="lane" id="lane" value="<?php echo $eALane; ?>" pattern="^[a-zA-Z ]+$" title="Should Be Letters. Cannot Be Empty."/>
+                    	<input class="form-control text-capitalize" type="text" name="lane" id="lane" value="<?php echo $eALane; ?>" pattern="^[a-zA-Z ]+$" title="Should Be Letters. Cannot Be Empty." required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="addressCity" class="control-label col-md-3">City <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control text-capitalize" type="text" name="city" id="city" value="<?php echo $eACity; ?>" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty."/>
+                    	<input class="form-control text-capitalize" type="text" name="city" id="city" value="<?php echo $eACity; ?>" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
