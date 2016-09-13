@@ -52,7 +52,7 @@ if(isset($_SESSION['position'])){
                           <option selected="selected" disabled="disabled">--Select the search criteria--</option>
                           <option value="eid">Employee ID</option>
                           <option value="nic">NIC</option>
-                          <option value="email">E-mail</option>
+                          <option value="eMail">E-mail</option>
                           <option value="fname">First Name</option>
                           <option value="lname">Last Name</option>
                         </select>
@@ -68,8 +68,8 @@ if(isset($_SESSION['position'])){
 						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeeId" class="control-label col-md-3">Employee ID</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id, this.name)" type="text" name="<?php echo $sendPos ?>" id="eId" required/></div></div><hr/>'; 
 					 } else if(which=='nic'){
 						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id, this.name)" type="text" name="<?php echo $sendPos ?>" id="NIC" required/></div></div><hr/>';
-					 } else if(which=='email'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelEmail" class="control-label col-md-3">E-mail</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id, this.name)" type="text" name="<?php echo $sendPos ?>" id="Email" required/></div></div><hr/>';
+					 } else if(which=='eMail'){
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelEmail" class="control-label col-md-3">E-mail</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id, this.name)" type="text" name="<?php echo $sendPos ?>"  id="Email" required/></div></div><hr/>';
 					 } else if(which=='fname'){
 						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeefName" class="control-label col-md-3">First Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id, this.name)" type="text" name="<?php echo $sendPos ?>" id="fname" required /></div></div><hr/>';
 					 } else if(which=='lname'){
