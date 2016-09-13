@@ -144,7 +144,11 @@ if(isset($_SESSION['position'])){
 								</div>';
 						} else if($error == "we"){
 							echo '<div class="form-group text-center" style="padding-left:100px;">
-									<label class="form-control" style="height:35px;">Should Be A Valid EMail Address</label>
+									<label class="form-control" style="height:35px;">Should Be A Valid EMail Address.</label>
+								</div>';
+						} else if($error == "cu"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">E-Mail already exists.</label>
 								</div>';
 						}
 					}

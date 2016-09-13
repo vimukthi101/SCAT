@@ -1,1 +1,3 @@
-user view, update, delete
+finish update
+
+getUserInfo.php --> updateUsersController.php

@@ -131,13 +131,13 @@ if(isset($_SESSION['position'])){
             	<div class="form-group">
                     <label for="employeeId" class="control-label col-md-3">Employee ID <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" pattern="^\w+$" title="Should be Numbers Or Letters Only. Should Not Be Empty." type="text" name="eId" id="eId" />
+                    	<input class="form-control" pattern="^\w+$" title="Should be Numbers Or Letters Only. Should Not Be Empty." type="text" name="eId" id="eId" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="employeePosition" class="control-label col-md-3">Position <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="position" id="position" value="<?php if(isset($_GET['position'])){ echo $_GET['position']; } else { echo 'invalid'; }?>" readonly="readonly"/>
+                    	<input class="form-control" type="text" name="position" id="position" value="<?php if(isset($_GET['position'])){ echo $_GET['position']; } else { echo 'invalid'; }?>" readonly="readonly" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group text-center">
@@ -146,19 +146,19 @@ if(isset($_SESSION['position'])){
                 <div class="form-group">
                     <label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and 'v'" type="text" name="nic" id="nic" />
+                    	<input class="form-control" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and 'v'" type="text" name="nic" id="nic" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="employeelNIC" class="control-label col-md-3">E-Mail <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" pattern="^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$" title="Should Be A Valid EMail Address" type="text" name="email" id="email" />
+                    	<input class="form-control" pattern="^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$" title="Should Be A Valid EMail Address" type="text" name="email" id="email" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="employeefName" class="control-label col-md-3">First Name <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="fname" id="fname" />
+                    	<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="fname" id="fname" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
@@ -170,25 +170,25 @@ if(isset($_SESSION['position'])){
                 <div class="form-group">
                     <label for="employeelName" class="control-label col-md-3">Last Name <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="lname" id="lname" />
+                    	<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="lname" id="lname" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="addressNo" class="control-label col-md-3">Address Number <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" pattern="^([0-9].*[\\/][a-zA-Z0-9]*)|([0-9].*)$" title="Should Be Letters, Numbers, / or \. Cannot Be Empty." type="text" name="addresNo" id="addressNo" />
+                    	<input class="form-control" pattern="^([0-9].*[\\/][a-zA-Z0-9]*)|([0-9].*)$" title="Should Be Letters, Numbers, / or \. Cannot Be Empty." type="text" name="addresNo" id="addressNo" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="addressLane" class="control-label col-md-3">Lane/ Street <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="lane" id="lane" />
+                    	<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="lane" id="lane" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="addressCity" class="control-label col-md-3">City <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="city" id="city" />
+                    	<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="city" id="city" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
