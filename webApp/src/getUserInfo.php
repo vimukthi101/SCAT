@@ -438,39 +438,39 @@ if($s != ""){
 								$address_id = $rowGetUser['address_id'];
 								$name_id = $rowGetUser['name_id'];
 								$email = $rowGetUser['employee_email'];
-								//get name
-								$getName = "SELECT * FROM name WHERE name_id='".$name_id."'";
-								$resultName = mysqli_query($con, $getName);
-								if(mysqli_num_rows($resultName) != 0){
-									while($rowName = mysqli_fetch_array($resultName)){
-										$fName = $rowName['first_name'];
-										$sName = $rowName['second_name'];
-										$lName = $rowName['last_name'];
-									}
+							}
+							//get name
+							$getName = "SELECT * FROM name WHERE name_id='".$name_id."'";
+							$resultName = mysqli_query($con, $getName);
+							if(mysqli_num_rows($resultName) != 0){
+								while($rowName = mysqli_fetch_array($resultName)){
+									$fName = $rowName['first_name'];
+									$sName = $rowName['second_name'];
+									$lName = $rowName['last_name'];
 								}
-								//get address
-								$addressName = "SELECT * FROM address WHERE address_id='".$address_id."'";
-								$resultAddress = mysqli_query($con, $addressName);
-								if(mysqli_num_rows($resultAddress) != 0){
-									while($rowAddress = mysqli_fetch_array($resultAddress)){
-										$aNo = $rowAddress['address_no'];
-										$aLane = $rowAddress['address_lane'];
-										$aCity = $rowAddress['address_city'];
-									}
+							}
+							//get address
+							$addressName = "SELECT * FROM address WHERE address_id='".$address_id."'";
+							$resultAddress = mysqli_query($con, $addressName);
+							if(mysqli_num_rows($resultAddress) != 0){
+								while($rowAddress = mysqli_fetch_array($resultAddress)){
+									$aNo = $rowAddress['address_no'];
+									$aLane = $rowAddress['address_lane'];
+									$aCity = $rowAddress['address_city'];
 								}
-								//get positions
-								$hint = '';
-								$positions = "SELECT * FROM employee_position";
-								$resultPositions = mysqli_query($con, $positions);
-								if(mysqli_num_rows($resultPositions) != 0){
-									while($rowPositions = mysqli_fetch_array($resultPositions)){
-										$ePosition = $rowPositions['position'];
-										if($ePosition == $s){
-											$hint .= '<option selected>'.$ePosition.'</option>';
-										} else {
-											$hint .= '<option>'.$ePosition.'</option>';
-										};
-									}
+							}
+							//get positions
+							$hint = '';
+							$positions = "SELECT * FROM employee_position";
+							$resultPositions = mysqli_query($con, $positions);
+							if(mysqli_num_rows($resultPositions) != 0){
+								while($rowPositions = mysqli_fetch_array($resultPositions)){
+									$ePosition = $rowPositions['position'];
+									if($ePosition == $s){
+										$hint .= '<option selected>'.$ePosition.'</option>';
+									} else {
+										$hint .= '<option>'.$ePosition.'</option>';
+									};
 								}
 							}
 							echo '<form role="form" class="form-horizontal" method="post" action="controller/updateUsersController.php">
@@ -500,7 +500,7 @@ if($s != ""){
 									<div class="form-group">
 										<label for="employeelNIC" class="control-label col-md-3">E-Mail <span style="color:rgb(255,0,0);">*</span></label>
 										<div class="col-md-8">
-											<input class="form-control" pattern="^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$" title="Should Be A Valid EMail Address" type="text" name="email" id="email" value="'.$email.'" required="required"/>
+											<input class="form-control" pattern="^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$" title="Should Be A Valid EMail Address." type="text" name="email" id="email" value="'.$email.'" required="required"/>
 										</div>
 									</div>
 									<div class="form-group">
@@ -549,7 +549,7 @@ if($s != ""){
 										<label style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
 									</div>
 									<div class="form-group col-md-11 text-center">
-										<input type="submit" value="Update" id="submit" name="submit" class="btn btn-success" />
+										<input type="submit" value="Update" id="submit" name="submit" class="btn btn-success" onclick="return confirm(\'Do you wish to update details?\');return false;"/>
 									</div>
 								</form>';
 						} else{
@@ -557,20 +557,277 @@ if($s != ""){
 							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
 						}
 					} else if($r == "nic"){
-						
-						
-						
-						
-						
+						$getUser = "SELECT * FROM staff WHERE employee_nic='".$q."' AND employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='".$s."')";
+						$resultGetUser = mysqli_query($con, $getUser);
+						if(mysqli_num_rows($resultGetUser) != 0){
+							while($rowGetUser = mysqli_fetch_array($resultGetUser)){
+								$eID = $rowGetUser['employee_id'];
+								$nic = $rowGetUser['employee_nic'];
+							}
+							//get user
+							$getEmployee = "SELECT * FROM employee WHERE nic='".$nic."'";
+							$resultEmployee = mysqli_query($con, $getEmployee);
+							if(mysqli_num_rows($resultEmployee) != 0){
+								while($rowEmployee = mysqli_fetch_array($resultEmployee)){
+									$contact = $rowEmployee['contact_no'];
+									$address_id = $rowEmployee['address_id'];
+									$name_id = $rowEmployee['name_id'];
+									$email = $rowEmployee['employee_email'];
+								}
+							}
+							//get name
+							$getName = "SELECT * FROM name WHERE name_id='".$name_id."'";
+							$resultName = mysqli_query($con, $getName);
+							if(mysqli_num_rows($resultName) != 0){
+								while($rowName = mysqli_fetch_array($resultName)){
+									$fName = $rowName['first_name'];
+									$sName = $rowName['second_name'];
+									$lName = $rowName['last_name'];
+								}
+							}
+							//get address
+							$addressName = "SELECT * FROM address WHERE address_id='".$address_id."'";
+							$resultAddress = mysqli_query($con, $addressName);
+							if(mysqli_num_rows($resultAddress) != 0){
+								while($rowAddress = mysqli_fetch_array($resultAddress)){
+									$aNo = $rowAddress['address_no'];
+									$aLane = $rowAddress['address_lane'];
+									$aCity = $rowAddress['address_city'];
+								}
+							}
+							//get positions
+							$hint = '';
+							$positions = "SELECT * FROM employee_position";
+							$resultPositions = mysqli_query($con, $positions);
+							if(mysqli_num_rows($resultPositions) != 0){
+								while($rowPositions = mysqli_fetch_array($resultPositions)){
+									$ePosition = $rowPositions['position'];
+									if($ePosition == $s){
+										$hint .= '<option selected>'.$ePosition.'</option>';
+									} else {
+										$hint .= '<option>'.$ePosition.'</option>';
+									};
+								}
+							}
+							echo '<form role="form" class="form-horizontal" method="post" action="controller/updateUsersController.php">
+									<div class="form-group">
+										<label for="employeeId" class="control-label col-md-3">Employee ID <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^\w+$" title="Should be Numbers Or Letters Only. Should Not Be Empty." type="text" name="eId" id="eId" value="'.$eID.'" required="required" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeePosition" class="control-label col-md-3">Position <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<select name="position" id="position" class="form-control">
+											'.$hint.'
+											</select>
+										</div>
+									</div>
+									<div class="form-group text-center">
+										<label class="col-md-11">Personal Information</label> 
+									</div>
+									<div class="form-group">
+										<label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and \'v\'" type="text" name="nic" id="nic" value="'.$nic.'" required="required" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeelNIC" class="control-label col-md-3">E-Mail <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$" title="Should Be A Valid EMail Address." type="text" name="email" id="email" value="'.$email.'" required="required"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeefName" class="control-label col-md-3">First Name <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="fname" id="fname" value="'.$fName.'" required="required"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeemName" class="control-label col-md-3">Middle Name</label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^[a-zA-Z]*$|^$" title="Should Be Letters. Can Be Empty." type="text" name="mname" id="mname" value="'.$sName.'"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeelName" class="control-label col-md-3">Last Name <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="lname" id="lname" value="'.$lName.'" required="required"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="addressNo" class="control-label col-md-3">Address Number <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^([0-9].*[\\/][a-zA-Z0-9]*)|([0-9].*)$" title="Should Be Letters, Numbers, / or \. Cannot Be Empty." type="text" name="addresNo" id="addressNo" value="'.$aNo.'" required="required"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="addressLane" class="control-label col-md-3">Lane/ Street <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="lane" id="lane" value="'.$aLane.'" required="required"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="addressCity" class="control-label col-md-3">City <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="city" id="city" value="'.$aCity.'" required="required"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeeContact" class="control-label col-md-3">Contact Number</label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^\d{10}$" title="Should Be A Valid Number With 10 Digits." type="text" name="contact" id="contact" value="'.$contact.'" />
+										</div>
+									</div>
+									<div class="form-group" style="text-align:center;">
+										<label style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+									</div>
+									<div class="form-group col-md-11 text-center">
+										<input type="submit" value="Update" id="submit" name="submit" class="btn btn-success" onclick="return confirm(\'Do you wish to update details?\');return false;"/>
+									</div>
+								</form>';
+						} else {
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
 					} else if($r == "EMail"){
-						
-						
-						
-						
-						
-						
-						
-						
+						$getUser = "SELECT * FROM staff WHERE employee_nic IN (SELECT nic FROM employee WHERE employee_email='".$q."') AND employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='".$s."')";
+						$resultGetUser = mysqli_query($con, $getUser);
+						if(mysqli_num_rows($resultGetUser) != 0){
+							while($rowGetUser = mysqli_fetch_array($resultGetUser)){
+								$eID = $rowGetUser['employee_id'];
+								$nic = $rowGetUser['employee_nic'];
+							}
+							//get user
+							$getEmployee = "SELECT * FROM employee WHERE nic='".$nic."'";
+							$resultEmployee = mysqli_query($con, $getEmployee);
+							if(mysqli_num_rows($resultEmployee) != 0){
+								while($rowEmployee = mysqli_fetch_array($resultEmployee)){
+									$contact = $rowEmployee['contact_no'];
+									$address_id = $rowEmployee['address_id'];
+									$name_id = $rowEmployee['name_id'];
+									$email = $rowEmployee['employee_email'];
+								}
+							}
+							//get name
+							$getName = "SELECT * FROM name WHERE name_id='".$name_id."'";
+							$resultName = mysqli_query($con, $getName);
+							if(mysqli_num_rows($resultName) != 0){
+								while($rowName = mysqli_fetch_array($resultName)){
+									$fName = $rowName['first_name'];
+									$sName = $rowName['second_name'];
+									$lName = $rowName['last_name'];
+								}
+							}
+							//get address
+							$addressName = "SELECT * FROM address WHERE address_id='".$address_id."'";
+							$resultAddress = mysqli_query($con, $addressName);
+							if(mysqli_num_rows($resultAddress) != 0){
+								while($rowAddress = mysqli_fetch_array($resultAddress)){
+									$aNo = $rowAddress['address_no'];
+									$aLane = $rowAddress['address_lane'];
+									$aCity = $rowAddress['address_city'];
+								}
+							}
+							//get positions
+							$hint = '';
+							$positions = "SELECT * FROM employee_position";
+							$resultPositions = mysqli_query($con, $positions);
+							if(mysqli_num_rows($resultPositions) != 0){
+								while($rowPositions = mysqli_fetch_array($resultPositions)){
+									$ePosition = $rowPositions['position'];
+									if($ePosition == $s){
+										$hint .= '<option selected>'.$ePosition.'</option>';
+									} else {
+										$hint .= '<option>'.$ePosition.'</option>';
+									};
+								}
+							}
+							echo '<form role="form" class="form-horizontal" method="post" action="controller/updateUsersController.php">
+									<div class="form-group">
+										<label for="employeeId" class="control-label col-md-3">Employee ID <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^\w+$" title="Should be Numbers Or Letters Only. Should Not Be Empty." type="text" name="eId" id="eId" value="'.$eID.'" required="required" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeePosition" class="control-label col-md-3">Position <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<select name="position" id="position" class="form-control">
+											'.$hint.'
+											</select>
+										</div>
+									</div>
+									<div class="form-group text-center">
+										<label class="col-md-11">Personal Information</label> 
+									</div>
+									<div class="form-group">
+										<label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and \'v\'" type="text" name="nic" id="nic" value="'.$nic.'" required="required" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeelNIC" class="control-label col-md-3">E-Mail <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$" title="Should Be A Valid EMail Address." type="text" name="email" id="email" value="'.$email.'" required="required"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeefName" class="control-label col-md-3">First Name <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="fname" id="fname" value="'.$fName.'" required="required"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeemName" class="control-label col-md-3">Middle Name</label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^[a-zA-Z]*$|^$" title="Should Be Letters. Can Be Empty." type="text" name="mname" id="mname" value="'.$sName.'"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeelName" class="control-label col-md-3">Last Name <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="lname" id="lname" value="'.$lName.'" required="required"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="addressNo" class="control-label col-md-3">Address Number <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^([0-9].*[\\/][a-zA-Z0-9]*)|([0-9].*)$" title="Should Be Letters, Numbers, / or \. Cannot Be Empty." type="text" name="addresNo" id="addressNo" value="'.$aNo.'" required="required"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="addressLane" class="control-label col-md-3">Lane/ Street <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="lane" id="lane" value="'.$aLane.'" required="required"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="addressCity" class="control-label col-md-3">City <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^[a-zA-Z]+$" title="Should Be Letters. Cannot Be Empty." type="text" name="city" id="city" value="'.$aCity.'" required="required"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeeContact" class="control-label col-md-3">Contact Number</label>
+										<div class="col-md-8">
+											<input class="form-control" pattern="^\d{10}$" title="Should Be A Valid Number With 10 Digits." type="text" name="contact" id="contact" value="'.$contact.'" />
+										</div>
+									</div>
+									<div class="form-group" style="text-align:center;">
+										<label style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+									</div>
+									<div class="form-group col-md-11 text-center">
+										<input type="submit" value="Update" id="submit" name="submit" class="btn btn-success" onclick="return confirm(\'Do you wish to update details?\');return false;"/>
+									</div>
+								</form>';
+						} else {
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
 					}
 				} else {
 					//no value entered for search
@@ -583,7 +840,7 @@ if($s != ""){
 				
 				
 				
-			} else {
+			} else if($p == "delete") {
 				if($q != ""){
 					$hint .= '<form role="form" class="form-horizontal">
 						<div class="form-group">

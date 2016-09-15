@@ -44,6 +44,82 @@ if(isset($_SESSION['position'])){
             </font>
         </div>
         <div style="padding:10px;"> 
+        	<?php
+			if(isset($_GET['error'])){
+				if(!empty($_GET['error'])){
+					$error = $_GET['error'];
+					if($error == "ns"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Please Submit The Form.</label>
+							</div>';
+					} else if($error == "ef"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Please Fill The Required Fields.</label>
+							</div>';
+					} else if($error == "wid"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Employee ID Should be Numbers Or Letters Only. Should Not Be Empty.</label>
+							</div>';
+					} else if($error == "wpo"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Position Is InValid.</label>
+							</div>';
+					} else if($error == "wnic"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Should be a valid NIC of 9 digits and \'v\'.</label>
+							</div>';
+					} else if($error == "wf"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">First Name Should Be Letters. Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wm"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Second Name Should Be Letters. Can Be Empty.</label>
+							</div>';
+					} else if($error == "wl"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Last Name Should Be Letters. Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wn"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Address Number Should Be Letters, Numbers, / or \. Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wa"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Lane Should Be Letters. Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wc"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">City Should Be Letters. Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wp"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Should Be A Valid Number With 10 Digits.</label>
+							</div>';
+					} else if($error == "we"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Should Be A Valid EMail Address.</label>
+							</div>';
+					} else if($error == "nu"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">User Does Not Exist.</label>
+							</div>';
+					} else if($error == "qf"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Could Not Complete The Operation Now. Please Try Again Later.</label>
+							</div>';
+					} else if($error == "su"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control label-success" style="height:35px;">User Updated Succesfully.</label>
+							</div>';
+					} else if($error == "cu"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">E-Mail Exists. Please Enter Another Email Address.</label>
+							</div>';
+					}
+				}
+			}
+			?>
             <form role="form" class="form-horizontal">
             	<div class="form-group">
                     <label for="employeeId" class="control-label col-md-3">Search By : </label>
@@ -67,7 +143,7 @@ if(isset($_SESSION['position'])){
 					 } else if(which=='nic'){
 						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="<?php echo $sendPos ?>" id="nic" required/></div><div><input type="button" value="Search" class="btn btn-success" onclick="showHint(document.getElementById(\'nic\').value, document.getElementById(\'nic\').id, document.getElementById(\'nic\').name);"/></div></div><hr/>';
 					 } else if(which=='email'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeeEmail" class="control-label col-md-3">E-Mail</label><div class="col-md-8"><input class="form-control" type="text" name="<?php echo $sendPos ?>" id="EMail" required /></div><div><input type="button" value="Search" class="btn btn-success" onclick="showHint(document.getElementById(\'EMail\').value, document.getElementById(\'EMail\').id, document.getElementById(\'EMail\').name);"/></div></div><hr/>';
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeeEmail" class="control-label col-md-3">E-Mail</label><div class="col-md-8"><input class="form-control" type="text" name="<?php echo $sendPos ?>" id="EMail" required/></div><div><input type="button" value="Search" class="btn btn-success" onclick="showHint(document.getElementById(\'EMail\').value, document.getElementById(\'EMail\').id, document.getElementById(\'EMail\').name);"/></div></div><hr/>';
 					 } else {
 						 document.getElementById('new').innerHTML = '';
 					 }
@@ -90,10 +166,10 @@ if(isset($_SESSION['position'])){
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+           
             	<div id="new"></div>
             	<div style="padding-left:70px;" id="txtHint"></div>
-            </form>
+            
         </div>
     </div>
 </div>

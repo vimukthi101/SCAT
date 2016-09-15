@@ -1,3 +1,4 @@
-finish update
+updateUsers.php
 
-getUserInfo.php --> updateUsersController.php
+remove the form on that html
+Then the form submission will work properly for the update users

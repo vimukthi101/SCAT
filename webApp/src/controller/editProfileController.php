@@ -36,7 +36,7 @@
 											if(mysqli_num_rows($resultGetEmail) != 0){
 												//email exists
 												while($rowEmail = mysqli_fetch_array($resultGetEmail)){
-													$newNic = $row['nic'];
+													$newNic = $rowEmail['nic'];
 													//same user
 													if($_POST['nic'] == $newNic){
 														$updateEmployee = "UPDATE name SET first_name='".$firstName."', second_name='".$middleName."', last_name='".$lastName."' WHERE name_id='".$_SESSION['name_id']."'";

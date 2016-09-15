@@ -20,15 +20,15 @@
 				$city = trim($_POST['city']);
 				$phone = trim($_POST['contact']);
 				if(preg_match('/^\w+$/',$id)){
-					if(preg_match('/^(\d){9}[v|V]$/',$id)){
-						if(preg_match('/^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$/',$id)){
-							if(preg_match('/^[a-zA-Z]+$/',$id)){
-								if(preg_match('/^[a-zA-Z]*$|^$/',$id)){
-									if(preg_match('/^[a-zA-Z]+$/',$id)){
-										if(preg_match('/^([0-9].*[\\/][a-zA-Z0-9]*)|([0-9].*)$/',$id)){
-											if(preg_match('/^[a-zA-Z]+$/',$id)){
-												if(preg_match('/^[a-zA-Z]+$/',$id)){
-													if(preg_match('/^\d{10}$|^$/',$id)){
+					if(preg_match('/^(\d){9}[v|V]$/',$nic)){
+						if(preg_match('/^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$/',$em)){
+							if(preg_match('/^[a-zA-Z]+$/',$fn)){
+								if(preg_match('/^[a-zA-Z]*$|^$/',$mn)){
+									if(preg_match('/^[a-zA-Z]+$/',$ln)){
+										if(preg_match('/^([0-9].*[\\/][a-zA-Z0-9]*)|([0-9].*)$/',$no)){
+											if(preg_match('/^[a-zA-Z]+$/',$lane)){
+												if(preg_match('/^[a-zA-Z]+$/',$city)){
+													if(preg_match('/^\d{10}$|^$/',$phone)){
 														$employeeId = htmlspecialchars(mysqli_real_escape_string($con, $id));
 														$employeePosition = htmlspecialchars(mysqli_real_escape_string($con, $position));
 														$employeeNic = htmlspecialchars(mysqli_real_escape_string($con, $nic));
