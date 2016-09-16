@@ -50,6 +50,6 @@
 		}
 	} else {
 		//if not submitted
-		header('Location:../changePassword.php?error=ns');	
+		header('Location:../../404.php');
 	}
 ?>

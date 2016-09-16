@@ -166,10 +166,10 @@ if(isset($_SESSION['position'])){
 				}
 			}
 			</script>
-           
+            <div class="form-horizontal">
             	<div id="new"></div>
             	<div style="padding-left:70px;" id="txtHint"></div>
-            
+        	</div>
         </div>
     </div>
 </div>
@@ -191,9 +191,9 @@ if(isset($_SESSION['position'])){
 </html>
 <?php
 	} else {
-		echo 'error';	
+		header('Location:../404.php');
 	}
 } else {
-	echo 'error';
+	header('Location:../404.php');
 }
 ?>

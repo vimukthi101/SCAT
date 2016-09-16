@@ -37,6 +37,11 @@
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Managers</font>
         </div>
     </a>
+    <a href="../src/enableUsers.php?position=manager" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Enable Managers</font>
+        </div>
+    </a>
     <div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">Station Masters Management</label>
     </div>
@@ -58,6 +63,11 @@
     <a href="../src/deleteUsers.php?position=stationMaster" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Station Masters</font>
+        </div>
+    </a>
+    <a href="../src/enableUsers.php?position=manager" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Enable Station Masters</font>
         </div>
     </a>
 </div>

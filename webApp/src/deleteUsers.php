@@ -31,18 +31,47 @@ if(isset($_SESSION['position'])){
 			} else if($_SESSION['position']=="manager"){
 				include_once('../ssi/managerLeftPanelUsers.php');
 			}  
+			$sendPos = $_GET['position'];
         ?>
     </div>
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
         <div class="text-center" style="padding:10px;">
             <font face="Verdana, Geneva, sans-serif" size="+1"><u>Remove  
                 <?php
-                    echo $_GET['position'].'s';
+                    echo $sendPos.'s';
                 ?>
             </u>
             </font>
         </div>
         <div style="padding:10px;"> 
+        	<?php
+			if(isset($_GET['error'])){
+				if(!empty($_GET['error'])){
+					$error = $_GET['error'];
+					if($error == "ns"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Please Submit The Form.</label>
+							</div>';
+					} else if($error == "ef"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Information Is Not Sufficient.</label>
+							</div>';
+					} else if($error == "nu"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">User Does Not Exist.</label>
+							</div>';
+					} else if($error == "qf"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Could Not Complete The Operation Now. Please Try Again Later.</label>
+							</div>';
+					} else if($error == "su"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control label-success" style="height:35px;">User Deleted Succesfully.</label>
+							</div>';
+					}
+				}
+			}
+			?>
             <form role="form" class="form-horizontal">
             	<div class="form-group">
                     <label for="employeeId" class="control-label col-md-3">Search By : </label>
@@ -51,8 +80,7 @@ if(isset($_SESSION['position'])){
                           <option selected="selected" disabled="disabled">--Select the search criteria--</option>
                           <option value="eid">Employee ID</option>
                           <option value="nic">NIC</option>
-                          <option value="fname">First Name</option>
-                          <option value="lname">Last Name</option>
+                          <option value="email">E-mail</option>
                         </select>
                 	</div>
                 </div>
@@ -63,20 +91,18 @@ if(isset($_SESSION['position'])){
 					 var idx = selectObj.selectedIndex; 
 					 var which = selectObj.options[idx].value; 
 					 if(which=='eid'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeeId" class="control-label col-md-3">Employee ID</label><div class="col-md-8"><input class="form-control" type="text" name="eId" id="eId" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>'; 
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeeId" class="control-label col-md-3">Employee ID</label><div class="col-md-8"><input class="form-control" type="text" name="<?php echo $sendPos ?>" id="EID" required/></div><div><input type="button" value="Search" class="btn btn-success" onclick="showHint(document.getElementById(\'EID\').value, document.getElementById(\'EID\').id, document.getElementById(\'EID\').name);"/></div></div><hr/>'; 
 					 } else if(which=='nic'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="nic" id="nic" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>';
-					 } else if(which=='fname'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeefName" class="control-label col-md-3">First Name</label><div class="col-md-8"><input class="form-control" type="text" name="fname" id="fname" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>';
-					 } else if(which=='lname'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelName" class="control-label col-md-3">Last Name</label><div class="col-md-8"><input class="form-control" type="text" name="lname" id="lname" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>';
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="<?php echo $sendPos ?>" id="nic" required/></div><div><input type="button" value="Search" class="btn btn-success" onclick="showHint(document.getElementById(\'nic\').value, document.getElementById(\'nic\').id, document.getElementById(\'nic\').name);"/></div></div><hr/>';
+					 } else if(which=='email'){
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeeEmail" class="control-label col-md-3">E-Mail</label><div class="col-md-8"><input class="form-control" type="text" name="<?php echo $sendPos ?>" id="EMail" required/></div><div><input type="button" value="Search" class="btn btn-success" onclick="showHint(document.getElementById(\'EMail\').value, document.getElementById(\'EMail\').id, document.getElementById(\'EMail\').name);"/></div></div><hr/>';
 					 } else {
 						 document.getElementById('new').innerHTML = '';
 					 }
 				 } 
 			</script>
             <script>
-			function showHint(str) {
+			function showHint(str, id, pos) {
 				if (str.length == 0) { 
 					document.getElementById("txtHint").innerHTML = "";
 					return;
@@ -87,28 +113,39 @@ if(isset($_SESSION['position'])){
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getUserInfo.php?p=delete&q=" + str, true);
+					xmlhttp.open("GET", "getUserInfo.php?p=delete&q=" + str + "&r=" + id + "&s=" + pos, true);
 					xmlhttp.send();
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+            <div class="form-horizontal">
             	<div id="new"></div>
             	<div style="padding-left:70px;" id="txtHint"></div>
-            </form>
+        	</div>
         </div>
     </div>
 </div>
 <?php
 	include_once('../ssi/footer.php');
 ?>
+<!--disable the enter key-->
+<script type="text/javascript">
+	window.addEventListener('keydown',function(e){
+		if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){
+			if(e.target.nodeName=='INPUT'&&e.target.type=='text'){
+				e.preventDefault();
+				return false;
+			}
+		}
+	},true);
+</script>
 </body>
 </html>
 <?php
 	} else {
-		echo 'error';	
+		header('Location:../404.php');
 	}
 } else {
-	echo 'error';
+	header('Location:../404.php');
 }
 ?>

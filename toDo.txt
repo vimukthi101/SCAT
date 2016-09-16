@@ -1,4 +1,3 @@
-updateUsers.php
+finish enable users 
 
-remove the form on that html
-Then the form submission will work properly for the update users
+add functions for the view users

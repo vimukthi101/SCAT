@@ -123,6 +123,6 @@
 		}
 	} else {
 		//redirect to form not submit
-		header('Location:../editProfile.php?error=ns');	
+		header('Location:../../404.php');
 	}
 ?>

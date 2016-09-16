@@ -215,9 +215,9 @@ if(isset($_SESSION['position'])){
 </html>
 <?php
 	} else {
-		echo 'error';	
+		header('Location:../404.php');
 	}
 } else {
-	echo 'error';
+	header('Location:../404.php');
 }
 ?>

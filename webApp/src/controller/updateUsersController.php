@@ -5,8 +5,6 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
-	echo '<h1>done</h1>';
-	die();
 	if(!empty($_POST['position'])){
 		$pos = trim($_POST['position']);
 		$employeePosition = htmlspecialchars(mysqli_real_escape_string($con, $pos));
@@ -47,7 +45,7 @@
 															$resultGetPosition = mysqli_query($con, $getPosition);
 															if(mysqli_num_rows($resultGetPosition) != 0){
 																//position is valid
-																while($rowPosition = mysqli_fetch_array($con, $resultGetPosition)){
+																while($rowPosition = mysqli_fetch_array($resultGetPosition)){
 																	$positionId = $rowPosition['position_id'];
 																}
 																$getEMail = "SELECT * FROM employee WHERE employee_email='".$email."'";
@@ -76,7 +74,7 @@
 																						$updatePosition = "UPDATE staff SET employee_position_position_id='".$positionId."' WHERE employee_nic='".$employeeNic."'";
 																						if(mysqli_query($con, $updatePosition)){
 																							$updateEmployeeAll = "UPDATE employee SET contact_no='".$contactNo."', employee_email='".$email."' WHERE nic='".$employeeNic."'";
-																							if(mysqli_query($con, $updateEmployeeContact)){
+																							if(mysqli_query($con, $updateEmployeeAll)){
 																								//success
 																								if($employeePosition == "manager"){
 																									header('Location:../updateUsers.php?position=manager&error=su');
@@ -86,6 +84,7 @@
 																							} else {
 																								//redirect to form query faile
 																								if($employeePosition == "manager"){
+																									
 																									header('Location:../updateUsers.php?position=manager&error=qf');
 																								} else if($employeePosition == "stationMaster"){
 																									header('Location:../updateUsers.php?position=stationMaster&error=qf');											
@@ -202,7 +201,7 @@
 																}
 															} else {
 																//redirect to error page invalid position 404
-																header('Location:../updateUsers.php?position=manager&error=wpo');	
+																header('Location:../../404.php');
 															}
 														} else {
 															//email
@@ -278,7 +277,7 @@
 						}
 					} else {
 						//wrong position 404
-						header('Location:../updateUsers.php?position=manager&error=wpo');
+						header('Location:../../404.php');
 					}
 				} else {
 					//wrong eid
@@ -298,10 +297,10 @@
 			}
 		} else {
 			//redirect to form not submit 404
-			header('Location:../updateUsers.php?position=manager&error=ns');	
+			header('Location:../../404.php');	
 		}
 	} else {
 		//error page 404
-		header('Location:../updateUsers.php?position=manager&error=ns');
+		header('Location:../../404.php');
 	}	
 ?>
