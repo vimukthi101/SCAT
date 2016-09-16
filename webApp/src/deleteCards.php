@@ -1,3 +1,10 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+if(isset($_SESSION['position'])){
+	if($_SESSION['position'] == "sysadmin"){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -27,14 +34,46 @@
             </font>
         </div>
         <div style="padding:10px;"> 
+        <?php
+			if(isset($_GET['error'])){
+				if(!empty($_GET['error'])){
+					$error = $_GET['error'];
+					if($error == "ef"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Required Fields Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wn"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Card Number Should Be 16 Digits Number.</label>
+							</div>';
+					} else if($error == "wp"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Pin Should Be 4 Digits Number.</label>
+							</div>';
+					} else if($error == "qf"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Could Not Add The Card. Please Try Again Later.</label>
+							</div>';
+					} else if($error == "su"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control label-success" style="height:35px;">Card Successfully Deleted.</label>
+							</div>';
+					} else if($error == "nc"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control label-success" style="height:35px;">No Card With Such Details.</label>
+							</div>';
+					}
+				}
+			}
+			?>
             <form role="form" class="form-horizontal">
             	<div class="form-group">
                     <label for="cardNo" class="control-label col-md-3">Search By Card No : </label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="cardNo" id="cardNo" />
+                    	<input class="form-control" type="text" name="cardNo" id="cardNo" maxlength="16" required="required" pattern="^\d{16}$" title="Should Be 16 Digits Number."/>
                     </div>
                     <div>
-                    	<input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/>
+                    	<input type="button" value="Search" class="btn btn-success" onClick="showHint(document.getElementById('cardNo').value);"/>
                     </div>
                 </div>
                 <hr/>
@@ -56,9 +95,9 @@
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+            <div class="form-horizontal">
             	<div style="padding-left:70px;" id="txtHint"></div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -67,3 +106,22 @@
 ?>
 </body>
 </html>
+<!--disable the enter key-->
+<script type="text/javascript">
+	window.addEventListener('keydown',function(e){
+		if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){
+			if(e.target.nodeName=='INPUT'&&e.target.type=='text'){
+				e.preventDefault();
+				return false;
+			}
+		}
+	},true);
+</script>
+<?php
+	} else {
+		header('Location:../404.php');
+	}
+} else {
+	header('Location:../404.php');
+}
+?>

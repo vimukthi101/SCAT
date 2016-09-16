@@ -1,3 +1,5 @@
-finish enable users 
+issue cards for requests part start and finish
 
-add functions for the view users
+need to write the trigger for station table
+
+****start trains portal****

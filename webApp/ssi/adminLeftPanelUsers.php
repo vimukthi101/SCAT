@@ -65,7 +65,7 @@
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Station Masters</font>
         </div>
     </a>
-    <a href="../src/enableUsers.php?position=manager" style="text-decoration:none;">
+    <a href="../src/enableUsers.php?position=stationMaster" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Enable Station Masters</font>
         </div>

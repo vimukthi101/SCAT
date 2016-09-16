@@ -76,14 +76,18 @@
 																						if(mysqli_query($con, $addUserStaff)){
 																							//send email to new user
 																							$to = $email;
-																							$subject = "Profile Created";
-																							$message = "<p>Hi Manager,</p>
-											<p>A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
-											<h4>User Name : ".$employeeEmail."</h4>
-											<h4>Password : ".$rand."</h4>
-											<p>p.s. : Please do not reply to this email</p>
-											<p>Thank You!</p>
-											<p>S.C.A.T Admin</p>";
+$subject = "Profile Created";
+$message = "<p>Hi Manager,</p>
+<br/>
+<p>A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
+<br/>
+<h4>User Name : ".$nic."</h4>
+<h4>Password : ".$rand."</h4>
+<br/>
+<p>p.s. : Please do not reply to this email</p>
+<br/>
+<p>Thank You!</p>
+<p>S.C.A.T Admin</p>";
 																							$headers = "MIME-Version: 1.0" . "\r\n";
 																							$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 																							mail($to, $subject, $message, $headers);
@@ -224,14 +228,18 @@
 																						if(mysqli_query($con, $addUserStaff)){
 																							//send email to new user
 																							$to = $email;
-																							$subject = "Profile Created";
-																							$message = "<p>Hi Station Master,</p>
-											<p>A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
-											<h4>User Name : ".$employeeEmail."</h4>
-											<h4>Password : ".$rand."</h4>
-											<p>p.s. : Please do not reply to this email</p>
-											<p>Thank You!</p>
-											<p>S.C.A.T Admin</p>";
+$subject = "Profile Created";
+$message = "<p>Hi Station Master,</p>
+<br/>
+<p>A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
+<br/>
+<h4>User Name : ".$nic."</h4>
+<h4>Password : ".$rand."</h4>
+<br/>
+<p>p.s. : Please do not reply to this email</p>
+<br/>
+<p>Thank You!</p>
+<p>S.C.A.T Admin</p>";
 																							$headers = "MIME-Version: 1.0" . "\r\n";
 																							$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 																							mail($to, $subject, $message, $headers);

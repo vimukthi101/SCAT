@@ -50,14 +50,20 @@
 															if(mysqli_query($con, $updateBlockedAdmin)){
 																//send email with new password
 																$to = $email;
-																$subject = "Password Reset";
-																$message = "<p>Hi SysAdmin,</p>
-			<p>Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please use the below auto generated one time password to re activate your account and to change your password.</p>
-			<h4>Passowrd : ".$rand."</h4>
-			<p>Please try to minimize such errors in the future</p>
-			<p>p.s. : Please do not reply to this email</p>
-			<p>Thank You!</p>
-			<p>S.C.A.T Systm</p>";
+$subject = "Password Reset";
+$message = "<p>Hi SysAdmin,</p>
+<br/>
+<p>Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please use the below auto generated one time password to re activate your account and to change your password.</p>
+<br/>
+<h4>User Name : ".$userName."</h4>
+<h4>Passowrd : ".$rand."</h4>
+<br/>
+<p>Please try to minimize such errors in the future</p>
+<br/>
+<p>p.s. : Please do not reply to this email</p>
+<br/>
+<p>Thank You!</p>
+<p>S.C.A.T Systm</p>";
 																$headers = "MIME-Version: 1.0" . "\r\n";
 																$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 																mail($to, $subject, $message, $headers);
@@ -67,13 +73,17 @@
 														} else {
 															//send email to meet admin
 															$to = $email;
-															$subject = "Account Deactivated";
-															$message = "<p>Hi User,</p>
-			<p>Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please meet the SysAdmin to re activate your account.</p>
-			<p>Please try to minimize such errors in the future</p>
-			<p>p.s. : Please do not reply to this email</p>
-			<p>Thank You!</p>
-			<p>S.C.A.T Systm</p>";
+$subject = "Account Deactivated";
+$message = "<p>Hi User,</p>
+<br/>
+<p>Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please meet the SysAdmin to re activate your account.</p>
+<br/>
+<p>Please try to minimize such errors in the future</p>
+<br/>
+<p>p.s. : Please do not reply to this email</p>
+<br/>
+<p>Thank You!</p>
+<p>S.C.A.T Systm</p>";
 															$headers = "MIME-Version: 1.0" . "\r\n";
 															$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 															mail($to, $subject, $message, $headers);
@@ -85,13 +95,17 @@
 											} else {
 												//send email to meet admin
 												$to = $email;
-												$subject = "Account Deactivated";
-												$message = "<p>Hi Top-Up Agent,</p>
-		<p>Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please meet the Station Master to re activate your account.</p>
-		<p>Please try to minimize such errors in the future</p>
-		<p>p.s. : Please do not reply to this email</p>
-		<p>Thank You!</p>
-		<p>S.C.A.T Systm</p>";
+$subject = "Account Deactivated";
+$message = "<p>Hi Top-Up Agent,</p>
+<br/>
+<p>Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please meet the Station Master to re activate your account.</p>
+<br/>
+<p>Please try to minimize such errors in the future</p>
+<br/>
+<p>p.s. : Please do not reply to this email</p>
+<br/>
+<p>Thank You!</p>
+<p>S.C.A.T Systm</p>";
 												$headers = "MIME-Version: 1.0" . "\r\n";
 												$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 												mail($to, $subject, $message, $headers);

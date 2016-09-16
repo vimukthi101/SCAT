@@ -1,3 +1,10 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+if(isset($_SESSION['position'])){
+	if($_SESSION['position'] == "sysadmin"){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -27,27 +34,67 @@
             </font>
         </div>
         <div style="padding:10px;"> 
-            <form role="form" class="form-horizontal">
+        	<?php
+			if(isset($_GET['error'])){
+				if(!empty($_GET['error'])){
+					$error = $_GET['error'];
+					if($error == "ef"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Required Fields Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wn"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Card Number Should Be 16 Digits Number.</label>
+							</div>';
+					} else if($error == "wp"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Pin Should Be 4 Digits Number.</label>
+							</div>';
+					} else if($error == "wc"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Confirm Pin Should Be 4 Digits Number.</label>
+							</div>';
+					} else if($error == "dm"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Pin And Confirm Pin Does Not Match.</label>
+							</div>';
+					} else if($error == "ce"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Card Number Already Exists.</label>
+							</div>';
+					} else if($error == "qf"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Could Not Add The Card. Please Try Again Later.</label>
+							</div>';
+					} else if($error == "su"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control label-success" style="height:35px;">Card Successfully Added.</label>
+							</div>';
+					}
+				}
+			}
+			?>
+            <form role="form" class="form-horizontal" method="post" action="controller/addCardsController.php">
             	<div class="form-group">
                     <label for="cardNo" class="control-label col-md-3">Card No</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="cardNo" id="cardNo" />
+                    	<input class="form-control" type="text" name="cardNo" id="cardNo" maxlength="16" required="required" pattern="^\d{16}$" title="Should Be 16 Digits Number."/>
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="pin" class="control-label col-md-3">Pin</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="pin" id="pin"/>
+                    	<input class="form-control" type="text" name="pin" id="pin" maxlength="4" pattern="^\d{4}$" title="Should Be 4 Digits Number." required="required" />
                 	</div>
                 </div>
                 <div class="form-group">
                     <label for="confirmPin" class="control-label col-md-3">Confirm Pin</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="cPin" id="cPin"/>
+                    	<input class="form-control" type="text" name="cPin" id="cPin" maxlength="4" pattern="^\d{4}$" title="Should Be 4 Digits Number." required="required" />
                 	</div>
                 </div>
                 <div class="form-group col-md-11 text-center">
-                    <input type="submit" value="Add" class="btn btn-success" />
+                    <input type="submit" id="submit" name="submit" value="Add" class="btn btn-success" />
                     <input type="reset" value="Clear" class="btn btn-danger" />
                 </div>
             </form>
@@ -59,3 +106,11 @@
 ?>
 </body>
 </html>
+<?php
+	} else {
+		header('Location:../404.php');
+	}
+} else {
+	header('Location:../404.php');
+}
+?>

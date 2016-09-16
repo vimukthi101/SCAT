@@ -1,3 +1,10 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+if(isset($_SESSION['position'])){
+	if($_SESSION['position'] == "sysadmin"){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -28,7 +35,7 @@ a:visited{
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-            if($_SESSION['position']=="admin"){
+            if($_SESSION['position']=="sysadmin"){
 				include_once('../ssi/adminLeftPanelCards.php');
 			} else if($_SESSION['position']=="stationMaster"){
 				include_once('../ssi/stationMasterLeftPanelCards.php');
@@ -72,3 +79,11 @@ a:visited{
 ?>
 </body>
 </html>
+<?php
+	} else {
+		header('Location:../404.php');
+	}
+} else {
+	header('Location:../404.php');
+}
+?>

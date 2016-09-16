@@ -25,6 +25,20 @@
 								if(mysqli_query($con, $deleteName)){
 									$deleteAddress = "DELETE FROM address WHERE address_id='".$address_id."'";
 									if(mysqli_query($con, $deleteAddress)){
+										//send email with account deleted
+										$to = $_POST['email'];
+										$subject = "Account Deleted";
+$message = "<p>Hi ".$employeePosition.",</p>
+<br/>
+<p>Your account has been deleted. No longer you will be able to login to the system. If you think this is a mistake, please meet the system admin.</p>
+<br/>
+<p>p.s. : Please do not reply to this email</p>
+<br/>
+<p>Thank You!</p>
+<p>S.C.A.T System Admin</p>";
+										$headers = "MIME-Version: 1.0" . "\r\n";
+										$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+										mail($to, $subject, $message, $headers);
 										//success
 										if($employeePosition == "manager"){
 											header('Location:../deleteUsers.php?position=manager&error=su');		

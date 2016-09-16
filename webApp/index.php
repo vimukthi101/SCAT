@@ -24,7 +24,7 @@
             	<font size="+2" face="Verdana, Geneva, sans-serif" color="#000000" style="padding:10px;">Log In</font>
             	<form role="form" class="form-group" action="src/controller/login.php" method="post">
                     <div style="padding:10px;">
-                     <input type="text" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and 'v'" class="form-control" id="userNIC" name="userNIC" placeholder="Enter User NIC" required="required">
+                     <input type="text" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and 'v'" class="form-control" id="userNIC" name="userNIC" placeholder="Enter User NIC" required="required" maxlength="10">
                     </div>
                     <div style="padding:10px;">
                      <input type="password" class="form-control" pattern="\S+" title="Password should not be empty" id="password" name="password" placeholder="Enter Password" required="required">

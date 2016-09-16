@@ -49,9 +49,13 @@ if(isset($_SESSION['position'])){
 			if(isset($_GET['error'])){
 				if(!empty($_GET['error'])){
 					$error = $_GET['error'];
-					if($error == "ns"){
+					if($error == "su"){
 						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control" style="height:35px;">Please Submit The Form.</label>
+								<label class="form-control label-success" style="height:35px;">User Activated Successfully. New Password Send via An E-Mail.</label>
+							</div>';
+					} else if($error == "qf"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Could Not Activate The User. Please Try Again Later.</label>
 							</div>';
 					}
 				}
@@ -60,7 +64,7 @@ if(isset($_SESSION['position'])){
             <div class="form-horizontal">
             	<div style="padding-left:70px;margin-top:50px;">
             	<?php
-					$getEmp = "SELECT * FROM employee WHERE STATUS='1' AND nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='sysadmin'))";	
+					$getEmp = "SELECT * FROM employee WHERE STATUS='0' AND nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='".$sendPos."'))";	
 						$resultGetEmp = mysqli_query($con, $getEmp);
 						if(mysqli_num_rows($resultGetEmp) != 0){
 							echo '<div class="form-group">
@@ -124,7 +128,7 @@ if(isset($_SESSION['position'])){
 											<td>'.$contact.'</td>
 											<td>'.$EMail.'</td>
 											<td>'.$status.'</td>
-											<td><a href="#"><i class="fa fa-2x fa-check" style="padding-left:5px;" aria-hidden="true"></i></a></td>
+											<td><a onclick="return confirm(\'Do You Wish to Activate User?\');return false;" href="controller/enableUsersController.php?position='.$sendPos.'&nic='.$nic.'&email='.$EMail.'"><i class="fa fa-2x fa-check" style="padding-left:5px;" aria-hidden="true"></i></a></td>
 										  </tr>';
 								
 							}

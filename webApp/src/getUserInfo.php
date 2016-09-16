@@ -49,7 +49,6 @@ if($s != ""){
 											<th>Contact No</th>
 											<th>E-Mail</th>
 											<th>Status</th>
-											<th>Settings</th>
 										  </tr>
 										  ';
 							while($rowGetEmp = mysqli_fetch_array($resultGetEmp)){
@@ -99,7 +98,6 @@ if($s != ""){
 											<td>'.$contact.'</td>
 											<td>'.$EMail.'</td>
 											<td>'.$status.'</td>
-											<td><a href="#"><i class="fa fa-2x fa-trash-o" style="padding-right:10px;" aria-hidden="true"></i></a><a href="#"><i class="fa fa-2x fa-cog" style="padding-left:5px;" aria-hidden="true"></i></a><a href="#"><i class="fa fa-2x fa-times" style="padding-left:5px;" aria-hidden="true"></i><a href="#"><i class="fa fa-2x fa-check" style="padding-left:5px;" aria-hidden="true"></i></a></a></td>
 										  </tr>';
 								
 							}
@@ -127,7 +125,6 @@ if($s != ""){
 											<th>Contact No</th>
 											<th>E-Mail</th>
 											<th>Status</th>
-											<th>Settings</th>
 										  </tr>
 										  ';
 							while($rowGetEmp = mysqli_fetch_array($resultGetEmp)){
@@ -177,7 +174,6 @@ if($s != ""){
 											<td>'.$contact.'</td>
 											<td>'.$EMail.'</td>
 											<td>'.$status.'</td>
-											<td><a href="#"><i class="fa fa-2x fa-trash-o" style="padding-right:10px;" aria-hidden="true"></i></a><a href="#"><i class="fa fa-2x fa-cog" style="padding-left:5px;" aria-hidden="true"></i></a></td>
 										  </tr>';
 								
 							}
@@ -205,7 +201,6 @@ if($s != ""){
 											<th>Contact No</th>
 											<th>E-Mail</th>
 											<th>Status</th>
-											<th>Settings</th>
 										  </tr>
 										  ';
 							while($rowGetEmp = mysqli_fetch_array($resultGetEmp)){
@@ -255,7 +250,6 @@ if($s != ""){
 											<td>'.$contact.'</td>
 											<td>'.$EMail.'</td>
 											<td>'.$status.'</td>
-											<td><a href="#"><i class="fa fa-2x fa-trash-o" style="padding-right:10px;" aria-hidden="true"></i></a><a href="#"><i class="fa fa-2x fa-cog" style="padding-left:5px;" aria-hidden="true"></i></a></td>
 										  </tr>';
 								
 							}
@@ -282,7 +276,6 @@ if($s != ""){
 											<th>Contact No</th>
 											<th>E-Mail</th>
 											<th>Status</th>
-											<th>Settings</th>
 										  </tr>
 										  ';
 							while($rowGetEmp = mysqli_fetch_array($resultGetEmp)){
@@ -332,7 +325,6 @@ if($s != ""){
 											<td>'.$contact.'</td>
 											<td>'.$EMail.'</td>
 											<td>'.$status.'</td>
-											<td><a href="#"><i class="fa fa-2x fa-trash-o" style="padding-right:10px;" aria-hidden="true"></i></a><a href="#"><i class="fa fa-2x fa-cog" style="padding-left:5px;" aria-hidden="true"></i></a></td>
 										  </tr>';
 								
 							}
@@ -359,7 +351,6 @@ if($s != ""){
 											<th>Contact No</th>
 											<th>E-Mail</th>
 											<th>Status</th>
-											<th>Settings</th>
 										  </tr>
 										  ';
 							while($rowGetEmp = mysqli_fetch_array($resultGetEmp)){
@@ -409,7 +400,6 @@ if($s != ""){
 											<td>'.$contact.'</td>
 											<td>'.$EMail.'</td>
 											<td>'.$status.'</td>
-											<td><a href="#"><i class="fa fa-2x fa-trash-o" style="padding-right:10px;" aria-hidden="true"></i></a><a href="#"><i class="fa fa-2x fa-cog" style="padding-left:5px;" aria-hidden="true"></i></a></td>
 										  </tr>';
 								
 							}
@@ -494,7 +484,7 @@ if($s != ""){
 									<div class="form-group">
 										<label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
 										<div class="col-md-8">
-											<input class="form-control" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and \'v\'" type="text" name="nic" id="nic" value="'.$nic.'" required="required" readonly/>
+											<input class="form-control" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and \'v\'" type="text" name="nic" id="nic" value="'.$nic.'" required="required" readonly maxlength="10"/>
 										</div>
 									</div>
 									<div class="form-group">
@@ -542,7 +532,7 @@ if($s != ""){
 									<div class="form-group">
 										<label for="employeeContact" class="control-label col-md-3">Contact Number</label>
 										<div class="col-md-8">
-											<input class="form-control" pattern="^\d{10}$" title="Should Be A Valid Number With 10 Digits." type="text" name="contact" id="contact" value="'.$contact.'" />
+											<input class="form-control" pattern="^\d{10}$" title="Should Be A Valid Number With 10 Digits." type="text" name="contact" id="contact" value="'.$contact.'" maxlength="10" />
 										</div>
 									</div>
 									<div class="form-group" style="text-align:center;">
@@ -630,7 +620,7 @@ if($s != ""){
 									<div class="form-group">
 										<label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
 										<div class="col-md-8">
-											<input class="form-control" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and \'v\'" type="text" name="nic" id="nic" value="'.$nic.'" required="required" readonly/>
+											<input class="form-control" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and \'v\'" type="text" name="nic" id="nic" value="'.$nic.'" maxlength="10" required="required" readonly/>
 										</div>
 									</div>
 									<div class="form-group">
@@ -678,7 +668,7 @@ if($s != ""){
 									<div class="form-group">
 										<label for="employeeContact" class="control-label col-md-3">Contact Number</label>
 										<div class="col-md-8">
-											<input class="form-control" pattern="^\d{10}$" title="Should Be A Valid Number With 10 Digits." type="text" name="contact" id="contact" value="'.$contact.'" />
+											<input class="form-control" pattern="^\d{10}$" title="Should Be A Valid Number With 10 Digits." type="text" name="contact" id="contact" value="'.$contact.'" maxlength="10" />
 										</div>
 									</div>
 									<div class="form-group" style="text-align:center;">
@@ -766,7 +756,7 @@ if($s != ""){
 									<div class="form-group">
 										<label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
 										<div class="col-md-8">
-											<input class="form-control" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and \'v\'" type="text" name="nic" id="nic" value="'.$nic.'" required="required" readonly/>
+											<input class="form-control" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and \'v\'" type="text" name="nic" id="nic" value="'.$nic.'" maxlength="10" required="required" readonly/>
 										</div>
 									</div>
 									<div class="form-group">
@@ -814,7 +804,7 @@ if($s != ""){
 									<div class="form-group">
 										<label for="employeeContact" class="control-label col-md-3">Contact Number</label>
 										<div class="col-md-8">
-											<input class="form-control" pattern="^\d{10}$" title="Should Be A Valid Number With 10 Digits." type="text" name="contact" id="contact" value="'.$contact.'" />
+											<input class="form-control" pattern="^\d{10}$" title="Should Be A Valid Number With 10 Digits." type="text" name="contact" id="contact" maxlength="10" value="'.$contact.'" />
 										</div>
 									</div>
 									<div class="form-group" style="text-align:center;">

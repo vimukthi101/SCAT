@@ -146,7 +146,7 @@ if(isset($_SESSION['position'])){
                 <div class="form-group">
                     <label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and 'v'" type="text" name="nic" id="nic" required="required"/>
+                    	<input class="form-control" pattern="^(\d){9}[v|V]$" maxlength="10" title="Should be a valid NIC of 9 digits and 'v'" type="text" name="nic" id="nic" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
@@ -194,7 +194,7 @@ if(isset($_SESSION['position'])){
                 <div class="form-group">
                     <label for="employeeContact" class="control-label col-md-3">Contact Number</label>
                     <div class="col-md-8">
-                    	<input class="form-control" pattern="^\d{10}$" title="Should Be A Valid Number With 10 Digits." type="text" name="contact" id="contact" />
+                    	<input class="form-control" maxlength="10" pattern="^\d{10}$" title="Should Be A Valid Number With 10 Digits." type="text" name="contact" id="contact" />
                 	</div>
                 </div>
                 <div class="form-group" style="text-align:center;">
