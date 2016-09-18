@@ -1,3 +1,10 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+if(isset($_SESSION['position'])){
+	if($_SESSION['position'] == "sysadmin"){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -27,6 +34,42 @@
             </font>
         </div>
         <div style="padding:10px;"> 
+        	<?php
+			if(isset($_GET['error'])){
+				if(!empty($_GET['error'])){
+					$error = $_GET['error'];
+					if($error == "ef"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Required Fields Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wc"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Train Code Should Be Numbers Only.</label>
+							</div>';
+					} else if($error == "wn"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Train Name Should Be Letters Only.</label>
+							</div>';
+					} else if($error == "wt"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Train Type Is Invalid.</label>
+							</div>';
+					} else if($error == "ae"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Train Name Already Exists.</label>
+							</div>';
+					} else if($error == "qf"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Could Not Update The Train. Please Try Again Later.</label>
+							</div>';
+					} else if($error == "su"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control label-success" style="height:35px;">Train Successfully Updated.</label>
+							</div>';
+					}
+				}
+			}
+			?>
             <form role="form" class="form-horizontal">
             	<div class="form-group">
                     <label for="search" class="control-label col-md-3">Search By : </label>
@@ -45,16 +88,16 @@
 					 var idx = selectObj.selectedIndex; 
 					 var which = selectObj.options[idx].value; 
 					 if(which=='tCode'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="TrainCode" class="control-label col-md-3">Train Code</label><div class="col-md-8"><input class="form-control" type="text" name="TrainCode" id="TrainCode" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>'; 
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="TrainCode" class="control-label col-md-3">Train Code</label><div class="col-md-8"><input class="form-control" type="text" name="TrainCode" id="TrainCode" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(document.getElementById(\'TrainCode\').value, document.getElementById(\'TrainCode\').id);"/></div></div><hr/>'; 
 					 } else if(which=='tName'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="TrainName" class="control-label col-md-3">Train Name</label><div class="col-md-8"><input class="form-control" type="text" name="TrainName" id="TrainName" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>';
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="TrainName" class="control-label col-md-3">Train Name</label><div class="col-md-8"><input class="form-control" type="text" name="TrainName" id="TrainName" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(document.getElementById(\'TrainName\').value, document.getElementById(\'TrainName\').id);"/></div></div><hr/>';
 					 } else {
 						 document.getElementById('new').innerHTML = '';
 					 }
 				 } 
 			</script>
             <script>
-			function showHint(str) {
+			function showHint(str, id) {
 				if (str.length == 0) { 
 					document.getElementById("txtHint").innerHTML = "";
 					return;
@@ -65,15 +108,15 @@
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getTrainInfo.php?p=update&q=" + str, true);
+					xmlhttp.open("GET", "getTrainInfo.php?p=update&q=" + str + "&r=" + id, true);
 					xmlhttp.send();
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+            <div class="form-horizontal">
             	<div id="new"></div>
             	<div style="padding-left:70px;" id="txtHint"></div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -82,3 +125,11 @@
 ?>
 </body>
 </html>
+<?php
+	} else {
+		header('Location:../404.php');
+	}
+} else {
+	header('Location:../404.php');
+}
+?>

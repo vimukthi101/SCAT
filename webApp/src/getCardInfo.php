@@ -18,9 +18,10 @@ a:visited{
 </style>
 </head>
 <?php
-//user input
-$q = $_REQUEST["q"];
-$p = $_REQUEST["p"];
+//value enter by user
+$q = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["q"])));
+//operation : view/update/delete
+$p = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["p"])));
 $hint = "";
 if($p != ""){
 	if($p == "view"){
@@ -89,6 +90,9 @@ if($p != ""){
 				//if no result to show
 				echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
 			}				  
+		} else {
+			//if empty q
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 		}
 	} else if($p == "update"){
 		if($q != ""){
@@ -141,6 +145,9 @@ if($p != ""){
 				//no data	
 				echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
 			}
+		}  else {
+			//if empty q
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 		}
 	} else if ($p == "delete") {
 		if($q != ""){
@@ -185,8 +192,11 @@ if($p != ""){
 				//no data	
 				echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
 			}
+		} else {
+			//if empty q
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 		}
-	} else {
+	} else if("") {
 		if($q != ""){
 			$hint .= '<div class="form-group">
 							<div class="container-fluid center-block">
@@ -225,11 +235,17 @@ if($p != ""){
 								  </tr>
 								</table>
 							</div>
-						</div>';
+			 			</div>';
+		}  else {
+			//if empty q
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 		}
+	} else { 
+		// 404 wrong operation
+		header('Location:../404.php');	
 	}
+} else { 
+	// 404 no operation
+	header('Location:../404.php');	
 }
-
-
-//echo $hint === "" ? "no suggestion" : $hint;
 ?>

@@ -38,7 +38,10 @@ if(isset($_SESSION['position'])){
             	<div class="form-group">
                     <label for="rID" class="control-label col-md-3">Request ID</label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="rID" id="rID" readonly="readonly"/>
+                    <select class="form-control" name="rID" id="rID">
+                    	<option selected="selected" disabled="disabled">--Select Card Request ID--</option>
+                        <option>asd</option>
+                    </select>
                 	</div>
                 </div>
                 <div class="form-group">

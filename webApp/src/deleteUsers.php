@@ -68,6 +68,10 @@ if(isset($_SESSION['position'])){
 						echo '<div class="form-group text-center" style="padding-left:100px;">
 								<label class="form-control label-success" style="height:35px;">User Deleted Succesfully.</label>
 							</div>';
+					} else if($error == "cd"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control label-success" style="height:35px;">Cannot Delete Station Master As He Is Already Being Assigned To A Station.</label>
+							</div>';
 					}
 				}
 			}

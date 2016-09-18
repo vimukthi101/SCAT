@@ -38,6 +38,29 @@
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Trains</font>
         </div>
     </a>
+    <div class="row" style="padding:10px;">
+    	<label style="color:rgb(204,204,204)">Configurations Management</label>
+    </div>
+    <a href="../src/addTrainTypes.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Add New Train Types</font>
+        </div>
+    </a>
+    <a href="../src/viewTrainTypes.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Train Types</font>
+        </div>
+    </a>
+    <a href="../src/updateTrainTypes.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Train Types</font>
+        </div>
+    </a>
+    <a href="../src/deleteTrainTypes.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Train Types</font>
+        </div>
+    </a>
 </div>
 </body>
 </html>

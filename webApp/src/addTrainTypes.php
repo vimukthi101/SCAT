@@ -11,7 +11,6 @@ if(isset($_SESSION['position'])){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('../ssi/links.html');
-	include_once('../ssi/db.php');
 ?>
 <title>Trains Management</title>
 </head>
@@ -31,7 +30,7 @@ if(isset($_SESSION['position'])){
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
         <div class="text-center" style="padding:10px;">
             <font face="Verdana, Geneva, sans-serif" size="+1">
-            	<u>Add New Trains</u>
+            	<u>Add New Train Types</u>
             </font>
         </div>
         <div style="padding:10px;"> 
@@ -43,68 +42,39 @@ if(isset($_SESSION['position'])){
 						echo '<div class="form-group text-center" style="padding-left:100px;">
 								<label class="form-control" style="height:35px;">Required Fields Cannot Be Empty.</label>
 							</div>';
-					} else if($error == "wc"){
+					} else if($error == "wf"){
 						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control" style="height:35px;">Train Code Should Be Numbers Only.</label>
+								<label class="form-control" style="height:35px;">Train Type ID And Name Should Be Letters Only.</label>
 							</div>';
-					} else if($error == "wn"){
+					} else if($error == "te"){
 						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control" style="height:35px;">Train Name Should Be Letters Only.</label>
-							</div>';
-					} else if($error == "wt"){
-						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control" style="height:35px;">Invalid Train Type.</label>
-							</div>';
-					} else if($error == "ae"){
-						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control" style="height:35px;">Train Code Or Name Already Exists.</label>
+								<label class="form-control" style="height:35px;">Train Type ID Or Name Already Exists.</label>
 							</div>';
 					} else if($error == "qf"){
 						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control" style="height:35px;">Could Not Add The Train. Please Try Again Later.</label>
+								<label class="form-control" style="height:35px;">Colud Not Add Train Type. Please Try Again Later.</label>
 							</div>';
 					} else if($error == "su"){
 						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control label-success" style="height:35px;">Train Successfully Added.</label>
+								<label class="form-control  label-success" style="height:35px;">Train Type Added Successfully.</label>
 							</div>';
 					}
 				}
 			}
-			?>
-            <form role="form" class="form-horizontal" method="post" action="controller/addTrainsController.php">
+		?>
+            <form role="form" class="form-horizontal" method="post" action="controller/addTrainTypesController.php">
             	<div class="form-group">
-                    <label for="tCode" class="control-label col-md-3">Train Code <span style="color:rgb(255,0,0);">*</span></label>
+                    <label for="tId" class="control-label col-md-3">Train Type ID<span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="tCode" id="tCode" pattern="^\d+$" title="Train Code Should Be Numbers Only" required="required"/>
+                    	<input class="form-control" type="text" name="tId" id="tId" pattern="^[a-zA-Z]+$" title="Train Type ID Should Be Letters Only." required="required"/>
                 	</div>
                 </div>
-                <div class="form-group">
-                    <label for="tName" class="control-label col-md-3">Name of the Train</label>
+            	<div class="form-group">
+                    <label for="tType" class="control-label col-md-3">Train Type Name<span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="text" name="tName" id="tName" pattern="^[a-zA-Z]+$" title="Train Name Should Be Letters Only."/>
+                    	<input class="form-control" type="text" name="tType" id="tType" pattern="^[a-zA-Z]+$" title="Train Type Name Should Be Letters Only." required="required"/>
                 	</div>
-                </div> 
-                <div class="form-group">
-                    <label for="tName" class="control-label col-md-3">Type of the Train <span style="color:rgb(255,0,0);">*</span></label>
-                    <div class="col-md-8">
-                    	<select class="form-control" name="tType" id="tType">
-                        <option selected="selected" disabled="disabled">--Select The Train Type--</option>
-                        <?php
-						$getTypes = "SELECT * FROM train_type";
-						$result = mysqli_query($con, $getTypes);
-						if(mysqli_num_rows($result) != 0){
-							while($row = mysqli_fetch_array($result)){
-								$id = $row['type_id'];
-								$name = $row['type_name'];
-								echo '<option value="'.$id.'">'.$name.'</option>';
-							}
-						} else {
-							echo '<option>No Train Types</option>';
-						}
-						?> 
-                        </select>
-                	</div>
-                </div> 
+                </div>
                 <div class="form-group" style="text-align:center;">
                     <label style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
                 </div>

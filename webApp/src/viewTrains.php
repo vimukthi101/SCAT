@@ -1,3 +1,10 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+if(isset($_SESSION['position'])){
+	if($_SESSION['position'] == "sysadmin"){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -45,16 +52,16 @@
 					 var idx = selectObj.selectedIndex; 
 					 var which = selectObj.options[idx].value; 
 					 if(which=='tCode'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="TrainCode" class="control-label col-md-3">Train Code</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value)" type="text" name="TrainCode" id="TrainCode" /></div></div><hr/>'; 
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="TrainCode" class="control-label col-md-3">Train Code</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id)" type="text" name="TrainCode" id="TrainCode" /></div></div><hr/>'; 
 					 } else if(which=='tName'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="TrainName" class="control-label col-md-3">Train Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value)" type="text" name="TrainName" id="TrainName" /></div></div><hr/>';
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="TrainName" class="control-label col-md-3">Train Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id)" type="text" name="TrainName" id="TrainName" /></div></div><hr/>';
 					 } else {
 						 document.getElementById('new').innerHTML = '';
 					 }
 				 } 
 			</script>
             <script>
-			function showHint(str) {
+			function showHint(str, id) {
 				if (str.length == 0) { 
 					document.getElementById("txtHint").innerHTML = "";
 					return;
@@ -65,15 +72,15 @@
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getTrainInfo.php?p=view&q=" + str, true);
+					xmlhttp.open("GET", "getTrainInfo.php?p=view&q=" + str + "&r=" + id, true);
 					xmlhttp.send();
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+            <div class="form-horizontal">
             	<div id="new"></div>
             	<div style="padding-left:200px;" id="txtHint"></div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -82,3 +89,11 @@
 ?>
 </body>
 </html>
+<?php
+	} else {
+		header('Location:../404.php');
+	}
+} else {
+	header('Location:../404.php');
+}
+?>
