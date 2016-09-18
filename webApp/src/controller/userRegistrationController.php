@@ -75,7 +75,7 @@
 																						$addUserStaff = "INSERT INTO staff VALUES ('".$employeeId."', '".$positionId."', '".$employeeNic."')";
 																						if(mysqli_query($con, $addUserStaff)){
 																							//send email to new user
-																							$to = $email;
+																							$to = $employeeEmail;
 $subject = "Profile Created";
 $message = "<p>Hi Manager,</p>
 <br/>
@@ -227,7 +227,7 @@ $message = "<p>Hi Manager,</p>
 																						$addUserStaff = "INSERT INTO staff VALUES ('".$employeeId."', '".$positionId."', '".$employeeNic."')";
 																						if(mysqli_query($con, $addUserStaff)){
 																							//send email to new user
-																							$to = $email;
+																							$to = $employeeEmail;
 $subject = "Profile Created";
 $message = "<p>Hi Station Master,</p>
 <br/>

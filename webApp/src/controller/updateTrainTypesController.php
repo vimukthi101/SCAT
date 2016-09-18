@@ -19,6 +19,27 @@
 						if(mysqli_num_rows($resultGetTypes) == 0){
 							$updateTypes = "UPDATE train_type SET type_name='".$typeName."' WHERE type_id='".$typeId."'";
 							if(mysqli_query($con, $updateTypes)){
+								$getEmp = "SELECT employee_email FROM employee WHERE nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager'))";
+								$resultEmp = mysqli_query($con, $getEmp);
+								if(mysqli_num_rows($resultEmp) != 0){
+									while($rowEmail = mysqli_fetch_array($resultEmp)){
+										//send email with new train type
+$to = $rowEmail['employee_email'];														
+$subject = "Train Type Has Being Updated";
+$message = "<p>Hi Manager,</p>
+<br/>
+<p>Following Train type has being updated. Please find the updated information,</p>
+<br/>
+<h4>Train Type ID : ".$typeId."</h4>
+<h4>Train Type Name : ".$typeName."</h4>
+<br/>
+<p>Thank You!</p>
+<p>S.C.A.T Admin</p>";
+										$headers = "MIME-Version: 1.0" . "\r\n";
+										$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+										mail($to, $subject, $message, $headers);
+									}
+								}
 								//success
 								header('Location:../updateTrainTypes.php?error=su');
 							} else {

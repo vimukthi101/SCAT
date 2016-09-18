@@ -20,6 +20,27 @@
 							if(mysqli_num_rows($resultTypes) == 0){
 								$addType = "INSERT INTO train_type VALUES('".$trainTypeId."','".$trainType."')";
 								if(mysqli_query($con, $addType)){
+									$getEmp = "SELECT employee_email FROM employee WHERE nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager'))";
+									$resultEmp = mysqli_query($con, $getEmp);
+									if(mysqli_num_rows($resultEmp) != 0){
+										while($rowEmail = mysqli_fetch_array($resultEmp)){
+											//send email with new station
+$to = $rowEmail['employee_email'];														
+$subject = "Train Type Has Being Added";
+$message = "<p>Hi Manager,</p>
+<br/>
+<p>Following train type has being added to the system,</p>
+<br/>
+<h4>Train Type ID : ".$trainTypeId."</h4>
+<h4>Train Type : ".$trainType."</h4>
+<br/>
+<p>Thank You!</p>
+<p>S.C.A.T Admin</p>";
+											$headers = "MIME-Version: 1.0" . "\r\n";
+											$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+											mail($to, $subject, $message, $headers);
+										}
+									}
 									//success
 									header('Location:../addTrainTypes.php?error=su');
 								} else {

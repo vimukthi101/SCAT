@@ -25,6 +25,50 @@
 								if(mysqli_num_rows($resultStation) == 0){
 									$insert = "INSERT INTO station VALUES('".$code."','".$name."','0','".$smNic."')";
 									if(mysqli_query($con, $insert)){
+										$getEmp = "SELECT employee_email FROM employee WHERE nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager'))";
+										$resultEmp = mysqli_query($con, $getEmp);
+										if(mysqli_num_rows($resultEmp) != 0){
+											while($rowEmail = mysqli_fetch_array($resultEmp)){
+												//send email with new station
+$to = $rowEmail['employee_email'];														
+$subject = "New Station Has Being Added";
+$message = "<p>Hi Manager,</p>
+<br/>
+<p>New station has being added to the system with following details.</p>
+<br/>
+<h4>Station Code : ".$code."</h4>
+<h4>Station Name : ".$name."</h4>
+<h4>Station Master NIC : ".$smNic."</h4>
+<br/>
+<p>Thank You!</p>
+<p>S.C.A.T Admin</p>";
+												$headers = "MIME-Version: 1.0" . "\r\n";
+												$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+												mail($to, $subject, $message, $headers);
+											}
+										}
+										$getSM = "SELECT employee_email FROM employee WHERE nic='".$smNic."'";
+										$resultSM = mysqli_query($con, $getSM);
+										if(mysqli_num_rows($resultSM) != 0){
+											while($rowSM = mysqli_fetch_array($resultSM)){
+$toSm =  $rowSM['employee_email'];														
+$subjectSm = "Assigned to a Station";
+$messageSm = "<p>Hi Station Master,</p>
+<br/>
+<p>With in Effect from ".date("l jS \of F Y h:i:s A")." you have being assigned to following station as the station master. Please find the information,</p>
+<br/>
+<h4>Station Code : ".$code."</h4>
+<h4>Station Name : ".$name."</h4>
+<br/>
+<p>Congratulations!</p>
+<br/>
+<p>Thank You!</p>
+<p>S.C.A.T Admin</p>";
+												$headersSm = "MIME-Version: 1.0" . "\r\n";
+												$headersSm .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+												mail($toSm, $subjectSm, $messageSm, $headersSm);
+												}
+										}
 										//success
 										header('Location:../addStations.php?error=su');
 									} else {

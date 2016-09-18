@@ -26,6 +26,28 @@
 									//not used in timetable
 									$delete = "DELETE FROM train WHERE train_id='".$trainCode."'";
 									if(mysqli_query($con, $delete)){
+										$getEmp = "SELECT employee_email FROM employee WHERE nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager'))";
+										$resultEmp = mysqli_query($con, $getEmp);
+										if(mysqli_num_rows($resultEmp) != 0){
+											while($rowEmail = mysqli_fetch_array($resultEmp)){
+												//send email with new station
+$to = $rowEmail['employee_email'];														
+$subject = "Train Has Being Deleted";
+$message = "<p>Hi Manager,</p>
+<br/>
+<p>Following train has being removed from the system,</p>
+<br/>
+<h4>Train Code : ".$trainCode."</h4>
+<h4>Train Name : ".$trainName."</h4>
+<h4>Train Type : ".$trainType."</h4>
+<br/>
+<p>Thank You!</p>
+<p>S.C.A.T Admin</p>";
+												$headers = "MIME-Version: 1.0" . "\r\n";
+												$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+												mail($to, $subject, $message, $headers);
+											}
+										}
 										//success
 										header('Location:../deleteTrains.php?error=su');
 									} else {

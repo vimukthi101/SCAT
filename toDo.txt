@@ -1,7 +1,0 @@
-issue cards for requests part start and finish
-
-need to write the trigger for station table
-
-****start stations portal****
-
-delete stations

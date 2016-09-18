@@ -400,11 +400,156 @@ if($p != ""){
 		} else if ($p == "delete") {
 			if ($q != "") {
 				if($r == "StationCode"){
-					
+					$getStation = "SELECT * FROM station WHERE station_code='".$q."'";
+					$resultStation = mysqli_query($con, $getStation);
+					if(mysqli_num_rows($resultStation) != 0){
+						while($rowStation = mysqli_fetch_array($resultStation)){
+							$stationCode = $rowStation['station_code'];
+							$stationName = $rowStation['station_name'];
+							$cards = $rowStation['available_cards'];
+							$stationMaster = $rowStation['employee_nic'];
+							$get = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$stationMaster."')";
+							$resultGet = mysqli_query($con, $get);
+							if(mysqli_num_rows($resultGet) != 0){
+								while($rowGet = mysqli_fetch_array($resultGet)){
+									$fname = $rowGet['first_name'];
+									$sname = $rowGet['second_name'];
+									$lname = $rowGet['last_name'];
+								}
+							}
+							echo '<form role="form" class="form-horizontal" method="post" action="controller/deleteStationsController.php">
+									<div class="form-group">
+										<label for="sCode" class="control-label col-md-3">Station Code <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="sCode" id="sCode" value="'.$stationCode.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sName" class="control-label col-md-3">Name of the Station <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="sName" id="sName"  pattern="^[a-zA-Z]+$" title="Name Of The Station Should Be Letters Only." required="required" value="'.$stationName.'" readonly/>
+										</div>
+									</div> 
+									<div class="form-group">
+										<label for="smName" class="control-label col-md-3">Station Master\'s Name <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input type="text" class="form-control" name="smID" id="smID" value="'.$stationMaster.'" readonly />	
+									</div>
+									</div> 
+									<div class="form-group" style="text-align:center;">
+										<label style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+									</div>
+									<div class="form-group col-md-11 text-center">
+										<input type="submit" value="Delete" name="submit" id="submit" class="btn btn-danger" onclick="return confirm(\'Do You Wish to Delete Station?\');return false;"/>
+									</div>
+								</form>';
+						}
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+					}
 				} else if($r == "StationName"){
-					
+					$getStation = "SELECT * FROM station WHERE station_name='".$q."'";
+					$resultStation = mysqli_query($con, $getStation);
+					if(mysqli_num_rows($resultStation) != 0){
+						while($rowStation = mysqli_fetch_array($resultStation)){
+							$stationCode = $rowStation['station_code'];
+							$stationName = $rowStation['station_name'];
+							$cards = $rowStation['available_cards'];
+							$stationMaster = $rowStation['employee_nic'];
+							$get = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$stationMaster."')";
+							$resultGet = mysqli_query($con, $get);
+							if(mysqli_num_rows($resultGet) != 0){
+								while($rowGet = mysqli_fetch_array($resultGet)){
+									$fname = $rowGet['first_name'];
+									$sname = $rowGet['second_name'];
+									$lname = $rowGet['last_name'];
+								}
+							}
+							echo '<form role="form" class="form-horizontal" method="post" action="controller/deleteStationsController.php">
+									<div class="form-group">
+										<label for="sCode" class="control-label col-md-3">Station Code <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="sCode" id="sCode" value="'.$stationCode.'" readonly/>
+										</div>
+									</div>
+									<input class="form-control" type="hidden" name="oldNIC" id="oldNIC" value="'.$stationMaster.'"/>
+									<input class="form-control" type="hidden" name="oldName" id="oldName" value="'.$stationName.'"/>
+									<div class="form-group">
+										<label for="sName" class="control-label col-md-3">Name of the Station <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="sName" id="sName"  pattern="^[a-zA-Z]+$" title="Name Of The Station Should Be Letters Only." required="required" value="'.$stationName.'" readonly/>
+										</div>
+									</div> 
+									<div class="form-group">
+										<label for="smName" class="control-label col-md-3">Station Master\'s Name <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="smID" id="smID" value="'.$stationMaster.'" readonly />
+									</div>
+									</div> 
+									<div class="form-group" style="text-align:center;">
+										<label style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+									</div>
+									<div class="form-group col-md-11 text-center">
+										<input type="submit" value="Delete" name="submit" id="submit" class="btn btn-danger" onclick="return confirm(\'Do You Wish to Delete Station?\');return false;"/>
+									</div>
+								</form>';
+						}
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+					}
 				} else if($r == "StationMaster"){
-					
+					$getStation = "SELECT * FROM station WHERE employee_nic='".$q."'";
+					$resultStation = mysqli_query($con, $getStation);
+					if(mysqli_num_rows($resultStation) != 0){
+						while($rowStation = mysqli_fetch_array($resultStation)){
+							$stationCode = $rowStation['station_code'];
+							$stationName = $rowStation['station_name'];
+							$cards = $rowStation['available_cards'];
+							$stationMaster = $rowStation['employee_nic'];
+							$get = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$stationMaster."')";
+							$resultGet = mysqli_query($con, $get);
+							if(mysqli_num_rows($resultGet) != 0){
+								while($rowGet = mysqli_fetch_array($resultGet)){
+									$fname = $rowGet['first_name'];
+									$sname = $rowGet['second_name'];
+									$lname = $rowGet['last_name'];
+								}
+							}
+							echo '<form role="form" class="form-horizontal" method="post" action="controller/deleteStationsController.php">
+									<div class="form-group">
+										<label for="sCode" class="control-label col-md-3">Station Code <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="sCode" id="sCode" value="'.$stationCode.'" readonly/>
+										</div>
+									</div>
+									<input class="form-control" type="hidden" name="oldNIC" id="oldNIC" value="'.$stationMaster.'"/>
+									<input class="form-control" type="hidden" name="oldName" id="oldName" value="'.$stationName.'"/>
+									<div class="form-group">
+										<label for="sName" class="control-label col-md-3">Name of the Station <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="sName" id="sName"  pattern="^[a-zA-Z]+$" title="Name Of The Station Should Be Letters Only." required="required" value="'.$stationName.'" readonly/>
+										</div>
+									</div> 
+									<div class="form-group">
+										<label for="smName" class="control-label col-md-3">Station Master\'s Name <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="smID" id="smID" value="'.$stationMaster.'" readonly />
+									</div>
+									</div> 
+									<div class="form-group" style="text-align:center;">
+										<label style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+									</div>
+									<div class="form-group col-md-11 text-center">
+										<input type="submit" value="Delete" name="submit" id="submit" class="btn btn-danger" onclick="return confirm(\'Do You Wish to Delete Station?\');return false;"/>
+									</div>
+								</form>';
+						}
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+					}
 				} else {
 					//404	
 					header('Location:../404.php');

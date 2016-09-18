@@ -34,6 +34,50 @@ if(isset($_SESSION['position'])){
             </font>
         </div>
         <div style="padding:10px;"> 
+        	<?php
+			if(isset($_GET['error'])){
+				if(!empty($_GET['error'])){
+					$error = $_GET['error'];
+					if($error == "ef"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Required Fields Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wc"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Station Code Should Be Letters Only.</label>
+							</div>';
+					} else if($error == "wn"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Station Name Should Be Letters Only.</label>
+							</div>';
+					} else if($error == "ws"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Invalid Station Master.</label>
+							</div>';
+					} else if($error == "ac"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Cannot Delete As Station Already Used In Cards.</label>
+							</div>';
+					} else if($error == "ar"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Cannot Delete As Station Already Used In Card Requests.</label>
+							</div>';
+					} else if($error == "at"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Cannot Delete As Station Already Used In Tickets.</label>
+							</div>';
+					} else if($error == "qf"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Could Not Delete The Station. Please Try Again Later.</label>
+							</div>';
+					} else if($error == "su"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control label-success" style="height:35px;">Station Successfully Deleted.</label>
+							</div>';
+					}
+				}
+			}
+			?>
             <form role="form" class="form-horizontal">
             	<div class="form-group">
                     <label for="search" class="control-label col-md-3">Search By : </label>
@@ -42,6 +86,7 @@ if(isset($_SESSION['position'])){
                           <option selected="selected" disabled="disabled">--Select the search criteria--</option>
                           <option value="sCode">Station Code</option>
                           <option value="sName">Name of the Station</option>
+                          <option value="sm">Station Master</option>
                         </select>
                 	</div>
                 </div>
@@ -52,16 +97,18 @@ if(isset($_SESSION['position'])){
 					 var idx = selectObj.selectedIndex; 
 					 var which = selectObj.options[idx].value; 
 					 if(which=='sCode'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="StationCode" class="control-label col-md-3">Station Code</label><div class="col-md-8"><input class="form-control" type="text" name="StationCode" id="StationCode" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>'; 
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="StationCode" class="control-label col-md-3">Station Code</label><div class="col-md-8"><input class="form-control" type="text" name="StationCode" id="StationCode" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(document.getElementById(\'StationCode\').value, document.getElementById(\'StationCode\').id);"/></div></div><hr/>'; 
 					 } else if(which=='sName'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="StationName" class="control-label col-md-3">Station Name</label><div class="col-md-8"><input class="form-control" type="text" name="StationName" id="StationName" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>';
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="StationName" class="control-label col-md-3">Station Name</label><div class="col-md-8"><input class="form-control" type="text" name="StationName" id="StationName" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(document.getElementById(\'StationName\').value, document.getElementById(\'StationName\').id);"/></div></div><hr/>';
+					 } else if(which=='sm'){
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label class="control-label col-md-3">Station Master NIC</label><div class="col-md-8"><input class="form-control" type="text" name="StationMaster" id="StationMaster" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(document.getElementById(\'StationMaster\').value, document.getElementById(\'StationMaster\').id);"/></div></div><hr/>';
 					 } else {
 						 document.getElementById('new').innerHTML = '';
 					 }
 				 } 
 			</script>
             <script>
-			function showHint(str) {
+			function showHint(str, id) {
 				if (str.length == 0) { 
 					document.getElementById("txtHint").innerHTML = "";
 					return;
@@ -72,15 +119,15 @@ if(isset($_SESSION['position'])){
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getStationInfo.php?p=delete&q=" + str, true);
+					xmlhttp.open("GET", "getStationInfo.php?p=delete&q=" + str + "&r=" + id, true);
 					xmlhttp.send();
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+            <div class="form-horizontal">
             	<div id="new"></div>
             	<div style="padding-left:70px;" id="txtHint"></div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

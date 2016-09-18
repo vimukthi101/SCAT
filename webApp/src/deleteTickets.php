@@ -30,7 +30,7 @@ if(isset($_SESSION['position'])){
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
         <div class="text-center" style="padding:10px;">
             <font face="Verdana, Geneva, sans-serif" size="+1">
-            	<u>Update Tickets</u>
+            	<u>Delete Tickets</u>
             </font>
         </div>
         <div style="padding:10px;"> 
@@ -58,7 +58,7 @@ if(isset($_SESSION['position'])){
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getTicketInfo.php?p=update&q=" + str, true);
+					xmlhttp.open("GET", "getTicketInfo.php?p=delete&q=" + str, true);
 					xmlhttp.send();
 				}
 			}

@@ -28,17 +28,22 @@
     </div>
     <a href="../src/addTickets.php" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Add Ticket Fee</font>
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Add Tickets</font>
         </div>
     </a>
     <a href="../src/viewTickets.php" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Ticket Fee</font>
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Tickets</font>
         </div>
     </a>
     <a href="../src/updateTickets.php" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Ticket Fee</font>
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Tickets</font>
+        </div>
+    </a>
+    <a href="../src/deleteTickets.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Delete Tickets</font>
         </div>
     </a>
 </div>
