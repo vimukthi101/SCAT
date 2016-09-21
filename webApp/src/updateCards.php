@@ -64,7 +64,7 @@ if(isset($_SESSION['position'])){
 							</div>';
 					} else if($error == "qf"){
 						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control" style="height:35px;">Could Not Add The Card. Please Try Again Later.</label>
+								<label class="form-control" style="height:35px;">Could Not Update The Card. Please Try Again Later.</label>
 							</div>';
 					} else if($error == "su"){
 						echo '<div class="form-group text-center" style="padding-left:100px;">

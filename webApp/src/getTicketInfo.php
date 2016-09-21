@@ -1,5 +1,6 @@
 <?php
 include_once('../ssi/links.html');
+include_once('../ssi/db.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,95 +18,152 @@ a:visited{
 </style>
 </head>
 <?php
-$q = $_REQUEST["q"];
-$p = $_REQUEST["p"];
-$hint = "";
-
-if($p != ""){
+//value enter by user
+$q = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["q"])));
+//operation : view/update/delete
+$p = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["p"])));
+//html idd
+$r = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["r"])));
+if($p != "" && $r != ""){
 	if($p == "view"){
 		if ($q != "") {
-			if($q == "all"){
-				$hint .= '<div class="form-group">
+			if($r == "all"){
+				$getType = "SELECT * FROM ticket";
+			} else if($r == "tFee") {
+				$getType = "SELECT * FROM ticket WHERE ticket_fee LIKE '".$q."%'";
+			} else if($r == "Station"){
+				$getType = "SELECT * FROM ticket WHERE station_in_station_code LIKE '".$q."%' OR station_out_station_code LIKE '".$q."%'";
+			}
+			$resultGetType = mysqli_query($con, $getType);
+			if(mysqli_num_rows($resultGetType) != 0){
+				echo '<div class="form-group">
 							<div class="container-fluid center-block">
-								<table style="width:80%;" class="table table-striped">
+								<table style="width:100%;" class="table table-striped">
 								  <tr>
-									<th>In Station</th>
-									<th>Out Station</th>
+									<th>In Station Code</th>
+									<th>Out Station Code</th>
 									<th>Ticket Fee</th>
-									<th>Settings</th>
-								  </tr>
-								  <tr>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td><a href="#"><i class="fa fa-2x fa-trash-o" style="padding-right:10px;" aria-hidden="true"></i></a><a href="#"><i class="fa fa-2x fa-cog" style="padding-left:5px;" aria-hidden="true"></i></a></td>
-								  </tr>
-								  <tr>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td><a href="#"><i class="fa fa-2x fa-trash-o" style="padding-right:10px;" aria-hidden="true"></i></a><a href="#"><i class="fa fa-2x fa-cog" style="padding-left:5px;" aria-hidden="true"></i></a></td>
-								  </tr>
-								  <tr>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td><a href="#"><i class="fa fa-2x fa-trash-o" style="padding-right:10px;" aria-hidden="true"></i></a><a href="#"><i class="fa fa-2x fa-cog" style="padding-left:5px;" aria-hidden="true"></i></a></td>
-								  </tr>
-								</table>
+								  </tr>';
+				while($rowTypes = mysqli_fetch_array($resultGetType)){
+					$iCode = $rowTypes['station_in_station_code'];
+					$oCode = $rowTypes['station_out_station_code'];
+					$fee = $rowTypes['ticket_fee'];			
+						echo '<tr>
+						<td>'.$iCode.'</td>
+						<td>'.$oCode.'</td>
+						<td>'.$fee.'</td>
+					  </tr>';
+				}
+				echo '</table>
 							</div>
 						</div>';
 			} else {
-				$hint .= '<div class="form-group">
-							<div class="container-fluid center-block">
-								<table style="width:80%;" class="table table-striped">
-								  <tr>
-									<th>In Station</th>
-									<th>Out Station</th>
-									<th>Ticket Fee</th>
-									<th>Settings</th>
-								  </tr>
-								  <tr>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td><a href="#"><i class="fa fa-2x fa-trash-o" style="padding-right:10px;" aria-hidden="true"></i></a><a href="#"><i class="fa fa-2x fa-cog" style="padding-left:5px;" aria-hidden="true"></i></a></td>
-								  </tr>
-								  <tr>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td><a href="#"><i class="fa fa-2x fa-trash-o" style="padding-right:10px;" aria-hidden="true"></i></a><a href="#"><i class="fa fa-2x fa-cog" style="padding-left:5px;" aria-hidden="true"></i></a></td>
-								  </tr>
-								  <tr>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td><a href="#"><i class="fa fa-2x fa-trash-o" style="padding-right:10px;" aria-hidden="true"></i></a><a href="#"><i class="fa fa-2x fa-cog" style="padding-left:5px;" aria-hidden="true"></i></a></td>
-								  </tr>
-								</table>
-							</div>
-						</div>';
-			}
-		}
+				//if no result to show
+				echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+			}	 			  
+		} else {
+			//if empty q
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
+		}	
 	} else if($p == "update"){
 		if($q != ""){
-			$hint .= '<form role="form" class="form-horizontal">
-            	<div class="form-group">
-                    <label for="nFee" class="control-label col-md-3">New Ticket Fee</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="nFee" id="nFee" />
-                	</div>
-                </div> 
-                <div class="form-group col-md-11 text-center">
-                    <input type="submit" value="Update" class="btn btn-success" />
-                    <input type="reset" value="Clear" class="btn btn-danger" />
-                </div>
-            </form>';
-		}
+			if($r == "fee") {
+				$getTicket = "SELECT * FROM ticket WHERE ticket_fee='".$q."'";
+			} else if($r == "station"){
+				$getTicket = "SELECT * FROM ticket WHERE station_in_station_code='".$q."' OR station_out_station_code='".$q."'";
+			}
+			$resultGetTicket = mysqli_query($con, $getTicket);
+			if(mysqli_num_rows($resultGetTicket) != 0){
+				echo '<form role="form" class="form-horizontal" method="post" action="controller/updateTicketsController.php">
+						<div class="form-group">
+							<label class="control-label col-md-3">New Ticket Fee <span style="color:rgb(255,0,0);">*</span></label>
+							<div class="col-md-8">
+								<input class="form-control" type="text" name="tFee" id="tFee"/>
+							</div>
+						</div>
+						<input class="form-control" type="hidden" name="oldtFee" id="oldtFee" value="'.$q.'"/>
+						<div class="form-group" style="text-align:center;">
+							<label style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+						</div>
+						<div class="form-group col-md-11 text-center">
+							<input type="submit" id="submit" name="submit" value="Update" class="btn btn-success"  onclick="return confirm(\'Do You Wish to Update Ticket Fee?\');return false;"/>
+						</div>
+					</form>';
+				echo '<div class="form-group">
+							<div class="container-fluid center-block">
+								<table style="width:100%;" class="table table-striped">
+								  <tr>
+									<th>In Station Code</th>
+									<th>Out Station Code</th>
+									<th>Ticket Fee</th>
+								  </tr>';
+				while($rowGetTicket = mysqli_fetch_array($resultGetTicket)){
+					$iStation = $rowGetTicket['station_in_station_code'];
+					$oStation = $rowGetTicket['station_out_station_code'];
+					$fee = $rowGetTicket['ticket_fee'];
+					echo '<tr>
+						<td>'.$iStation.'</td>
+						<td>'.$oStation.'</td>
+						<td>'.$fee.'</td>
+					  </tr>';
+				}
+				echo '</table>
+							</div>
+						</div>';
+			} else {
+				//no data	
+				echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+			}
+		} else {
+			//if empty q
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
+		}	
+	} else if ($p == "delete") {
+		if($q != ""){
+			$getTicket = "SELECT * FROM ticket WHERE station_in_station_code='".$q."' OR station_out_station_code='".$q."'";
+			$resultGetTicket = mysqli_query($con, $getTicket);
+			if(mysqli_num_rows($resultGetTicket) != 0){
+				echo '<form role="form" class="form-horizontal" method="post" action="controller/deleteTicketsController.php">
+						<input class="form-control" type="hidden" name="oldtFee" id="oldtFee" value="'.$q.'"/>
+						<div class="form-group col-md-11 text-center">
+							<input type="submit" id="submit" name="submit" value="Delete" class="btn btn-danger"  onclick="return confirm(\'Do You Wish to Delete Ticket Fee?\');return false;"/>
+						</div>
+					</form>';
+				echo '<div class="form-group">
+							<div class="container-fluid center-block">
+								<table style="width:100%;" class="table table-striped">
+								  <tr>
+									<th>In Station Code</th>
+									<th>Out Station Code</th>
+									<th>Ticket Fee</th>
+								  </tr>';
+				while($rowGetTicket = mysqli_fetch_array($resultGetTicket)){
+					$iStation = $rowGetTicket['station_in_station_code'];
+					$oStation = $rowGetTicket['station_out_station_code'];
+					$fee = $rowGetTicket['ticket_fee'];
+					echo '<tr>
+						<td>'.$iStation.'</td>
+						<td>'.$oStation.'</td>
+						<td>'.$fee.'</td>
+					  </tr>';
+				}
+				echo '</table>
+							</div>
+						</div>';
+			} else {
+				//no data	
+				echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+			}
+		} else {
+			//if empty q
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
+		}		
+	} else {
+		// 404 wrong operation
+		header('Location:../404.php');	
 	}
+} else {
+	// 404 no operation
+	header('Location:../404.php');	
 }
-
-
-echo $hint === "" ? "no suggestion" : $hint;
 ?>

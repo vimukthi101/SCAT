@@ -34,20 +34,59 @@ if(isset($_SESSION['position'])){
             </font>
         </div>
         <div style="padding:10px;"> 
+        	<?php
+				if(isset($_GET['error'])){
+					if(!empty($_GET['error'])){
+						$error = $_GET['error'];
+						if($error == "ef"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">Required Fields Cannot Be Empty.</label>
+								</div>';
+						} else if($error == "wo"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">There Was An Error. Please Try Again Later.</label>
+								</div>';
+						} else if($error == "ae"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">Cannot Delete As Ticket Has Being Used In Payments.</label>
+								</div>';
+						} else if($error == "qf"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control" style="height:35px;">Could Not Delete The Ticket Fee. Please Try Again Later.</label>
+								</div>';
+						} else if($error == "su"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control label-success" style="height:35px;">Ticket Fee Successfully Deleted.</label>
+								</div>';
+						}
+					}
+				}
+			?>
             <form role="form" class="form-horizontal">
             	<div class="form-group">
-                	<label for="tFee" class="control-label col-md-3">Ticket Fee</label>
+                    <label for="search" class="control-label col-md-3">Search By : </label>
                     <div class="col-md-8">
-                        <input class="form-control" type="text" name="tFee" id="tFee" />
-                    </div>
-                    <div>
-                        <input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/>
-                    </div>
+                    	<select onchange="load(this);" name="searchBy" id="searchBy" class="form-control">
+                          <option selected="selected" disabled="disabled">--Select the search criteria--</option>
+                          <option value="Station">Station</option>
+                        </select>
+                	</div>
                 </div>
                 <hr/>
             </form>
+             <script type="text/javascript">
+				 function load(selectObj) { 
+					 var idx = selectObj.selectedIndex; 
+					 var which = selectObj.options[idx].value; 
+					 if(which=='Station'){
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="station" class="control-label col-md-3">Station Code</label><div class="col-md-8"><input class="form-control" type="text" name="station" id="station" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(document.getElementById(\'station\').value, document.getElementById(\'station\').id);"/></div></div><hr/>';
+					 } else {
+						 document.getElementById('new').innerHTML = '';
+					 }
+				 } 
+			</script>
             <script>
-			function showHint(str) {
+			function showHint(str, id) {
 				if (str.length == 0) { 
 					document.getElementById("txtHint").innerHTML = "";
 					return;
@@ -58,20 +97,32 @@ if(isset($_SESSION['position'])){
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getTicketInfo.php?p=delete&q=" + str, true);
+					xmlhttp.open("GET", "getTicketInfo.php?p=delete&q=" + str + "&r=" + id, true);
 					xmlhttp.send();
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+            <div class="form-horizontal">
+            	<div id="new"></div>
             	<div style="padding-left:70px;" id="txtHint"></div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 <?php
 	include_once('../ssi/footer.php');
 ?>
+<!--disable the enter key-->
+<script type="text/javascript">
+	window.addEventListener('keydown',function(e){
+		if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){
+			if(e.target.nodeName=='INPUT'&&e.target.type=='text'){
+				e.preventDefault();
+				return false;
+			}
+		}
+	},true);
+</script>
 </body>
 </html>
 <?php

@@ -41,8 +41,7 @@ if(isset($_SESSION['position'])){
                     	<select onchange="load(this);" name="searchBy" id="searchBy" class="form-control">
                           <option selected="selected" disabled="disabled">--Select the search criteria--</option>
                           <option value="all">List All</option>
-                          <option value="inStation">In Station</option>
-                          <option value="outStation">Out Station</option>
+                          <option value="Station">Station</option>
                           <option value="fee">Ticket Fee</option>
                         </select>
                 	</div>
@@ -53,21 +52,19 @@ if(isset($_SESSION['position'])){
 				 function load(selectObj) { 
 					 var idx = selectObj.selectedIndex; 
 					 var which = selectObj.options[idx].value; 
-					 if(which=='inStation'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="inStation" class="control-label col-md-3">In Station</label><div class="col-md-8"><select onchange="showHint(this.value);" name="inStation" id="inStation" class="form-control"><option selected="selected" disabled="disabled">--Select the In Station--</option><option value="maradana">maradana</option><option value="">colombo</option><option value="">Galle</option></select></div></div><hr/>';
-					 } else if(which=='outStation'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="outStation" class="control-label col-md-3">Out Station</label><div class="col-md-8"><select onchange="showHint(this.value);" name="outStation" id="outStation" class="form-control"><option selected="selected" disabled="disabled">--Select the In Station--</option><option value="maradana">maradana</option><option value="">colombo</option><option value="">Galle</option></select></div></div><hr/>';
+					 if(which=='Station'){
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="Station" class="control-label col-md-3">Station Code</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id)" type="text" name="Station" id="Station" /></div></div><hr/>';
 					 } else if(which=='fee'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="tFee" class="control-label col-md-3">Ticket Fee</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value)" type="text" name="tFee" id="tFee" /></div></div><hr/>';
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="tFee" class="control-label col-md-3">Ticket Fee</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id)" type="text" name="tFee" id="tFee" /></div></div><hr/>';
 					 } else if(which=='all'){
-						 showHint('all');
+						 showHint('all', 'all');
 					 } else {
 						 document.getElementById('new').innerHTML = '';
 					 }
 				 } 
 			</script>
             <script>
-			function showHint(str) {
+			function showHint(str, id) {
 				if (str.length == 0) { 
 					document.getElementById("txtHint").innerHTML = "";
 					return;
@@ -78,15 +75,15 @@ if(isset($_SESSION['position'])){
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getTicketInfo.php?p=view&q=" + str, true);
+					xmlhttp.open("GET", "getTicketInfo.php?p=view&q=" + str + "&r=" + id, true);
 					xmlhttp.send();
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+            <div class="form-horizontal">
             	<div id="new"></div>
             	<div style="padding-left:200px;" id="txtHint"></div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
