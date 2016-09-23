@@ -32,7 +32,7 @@
 												//send email with new reg fee
 $to = $rowEmail['employee_email'];														
 $subject = "New Train Has Being Added";
-$message = "<p>Hi Manager,</p>
+$message = "<p>Dear Manager,</p>
 <br/>
 <p>New train has being added to the system with following details.</p>
 <br/>

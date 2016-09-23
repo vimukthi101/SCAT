@@ -26,7 +26,7 @@
 										//send email with new train type
 $to = $rowEmail['employee_email'];														
 $subject = "Train Type Has Being Updated";
-$message = "<p>Hi Manager,</p>
+$message = "<p>Dear Manager,</p>
 <br/>
 <p>Following Train type has being updated. Please find the updated information,</p>
 <br/>

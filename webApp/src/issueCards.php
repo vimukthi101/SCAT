@@ -11,6 +11,7 @@ if(isset($_SESSION['position'])){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('../ssi/links.html');
+	include_once('../ssi/db.php');
 ?>
 <title>Cards Management</title>
 </head>
@@ -34,45 +35,100 @@ if(isset($_SESSION['position'])){
             </font>
         </div>
         <div style="padding:10px;"> 
-            <form role="form" class="form-horizontal">
+        	<?php
+			if(isset($_GET['error'])){
+				if(!empty($_GET['error'])){
+					$error = $_GET['error'];
+					if($error == "ef"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Required Fields Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "ir"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Invalid Card Request.</label>
+							</div>';
+					} else if($error == "wc"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Wrong Card Number Format.</label>
+							</div>';
+					} else if($error == "qfi"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Could Not Issue The Cards. Please Try Again Later.</label>
+							</div>';
+					} else if($error == "sui"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control label-success" style="height:35px;">Cards Successfully Issued.</label>
+							</div>';
+					} else if($error == "qfr"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Could Not Reject The Cards. Please Try Again Later.</label>
+							</div>';
+					} else if($error == "sur"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control label-success" style="height:35px;">Cards Successfully Rejected.</label>
+							</div>';
+					}
+				}
+			}
+			?>
+            <div class="form-horizontal">
             	<div class="form-group">
                     <label for="rID" class="control-label col-md-3">Request ID</label>
                     <div class="col-md-8">
-                    <select class="form-control" name="rID" id="rID">
-                    	<option selected="selected" disabled="disabled">--Select Card Request ID--</option>
-                        <option>asd</option>
-                    </select>
+                        <select class="form-control" name="rID" id="rID" onchange="showHint(this.value)">
+                            <option selected="selected" disabled="disabled">--Select Card Request ID--</option>
+                        <?php 
+                            $getCards = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='request')";
+                            $resultCards = mysqli_query($con, $getCards);
+                            if(mysqli_num_rows($resultCards) != 0){
+                                while($rowCards = mysqli_fetch_array($resultCards)){
+                                    $reqId = $rowCards['request_id'];
+									$station = $rowCards['station_station_code'];
+									$getStation = "SELECT * FROM station WHERE station_code='".$station."'";
+									$resultStation = mysqli_query($con, $getStation);
+									if(mysqli_num_rows($resultStation) != 0){
+										while($rowStation = mysqli_fetch_array($resultStation)){
+											$stationName = $rowStation['station_name'];
+										}
+									}
+									echo '<option value="'.$reqId.'">'.$reqId.' - '.$stationName.'</option>';
+                                }
+								$getSM = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$smNic."')";
+								$resultSM = mysqli_query($con, $getSM);
+								if(mysqli_num_rows($resultSM) != 0){
+									while($rowSM = mysqli_fetch_array($resultSM)){
+										$fName = $rowSM['first_name'];
+										$sName = $rowSM['second_name'];
+										$lName = $rowSM['last_name'];
+									}
+								}
+                            }
+                        ?>
+                    	</select>
                 	</div>
                 </div>
-                <div class="form-group">
-                    <label for="station" class="control-label col-md-3">Station Name</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="station" id="station" readonly="readonly"/>
-                	</div>
                 </div>
-                <div class="form-group">
-                    <label for="stationMaster" class="control-label col-md-3">Station Master</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="stationMaster" id="stationMaster" readonly="readonly"/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="nRequest" class="control-label col-md-3">Number of Cards Requested</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="nRequest" id="nRequest" readonly="readonly"/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="nSend" class="control-label col-md-3">Number of Cards to Send</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="nSend" id="nSend"/>
-                	</div>
-                </div>
-                <div class="form-group col-md-11 text-center">
-                    <input type="submit" value="Issue" class="btn btn-success" />
-                    <input type="reset" value="Reject" class="btn btn-danger" />
-                </div>
-            </form>
+                <hr />
+                <script>
+					function showHint(str) {
+						if (str.length == 0) { 
+							document.getElementById("txtHint").innerHTML = "";
+							return;
+						} else {
+							var xmlhttp = new XMLHttpRequest();
+							xmlhttp.onreadystatechange = function() {
+								if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+									document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+								}
+							};
+							xmlhttp.open("GET", "getCardInfo.php?p=requests&q=" + str, true);
+							xmlhttp.send();
+						}
+					}
+                </script>
+				<div class="form-horizontal">
+					<div style="padding-left:70px;" id="txtHint"></div>
+				</div>
         </div>
     </div>
 </div>

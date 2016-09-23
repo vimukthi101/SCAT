@@ -37,7 +37,7 @@
 													//send email with new station
 $to = $rowEmail['employee_email'];														
 $subject = "Station Has Being Deleted";
-$message = "<p>Hi Manager,</p>
+$message = "<p>Dear Manager,</p>
 <br/>
 <p>Following station has being removed from the system,</p>
 <br/>

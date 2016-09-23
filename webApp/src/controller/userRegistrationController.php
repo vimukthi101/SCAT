@@ -77,7 +77,7 @@
 																							//send email to new user
 																							$to = $employeeEmail;
 $subject = "Profile Created";
-$message = "<p>Hi Manager,</p>
+$message = "<p>Dear Manager,</p>
 <br/>
 <p>A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
 <br/>
@@ -229,7 +229,7 @@ $message = "<p>Hi Manager,</p>
 																							//send email to new user
 																							$to = $employeeEmail;
 $subject = "Profile Created";
-$message = "<p>Hi Station Master,</p>
+$message = "<p>Dear Station Master,</p>
 <br/>
 <p>A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
 <br/>

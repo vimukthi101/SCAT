@@ -43,7 +43,7 @@
 													//send email with new station
 $to = $rowEmail['employee_email'];														
 $subject = "Station Has Being Updated";
-$message = "<p>Hi All,</p>
+$message = "<p>Dear All,</p>
 <br/>
 <p>Station has being updated with following information,</p>
 <br/>
@@ -85,7 +85,7 @@ $message = "<p>Hi All,</p>
 													//send email with new station
 $to = $rowEmail['employee_email'];														
 $subject = "Station Has Being Updated";
-$message = "<p>Hi All,</p>
+$message = "<p>Dear All,</p>
 <br/>
 <p>Station has being updated with following information,</p>
 <br/>
@@ -124,7 +124,7 @@ $message = "<p>Hi All,</p>
 													//send email with new station
 $to = $rowEmail['employee_email'];														
 $subject = "Station Has Being Updated";
-$message = "<p>Hi All,</p>
+$message = "<p>Dear All,</p>
 <br/>
 <p>Station has being updated with following information,</p>
 <br/>

@@ -29,7 +29,7 @@
 												//send email with new station
 $to = $rowEmail['employee_email'];														
 $subject = "Train Has Being Updated";
-$message = "<p>Hi Manager,</p>
+$message = "<p>Dear Manager,</p>
 <br/>
 <p>Train has being updated with following information,</p>
 <br/>

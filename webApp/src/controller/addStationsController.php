@@ -32,7 +32,7 @@
 												//send email with new station
 $to = $rowEmail['employee_email'];														
 $subject = "New Station Has Being Added";
-$message = "<p>Hi Manager,</p>
+$message = "<p>Dear Manager,</p>
 <br/>
 <p>New station has being added to the system with following details.</p>
 <br/>
@@ -53,7 +53,7 @@ $message = "<p>Hi Manager,</p>
 											while($rowSM = mysqli_fetch_array($resultSM)){
 $toSm =  $rowSM['employee_email'];														
 $subjectSm = "Assigned to a Station";
-$messageSm = "<p>Hi Station Master,</p>
+$messageSm = "<p>Dear Station Master,</p>
 <br/>
 <p>With in Effect from ".date("l jS \of F Y h:i:s A")." you have being assigned to following station as the station master. Please find the information,</p>
 <br/>

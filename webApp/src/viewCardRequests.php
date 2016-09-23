@@ -3,7 +3,7 @@ if(!isset($_SESSION[''])){
 	session_start();
 }
 if(isset($_SESSION['position'])){
-	if($_SESSION['position'] == "sysadmin"){
+	if($_SESSION['position'] == "sysadmin" || $_SESSION['position'] == "stationMaster"){
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,6 +11,7 @@ if(isset($_SESSION['position'])){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('../ssi/links.html');
+	include_once('../ssi/db.php');
 ?>
 <style>
 a {
@@ -49,28 +50,53 @@ a:visited{
             </font>
         </div>
         <div style="padding-left:100px;padding-top:20px;"> 
-           <table class="table table-striped">
-               <tr>
-               	<th>Request ID</th>
-                <th>Station Name</th>
-                <th>Station Master</th>
-                <th>Number of Cards</th>
-                <th>Status</th>
-                <th>Settings</th>
-               </tr>
-               <tr>
-               	<td>asd</td>
-                <td>asd</td>
-                <td>asd</td>
-                <td>asd</td>
-                <td>asd</td>
-                <td>
-                	<a href="#">
-                    	<i class="fa fa-2x fa-reply" style="padding-right:10px;" aria-hidden="true"></i>
-                    </a>
-                </td>
-               </tr>
-           </table>
+        <?php
+			$getCards = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='request')";
+			$resultCards = mysqli_query($con, $getCards);
+			if(mysqli_num_rows($resultCards) != 0){
+				echo '<table class="table table-striped">
+               		<tr>
+					<th>Request ID</th>
+					<th>Station Code</th>
+					<th>Station Master</th>
+					<th>Number of Cards Requested</th>
+					<th>Requested Date</th>
+				   </tr>';
+				while($rowCards = mysqli_fetch_array($resultCards)){
+					$reqId = $rowCards['request_id'];
+					$cardsReq = $rowCards['no_of_cards_requested'];
+					$station = $rowCards['station_station_code'];
+					$date = $rowCards['requested_date'];
+					$getStation = "SELECT * FROM station WHERE station_code='".$station."'";
+					$resultStation = mysqli_query($con, $getStation);
+					if(mysqli_num_rows($resultStation) != 0){
+						while($rowStation = mysqli_fetch_array($resultStation)){
+							$stationName = $rowStation['station_name'];
+							$smNic = $rowStation['employee_nic'];
+							$getSM = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$smNic."')";
+							$resultSM = mysqli_query($con, $getSM);
+							if(mysqli_num_rows($resultSM) != 0){
+								while($rowSM = mysqli_fetch_array($resultSM)){
+									$fName = $rowSM['first_name'];
+									$sName = $rowSM['second_name'];
+									$lName = $rowSM['last_name'];
+								}
+							}
+						}
+					}echo '<tr>
+							<td>'.$reqId.'</td>
+							<td>'.$station.' - '.$stationName.'</td>
+							<td>'.$fName.' '.$sName.' '.$lName.'</td>
+							<td>'.$cardsReq.'</td>
+							<td>'.$date.'</td>
+						  </tr>';
+				}
+				echo '</table>';
+			} else {
+				//no requests
+				echo '<h3 class="text-center" style="padding:50px;">No Card Requests To Display.</h3>';
+			}
+		?>
         </div>
     </div>
 </div>

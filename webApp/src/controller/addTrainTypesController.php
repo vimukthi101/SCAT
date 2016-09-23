@@ -27,7 +27,7 @@
 											//send email with new station
 $to = $rowEmail['employee_email'];														
 $subject = "Train Type Has Being Added";
-$message = "<p>Hi Manager,</p>
+$message = "<p>Dear Manager,</p>
 <br/>
 <p>Following train type has being added to the system,</p>
 <br/>

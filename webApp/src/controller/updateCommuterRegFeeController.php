@@ -20,7 +20,7 @@
 								//send email with new reg fee
 $to = $rowEmail['employee_email'];														
 $subject = "Comuter Reg Fee Changed";
-$message = "<p>Hi All,</p>
+$message = "<p>Dear All,</p>
 <br/>
 <p>With in effect from ".date("l jS \of F Y h:i:s A")." the commuter registration fee was changed as following.</p>
 <br/>

@@ -3,7 +3,7 @@ if(!isset($_SESSION[''])){
 	session_start();
 }
 if(isset($_SESSION['position'])){
-	if($_SESSION['position'] == "sysadmin"){
+	if($_SESSION['position'] == "sysadmin" || $_SESSION['position'] == "stationMaster"){
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -44,7 +44,7 @@ if(isset($_SESSION['position'])){
                     <div class="col-md-8">
                     	<select onchange="load(this);" name="searchBy" id="searchBy" class="form-control">
                           <option selected="selected" disabled="disabled">--Select the search criteria--</option>
-                          <?php if($_SESSION['position'] == "admin"){ ?>
+                          <?php if($_SESSION['position'] == "sysadmin"){ ?>
                               <option value="station">Station Name</option>
                               <option value="status">Status</option>
                           <?php } else if($_SESSION['position'] == "stationMaster"){?>
@@ -55,15 +55,15 @@ if(isset($_SESSION['position'])){
                 </div>
                 <hr/>
             </form>
-            <?php if($_SESSION['position'] == "admin"){ ?>
+            <?php if($_SESSION['position'] == "sysadmin"){ ?>
 				<script type="text/javascript">
                      function load(selectObj) { 
                          var idx = selectObj.selectedIndex; 
                          var which = selectObj.options[idx].value; 
                          if(which=='station'){
-                             document.getElementById('new').innerHTML = '<div class="form-group"><label for="stationName" class="control-label col-md-3">Station Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value);" type="text" name="stationName" id="stationName" /></div></div><hr/>'; 
+                             document.getElementById('new').innerHTML = '<div class="form-group"><label for="stationName" class="control-label col-md-3">Station Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id);" type="text" name="stationName" id="stationName" /></div></div><hr/>'; 
                          } else if(which=='status'){
-                             document.getElementById('new').innerHTML = '<div class="form-group"><label for="cardStatus" class="control-label col-md-3">Status</label><div class="col-md-8"><select onchange="showHint(this.value);" name="cardStatus" id="cardStatus" class="form-control"><option selected="selected" disabled="disabled">--Select the Card Status--</option><option value="all">All</option><option value="issued">Issued</option><option value="received">Received</option><option value="rejected">Rejected</option></select></div></div><hr/>';
+                             document.getElementById('new').innerHTML = '<div class="form-group"><label for="cardStatus" class="control-label col-md-3">Status</label><div class="col-md-8"><select onchange="showHint(this.value, this.id);" name="cardStatus" id="cardStatus" class="form-control"><option selected="selected" disabled="disabled">--Select the Card Status--</option><option value="all">All</option><option value="issued">Issued By Admin</option><option value="received">Received By Station</option><option value="rejected">Rejected By Admin</option></select></div></div><hr/>';
                          } else {
                              document.getElementById('new').innerHTML = '';
                          } 
@@ -75,7 +75,7 @@ if(isset($_SESSION['position'])){
                          var idx = selectObj.selectedIndex; 
                          var which = selectObj.options[idx].value; 
                          if(which=='status'){
-                             document.getElementById('new').innerHTML = '<div class="form-group"><label for="cardStatus" class="control-label col-md-3">Status</label><div class="col-md-8"><select onchange="showHint(this.value);" name="cardStatus" id="cardStatus" class="form-control"><option selected="selected" disabled="disabled">--Select the Card Status--</option><option value="all">All</option><option value="issued">Issued</option><option value="received">Received</option><option value="rejected">Rejected</option></select></div></div><hr/>';
+                             document.getElementById('new').innerHTML = '<div class="form-group"><label for="cardStatus" class="control-label col-md-3">Status</label><div class="col-md-8"><select onchange="showHint(this.value, this.id);" name="cardStatus" id="cardStatus" class="form-control"><option selected="selected" disabled="disabled">--Select the Card Status--</option><option value="all">All</option><option value="issued">Issued By Admin</option><option value="received">Received By Station</option><option value="rejected">Rejected By Admin</option></select></div></div><hr/>';
                          } else {
                              document.getElementById('new').innerHTML = '';
                          } 
@@ -83,7 +83,7 @@ if(isset($_SESSION['position'])){
                 </script>
             <?php }?>
             <script>
-			function showHint(str) {
+			function showHint(str, id) {
 				if (str.length == 0) { 
 					document.getElementById("txtHint").innerHTML = "";
 					return;
@@ -94,7 +94,7 @@ if(isset($_SESSION['position'])){
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getCardInfo.php?p=list&q=" + str, true);
+					xmlhttp.open("GET", "getCardInfo.php?p=list&q=" + str + "&r=" + id, true);
 					xmlhttp.send();
 				}
 			}

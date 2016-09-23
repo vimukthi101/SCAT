@@ -36,7 +36,7 @@
 												//send email with new ticket fee
 $to = $rowEmail['employee_email'];														
 $subject = "New Ticket Fee Has Being Added";
-$message = "<p>Hi Manager,</p>
+$message = "<p>Dear Manager,</p>
 <br/>
 <p>New ticket fee has being added between following stations to the system. Please find more information,</p>
 <br/>
@@ -59,7 +59,7 @@ $message = "<p>Hi Manager,</p>
 												//send email with new ticket fee
 $to = $rowEmail['employee_email'];														
 $subject = "New Ticket Fee Has Being Added";
-$message = "<p>Hi Station Master,</p>
+$message = "<p>Dear Station Master,</p>
 <br/>
 <p>New ticket fee has being added between your station and the following station to the system. Please find more information,</p>
 <br/>

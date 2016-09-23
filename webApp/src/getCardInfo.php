@@ -1,4 +1,7 @@
 <?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
 include_once('../ssi/links.html');
 include_once('../ssi/db.php');
 ?>
@@ -196,50 +199,98 @@ if($p != ""){
 			//if empty q
 			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 		}
-	} else if("") {
+	} else if($p == "requests") {
 		if($q != ""){
-			$hint .= '<div class="form-group">
-							<div class="container-fluid center-block">
-								<table style="width:100%;" class="table table-striped">
-								  <tr>
-									<th>Request ID</th>
-									<th>Station Name</th>
-									<th>Station Master</th>
-									<th>Number of Cards Requested</th>
-									<th>Number of Cards Send</th>
-									<th>Status</th>
-								  </tr>
-								  <tr>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-								  </tr>
-								  <tr>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-								  </tr>
-								  <tr>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-								  </tr>
-								</table>
-							</div>
-			 			</div>';
+			$getCard = "SELECT * FROM card_request WHERE request_id='".$q."'";
+			$resultCard = mysqli_query($con, $getCard);
+			if(mysqli_num_rows($resultCard) != 0){
+				while($rowCards = mysqli_fetch_array($resultCard)){
+					$stationCode = $rowCards['station_station_code'];
+					$date = $rowCards['requested_date'];
+					$cards = $rowCards['no_of_cards_requested'];
+				}
+				$getStation = "SELECT * FROM station WHERE station_code='".$stationCode."'";
+				$resultStation = mysqli_query($con, $getStation);
+				if(mysqli_num_rows($resultStation) != 0){
+					while($rowStation = mysqli_fetch_array($resultStation)){
+						$stationName = $rowStation['station_name'];
+						$nic = $rowStation['employee_nic'];
+					}
+					$getSM = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$nic."')";
+					$resultSM = mysqli_query($con, $getSM);
+					if(mysqli_num_rows($resultSM) != 0){
+						while($rowSM = mysqli_fetch_array($resultSM)){
+							$fName = $rowSM['first_name'];
+							$sName = $rowSM['second_name'];
+							$lName = $rowSM['last_name'];
+						}
+					}
+				}
+				echo '<form role="form" class="form-horizontal" method="post" action="controller/issueCardsController.php">
+					<div class="form-group">
+                    <label for="station" class="control-label col-md-3">Station Name</label>
+                    <div class="col-md-8">
+					<input type="hidden" name="rID" id="rID" readonly="readonly" value="'.$q.'"/>
+					<input type="hidden" name="nic" id="nic" readonly="readonly" value="'.$nic.'"/>
+                    	<input class="form-control" type="text" name="station" id="station" readonly="readonly" value="'.$stationCode.' - '.$stationName.'"/>
+                	</div>
+					</div>
+					<div class="form-group">
+						<label for="stationMaster" class="control-label col-md-3">Station Master</label>
+						<div class="col-md-8">
+							<input class="form-control" type="text" name="stationMaster" id="stationMaster" readonly="readonly" value="'.$fName.' '.$sName.' '.$lName.'"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="nRequest" class="control-label col-md-3">Number of Cards Requested</label>
+						<div class="col-md-8">
+							<input class="form-control" type="text" name="nRequest" id="nRequest" readonly="readonly" value="'.$cards.'"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="date" class="control-label col-md-3">Requested Date</label>
+						<div class="col-md-8">
+							<input class="form-control" type="text" name="date" id="date" readonly="readonly" value="'.$date.'"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="nSend" class="control-label col-md-3">Number of Cards to Send</label>
+						<div class="col-md-8">
+							<input class="form-control" type="text" name="nSend" id="nSend"/>
+						</div>
+					</div>
+					<div class="form-group col-md-11 text-center">
+						<input type="submit" name="submit" id="submit" value="Issue" class="btn btn-success" onclick="return confirm(\'Do You Wish to Approve Card Request?\');return false;"/>
+						<input type="submit" name="reject" id="reject" value="Reject" class="btn btn-danger" onclick="return confirm(\'Do You Wish to Reject Card Request?\');return false;"/>
+					</div>
+					</form>';
+			} else {
+				//no data	
+				echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+			}
 		}  else {
 			//if empty q
 			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
-		}
+		} 
+	} else if($p == "list") {
+		if($q != ""){
+			if(isset($_SESSION['position'])){
+				if($_SESSION['position'] == "sysadmin"){
+					
+				} else if($_SESSION['position'] == "stationMaster"){
+					
+				} else { 
+					// 404 wrong operation
+					header('Location:../404.php');	
+				}
+			} else { 
+				// 404 wrong operation
+				header('Location:../404.php');	
+			}
+		}  else {
+			//if empty q
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
+		} 
 	} else { 
 		// 404 wrong operation
 		header('Location:../404.php');	

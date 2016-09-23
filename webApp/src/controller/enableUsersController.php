@@ -19,7 +19,7 @@
 						//send email with new password
 						$to = $email;
 						$subject = "Account Activated";
-$message = "<p>Hi ".$position.",</p>
+$message = "<p>Dear ".$position.",</p>
 <br/>
 <p>Your account has been reactivated. Please use following credentials to login to your account. Please change your password when you logged in.</p>
 <br/>

@@ -51,7 +51,7 @@
 																//send email with new password
 																$to = $email;
 $subject = "Password Reset";
-$message = "<p>Hi SysAdmin,</p>
+$message = "<p>Dear SysAdmin,</p>
 <br/>
 <p>Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please use the below auto generated one time password to re activate your account and to change your password.</p>
 <br/>
@@ -74,7 +74,7 @@ $message = "<p>Hi SysAdmin,</p>
 															//send email to meet admin
 															$to = $email;
 $subject = "Account Deactivated";
-$message = "<p>Hi User,</p>
+$message = "<p>Dear User,</p>
 <br/>
 <p>Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please meet the SysAdmin to re activate your account.</p>
 <br/>
@@ -96,7 +96,7 @@ $message = "<p>Hi User,</p>
 												//send email to meet admin
 												$to = $email;
 $subject = "Account Deactivated";
-$message = "<p>Hi Top-Up Agent,</p>
+$message = "<p>Dear Top-Up Agent,</p>
 <br/>
 <p>Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please meet the Station Master to re activate your account.</p>
 <br/>
