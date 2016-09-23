@@ -1,3 +1,8 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -21,7 +26,7 @@
 	<div class="col-md-12">
         <img src="images/404.png" class="img-responsive center-block" style="padding:50px;margin-top:80px;"/>
         <?php
-			session_unset();
+			session_destroy();
 			header("Refresh: 5; URL=index.php");
 		?>
     </div>

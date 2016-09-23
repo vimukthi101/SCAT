@@ -17,22 +17,22 @@
 	<div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">Registrar Management</label>
     </div>
-    <a href="../src/userRegistration.php?position=Registrar" style="text-decoration:none;">
+    <a href="../src/userRegistration.php?position=registrar" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Register Registrars</font>
         </div>
     </a>
-    <a href="../src/viewUsers.php?position=Registrar" style="text-decoration:none;">
+    <a href="../src/viewUsers.php?position=registrar" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Registrars</font>
         </div>
     </a>
-    <a href="../src/updateUsers.php?position=Registrar" style="text-decoration:none;">
+    <a href="../src/updateUsers.php?position=registrar" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Registrars</font>
         </div>
     </a>
-    <a href="../src/deleteUsers.php?position=Registrar" style="text-decoration:none;">
+    <a href="../src/deleteUsers.php?position=registrar" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Registrars</font>
         </div>
@@ -40,22 +40,22 @@
     <div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">Top-up Agent Management</label>
     </div>
-    <a href="../src/userRegistration.php?position=Top-up Agent" style="text-decoration:none;">
+    <a href="../src/userRegistration.php?position=topupAgent" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Register Top-up Agents</font>
         </div>
     </a>
-    <a href="../src/viewUsers.php?position=Top-up Agent" style="text-decoration:none;">
+    <a href="../src/viewUsers.php?position=topupAgent" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Top-up Agents</font>
         </div>
     </a>
-    <a href="../src/updateUsers.php?position=Top-up Agent" style="text-decoration:none;">
+    <a href="../src/updateUsers.php?position=topupAgent" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Top-up Agents</font>
         </div>
     </a>
-    <a href="../src/deleteUsers.php?position=Top-up Agent" style="text-decoration:none;">
+    <a href="../src/deleteUsers.php?position=topupAgent" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Top-up Agents</font>
         </div>
@@ -63,22 +63,22 @@
     <div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">Time Table Updater Management</label>
     </div>
-    <a href="../src/userRegistration.php?position=Time Table Updater" style="text-decoration:none;">
+    <a href="../src/userRegistration.php?position=updater" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Register Updaters</font>
         </div>
     </a>
-    <a href="../src/viewUsers.php?position=Time Table Updater" style="text-decoration:none;">
+    <a href="../src/viewUsers.php?position=updater" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Updaters</font>
         </div>
     </a>
-    <a href="../src/updateUsers.php?position=Time Table Updater" style="text-decoration:none;">
+    <a href="../src/updateUsers.php?position=updater" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Updaters</font>
         </div>
     </a>
-    <a href="../src/deleteUsers.php?position=Time Table Updater" style="text-decoration:none;">
+    <a href="../src/deleteUsers.php?position=updater" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Updaters</font>
         </div>

@@ -80,6 +80,10 @@
 																									header('Location:../updateUsers.php?position=manager&error=su');
 																								} else if($employeePosition == "stationMaster"){
 																									header('Location:../updateUsers.php?position=stationMaster&error=su');											
+																								}  else if($employeePosition == "registrar"){
+																									header('Location:../updateUsers.php?position=registrar&error=su');	
+																								} else if($employeePosition == "updater"){
+																									header('Location:../updateUsers.php?position=updater&error=su');	
 																								}
 																							} else {
 																								//redirect to form query faile
@@ -88,7 +92,11 @@
 																									header('Location:../updateUsers.php?position=manager&error=qf');
 																								} else if($employeePosition == "stationMaster"){
 																									header('Location:../updateUsers.php?position=stationMaster&error=qf');											
-																								}	
+																								}  else if($employeePosition == "registrar"){
+																									header('Location:../updateUsers.php?position=registrar&error=qf');	
+																								} else if($employeePosition == "updater"){
+																									header('Location:../updateUsers.php?position=updater&error=qf');	
+																								}
 																							}
 																						} else {
 																							//query failed
@@ -96,6 +104,10 @@
 																								header('Location:../updateUsers.php?position=manager&error=qf');
 																							} else if($employeePosition == "stationMaster"){
 																								header('Location:../updateUsers.php?position=stationMaster&error=qf');																								
+																							}  else if($employeePosition == "registrar"){
+																								header('Location:../updateUsers.php?position=registrar&error=qf');	
+																							} else if($employeePosition == "updater"){
+																								header('Location:../updateUsers.php?position=updater&error=qf');	
 																							}
 																						}
 																					} else {
@@ -104,6 +116,10 @@
 																							header('Location:../updateUsers.php?position=manager&error=qf');
 																						} else if($employeePosition == "stationMaster"){
 																							header('Location:../updateUsers.php?position=stationMaster&error=qf');
+																						}  else if($employeePosition == "registrar"){
+																							header('Location:../updateUsers.php?position=registrar&error=qf');	
+																						} else if($employeePosition == "updater"){
+																							header('Location:../updateUsers.php?position=updater&error=qf');	
 																						}
 																					}	
 																				} else {
@@ -112,6 +128,10 @@
 																						header('Location:../updateUsers.php?position=manager&error=qf');
 																					} else if($employeePosition == "stationMaster"){
 																						header('Location:../updateUsers.php?position=stationMaster&error=qf');
+																					}  else if($employeePosition == "registrar"){
+																						header('Location:../updateUsers.php?position=registrar&error=qf');	
+																					} else if($employeePosition == "updater"){
+																						header('Location:../updateUsers.php?position=updater&error=qf');	
 																					}
 																				}
 																			} else {
@@ -120,6 +140,10 @@
 																					header('Location:../updateUsers.php?position=manager&error=nu');
 																				} else if($employeePosition == "stationMaster"){
 																					header('Location:../updateUsers.php?position=stationMaster&error=nu');
+																				}  else if($employeePosition == "registrar"){
+																					header('Location:../updateUsers.php?position=registrar&error=nu');	
+																				}  else if($employeePosition == "updater"){
+																					header('Location:../updateUsers.php?position=updater&error=nu');	
 																				}
 																			}
 																		} else {
@@ -128,7 +152,11 @@
 																				header('Location:../updateUsers.php?position=manager&error=cu');
 																			} else if($employeePosition == "stationMaster"){
 																				header('Location:../updateUsers.php?position=stationMaster&error=cu');
-																			}	
+																			}  else if($employeePosition == "registrar"){
+																				header('Location:../updateUsers.php?position=registrar&error=cu');	
+																			} else if($employeePosition == "updater"){
+																				header('Location:../updateUsers.php?position=updater&error=cu');	
+																			}
 																		}
 																	}
 																} else {
@@ -151,12 +179,16 @@
 																				$updatePosition = "UPDATE staff SET employee_position_position_id='".$positionId."' WHERE employee_nic='".$employeeNic."'";
 																				if(mysqli_query($con, $updatePosition)){
 																					$updateEmployeeAll = "UPDATE employee SET contact_no='".$contactNo."', employee_email='".$email."' WHERE nic='".$employeeNic."'";
-																					if(mysqli_query($con, $updateEmployeeContact)){
+																					if(mysqli_query($con, $updateEmployeeAll)){
 																						//success
 																						if($employeePosition == "manager"){
 																							header('Location:../updateUsers.php?position=manager&error=su');
 																						} else if($employeePosition == "stationMaster"){
 																							header('Location:../updateUsers.php?position=stationMaster&error=su');
+																						}  else if($employeePosition == "registrar"){
+																							header('Location:../updateUsers.php?position=registrar&error=su');	
+																						} else if($employeePosition == "updater"){
+																							header('Location:../updateUsers.php?position=updater&error=su');	
 																						}
 																					} else {
 																						//redirect to form query failed
@@ -164,7 +196,11 @@
 																							header('Location:../updateUsers.php?position=manager&error=qf');
 																						} else if($employeePosition == "stationMaster"){
 																							header('Location:../updateUsers.php?position=stationMaster&error=qf');
-																						}	
+																						}  else if($employeePosition == "registrar"){
+																							header('Location:../updateUsers.php?position=registrar&error=qf');	
+																						} else if($employeePosition == "updater"){
+																							header('Location:../updateUsers.php?position=updater&error=qf');	
+																						}
 																					}
 																				} else {
 																					//query failed
@@ -172,6 +208,10 @@
 																						header('Location:../updateUsers.php?position=manager&error=qf');
 																					} else if($employeePosition == "stationMaster"){
 																						header('Location:../updateUsers.php?position=stationMaster&error=qf');
+																					}  else if($employeePosition == "registrar"){
+																						header('Location:../updateUsers.php?position=registrar&error=qf');	
+																					} else if($employeePosition == "updater"){
+																						header('Location:../updateUsers.php?position=updater&error=qf');	
 																					}
 																				}
 																			} else {
@@ -180,6 +220,10 @@
 																					header('Location:../updateUsers.php?position=manager&error=qf');
 																				} else if($employeePosition == "stationMaster"){
 																					header('Location:../updateUsers.php?position=stationMaster&error=qf');
+																				}  else if($employeePosition == "registrar"){
+																					header('Location:../updateUsers.php?position=registrar&error=qf');	
+																				} else if($employeePosition == "updater"){
+																					header('Location:../updateUsers.php?position=updater&error=qf');	
 																				}
 																			}	
 																		} else {
@@ -188,6 +232,10 @@
 																				header('Location:../updateUsers.php?position=manager&error=qf');
 																			} else if($employeePosition == "stationMaster"){
 																				header('Location:../updateUsers.php?position=stationMaster&error=qf');
+																			}  else if($employeePosition == "registrar"){
+																				header('Location:../updateUsers.php?position=registrar&error=qf');	
+																			} else if($employeePosition == "updater"){
+																				header('Location:../updateUsers.php?position=updater&error=qf');	
 																			}
 																		}
 																	} else {
@@ -196,6 +244,10 @@
 																			header('Location:../updateUsers.php?position=manager&error=nu');
 																		} else if($employeePosition == "stationMaster"){
 																			header('Location:../updateUsers.php?position=stationMaster&error=nu');
+																		}  else if($employeePosition == "registrar"){
+																			header('Location:../updateUsers.php?position=registrar&error=nu');	
+																		} else if($employeePosition == "updater"){
+																			header('Location:../updateUsers.php?position=updater&error=nu');	
 																		}
 																	}
 																}
@@ -209,6 +261,10 @@
 																header('Location:../updateUsers.php?position=manager&error=we');
 															} else if($employeePosition == "stationMaster"){
 																header('Location:../updateUsers.php?position=stationMaster&error=we');
+															}  else if($employeePosition == "registrar"){
+																header('Location:../updateUsers.php?position=registrar&error=we');	
+															} else if($employeePosition == "updater"){
+																header('Location:../updateUsers.php?position=updater&error=we');	
 															}
 														}
 													} else {
@@ -217,6 +273,10 @@
 															header('Location:../updateUsers.php?position=manager&error=wp');
 														} else if($employeePosition == "stationMaster"){
 															header('Location:../updateUsers.php?position=stationMaster&error=wp');
+														}  else if($employeePosition == "registrar"){
+															header('Location:../updateUsers.php?position=registrar&error=wp');	
+														} else if($employeePosition == "updater"){
+															header('Location:../updateUsers.php?position=updater&error=wp');	
 														}
 													}
 												} else {
@@ -225,6 +285,10 @@
 														header('Location:../updateUsers.php?position=manager&error=wc');
 													} else if($employeePosition == "stationMaster"){
 														header('Location:../updateUsers.php?position=stationMaster&error=wc');
+													}  else if($employeePosition == "registrar"){
+														header('Location:../updateUsers.php?position=registrar&error=wc');	
+													} else if($employeePosition == "updater"){
+														header('Location:../updateUsers.php?position=updater&error=wc');	
 													}
 												}
 											} else {
@@ -233,6 +297,10 @@
 													header('Location:../updateUsers.php?position=manager&error=wa');
 												} else if($employeePosition == "stationMaster"){
 													header('Location:../updateUsers.php?position=stationMaster&error=wa');
+												}  else if($employeePosition == "registrar"){
+													header('Location:../updateUsers.php?position=registrar&error=wa');	
+												} else if($employeePosition == "updater"){
+													header('Location:../updateUsers.php?position=updater&error=wa');	
 												}
 											}
 										} else {
@@ -241,6 +309,10 @@
 												header('Location:../updateUsers.php?position=manager&error=wn');
 											} else if($employeePosition == "stationMaster"){
 												header('Location:../updateUsers.php?position=stationMaster&error=wn');
+											}  else if($employeePosition == "registrar"){
+												header('Location:../updateUsers.php?position=registrar&error=wn');	
+											} else if($employeePosition == "updater"){
+												header('Location:../updateUsers.php?position=updater&error=wn');	
 											}
 										}
 									} else {
@@ -249,6 +321,10 @@
 											header('Location:../updateUsers.php?position=manager&error=wl');
 										} else if($employeePosition == "stationMaster"){
 											header('Location:../updateUsers.php?position=stationMaster&error=wl');
+										} else if($employeePosition == "registrar"){
+											header('Location:../updateUsers.php?position=registrar&error=wl');	
+										} else if($employeePosition == "updater"){
+											header('Location:../updateUsers.php?position=updater&error=wl');	
 										}
 									}
 								} else {
@@ -257,6 +333,10 @@
 										header('Location:../updateUsers.php?position=manager&error=wm');
 									} else if($employeePosition == "stationMaster"){
 										header('Location:../updateUsers.php?position=stationMaster&error=wm');
+									} else if($employeePosition == "registrar"){
+										header('Location:../updateUsers.php?position=registrar&error=wm');	
+									} else if($employeePosition == "updater"){
+										header('Location:../updateUsers.php?position=updater&error=wm');	
 									}
 								}
 							} else {
@@ -265,6 +345,10 @@
 									header('Location:../updateUsers.php?position=manager&error=wf');
 								} else if($employeePosition == "stationMaster"){
 									header('Location:../updateUsers.php?position=stationMaster&error=wf');
+								} else if($employeePosition == "registrar"){
+									header('Location:../updateUsers.php?position=registrar&error=wf');	
+								} else if($employeePosition == "updater"){
+									header('Location:../updateUsers.php?position=updater&error=wf');	
 								}
 							}
 						} else {
@@ -273,6 +357,10 @@
 								header('Location:../updateUsers.php?position=manager&error=wnic');
 							} else if($employeePosition == "stationMaster"){
 								header('Location:../updateUsers.php?position=stationMaster&error=wnic');
+							} else if($employeePosition == "registrar"){
+								header('Location:../updateUsers.php?position=registrar&error=wnic');	
+							} else if($employeePosition == "updater"){
+								header('Location:../updateUsers.php?position=updater&error=wnic');	
 							}
 						}
 					} else {
@@ -285,6 +373,10 @@
 						header('Location:../updateUsers.php?position=manager&error=wid');	
 					} else if($employeePosition == "stationMaster"){
 						header('Location:../updateUsers.php?position=stationMaster&error=wid');	
+					}  else if($employeePosition == "registrar"){
+						header('Location:../updateUsers.php?position=registrar&error=wid');	
+					} else if($employeePosition == "updater"){
+						header('Location:../updateUsers.php?position=updater&error=wid');	
 					}
 				}
 			} else {
@@ -293,6 +385,10 @@
 					header('Location:../updateUsers.php?position=manager&error=ef');		
 				} else if($employeePosition == "stationMaster"){
 					header('Location:../updateUsers.php?position=stationMaster&error=ef');	
+				} else if($employeePosition == "registrar"){
+					header('Location:../updateUsers.php?position=registrar&error=ef');	
+				} else if($employeePosition == "updater"){
+					header('Location:../updateUsers.php?position=updater&error=ef');	
 				}
 			}
 		} else {

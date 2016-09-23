@@ -11,6 +11,7 @@ if(isset($_SESSION['position'])){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('../ssi/links.html');
+	include_once('../ssi/db.php');
 ?>
 <title>User Management</title>
 </head>
@@ -140,6 +141,31 @@ if(isset($_SESSION['position'])){
                     	<input class="form-control" type="text" name="position" id="position" value="<?php if(isset($_GET['position'])){ echo $_GET['position']; } else { echo 'invalid'; }?>" readonly="readonly" required="required"/>
                 	</div>
                 </div>
+                <?php 
+				if($_GET['position'] == "topupAgent"){
+				?>
+                    <div class="form-group">
+                        <label for="employeePosition" class="control-label col-md-3">Registartion Fee <span style="color:rgb(255,0,0);">*</span></label>
+                        <div class="col-md-8">
+                            <select class="form-control" id="regFee" name="regFee">
+                                <option selected="selected" disabled="disabled">--Select The Registartion Fee--</option>
+                                <?php
+                                $getFee = "SELECT * FROM topup_agent_regfee";
+                                $resultFee = mysqli_query($con, $getFee);
+                                if(mysqli_num_rows($resultFee) != 0){
+                                    while($rowFee = mysqli_fetch_array($resultFee)){
+                                        $feeId = $rowFee['topup_agent_regfee_id'];
+                                        $feeValue = $rowFee['topup_agent_regfee'];
+                                        echo '<option value="'.$feeId.'">'.$feeValue.'</option>';
+                                    }
+                                } else {
+                                    echo '<option>No Registration Fees Added Yet.</option>';	
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                <?php } ?>
                 <div class="form-group text-center">
                     <label class="col-md-11">Personal Information</label> 
                 </div>
