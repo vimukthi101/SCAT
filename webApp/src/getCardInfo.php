@@ -276,9 +276,481 @@ if($p != ""){
 		if($q != ""){
 			if(isset($_SESSION['position'])){
 				if($_SESSION['position'] == "sysadmin"){
-					
+					if(!empty($_REQUEST["r"])){
+						$r = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["r"])));
+						if($r == "stationName"){
+							$getReq = "SELECT * FROM card_request WHERE station_station_code LIKE '".$q."%' AND card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='send' OR status_type='reject' OR status_type='received') ORDER BY requested_date";
+							$resultReq = mysqli_query($con, $getReq);
+							if(mysqli_num_rows($resultReq) != 0){
+								echo '<div class="form-group">
+									<div class="container-fluid center-block">
+										<table style="width:100%;" class="table table-striped">
+										  <tr>
+											<th>Request ID</th>
+											<th>Requested Cards</th>
+											<th>Send Cards</th>
+											<th>Requested Date</th>
+											<th>Send Date</th>
+											<th>Station</th>
+											<th>Status</th>
+										  </tr>';
+								while($rowResults = mysqli_fetch_array($resultReq)){
+									$rID = $rowResults['request_id'];
+									$rCards = $rowResults['no_of_cards_requested'];
+									$sCards = $rowResults['no_of_cards_sent'];
+									$rDate = $rowResults['requested_date'];
+									$sDate = $rowResults['send_date'];
+									$status = $rowResults['card_request_status_status_id'];
+									$station = $rowResults['station_station_code'];
+									$getStatus = "SELECT * FROM card_request_status WHERE status_id='".$status."'";
+									$resultStatus = mysqli_query($con, $getStatus);
+									if(mysqli_num_rows($resultStatus) != 0){
+										while($rowStatus = mysqli_fetch_array($resultStatus)){
+											$statusName = $rowStatus['status_type'];
+											echo '<tr>
+													<td>'.$rID.'</td>
+													<td>'.$rCards.'</td>
+													<td>'.$sCards.'</td>
+													<td>'.$rDate.'</td>
+													<td>'.$sDate.'</td>
+													<td>'.$station.'</td>
+													<td>'.$statusName.'</td>
+												  </tr>';
+										}
+									}
+								}
+								echo '</table>
+										</div>
+									</div>';
+							} else {
+								//no results
+								echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+							}
+						} else if($r == "cardStatus"){
+							if($q == "all"){
+								$getReq = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='send' OR status_type='reject' OR status_type='received')";
+								$resultReq = mysqli_query($con, $getReq);
+								if(mysqli_num_rows($resultReq) != 0){
+									echo '<div class="form-group">
+										<div class="container-fluid center-block">
+											<table style="width:100%;" class="table table-striped">
+											  <tr>
+												<th>Request ID</th>
+												<th>Requested Cards</th>
+												<th>Send Cards</th>
+												<th>Requested Date</th>
+												<th>Send Date</th>
+												<th>Station</th>
+												<th>Status</th>
+											  </tr>';
+									while($rowResults = mysqli_fetch_array($resultReq)){
+										$rID = $rowResults['request_id'];
+										$rCards = $rowResults['no_of_cards_requested'];
+										$sCards = $rowResults['no_of_cards_sent'];
+										$rDate = $rowResults['requested_date'];
+										$sDate = $rowResults['send_date'];
+										$status = $rowResults['card_request_status_status_id'];
+										$station = $rowResults['station_station_code'];
+										$getStatus = "SELECT * FROM card_request_status WHERE status_id='".$status."'";
+										$resultStatus = mysqli_query($con, $getStatus);
+										if(mysqli_num_rows($resultStatus) != 0){
+											while($rowStatus = mysqli_fetch_array($resultStatus)){
+												$statusName = $rowStatus['status_type'];
+												echo '<tr>
+														<td>'.$rID.'</td>
+														<td>'.$rCards.'</td>
+														<td>'.$sCards.'</td>
+														<td>'.$rDate.'</td>
+														<td>'.$sDate.'</td>
+														<td>'.$station.'</td>
+														<td>'.$statusName.'</td>
+													  </tr>';
+											}
+										}
+									}
+									echo '</table>
+											</div>
+										</div>';
+								} else {
+									//no results
+									echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+								}
+							} else if($q == "received"){
+								$getReq = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='received')";
+								$resultReq = mysqli_query($con, $getReq);
+								if(mysqli_num_rows($resultReq) != 0){
+									echo '<div class="form-group">
+										<div class="container-fluid center-block">
+											<table style="width:100%;" class="table table-striped">
+											  <tr>
+												<th>Request ID</th>
+												<th>Requested Cards</th>
+												<th>Send Cards</th>
+												<th>Requested Date</th>
+												<th>Send Date</th>
+												<th>Station</th>
+												<th>Status</th>
+											  </tr>';
+									while($rowResults = mysqli_fetch_array($resultReq)){
+										$rID = $rowResults['request_id'];
+										$rCards = $rowResults['no_of_cards_requested'];
+										$sCards = $rowResults['no_of_cards_sent'];
+										$rDate = $rowResults['requested_date'];
+										$sDate = $rowResults['send_date'];
+										$status = $rowResults['card_request_status_status_id'];
+										$station = $rowResults['station_station_code'];
+										$getStatus = "SELECT * FROM card_request_status WHERE status_id='".$status."'";
+										$resultStatus = mysqli_query($con, $getStatus);
+										if(mysqli_num_rows($resultStatus) != 0){
+											while($rowStatus = mysqli_fetch_array($resultStatus)){
+												$statusName = $rowStatus['status_type'];
+												echo '<tr>
+														<td>'.$rID.'</td>
+														<td>'.$rCards.'</td>
+														<td>'.$sCards.'</td>
+														<td>'.$rDate.'</td>
+														<td>'.$sDate.'</td>
+														<td>'.$station.'</td>
+														<td>'.$statusName.'</td>
+													  </tr>';
+											}
+										}
+									}
+									echo '</table>
+											</div>
+										</div>';
+								} else {
+									//no results
+									echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+								}
+							} else if($q == "rejected"){
+								$getReq = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='reject')";
+								$resultReq = mysqli_query($con, $getReq);
+								if(mysqli_num_rows($resultReq) != 0){
+									echo '<div class="form-group">
+										<div class="container-fluid center-block">
+											<table style="width:100%;" class="table table-striped">
+											  <tr>
+												<th>Request ID</th>
+												<th>Requested Cards</th>
+												<th>Send Cards</th>
+												<th>Requested Date</th>
+												<th>Send Date</th>
+												<th>Station</th>
+												<th>Status</th>
+											  </tr>';
+									while($rowResults = mysqli_fetch_array($resultReq)){
+										$rID = $rowResults['request_id'];
+										$rCards = $rowResults['no_of_cards_requested'];
+										$sCards = $rowResults['no_of_cards_sent'];
+										$rDate = $rowResults['requested_date'];
+										$sDate = $rowResults['send_date'];
+										$status = $rowResults['card_request_status_status_id'];
+										$station = $rowResults['station_station_code'];
+										$getStatus = "SELECT * FROM card_request_status WHERE status_id='".$status."'";
+										$resultStatus = mysqli_query($con, $getStatus);
+										if(mysqli_num_rows($resultStatus) != 0){
+											while($rowStatus = mysqli_fetch_array($resultStatus)){
+												$statusName = $rowStatus['status_type'];
+												echo '<tr>
+														<td>'.$rID.'</td>
+														<td>'.$rCards.'</td>
+														<td>'.$sCards.'</td>
+														<td>'.$rDate.'</td>
+														<td>'.$sDate.'</td>
+														<td>'.$station.'</td>
+														<td>'.$statusName.'</td>
+													  </tr>';
+											}
+										}
+									}
+									echo '</table>
+											</div>
+										</div>';
+								} else {
+									//no results
+									echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+								}
+							} else if($q == "issued"){
+								$getReq = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='send')";
+								$resultReq = mysqli_query($con, $getReq);
+								if(mysqli_num_rows($resultReq) != 0){
+									echo '<div class="form-group">
+										<div class="container-fluid center-block">
+											<table style="width:100%;" class="table table-striped">
+											  <tr>
+												<th>Request ID</th>
+												<th>Requested Cards</th>
+												<th>Send Cards</th>
+												<th>Requested Date</th>
+												<th>Send Date</th>
+												<th>Station</th>
+												<th>Status</th>
+											  </tr>';
+									while($rowResults = mysqli_fetch_array($resultReq)){
+										$rID = $rowResults['request_id'];
+										$rCards = $rowResults['no_of_cards_requested'];
+										$sCards = $rowResults['no_of_cards_sent'];
+										$rDate = $rowResults['requested_date'];
+										$sDate = $rowResults['send_date'];
+										$status = $rowResults['card_request_status_status_id'];
+										$station = $rowResults['station_station_code'];
+										$getStatus = "SELECT * FROM card_request_status WHERE status_id='".$status."'";
+										$resultStatus = mysqli_query($con, $getStatus);
+										if(mysqli_num_rows($resultStatus) != 0){
+											while($rowStatus = mysqli_fetch_array($resultStatus)){
+												$statusName = $rowStatus['status_type'];
+												echo '<tr>
+														<td>'.$rID.'</td>
+														<td>'.$rCards.'</td>
+														<td>'.$sCards.'</td>
+														<td>'.$rDate.'</td>
+														<td>'.$sDate.'</td>
+														<td>'.$station.'</td>
+														<td>'.$statusName.'</td>
+													  </tr>';
+											}
+										}
+									}
+									echo '</table>
+											</div>
+										</div>';
+								} else {
+									//no results
+									echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+								}
+							} else {
+								// wrong html id
+								echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+							}
+						} else {
+							// wrong html id
+							echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+						}
+					} else {
+						// no html id
+						echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+					}
 				} else if($_SESSION['position'] == "stationMaster"){
-					
+					if(!empty($_REQUEST["r"])){
+						$r = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["r"])));
+						if($r == "cardStatus"){
+							$nic = $_SESSION['nic'];
+							$getStation = "SELECT station_code FROM station WHERE employee_nic='".$nic."'";
+							$resultStation = mysqli_query($con, $getStation);
+							if(mysqli_num_rows($resultStation) != 0){
+								while($rowS = mysqli_fetch_array($resultStation)){
+									$sCode = $rowS['station_code'];
+								}
+								if($q == "all"){
+									$getReq = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='send' OR status_type='reject' OR status_type='received') AND station_station_code='".$sCode."'";
+									$resultReq = mysqli_query($con, $getReq);
+									if(mysqli_num_rows($resultReq) != 0){
+										echo '<div class="form-group">
+											<div class="container-fluid center-block">
+												<table style="width:100%;" class="table table-striped">
+												  <tr>
+													<th>Request ID</th>
+													<th>Requested Cards</th>
+													<th>Send Cards</th>
+													<th>Requested Date</th>
+													<th>Send Date</th>
+													<th>Station</th>
+													<th>Status</th>
+												  </tr>';
+										while($rowResults = mysqli_fetch_array($resultReq)){
+											$rID = $rowResults['request_id'];
+											$rCards = $rowResults['no_of_cards_requested'];
+											$sCards = $rowResults['no_of_cards_sent'];
+											$rDate = $rowResults['requested_date'];
+											$sDate = $rowResults['send_date'];
+											$status = $rowResults['card_request_status_status_id'];
+											$station = $rowResults['station_station_code'];
+											$getStatus = "SELECT * FROM card_request_status WHERE status_id='".$status."'";
+											$resultStatus = mysqli_query($con, $getStatus);
+											if(mysqli_num_rows($resultStatus) != 0){
+												while($rowStatus = mysqli_fetch_array($resultStatus)){
+													$statusName = $rowStatus['status_type'];
+													echo '<tr>
+															<td>'.$rID.'</td>
+															<td>'.$rCards.'</td>
+															<td>'.$sCards.'</td>
+															<td>'.$rDate.'</td>
+															<td>'.$sDate.'</td>
+															<td>'.$station.'</td>
+															<td>'.$statusName.'</td>
+														  </tr>';
+												}
+											}
+										}
+										echo '</table>
+												</div>
+											</div>';
+									} else {
+										//no results
+										echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+									}
+								} else if($q == "received"){
+									$getReq = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='received') AND station_station_code='".$sCode."'";
+									$resultReq = mysqli_query($con, $getReq);
+									if(mysqli_num_rows($resultReq) != 0){
+										echo '<div class="form-group">
+											<div class="container-fluid center-block">
+												<table style="width:100%;" class="table table-striped">
+												  <tr>
+													<th>Request ID</th>
+													<th>Requested Cards</th>
+													<th>Send Cards</th>
+													<th>Requested Date</th>
+													<th>Send Date</th>
+													<th>Station</th>
+													<th>Status</th>
+												  </tr>';
+										while($rowResults = mysqli_fetch_array($resultReq)){
+											$rID = $rowResults['request_id'];
+											$rCards = $rowResults['no_of_cards_requested'];
+											$sCards = $rowResults['no_of_cards_sent'];
+											$rDate = $rowResults['requested_date'];
+											$sDate = $rowResults['send_date'];
+											$status = $rowResults['card_request_status_status_id'];
+											$station = $rowResults['station_station_code'];
+											$getStatus = "SELECT * FROM card_request_status WHERE status_id='".$status."'";
+											$resultStatus = mysqli_query($con, $getStatus);
+											if(mysqli_num_rows($resultStatus) != 0){
+												while($rowStatus = mysqli_fetch_array($resultStatus)){
+													$statusName = $rowStatus['status_type'];
+													echo '<tr>
+															<td>'.$rID.'</td>
+															<td>'.$rCards.'</td>
+															<td>'.$sCards.'</td>
+															<td>'.$rDate.'</td>
+															<td>'.$sDate.'</td>
+															<td>'.$station.'</td>
+															<td>'.$statusName.'</td>
+														  </tr>';
+												}
+											}
+										}
+										echo '</table>
+												</div>
+											</div>';
+									} else {
+										//no results
+										echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+									}
+								} else if($q == "rejected"){
+									$getReq = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='reject') AND station_station_code='".$sCode."'";
+									$resultReq = mysqli_query($con, $getReq);
+									if(mysqli_num_rows($resultReq) != 0){
+										echo '<div class="form-group">
+											<div class="container-fluid center-block">
+												<table style="width:100%;" class="table table-striped">
+												  <tr>
+													<th>Request ID</th>
+													<th>Requested Cards</th>
+													<th>Send Cards</th>
+													<th>Requested Date</th>
+													<th>Send Date</th>
+													<th>Station</th>
+													<th>Status</th>
+												  </tr>';
+										while($rowResults = mysqli_fetch_array($resultReq)){
+											$rID = $rowResults['request_id'];
+											$rCards = $rowResults['no_of_cards_requested'];
+											$sCards = $rowResults['no_of_cards_sent'];
+											$rDate = $rowResults['requested_date'];
+											$sDate = $rowResults['send_date'];
+											$status = $rowResults['card_request_status_status_id'];
+											$station = $rowResults['station_station_code'];
+											$getStatus = "SELECT * FROM card_request_status WHERE status_id='".$status."'";
+											$resultStatus = mysqli_query($con, $getStatus);
+											if(mysqli_num_rows($resultStatus) != 0){
+												while($rowStatus = mysqli_fetch_array($resultStatus)){
+													$statusName = $rowStatus['status_type'];
+													echo '<tr>
+															<td>'.$rID.'</td>
+															<td>'.$rCards.'</td>
+															<td>'.$sCards.'</td>
+															<td>'.$rDate.'</td>
+															<td>'.$sDate.'</td>
+															<td>'.$station.'</td>
+															<td>'.$statusName.'</td>
+														  </tr>';
+												}
+											}
+										}
+										echo '</table>
+												</div>
+											</div>';
+									} else {
+										//no results
+										echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+									}
+								} else if($q == "issued"){
+									$getReq = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='send') AND station_station_code='".$sCode."'";
+									$resultReq = mysqli_query($con, $getReq);
+									if(mysqli_num_rows($resultReq) != 0){
+										echo '<div class="form-group">
+											<div class="container-fluid center-block">
+												<table style="width:100%;" class="table table-striped">
+												  <tr>
+													<th>Request ID</th>
+													<th>Requested Cards</th>
+													<th>Send Cards</th>
+													<th>Requested Date</th>
+													<th>Send Date</th>
+													<th>Station</th>
+													<th>Status</th>
+												  </tr>';
+										while($rowResults = mysqli_fetch_array($resultReq)){
+											$rID = $rowResults['request_id'];
+											$rCards = $rowResults['no_of_cards_requested'];
+											$sCards = $rowResults['no_of_cards_sent'];
+											$rDate = $rowResults['requested_date'];
+											$sDate = $rowResults['send_date'];
+											$status = $rowResults['card_request_status_status_id'];
+											$station = $rowResults['station_station_code'];
+											$getStatus = "SELECT * FROM card_request_status WHERE status_id='".$status."'";
+											$resultStatus = mysqli_query($con, $getStatus);
+											if(mysqli_num_rows($resultStatus) != 0){
+												while($rowStatus = mysqli_fetch_array($resultStatus)){
+													$statusName = $rowStatus['status_type'];
+													echo '<tr>
+															<td>'.$rID.'</td>
+															<td>'.$rCards.'</td>
+															<td>'.$sCards.'</td>
+															<td>'.$rDate.'</td>
+															<td>'.$sDate.'</td>
+															<td>'.$station.'</td>
+															<td>'.$statusName.'</td>
+														  </tr>';
+												}
+											}
+										}
+										echo '</table>
+												</div>
+											</div>';
+									} else {
+										//no results
+										echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+									}
+								} else {
+									// wrong html id
+									echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+								}
+							} else {
+								// wrong station
+								echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+							}
+							
+						} else {
+							// no html id
+							echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';
+						}
+					} else {
+						// no html id
+						echo '<h3 class="text-center" style="padding:50px;">No Results To Display.</h3>';	
+					}  
 				} else { 
 					// 404 wrong operation
 					header('Location:../404.php');	
