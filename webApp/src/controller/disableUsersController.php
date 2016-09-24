@@ -6,18 +6,16 @@
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
 	if(isset($_SESSION['position'])){
-		if($_SESSION['position'] == "sysadmin" || $_SESSION['position'] == "stationMaster" || $_SESSION['position'] == "manager"){
+		if($_SESSION['position'] == "stationMaster"){
 			if(isset($_GET['position']) && isset($_GET['nic']) && isset($_GET['email'])){
 				if(!empty($_GET['position']) && !empty($_GET['nic']) && !empty($_GET['email'])){
 					$position = $_GET['position'];
 					$nic = $_GET['nic'];
 					$email = $_GET['email'];
-					$rand = rand(1000,9999);
-					$pass = md5($rand);
-					$activateUser = "UPDATE employee SET STATUS='1', login_attempt='0', previous_password='', password='".$pass."' WHERE nic='".$nic."'";
-					if(mysqli_query($con, $activateUser)){
+					$deactivateUser = "UPDATE employee SET STATUS='0' WHERE nic='".$nic."'";
+					if(mysqli_query($con, $deactivateUser)){
 						if($position == "topupAgent"){
-							$getStatus = "SELECT topup_agent_status_id FROM topup_agent_status WHERE topup_agent_status='registered'";
+							$getStatus = "SELECT topup_agent_status_id FROM topup_agent_status WHERE topup_agent_status='disabled'";
 							$resultStatus = mysqli_query($con, $getStatus);
 							if(mysqli_num_rows($resultStatus) != 0){
 								while($rowStatus = mysqli_fetch_array($resultStatus)){
@@ -32,44 +30,31 @@
 						$subject = "Account Activated";
 $message = "<p>Dear ".$position.",</p>
 <br/>
-<p>Your account has been reactivated. Please use following credentials to login to your account. Please change your password when you logged in.</p>
-<br/>
-<h4>User Name : ".$nic."</h4>
-<h4>Passowrd : ".$rand."</h4>
-<br/>
-<p>Please try to minimize such errors in the future</p>
+<p>Your account has been deactivated. You won't be able to login to the system with your credentials. If you think this is a mistake, then please meet the relevant station master.</p>
 <br/>
 <p>p.s. : Please do not reply to this email</p>
 <br/>
 <p>Thank You!</p>
-<p>S.C.A.T System Admin</p>";
+<p>S.C.A.T System</p>";
 						$headers = "MIME-Version: 1.0" . "\r\n";
 						$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 						mail($to, $subject, $message, $headers);
 						//sucessfully activated
-						if($position == "manager"){
-							header('Location:../enableUsers.php?position=manager&error=su');
-						} else if($position == "stationMaster"){
-							header('Location:../enableUsers.php?position=stationMaster&error=su');
-						} else if($position == "updater"){
-							header('Location:../enableUsers.php?position=updater&error=su');
+						if($position == "updater"){
+							header('Location:../disableUsers.php?position=updater&error=su');
 						} else if($position == "registrar"){
-							header('Location:../enableUsers.php?position=registrar&error=su');
+							header('Location:../disableUsers.php?position=registrar&error=su');
 						} else if($position == "topupAgent"){
-							header('Location:../enableUsers.php?position=topupAgent&error=su');
+							header('Location:../disableUsers.php?position=topupAgent&error=su');
 						}
 					} else {
 						//query failed
-						if($position == "manager"){
-							header('Location:../enableUsers.php?position=manager&error=qf');
-						} else if($position == "stationMaster"){
-							header('Location:../enableUsers.php?position=stationMaster&error=qf');
-						} else if($position == "updater"){
-							header('Location:../enableUsers.php?position=updater&error=qf');
+						if($position == "updater"){
+							header('Location:../disableUsers.php?position=updater&error=qf');
 						} else if($position == "registrar"){
-							header('Location:../enableUsers.php?position=registrar&error=qf');
+							header('Location:../disableUsers.php?position=registrar&error=qf');
 						} else if($position == "topupAgent"){
-							header('Location:../enableUsers.php?position=topupAgent&error=qf');
+							header('Location:../disableUsers.php?position=topupAgent&error=qf');
 						}
 					}
 				} else {

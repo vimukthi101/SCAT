@@ -37,6 +37,11 @@
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Enable Registrars</font>
         </div>
     </a>
+    <a href="../src/disableUsers.php?position=registrar" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Disable Registrars</font>
+        </div>
+    </a>
     <div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">Top-up Agent Management</label>
     </div>
@@ -60,6 +65,11 @@
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Enable Top-up Agents</font>
         </div>
     </a>
+    <a href="../src/disableUsers.php?position=topupAgent" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Disable Top-up Agents</font>
+        </div>
+    </a>
     <div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">Time Table Updater Management</label>
     </div>
@@ -81,6 +91,11 @@
     <a href="../src/enableUsers.php?position=updater" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Enable Updaters</font>
+        </div>
+    </a>
+    <a href="../src/disableUsers.php?position=updater" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Disable Updaters</font>
         </div>
     </a>
 </div>
