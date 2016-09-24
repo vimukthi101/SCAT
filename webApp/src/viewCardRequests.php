@@ -51,51 +51,111 @@ a:visited{
         </div>
         <div style="padding-left:100px;padding-top:20px;"> 
         <?php
-			$getCards = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='request')";
-			$resultCards = mysqli_query($con, $getCards);
-			if(mysqli_num_rows($resultCards) != 0){
-				echo '<table class="table table-striped">
-               		<tr>
-					<th>Request ID</th>
-					<th>Station Code</th>
-					<th>Station Master</th>
-					<th>Number of Cards Requested</th>
-					<th>Requested Date</th>
-				   </tr>';
-				while($rowCards = mysqli_fetch_array($resultCards)){
-					$reqId = $rowCards['request_id'];
-					$cardsReq = $rowCards['no_of_cards_requested'];
-					$station = $rowCards['station_station_code'];
-					$date = $rowCards['requested_date'];
-					$getStation = "SELECT * FROM station WHERE station_code='".$station."'";
-					$resultStation = mysqli_query($con, $getStation);
-					if(mysqli_num_rows($resultStation) != 0){
-						while($rowStation = mysqli_fetch_array($resultStation)){
-							$stationName = $rowStation['station_name'];
-							$smNic = $rowStation['employee_nic'];
-							$getSM = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$smNic."')";
-							$resultSM = mysqli_query($con, $getSM);
-							if(mysqli_num_rows($resultSM) != 0){
-								while($rowSM = mysqli_fetch_array($resultSM)){
-									$fName = $rowSM['first_name'];
-									$sName = $rowSM['second_name'];
-									$lName = $rowSM['last_name'];
+			if($_SESSION['position']=="sysadmin"){
+				$getCards = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='request')";
+				$resultCards = mysqli_query($con, $getCards);
+				if(mysqli_num_rows($resultCards) != 0){
+					echo '<table class="table table-striped">
+						<tr>
+						<th>Request ID</th>
+						<th>Station Code</th>
+						<th>Station Master</th>
+						<th>Number of Cards Requested</th>
+						<th>Requested Date</th>
+					   </tr>';
+					while($rowCards = mysqli_fetch_array($resultCards)){
+						$reqId = $rowCards['request_id'];
+						$cardsReq = $rowCards['no_of_cards_requested'];
+						$station = $rowCards['station_station_code'];
+						$date = $rowCards['requested_date'];
+						$getStation = "SELECT * FROM station WHERE station_code='".$station."'";
+						$resultStation = mysqli_query($con, $getStation);
+						if(mysqli_num_rows($resultStation) != 0){
+							while($rowStation = mysqli_fetch_array($resultStation)){
+								$stationName = $rowStation['station_name'];
+								$smNic = $rowStation['employee_nic'];
+								$getSM = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$smNic."')";
+								$resultSM = mysqli_query($con, $getSM);
+								if(mysqli_num_rows($resultSM) != 0){
+									while($rowSM = mysqli_fetch_array($resultSM)){
+										$fName = $rowSM['first_name'];
+										$sName = $rowSM['second_name'];
+										$lName = $rowSM['last_name'];
+									}
 								}
 							}
-						}
-					}echo '<tr>
-							<td>'.$reqId.'</td>
-							<td>'.$station.' - '.$stationName.'</td>
-							<td>'.$fName.' '.$sName.' '.$lName.'</td>
-							<td>'.$cardsReq.'</td>
-							<td>'.$date.'</td>
-						  </tr>';
+						}echo '<tr>
+								<td>'.$reqId.'</td>
+								<td>'.$station.' - '.$stationName.'</td>
+								<td>'.$fName.' '.$sName.' '.$lName.'</td>
+								<td>'.$cardsReq.'</td>
+								<td>'.$date.'</td>
+							  </tr>';
+					}
+					echo '</table>';
+				} else {
+					//no requests
+					echo '<h3 class="text-center" style="padding:50px;">No Card Requests To Display.</h3>';
 				}
-				echo '</table>';
+			} else if($_SESSION['position']=="stationMaster"){
+				$getS = "SELECT station_code FROM station WHERE employee_nic='".$_SESSION['nic']."'";
+				$resultS = mysqli_query($con, $getS);
+				if(mysqli_num_rows($resultS) != 0){
+					while($rowS = mysqli_fetch_array($resultS)){
+						$stationId = $rowS['station_code'];
+					}
+					$getCards = "SELECT * FROM card_request WHERE card_request_status_status_id IN (SELECT status_id FROM card_request_status WHERE status_type='request') AND station_station_code='".$stationId."'";
+					$resultCards = mysqli_query($con, $getCards);
+					if(mysqli_num_rows($resultCards) != 0){
+						echo '<table class="table table-striped">
+							<tr>
+							<th>Request ID</th>
+							<th>Station Code</th>
+							<th>Station Master</th>
+							<th>Number of Cards Requested</th>
+							<th>Requested Date</th>
+						   </tr>';
+						while($rowCards = mysqli_fetch_array($resultCards)){
+							$reqId = $rowCards['request_id'];
+							$cardsReq = $rowCards['no_of_cards_requested'];
+							$station = $rowCards['station_station_code'];
+							$date = $rowCards['requested_date'];
+							$getStation = "SELECT * FROM station WHERE station_code='".$station."'";
+							$resultStation = mysqli_query($con, $getStation);
+							if(mysqli_num_rows($resultStation) != 0){
+								while($rowStation = mysqli_fetch_array($resultStation)){
+									$stationName = $rowStation['station_name'];
+									$smNic = $rowStation['employee_nic'];
+									$getSM = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$smNic."')";
+									$resultSM = mysqli_query($con, $getSM);
+									if(mysqli_num_rows($resultSM) != 0){
+										while($rowSM = mysqli_fetch_array($resultSM)){
+											$fName = $rowSM['first_name'];
+											$sName = $rowSM['second_name'];
+											$lName = $rowSM['last_name'];
+										}
+									}
+								}
+							}echo '<tr>
+									<td>'.$reqId.'</td>
+									<td>'.$station.' - '.$stationName.'</td>
+									<td>'.$fName.' '.$sName.' '.$lName.'</td>
+									<td>'.$cardsReq.'</td>
+									<td>'.$date.'</td>
+								  </tr>';
+						}
+						echo '</table>';
+					} else {
+						//no requests
+						echo '<h3 class="text-center" style="padding:50px;">No Card Requests To Display.</h3>';
+					}
+				} else {
+					//wrong station
+					echo '<h3 class="text-center" style="padding:50px;">You Are Not Assigned To A Station.</h3>';
+				}
 			} else {
-				//no requests
-				echo '<h3 class="text-center" style="padding:50px;">No Card Requests To Display.</h3>';
-			}
+				header('Location:../404.php');
+			}	
 		?>
         </div>
     </div>

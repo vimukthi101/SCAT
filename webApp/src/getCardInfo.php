@@ -387,6 +387,7 @@ if($p != ""){
 												<th>Requested Cards</th>
 												<th>Send Cards</th>
 												<th>Requested Date</th>
+												<th>Received Date</th>
 												<th>Send Date</th>
 												<th>Station</th>
 												<th>Status</th>
@@ -397,6 +398,7 @@ if($p != ""){
 										$sCards = $rowResults['no_of_cards_sent'];
 										$rDate = $rowResults['requested_date'];
 										$sDate = $rowResults['send_date'];
+										$rrDate = $rowResults['received_date'];
 										$status = $rowResults['card_request_status_status_id'];
 										$station = $rowResults['station_station_code'];
 										$getStatus = "SELECT * FROM card_request_status WHERE status_id='".$status."'";
@@ -410,6 +412,7 @@ if($p != ""){
 														<td>'.$sCards.'</td>
 														<td>'.$rDate.'</td>
 														<td>'.$sDate.'</td>
+														<td>'.$rrDate.'</td>
 														<td>'.$station.'</td>
 														<td>'.$statusName.'</td>
 													  </tr>';
@@ -603,6 +606,7 @@ if($p != ""){
 													<th>Send Cards</th>
 													<th>Requested Date</th>
 													<th>Send Date</th>
+													<th>Received Date</th>
 													<th>Station</th>
 													<th>Status</th>
 												  </tr>';
@@ -611,6 +615,7 @@ if($p != ""){
 											$rCards = $rowResults['no_of_cards_requested'];
 											$sCards = $rowResults['no_of_cards_sent'];
 											$rDate = $rowResults['requested_date'];
+											$rrDate = $rowResults['received_date'];
 											$sDate = $rowResults['send_date'];
 											$status = $rowResults['card_request_status_status_id'];
 											$station = $rowResults['station_station_code'];
@@ -625,6 +630,7 @@ if($p != ""){
 															<td>'.$sCards.'</td>
 															<td>'.$rDate.'</td>
 															<td>'.$sDate.'</td>
+															<td>'.$rrDate.'</td>
 															<td>'.$station.'</td>
 															<td>'.$statusName.'</td>
 														  </tr>';

@@ -18,6 +18,11 @@
 	<div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">S.C.A.T. Card Management</label>
     </div>
+    <a href="../src/requestCards.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Request Cards</font>
+        </div>
+    </a>
     <a href="../src/viewCardRequests.php" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Requests</font>
