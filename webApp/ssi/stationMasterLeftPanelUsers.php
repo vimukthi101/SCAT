@@ -32,9 +32,9 @@
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Registrars</font>
         </div>
     </a>
-    <a href="../src/deleteUsers.php?position=registrar" style="text-decoration:none;">
+    <a href="../src/enableUsers.php?position=registrar" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Registrars</font>
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Enable Registrars</font>
         </div>
     </a>
     <div class="row" style="padding:10px;">
@@ -55,9 +55,9 @@
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Top-up Agents</font>
         </div>
     </a>
-    <a href="../src/deleteUsers.php?position=topupAgent" style="text-decoration:none;">
+    <a href="../src/enableUsers.php?position=topupAgent" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Top-up Agents</font>
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Enable Top-up Agents</font>
         </div>
     </a>
     <div class="row" style="padding:10px;">
@@ -78,9 +78,9 @@
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Updaters</font>
         </div>
     </a>
-    <a href="../src/deleteUsers.php?position=updater" style="text-decoration:none;">
+    <a href="../src/enableUsers.php?position=updater" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Updaters</font>
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Enable Updaters</font>
         </div>
     </a>
 </div>

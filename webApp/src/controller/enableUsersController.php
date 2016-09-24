@@ -6,7 +6,7 @@
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
 	if(isset($_SESSION['position'])){
-		if($_SESSION['position'] == "sysadmin" || $_SESSION['position'] == "stationMaster" || $_SESSION['position'] == "manager"){
+		if($_SESSION['position'] == "sysadmin" || $_SESSION['position'] == "stationMaster" || $_SESSION['position'] == "manager" || $_SESSION['topupAgent'] == "manager"){
 			if(isset($_GET['position']) && isset($_GET['nic']) && isset($_GET['email'])){
 				if(!empty($_GET['position']) && !empty($_GET['nic']) && !empty($_GET['email'])){
 					$position = $_GET['position'];
@@ -40,6 +40,12 @@ $message = "<p>Dear ".$position.",</p>
 							header('Location:../enableUsers.php?position=manager&error=su');
 						} else if($position == "stationMaster"){
 							header('Location:../enableUsers.php?position=stationMaster&error=su');
+						} else if($position == "updater"){
+							header('Location:../enableUsers.php?position=updater&error=su');
+						} else if($position == "registrar"){
+							header('Location:../enableUsers.php?position=registrar&error=su');
+						} else if($position == "topupAgent"){
+							header('Location:../enableUsers.php?position=topupAgent&error=su');
 						}
 					} else {
 						//query failed
@@ -47,6 +53,12 @@ $message = "<p>Dear ".$position.",</p>
 							header('Location:../enableUsers.php?position=manager&error=qf');
 						} else if($position == "stationMaster"){
 							header('Location:../enableUsers.php?position=stationMaster&error=qf');
+						} else if($position == "updater"){
+							header('Location:../enableUsers.php?position=updater&error=qf');
+						} else if($position == "registrar"){
+							header('Location:../enableUsers.php?position=registrar&error=qf');
+						} else if($position == "topupAgent"){
+							header('Location:../enableUsers.php?position=topupAgent&error=qf');
 						}
 					}
 				} else {

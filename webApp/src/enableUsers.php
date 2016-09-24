@@ -64,7 +64,84 @@ if(isset($_SESSION['position'])){
             <div class="form-horizontal">
             	<div style="padding-left:70px;margin-top:50px;">
             	<?php
-					$getEmp = "SELECT * FROM employee WHERE STATUS='0' AND nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='".$sendPos."'))";	
+					if($sendPos == "topupAgent"){
+						$getEmp = "SELECT * FROM employee WHERE STATUS='0' AND nic IN (SELECT employee_nic FROM topup_agent)";	
+						$resultGetEmp = mysqli_query($con, $getEmp);
+						if(mysqli_num_rows($resultGetEmp) != 0){
+							echo '<div class="form-group">
+									<div class="container-fluid">
+										<table style="width:100%;" class="table table-striped">
+										  <tr class="text-center">
+											<th>Employee ID</th>
+											<th>NIC</th> 
+											<th>Full Name</th>
+											<th>Address</th>
+											<th>Contact No</th>
+											<th>E-Mail</th>
+											<th>Status</th>
+											<th>Settings</th>
+										  </tr>
+										  ';
+							while($rowGetEmp = mysqli_fetch_array($resultGetEmp)){
+								$contact = $rowGetEmp['contact_no'];
+								$nic = $rowGetEmp['nic'];
+								$EMail = $rowGetEmp['employee_email'];
+								$addressId = $rowGetEmp['address_id'];
+								$nameId = $rowGetEmp['name_id'];
+								if($rowGetEmp['status'] == 1){
+									$status = "Active";
+								} else {
+									$status = "Deactive";
+								}
+								//get EID
+								$getEid = "SELECT * FROM topup_agent WHERE employee_nic='".$nic."'";
+								$resultEID = mysqli_query($con, $getEid);
+								if(mysqli_num_rows($resultEID) != 0){
+									while($rowEid = mysqli_fetch_array($resultEID)){
+										$eId = $rowEid['topup_agent_id'];
+									}
+								}
+								//get name
+								$getName = "SELECT * FROM name WHERE name_id='".$nameId."'";
+								$resultName = mysqli_query($con, $getName);
+								if(mysqli_num_rows($resultName) != 0){
+									while($rowName = mysqli_fetch_array($resultName)){
+										$fName = $rowName['first_name'];
+										$sName = $rowName['second_name'];
+										$lName = $rowName['last_name'];
+									}
+								}
+								//get address
+								$addressName = "SELECT * FROM address WHERE address_id='".$addressId."'";
+								$resultAddress = mysqli_query($con, $addressName);
+								if(mysqli_num_rows($resultAddress) != 0){
+									while($rowAddress = mysqli_fetch_array($resultAddress)){
+										$aNo = $rowAddress['address_no'];
+										$aLane = $rowAddress['address_lane'];
+										$aCity = $rowAddress['address_city'];
+									}
+								}
+								echo '<tr>
+											<td>'.$eId.'</td>
+											<td>'.$nic.'</td>
+											<td>'.$fName.' '.$sName.' '.$lName.'</td>
+											<td>'.$aNo.', '.$aLane.', '.$aCity.'</td>
+											<td>'.$contact.'</td>
+											<td>'.$EMail.'</td>
+											<td>'.$status.'</td>
+											<td><a onclick="return confirm(\'Do You Wish to Activate User?\');return false;" href="controller/enableUsersController.php?position='.$sendPos.'&nic='.$nic.'&email='.$EMail.'"><i class="fa fa-2x fa-check" style="padding-left:5px;" aria-hidden="true"></i></a></td>
+										  </tr>';
+								
+							}
+							echo '</table>
+									</div>
+								</div>';
+						} else{
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
+					} else {
+						$getEmp = "SELECT * FROM employee WHERE STATUS='0' AND nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='".$sendPos."'))";	
 						$resultGetEmp = mysqli_query($con, $getEmp);
 						if(mysqli_num_rows($resultGetEmp) != 0){
 							echo '<div class="form-group">
@@ -139,6 +216,7 @@ if(isset($_SESSION['position'])){
 							//if no result to show
 							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
 						}
+					}
 				?>
                 </div>
         	</div>

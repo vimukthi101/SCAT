@@ -48,10 +48,6 @@ $message = "<p>Dear ".$employeePosition.",</p>
 												header('Location:../deleteUsers.php?position=manager&error=su');		
 											} else if($employeePosition == "stationMaster"){
 												header('Location:../deleteUsers.php?position=stationMaster&error=su');	
-											}  else if($employeePosition == "registrar"){
-												header('Location:../deleteUsers.php?position=registrar&error=su');	
-											} else if($employeePosition == "updater"){
-												header('Location:../deleteUsers.php?position=updater&error=su');	
 											}
 										} else {
 											//query failed
@@ -59,11 +55,7 @@ $message = "<p>Dear ".$employeePosition.",</p>
 												header('Location:../deleteUsers.php?position=manager&error=qf');		
 											} else if($employeePosition == "stationMaster"){
 												header('Location:../deleteUsers.php?position=stationMaster&error=qf');	
-											}  else if($employeePosition == "registrar"){
-												header('Location:../deleteUsers.php?position=registrar&error=qf');	
-											} else if($employeePosition == "updater"){
-												header('Location:../deleteUsers.php?position=updater&error=qf');	
-											}	
+											}
 										}	
 									} else {
 										//query failed
@@ -71,10 +63,6 @@ $message = "<p>Dear ".$employeePosition.",</p>
 											header('Location:../deleteUsers.php?position=manager&error=qf');		
 										} else if($employeePosition == "stationMaster"){
 											header('Location:../deleteUsers.php?position=stationMaster&error=qf');	
-										}  else if($employeePosition == "registrar"){
-											header('Location:../deleteUsers.php?position=registrar&error=qf');	
-										} else if($employeePosition == "updater"){
-											header('Location:../deleteUsers.php?position=updater&error=qf');	
 										}
 									}
 								} else {
@@ -83,10 +71,6 @@ $message = "<p>Dear ".$employeePosition.",</p>
 										header('Location:../deleteUsers.php?position=manager&error=qf');		
 									} else if($employeePosition == "stationMaster"){
 										header('Location:../deleteUsers.php?position=stationMaster&error=qf');	
-									}  else if($employeePosition == "registrar"){
-										header('Location:../deleteUsers.php?position=registrar&error=qf');	
-									} else if($employeePosition == "updater"){
-										header('Location:../deleteUsers.php?position=updater&error=qf');	
 									}
 								}
 							} else {
@@ -95,11 +79,7 @@ $message = "<p>Dear ".$employeePosition.",</p>
 									header('Location:../deleteUsers.php?position=manager&error=qf');		
 								} else if($employeePosition == "stationMaster"){
 									header('Location:../deleteUsers.php?position=stationMaster&error=qf');	
-								}  else if($employeePosition == "registrar"){
-									header('Location:../deleteUsers.php?position=registrar&error=qf');	
-								} else if($employeePosition == "updater"){
-									header('Location:../deleteUsers.php?position=updater&error=qf');	
-								}	
+								}
 							}
 						}
 					} else {
@@ -108,10 +88,6 @@ $message = "<p>Dear ".$employeePosition.",</p>
 							header('Location:../deleteUsers.php?position=manager&error=nu');		
 						} else if($employeePosition == "stationMaster"){
 							header('Location:../deleteUsers.php?position=stationMaster&error=nu');	
-						}  else if($employeePosition == "registrar"){
-							header('Location:../deleteUsers.php?position=registrar&error=nu');	
-						} else if($employeePosition == "updater"){
-							header('Location:../deleteUsers.php?position=updater&error=nu');	
 						}
 					}
 				} else {
@@ -124,10 +100,6 @@ $message = "<p>Dear ".$employeePosition.",</p>
 					header('Location:../deleteUsers.php?position=manager&error=ef');		
 				} else if($employeePosition == "stationMaster"){
 					header('Location:../deleteUsers.php?position=stationMaster&error=ef');	
-				} else if($employeePosition == "registrar"){
-					header('Location:../deleteUsers.php?position=registrar&error=ef');	
-				} else if($employeePosition == "updater"){
-					header('Location:../deleteUsers.php?position=updater&error=ef');	
 				}
 			}
 		} else {

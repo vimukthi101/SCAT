@@ -895,7 +895,7 @@ if($s != ""){
 									} else {
 										$hint .= '<option>No Registration Fees Added Yet.</option>';	
 									}	
-								echo '<form role="form" class="form-horizontal" method="post" action="controller/updateUsersController.php">
+								echo '<form role="form" class="form-horizontal" method="post" action="controller/updateAgentsController.php">
 										<div class="form-group">
 											<label for="employeeId" class="control-label col-md-3">Employee ID <span style="color:rgb(255,0,0);">*</span></label>
 											<div class="col-md-8">
@@ -1183,7 +1183,7 @@ if($s != ""){
 										$hint .= '<option>No Registration Fees Added Yet.</option>';	
 									}	
 								}
-								echo '<form role="form" class="form-horizontal" method="post" action="controller/updateUsersController.php">
+								echo '<form role="form" class="form-horizontal" method="post" action="controller/updateAgentsController.php">
 										<div class="form-group">
 											<label for="employeeId" class="control-label col-md-3">Employee ID <span style="color:rgb(255,0,0);">*</span></label>
 											<div class="col-md-8">
@@ -1471,7 +1471,7 @@ if($s != ""){
 										$hint .= '<option>No Registration Fees Added Yet.</option>';	
 									}	
 								}
-								echo '<form role="form" class="form-horizontal" method="post" action="controller/updateUsersController.php">
+								echo '<form role="form" class="form-horizontal" method="post" action="controller/updateAgentsController.php">
 										<div class="form-group">
 											<label for="employeeId" class="control-label col-md-3">Employee ID <span style="color:rgb(255,0,0);">*</span></label>
 											<div class="col-md-8">
@@ -1697,18 +1697,6 @@ if($s != ""){
 					//no value entered for search
 					echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 			} else if($p == "delete") {
 				if($q != ""){
 					if($r == "EID"){
