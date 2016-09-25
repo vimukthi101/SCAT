@@ -6,7 +6,7 @@
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
 	if(isset($_SESSION['position'])){
-		if($_SESSION['position'] == "stationMaster"){
+		if($_SESSION['position'] == "stationMaster" || $_SESSION['position'] == "manager"){
 			if(isset($_GET['position']) && isset($_GET['nic']) && isset($_GET['email'])){
 				if(!empty($_GET['position']) && !empty($_GET['nic']) && !empty($_GET['email'])){
 					$position = $_GET['position'];

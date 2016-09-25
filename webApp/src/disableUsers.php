@@ -3,7 +3,7 @@ if(!isset($_SESSION[''])){
 	session_start();
 }
 if(isset($_SESSION['position'])){
-	if($_SESSION['position'] == "stationMaster"){
+	if($_SESSION['position'] == "stationMaster" || $_SESSION['position'] == "manager"){
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,6 +14,17 @@ if(isset($_SESSION['position'])){
 	include_once('../ssi/db.php');
 ?>
 <title>User Management</title>
+<style>
+a {
+	color:rgba(255,0,0,0.5);
+}
+a:hover {
+    color:rgba(255,0,0,1);
+}
+a:visited{
+	color:rgba(255,0,0,0.5);
+}
+</style>
 </head>
 
 <body style="background-image:url(../images/4.jpg);background-repeat:no-repeat;background-size:cover;">
@@ -25,7 +36,11 @@ if(isset($_SESSION['position'])){
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-			include_once('../ssi/stationMasterLeftPanelUsers.php');
+			if($_SESSION['position'] == "stationMaster"){
+				include_once('../ssi/stationMasterLeftPanelUsers.php');	
+			} else if($_SESSION['position'] == "manager") {
+				include_once('../ssi/managerLeftPanelUsers.php');
+			}
 			$sendPos = $_GET['position'];
         ?>
     </div>
@@ -45,7 +60,7 @@ if(isset($_SESSION['position'])){
 					$error = $_GET['error'];
 					if($error == "su"){
 						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control label-success" style="height:35px;">User Activated Successfully. New Password Send via An E-Mail.</label>
+								<label class="form-control label-success" style="height:35px;">User De-Activated Successfully.</label>
 							</div>';
 					} else if($error == "qf"){
 						echo '<div class="form-group text-center" style="padding-left:100px;">

@@ -1,11 +1,16 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+if(isset($_SESSION['position'])){
+	if($_SESSION['position'] == "topupAgent" || $_SESSION['position'] == "registrar"){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('../ssi/links.html');
-	//remove this when the login is done
-	$_SESSION['position'] = "registrar";
 ?>
 <title>Credit Transfer</title>
 </head>
@@ -19,16 +24,44 @@
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-        	include_once('../ssi/registrarLeftPanelCards.php'); 
+			include_once('../ssi/registrarLeftPanelCards.php');
         ?>
     </div>
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
         <div class="text-center" style="padding:10px;">
             <font face="Verdana, Geneva, sans-serif" size="+1">
-            	<u>Credit Transfer</u>
+            	<u>Transfer S.C.A.T. Credits</u>
             </font>
         </div>
         <div style="padding:10px;"> 
+			<?php
+                if(isset($_GET['error'])){
+                    if(!empty($_GET['error'])){
+                        $error = $_GET['error'];
+                        if($error == "ef"){
+                            echo '<div class="form-group text-center" style="padding-left:100px;">
+                                    <label class="form-control" style="height:35px;">Required Fields Cannot Be Empty.</label>
+                                </div>';
+                        } else if($error == "wa"){
+                            echo '<div class="form-group text-center" style="padding-left:100px;">
+                                    <label class="form-control" style="height:35px;">Amount Should Be In The Format Of 100.00</label>
+                                </div>';
+                        } else if($error == "wc"){
+                            echo '<div class="form-group text-center" style="padding-left:100px;">
+                                    <label class="form-control" style="height:35px;">Invalid Commuter.</label>
+                                </div>';
+                        } else if($error == "qf"){
+                            echo '<div class="form-group text-center" style="padding-left:100px;">
+                                    <label class="form-control" style="height:35px;">Could Not Top-Up The Card. Please Try Again Later.</label>
+                                </div>';
+                        } else if($error == "su"){
+                            echo '<div class="form-group text-center" style="padding-left:100px;">
+                                    <label class="form-control label-success" style="height:35px;">Top-Up The Card Successfully.</label>
+                                </div>';
+                        }
+                    }
+                }
+            ?>
             <form role="form" class="form-horizontal">
             	<div class="form-group">
                     <label for="employeeId" class="control-label col-md-3">Search By : </label>
@@ -47,16 +80,16 @@
 					 var idx = selectObj.selectedIndex; 
 					 var which = selectObj.options[idx].value; 
 					 if(which=='cNo'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="CardNo" class="control-label col-md-3">Card Number</label><div class="col-md-8"><input class="form-control" type="text" name="CardNo" id="CardNo" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>'; 
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="CardNo" class="control-label col-md-3">Card Number</label><div class="col-md-8"><input class="form-control" type="text" name="CardNo" id="CardNo"/></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(document.getElementById(\'CardNo\').value, document.getElementById(\'CardNo\').id);"/></div></div><hr/>'; 
 					 } else if(which=='nic'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="nic" id="nic" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>';
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="nic" id="nic" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(document.getElementById(\'nic\').value, document.getElementById(\'nic\').id);"/></div></div><hr/>';
 					 } else {
 						 document.getElementById('new').innerHTML = '';
 					 }
 				 } 
 			</script>
             <script>
-			function showHint(str) {
+			function showHint(str, id) {
 				if (str.length == 0) { 
 					document.getElementById("txtHint").innerHTML = "";
 					return;
@@ -67,17 +100,49 @@
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getCommuterInfo.php?p=transfer&q=" + str, true);
+					xmlhttp.open("GET", "getCommuterInfo.php?p=transfer&q=" + str + "&r=" + id, true);
 					xmlhttp.send();
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+            <!--second time data-->
+            <script type="text/javascript">
+				 function another(selectObj) { 
+					 var idx = selectObj.selectedIndex; 
+					 var which = selectObj.options[idx].value; 
+					 if(which=='cNo'){
+						 document.getElementById('again').innerHTML = '<div class="form-group"><label for="Card" class="control-label col-md-3">Card Number</label><div class="col-md-8"><input class="form-control" type="text" name="Card" id="Card"/></div><div><input type="button" value="Search" class="btn btn-success" onClick="showAnother(document.getElementById(\'Card\').value, document.getElementById(\'Card\').id);"/></div></div><hr/>'; 
+					 } else if(which=='nic'){
+						 document.getElementById('again').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="enic" id="enic" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showAnother(document.getElementById(\'enic\').value, document.getElementById(\'enic\').id);"/></div></div><hr/>';
+					 } else {
+						 document.getElementById('again').innerHTML = '';
+					 }
+				 } 
+			</script>
+            <script>
+			function showAnother(str, id) {
+				if (str.length == 0) { 
+					document.getElementById("txtAnother").innerHTML = "";
+					return;
+				} else {
+					var xmlhttp = new XMLHttpRequest();
+					xmlhttp.onreadystatechange = function() {
+						if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+							document.getElementById("txtAnother").innerHTML = xmlhttp.responseText;
+						}
+					};
+					xmlhttp.open("GET", "getCommuterInfoAgain.php?p=transfer&q=" + str + "&r=" + id, true);
+					xmlhttp.send();
+				}
+			}
+			</script>
+            <div class="form-horizontal">
             	<div id="new"></div>
             	<div style="padding-left:70px;" id="txtHint"></div>
-                <div id="Again"></div>
-            	<div style="padding-left:70px;" id="txtHintAnother"></div>
-            </form>
+                <!--second time-->
+                <div id="again"></div>
+                <div style="padding-left:70px;" id="txtAnother"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -86,3 +151,11 @@
 ?>
 </body>
 </html>
+<?php
+	} else {
+		header('Location:../404.php');	
+	}
+} else {
+	header('Location:../404.php');
+}
+?>

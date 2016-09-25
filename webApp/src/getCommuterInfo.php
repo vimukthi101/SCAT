@@ -1,5 +1,6 @@
 <?php
 include_once('../ssi/links.html');
+include_once('../ssi/db.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,11 +18,13 @@ a:visited{
 </style>
 </head>
 <?php
-$q = $_REQUEST["q"];
-$p = $_REQUEST["p"];
-$hint = "";
-
-if($p != ""){
+//value enter by user
+$q = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["q"])));
+//operation : view/update/delete
+$p = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["p"])));
+//html id
+$r = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["r"])));
+if($p != "" && $r != ""){
 	if($p == "view"){
 		if ($q != "") {
 			$hint .= '<div class="form-group">
@@ -70,6 +73,9 @@ if($p != ""){
 								</table>
 							</div>
 						</div>';
+		} else {
+			//no value entered for search
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 		}
 	} else if($p == "update"){
 		if($q != ""){
@@ -139,200 +145,450 @@ if($p != ""){
                     <input type="reset" value="Clear" class="btn btn-danger" />
                 </div>
             </form>';
+		}  else {
+			//no value entered for search
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 		}
 	} else if($p == "topup"){
 		if($q != ""){
-			$hint .= '<form role="form" class="form-horizontal">
-            	<div class="form-group">
-                    <label for="CardNumber" class="control-label col-md-3">Card Number</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="CardNumber" id="CardNumber" readonly/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="employeelNIC" class="control-label col-md-3">NIC</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="nic" id="nic" readonly/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="fName" class="control-label col-md-3">Full Name</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="fname" id="fname" readonly/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="contact" class="control-label col-md-3">Contact Number</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="contact" id="contact" readonly/>
-                	</div>
-                </div>
-				<div class="form-group">
-                    <label for="amount" class="control-label col-md-3">Amount</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="amount" id="amount"/>
-                	</div>
-                </div>
-                <div class="form-group col-md-11 text-center">
-                    <input type="submit" value="Top-Up" class="btn btn-success" />
-                    <input type="reset" value="Clear" class="btn btn-danger" />
-                </div>
-            </form>';
+			if($r == "CardNo"){
+				if(preg_match('/^\d{16}$/',$q)){
+					$getCommuter = "SELECT * FROM commuter WHERE card_card_no='".$q."'";
+					$resultCommuter = mysqli_query($con, $getCommuter);
+					if(mysqli_num_rows($resultCommuter) != 0){
+						while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+							$cardNo = $rowCommuter['card_card_no'];
+							$nic = $rowCommuter['nic'];
+							$nameId = $rowCommuter['name_name_id'];
+							$contactNo = $rowCommuter['contact_no'];
+						}
+						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+						$resultName = mysqli_query($con, $getName);
+						if(mysqli_num_rows($resultName) != 0){
+							while($rowName = mysqli_fetch_array($resultName)){
+								$fName = $rowName['first_name'];
+								$sName = $rowName['second_name'];
+								$lName = $rowName['last_name'];
+							}
+							echo '<form role="form" class="form-horizontal" method="post" action="controller/topupController.php">
+									<div class="form-group">
+										<label for="CardNumber" class="control-label col-md-3">Card Number</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeelNIC" class="control-label col-md-3">NIC</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="fName" class="control-label col-md-3">Full Name</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="name" id="name" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="contact" class="control-label col-md-3">Contact Number</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="amount" class="control-label col-md-3">Amount</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="amount" id="amount" required pattern="^\d+\.\d{2}$" title="Should Be The Format Of 100.00"/>
+										</div>
+									</div>
+									<div class="form-group col-md-11 text-center">
+										<input type="submit" value="Top-Up" name="submit" id="submit" class="btn btn-success" onclick="return confirm(\'Do You Wish to Top-Up Card?\');return false;"/>
+									</div>
+								</form>';
+						} else {
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+					}
+				} else {
+					echo '<h3 class="text-center" style="padding:50px;">Wrong Card Number Format.</h3>';
+				}
+			} else if($r == "nic"){
+				if(preg_match('/^(\d){9}[v|V]$/',$q)){
+					$getCommuter = "SELECT * FROM commuter WHERE nic='".$q."'";
+					$resultCommuter = mysqli_query($con, $getCommuter);
+					if(mysqli_num_rows($resultCommuter) != 0){
+						while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+							$cardNo = $rowCommuter['card_card_no'];
+							$nic = $rowCommuter['nic'];
+							$nameId = $rowCommuter['name_name_id'];
+							$contactNo = $rowCommuter['contact_no'];
+						}
+						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+						$resultName = mysqli_query($con, $getName);
+						if(mysqli_num_rows($resultName) != 0){
+							while($rowName = mysqli_fetch_array($resultName)){
+								$fName = $rowName['first_name'];
+								$sName = $rowName['second_name'];
+								$lName = $rowName['last_name'];
+							}
+							echo '<form role="form" class="form-horizontal" method="post" action="controller/topupController.php">
+									<div class="form-group">
+										<label for="CardNumber" class="control-label col-md-3">Card Number</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeelNIC" class="control-label col-md-3">NIC</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="fName" class="control-label col-md-3">Full Name</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="name" id="name" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="contact" class="control-label col-md-3">Contact Number</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="amount" class="control-label col-md-3">Amount</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="amount" id="amount" required pattern="^\d+\.\d{2}$" title="Should Be The Format Of 100.00"/>
+										</div>
+									</div>
+									<div class="form-group col-md-11 text-center">
+										<input type="submit" value="Top-Up" name="submit" id="submit" class="btn btn-success" onclick="return confirm(\'Do You Wish to Top-Up Card?\');return false;"/>
+									</div>
+								</form>';
+						} else {
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+					}
+				} else {
+					echo '<h3 class="text-center" style="padding:50px;">Wrong NIC Format.</h3>';
+				}
+			} else {
+				//wrong html id
+				header('Location:../404.php');
+			}
+		} else {
+			//no value entered for search
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 		}
 	} else if($p == "transfer"){
-		if($q != ""){
-			$hint .= '<form role="form" class="form-horizontal">
-            	<div class="form-group">
-                    <label for="CardNumber" class="control-label col-md-3">Card Number</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="CardNumber" id="CardNumber" readonly/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="employeelNIC" class="control-label col-md-3">NIC</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="nic" id="nic" readonly/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="fName" class="control-label col-md-3">Full Name</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="fname" id="fname" readonly/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="contact" class="control-label col-md-3">Contact Number</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="contact" id="contact" readonly/>
-                	</div>
-                </div>
-				<div class="text-center" style="padding:10px;">
-					<font face="Verdana, Geneva, sans-serif" size="+1">
-						<u>Card to Transfer</u>
-					</font>
-				</div>
-				<hr/>
-				<div style="padding:10px;"> 
-            <form role="form" class="form-horizontal">
-            	<div class="form-group">
-                    <label for="employeeId" class="control-label col-md-3">Search By : </label>
-                    <div class="col-md-8">
-                    	<select onchange="loadAgain(this);" name="searchBy" id="searchBy" class="form-control">
-                          <option selected="selected" disabled="disabled">--Select the search criteria--</option>
-                          <option value="cNo">Card Number</option>
-                          <option value="nic">NIC</option>      
-                        </select>
-                	</div>
-                </div>
-                <hr/>
-            </form>'
-			?>
-            <script type="text/javascript">
-				 function loadAgain(selectObj) { 
-					 var idx = selectObj.selectedIndex; 
-					 var which = selectObj.options[idx].value; 
-					 if(which=='cNo'){
-						 document.getElementById('Again').innerHTML = '<div class="form-group"><label for="CardNo" class="control-label col-md-3">Card Number</label><div class="col-md-8"><input class="form-control" type="text" name="CardNo" id="CardNo" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHintAgain(this.value);"/></div></div><hr/>'; 
-					 } else if(which=='nic'){
-						 document.getElementById('Again').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="nic" id="nic" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHintAgain(this.value);"/></div></div><hr/>';
-					 } else {
-						 document.getElementById('Again').innerHTML = '';
-					 }
-				 } 
-			</script>
-            <script>
-			function showHintAgain(str) {
-				if (str.length == 0) { 
-					document.getElementById("txtHintAnother").innerHTML = "";
-					return;
-				} else {
-					var xmlhttp = new XMLHttpRequest();
-					xmlhttp.onreadystatechange = function() {
-						if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-							document.getElementById("txtHintAnother").innerHTML = xmlhttp.responseText;
+		if($r == "CardNo"){
+				if(preg_match('/^\d{16}$/',$q)){
+					$getCommuter = "SELECT * FROM commuter WHERE card_card_no='".$q."'";
+					$resultCommuter = mysqli_query($con, $getCommuter);
+					if(mysqli_num_rows($resultCommuter) != 0){
+						while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+							$cardNo = $rowCommuter['card_card_no'];
+							$nic = $rowCommuter['nic'];
+							$nameId = $rowCommuter['name_name_id'];
+							$contactNo = $rowCommuter['contact_no'];
+							$balance = $rowCommuter['credit'];
 						}
-					};
-					xmlhttp.open("GET", "getCommuterInfoAgain.php?p=transfer&q=" + str, true);
-					xmlhttp.send();
+						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+						$resultName = mysqli_query($con, $getName);
+						if(mysqli_num_rows($resultName) != 0){
+							while($rowName = mysqli_fetch_array($resultName)){
+								$fName = $rowName['first_name'];
+								$sName = $rowName['second_name'];
+								$lName = $rowName['last_name'];
+							}
+							echo '<div class="form-horizontal">
+									<div class="form-group">
+										<label for="CardNumber" class="control-label col-md-3">Card Number</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeelNIC" class="control-label col-md-3">NIC</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="fName" class="control-label col-md-3">Full Name</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="name" id="name" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="contact" class="control-label col-md-3">Contact Number</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="CardNumber" class="control-label col-md-5 text-center"><u>To</u></label>
+									</div>
+									<div class="form-group">
+										<label for="employeeId" class="control-label col-md-3">Search By : </label>
+										<div class="col-md-8">
+											<select onchange="another(this);" name="searchBy" id="searchBy" class="form-control">
+											  <option selected="selected" disabled="disabled">--Select the search criteria--</option>
+											  <option value="cNo">Card Number</option>
+											  <option value="nic">NIC</option>      
+											</select>
+										</div>
+									</div>
+									<hr/>
+								</div>';
+						} else {
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+					}
+				} else {
+					echo '<h3 class="text-center" style="padding:50px;">Wrong Card Number Format.</h3>';
 				}
+			} else if($r == "nic"){
+				if(preg_match('/^(\d){9}[v|V]$/',$q)){
+					$getCommuter = "SELECT * FROM commuter WHERE nic='".$q."'";
+					$resultCommuter = mysqli_query($con, $getCommuter);
+					if(mysqli_num_rows($resultCommuter) != 0){
+						while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+							$cardNo = $rowCommuter['card_card_no'];
+							$nic = $rowCommuter['nic'];
+							$nameId = $rowCommuter['name_name_id'];
+							$contactNo = $rowCommuter['contact_no'];
+							$balance = $rowCommuter['credit'];
+						}
+						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+						$resultName = mysqli_query($con, $getName);
+						if(mysqli_num_rows($resultName) != 0){
+							while($rowName = mysqli_fetch_array($resultName)){
+								$fName = $rowName['first_name'];
+								$sName = $rowName['second_name'];
+								$lName = $rowName['last_name'];
+							}
+							echo '<div class="form-horizontal">
+									<div class="form-group">
+										<label for="CardNumber" class="control-label col-md-5 text-center"><u>From</u></label>
+									</div>
+									<div class="form-group">
+										<label for="CardNumber" class="control-label col-md-3">Card Number</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
+										</div>
+
+									</div>
+									<div class="form-group">
+										<label for="employeelNIC" class="control-label col-md-3">NIC</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="fName" class="control-label col-md-3">Full Name</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="name" id="name" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="contact" class="control-label col-md-3">Contact Number</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="CardNumber" class="control-label col-md-5 text-center"><u>To</u></label>
+									</div>
+									<div class="form-group">
+										<label for="employeeId" class="control-label col-md-3">Search By : </label>
+										<div class="col-md-8">
+											<select onchange="another(this);" name="searchBy" id="searchBy" class="form-control">
+											  <option selected="selected" disabled="disabled">--Select the search criteria--</option>
+											  <option value="cNo">Card Number</option>
+											  <option value="nic">NIC</option>      
+											</select>
+										</div>
+									</div>
+									<hr/>
+								</div>';
+						} else {
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+					}
+				} else {
+					echo '<h3 class="text-center" style="padding:50px;">Wrong NIC Format.</h3>';
+				}
+			} else {
+				//wrong html id
+				header('Location:../404.php');
 			}
-			</script>
-            <?php
-            '<form role="form" class="form-horizontal">
-            	
-                <div id="Again"></div>
-            	<div style="padding-left:70px;" id="txtHintAnother"></div>
-            </form></div>';
-		}
 	} else if($p == "balance"){
 		if($q != ""){
-			$hint .= '<form role="form" class="form-horizontal">
-            	<div class="form-group">
-                    <label for="CardNumber" class="control-label col-md-3">Card Number</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="CardNumber" id="CardNumber" readonly/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="employeelNIC" class="control-label col-md-3">NIC</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="nic" id="nic" readonly/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="fName" class="control-label col-md-3">Full Name</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="fname" id="fname" readonly/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="contact" class="control-label col-md-3">Contact Number</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="contact" id="contact" readonly/>
-                	</div>
-                </div>
-                <div class="form-group col-md-11 text-center">
-                    <input type="submit" value="Balance" class="btn btn-success" />
-                    <input type="reset" value="Clear" class="btn btn-danger" />
-                </div>
-            </form>';
+			if($r == "CardNo"){
+				if(preg_match('/^\d{16}$/',$q)){
+					$getCommuter = "SELECT * FROM commuter WHERE card_card_no='".$q."'";
+					$resultCommuter = mysqli_query($con, $getCommuter);
+					if(mysqli_num_rows($resultCommuter) != 0){
+						while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+							$cardNo = $rowCommuter['card_card_no'];
+							$nic = $rowCommuter['nic'];
+							$nameId = $rowCommuter['name_name_id'];
+							$contactNo = $rowCommuter['contact_no'];
+							$balance = $rowCommuter['credit'];
+						}
+						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+						$resultName = mysqli_query($con, $getName);
+						if(mysqli_num_rows($resultName) != 0){
+							while($rowName = mysqli_fetch_array($resultName)){
+								$fName = $rowName['first_name'];
+								$sName = $rowName['second_name'];
+								$lName = $rowName['last_name'];
+							}
+							echo '<div class="form-horizontal">
+									<div class="form-group">
+										<label for="CardNumber" class="control-label col-md-3">Card Number</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeelNIC" class="control-label col-md-3">NIC</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="fName" class="control-label col-md-3">Full Name</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="name" id="name" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="contact" class="control-label col-md-3">Contact Number</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="amount" class="control-label col-md-3">Amount</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="amount" id="amount" value="'.$balance.'" readonly/>
+										</div>
+									</div>
+								</div>';
+						} else {
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+					}
+				} else {
+					echo '<h3 class="text-center" style="padding:50px;">Wrong Card Number Format.</h3>';
+				}
+			} else if($r == "nic"){
+				if(preg_match('/^(\d){9}[v|V]$/',$q)){
+					$getCommuter = "SELECT * FROM commuter WHERE nic='".$q."'";
+					$resultCommuter = mysqli_query($con, $getCommuter);
+					if(mysqli_num_rows($resultCommuter) != 0){
+						while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+							$cardNo = $rowCommuter['card_card_no'];
+							$nic = $rowCommuter['nic'];
+							$nameId = $rowCommuter['name_name_id'];
+							$contactNo = $rowCommuter['contact_no'];
+							$balance = $rowCommuter['credit'];
+						}
+						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+						$resultName = mysqli_query($con, $getName);
+						if(mysqli_num_rows($resultName) != 0){
+							while($rowName = mysqli_fetch_array($resultName)){
+								$fName = $rowName['first_name'];
+								$sName = $rowName['second_name'];
+								$lName = $rowName['last_name'];
+							}
+							echo '<div class="form-horizontal">
+									<div class="form-group">
+										<label for="CardNumber" class="control-label col-md-3">Card Number</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="employeelNIC" class="control-label col-md-3">NIC</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="fName" class="control-label col-md-3">Full Name</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="name" id="name" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="contact" class="control-label col-md-3">Contact Number</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="amount" class="control-label col-md-3">Amount</label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="amount" id="amount"  value="'.$balance.'" readonly/>
+										</div>
+									</div>
+								</div>';
+						} else {
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+					}
+				} else {
+					echo '<h3 class="text-center" style="padding:50px;">Wrong NIC Format.</h3>';
+				}
+			} else {
+				//wrong html id
+				header('Location:../404.php');
+			}
+		} else {
+			//no value entered for search
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 		}
 	} else if($p == "activate"){
 		if($q != ""){
-			$hint .= '<form role="form" class="form-horizontal">
-            	<div class="form-group">
-                    <label for="CardNumber" class="control-label col-md-3">Card Number</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="CardNumber" id="CardNumber" readonly/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="employeelNIC" class="control-label col-md-3">NIC</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="nic" id="nic" readonly/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="fName" class="control-label col-md-3">Full Name</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="fname" id="fname" readonly/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="contact" class="control-label col-md-3">Contact Number</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="contact" id="contact" readonly/>
-                	</div>
-                </div>
-                <div class="form-group col-md-11 text-center">
-				<input type="submit" value="Activate" class="btn btn-warning" />
-                <input type="reset" value="Clear" class="btn btn-danger" /> 
-               		 </div>
-            </form>';
+			
+		} else {
+			//no value entered for search
+			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 		}
-	} 
+	} else {
+		//404, wrong operation
+		header('Location:../404.php');	
+	}
+} else {
+	//404, no operation or no id
+	header('Location:../404.php');	
 }
-
-
-echo $hint === "" ? "no suggestion" : $hint;
 ?>

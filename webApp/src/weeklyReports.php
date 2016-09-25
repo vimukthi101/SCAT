@@ -1,3 +1,10 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+if(isset($_SESSION['position'])){
+	if($_SESSION['position'] == "manager" || $_SESSION['position'] == "stationMaster"){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -29,7 +36,7 @@
         <div style="padding:10px;"> 
             <form role="form" class="form-horizontal">
             	<div class="form-group">
-                    <label for="employeeId" class="control-label col-md-3">Select Date : </label>
+                    <label for="employeeId" class="control-label col-md-3">Select Week : </label>
                     <div class="col-md-8">
                     	<input type="week" class="form-control" name="date" id="date" />
                 	</div>
@@ -62,3 +69,11 @@
 ?>
 </body>
 </html>
+<?php
+	} else {
+		header('Location:../404.php');	
+	}
+} else {
+	header('Location:../404.php');
+}
+?>

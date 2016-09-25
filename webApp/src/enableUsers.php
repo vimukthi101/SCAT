@@ -14,6 +14,17 @@ if(isset($_SESSION['position'])){
 	include_once('../ssi/db.php');
 ?>
 <title>User Management</title>
+<style>
+a {
+	color:rgba(0,255,0,0.5);
+}
+a:hover {
+    color:rgba(0,255,0,1);
+}
+a:visited{
+	color:rgba(0,255,0,0.5);
+}
+</style>
 </head>
 
 <body style="background-image:url(../images/4.jpg);background-repeat:no-repeat;background-size:cover;">

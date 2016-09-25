@@ -4,8 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('links.html');
-	//remove this when the login is done
-	$_SESSION['position'] = "topup";
 ?>
 <style>
 #side:hover {
