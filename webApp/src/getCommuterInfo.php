@@ -196,10 +196,13 @@ if($p != "" && $r != ""){
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="amount" class="control-label col-md-3">Amount</label>
+										<label for="amount" class="control-label col-md-3">Amount <span style="color:rgb(255,0,0);">*</span></label>
 										<div class="col-md-8">
-											<input class="form-control" type="text" name="amount" id="amount" required pattern="^\d+\.\d{2}$" title="Should Be The Format Of 100.00"/>
+											<input class="form-control" type="text" name="amount" id="amount" required pattern="^\d+\.\d{2}$" title="Should Be The Format Of 100.00" required/>
 										</div>
+									</div>
+									<div class="form-group" style="text-align:center;">
+										<label for="employeeContact" style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
 									</div>
 									<div class="form-group col-md-11 text-center">
 										<input type="submit" value="Top-Up" name="submit" id="submit" class="btn btn-success" onclick="return confirm(\'Do You Wish to Top-Up Card?\');return false;"/>
@@ -261,10 +264,13 @@ if($p != "" && $r != ""){
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="amount" class="control-label col-md-3">Amount</label>
+										<label for="amount" class="control-label col-md-3">Amount <span style="color:rgb(255,0,0);">*</span></label>
 										<div class="col-md-8">
-											<input class="form-control" type="text" name="amount" id="amount" required pattern="^\d+\.\d{2}$" title="Should Be The Format Of 100.00"/>
+											<input class="form-control" type="text" name="amount" id="amount" required pattern="^\d+\.\d{2}$" title="Should Be The Format Of 100.00" required/>
 										</div>
+									</div>
+									<div class="form-group" style="text-align:center;">
+										<label for="employeeContact" style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
 									</div>
 									<div class="form-group col-md-11 text-center">
 										<input type="submit" value="Top-Up" name="submit" id="submit" class="btn btn-success" onclick="return confirm(\'Do You Wish to Top-Up Card?\');return false;"/>
@@ -310,46 +316,61 @@ if($p != "" && $r != ""){
 								$sName = $rowName['second_name'];
 								$lName = $rowName['last_name'];
 							}
-							echo '<div class="form-horizontal">
-									<div class="form-group">
-										<label for="CardNumber" class="control-label col-md-3">Card Number</label>
-										<div class="col-md-8">
-											<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
+							//send sms with random pin
+							$rand = rand(1000,9999);
+							//echo data back
+							if(!empty($contactNo)){
+								echo '<div class="form-horizontal">
+										<div class="form-group">
+											<label for="CardNumber" class="control-label col-md-3">Card Number</label>
+											<div class="col-md-8">
+												<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label for="employeelNIC" class="control-label col-md-3">NIC</label>
-										<div class="col-md-8">
-											<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+										<div class="form-group">
+											<label for="employeelNIC" class="control-label col-md-3">NIC</label>
+											<div class="col-md-8">
+												<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label for="fName" class="control-label col-md-3">Full Name</label>
-										<div class="col-md-8">
-											<input class="form-control" type="text" name="name" id="name" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
+										<div class="form-group">
+											<label for="fName" class="control-label col-md-3">Full Name</label>
+											<div class="col-md-8">
+												<input class="form-control" type="text" name="name" id="name" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label for="contact" class="control-label col-md-3">Contact Number</label>
-										<div class="col-md-8">
-											<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+										<div class="form-group">
+											<label for="contact" class="control-label col-md-3">Contact Number</label>
+											<div class="col-md-8">
+												<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label for="CardNumber" class="control-label col-md-5 text-center"><u>To</u></label>
-									</div>
-									<div class="form-group">
-										<label for="employeeId" class="control-label col-md-3">Search By : </label>
-										<div class="col-md-8">
-											<select onchange="another(this);" name="searchBy" id="searchBy" class="form-control">
-											  <option selected="selected" disabled="disabled">--Select the search criteria--</option>
-											  <option value="cNo">Card Number</option>
-											  <option value="nic">NIC</option>      
-											</select>
+										<div class="form-group">
+											<label for="contact" class="control-label col-md-3">PIN <span style="color:rgb(255,0,0);">*</span></label>
+											<div class="col-md-8">
+												<input class="form-control" type="text" name="pin" id="pin" required/>
+											</div>
 										</div>
-									</div>
-									<hr/>
-								</div>';
+										<input class="form-control" type="text" name="hpin" id="hpin" value="'.$rand.'"/>
+										<div class="form-group">
+											<label for="CardNumber" class="control-label col-md-5 text-center"><u>To</u></label>
+										</div>
+										<div class="form-group">
+											<label for="employeeId" class="control-label col-md-3">Search By : </label>
+											<div class="col-md-8">
+												<select onchange="loadAgain(this);"  class="form-control">
+												  <option selected="selected" disabled="disabled">--Select the search criteria--</option>
+												  <option value="cardNumber">Card Number</option>
+												  <option value="commuterNic">NIC</option>      
+												</select>
+											</div>
+										</div>
+										<hr/>
+									</div>';
+								} else {
+									//if no contact number
+									echo '<h3 class="text-center" style="padding:50px;">Commuter Cannot Use This Service As Contact Number Has Not Added Yet.</h3>';
+								}
 						} else {
 							//if no result to show
 							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
@@ -381,7 +402,16 @@ if($p != "" && $r != ""){
 								$sName = $rowName['second_name'];
 								$lName = $rowName['last_name'];
 							}
-							echo '<div class="form-horizontal">
+							//send sms with random pin
+							$rand = rand(1000,9999);
+							
+							
+							
+							
+							
+							//echo data back
+							if(!empty($contactNo)){
+								echo '<div class="form-horizontal">
 									<div class="form-group">
 										<label for="CardNumber" class="control-label col-md-5 text-center"><u>From</u></label>
 									</div>
@@ -411,20 +441,31 @@ if($p != "" && $r != ""){
 										</div>
 									</div>
 									<div class="form-group">
+										<label for="contact" class="control-label col-md-3">PIN <span style="color:rgb(255,0,0);">*</span></label>
+										<div class="col-md-8">
+											<input class="form-control" type="text" name="pin" id="pin" required/>
+										</div>
+									</div>
+									<input class="form-control" type="text" name="hpin" id="hpin" value="'.$rand.'"/>
+									<div class="form-group">
 										<label for="CardNumber" class="control-label col-md-5 text-center"><u>To</u></label>
 									</div>
 									<div class="form-group">
 										<label for="employeeId" class="control-label col-md-3">Search By : </label>
 										<div class="col-md-8">
-											<select onchange="another(this);" name="searchBy" id="searchBy" class="form-control">
+											<select onchange="loadAgain(this);"  class="form-control">
 											  <option selected="selected" disabled="disabled">--Select the search criteria--</option>
-											  <option value="cNo">Card Number</option>
-											  <option value="nic">NIC</option>      
+											  <option value="cardNumber">Card Number</option>
+											  <option value="commuterNic">NIC</option>      
 											</select>
 										</div>
 									</div>
 									<hr/>
-								</div>';
+								</div>';	
+							} else {
+								//if no contact number
+								echo '<h3 class="text-center" style="padding:50px;">Commuter Cannot Use This Service As Contact Number Has Not Added Yet.</h3>';
+							}
 						} else {
 							//if no result to show
 							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
@@ -462,6 +503,19 @@ if($p != "" && $r != ""){
 								$sName = $rowName['second_name'];
 								$lName = $rowName['last_name'];
 							}
+							
+							
+							
+							//send sms to commuter
+							if(!empty($contactNo)){
+								//send sms to commuter with balance
+								
+								
+							}
+							
+							
+							
+							
 							echo '<div class="form-horizontal">
 									<div class="form-group">
 										<label for="CardNumber" class="control-label col-md-3">Card Number</label>

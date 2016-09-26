@@ -25,7 +25,7 @@ $p = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["p"])));
 //html id
 $r = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["r"])));
 if($p != "" && $r != ""){
-	if($p == "balance"){
+	if($p == "transfer"){
 		if($q != ""){
 			if($r == "Card"){
 				if(preg_match('/^\d{16}$/',$q)){
@@ -37,7 +37,6 @@ if($p != "" && $r != ""){
 							$nic = $rowCommuter['nic'];
 							$nameId = $rowCommuter['name_name_id'];
 							$contactNo = $rowCommuter['contact_no'];
-							$balance = $rowCommuter['credit'];
 						}
 						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
 						$resultName = mysqli_query($con, $getName);
@@ -73,10 +72,16 @@ if($p != "" && $r != ""){
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="amount" class="control-label col-md-3">Amount</label>
+										<label for="amount" class="control-label col-md-3">Amount <span style="color:rgb(255,0,0);">*</span></label>
 										<div class="col-md-8">
-											<input class="form-control" type="text" name="amount" id="amount" value="'.$balance.'" readonly/>
+											<input class="form-control" type="text" name="amount" id="amount" pattern="^\d+\.\d{2}$" title="Should Be The Format Of 100.00" required/>
 										</div>
+									</div>
+									<div class="form-group" style="text-align:center;">
+										<label for="employeeContact" style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+									</div>
+									<div class="form-group col-md-11 text-center">
+										<input type="submit" value="Transfer" name="submit" id="submit" class="btn btn-success" onclick="return confirm(\'Do You Wish to Transfer Credit?\');return false;"/>
 									</div>
 								</div>';
 						} else {
@@ -90,7 +95,7 @@ if($p != "" && $r != ""){
 				} else {
 					echo '<h3 class="text-center" style="padding:50px;">Wrong Card Number Format.</h3>';
 				}
-			} else if($r == "enic"){
+			} else if($r == "commuter"){
 				if(preg_match('/^(\d){9}[v|V]$/',$q)){
 					$getCommuter = "SELECT * FROM commuter WHERE nic='".$q."'";
 					$resultCommuter = mysqli_query($con, $getCommuter);
@@ -100,7 +105,6 @@ if($p != "" && $r != ""){
 							$nic = $rowCommuter['nic'];
 							$nameId = $rowCommuter['name_name_id'];
 							$contactNo = $rowCommuter['contact_no'];
-							$balance = $rowCommuter['credit'];
 						}
 						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
 						$resultName = mysqli_query($con, $getName);
@@ -114,32 +118,38 @@ if($p != "" && $r != ""){
 									<div class="form-group">
 										<label for="CardNumber" class="control-label col-md-3">Card Number</label>
 										<div class="col-md-8">
-											<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
+											<input class="form-control" type="text" name="CardNumber2" value="'.$cardNo.'" id="CardNumber2" readonly/>
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="employeelNIC" class="control-label col-md-3">NIC</label>
 										<div class="col-md-8">
-											<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+											<input class="form-control" type="text" name="nic2" id="nic2" value="'.$nic.'" readonly/>
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="fName" class="control-label col-md-3">Full Name</label>
 										<div class="col-md-8">
-											<input class="form-control" type="text" name="name" id="name" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
+											<input class="form-control" type="text" name="name2" id="name2" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="contact" class="control-label col-md-3">Contact Number</label>
 										<div class="col-md-8">
-											<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+											<input class="form-control" type="text" name="contact2" id="contact2" value="'.$contactNo.'" readonly/>
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="amount" class="control-label col-md-3">Amount</label>
+										<label for="amount" class="control-label col-md-3">Amount <span style="color:rgb(255,0,0);">*</span></label>
 										<div class="col-md-8">
-											<input class="form-control" type="text" name="amount" id="amount"  value="'.$balance.'" readonly/>
+											<input class="form-control" type="text" name="amount" id="amount" required pattern="^\d+\.\d{2}$" title="Should Be The Format Of 100.00"/>
 										</div>
+									</div>
+									<div class="form-group" style="text-align:center;">
+										<label for="employeeContact" style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+									</div>
+									<div class="form-group col-md-11 text-center">
+										<input type="submit" value="Transfer" name="submit" id="submit" class="btn btn-success" onclick="return confirm(\'Do You Wish to Transfer Credit?\');return false;"/>
 									</div>
 								</div>';
 						} else {
@@ -155,7 +165,7 @@ if($p != "" && $r != ""){
 				}
 			} else {
 				//wrong html id
-				header('Location:../404.php');
+				echo '<h3 class="text-center" style="padding:50px;">There Was An Error. Please Try Again Later.</h3>';
 			}
 		} else {
 			//no value entered for search
@@ -163,10 +173,10 @@ if($p != "" && $r != ""){
 		}
 	} else {
 		//404, wrong operation
-		header('Location:../404.php');	
+		echo '<h3 class="text-center" style="padding:50px;">There Was An Error. Please Try Again Later.</h3>';
 	}
 } else {
 	//404, no operation or no id
-	header('Location:../404.php');	
+	echo '<h3 class="text-center" style="padding:50px;">There Was An Error. Please Try Again Later.</h3>';
 }
 ?>

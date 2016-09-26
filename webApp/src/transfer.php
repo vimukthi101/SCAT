@@ -42,21 +42,49 @@ if(isset($_SESSION['position'])){
                             echo '<div class="form-group text-center" style="padding-left:100px;">
                                     <label class="form-control" style="height:35px;">Required Fields Cannot Be Empty.</label>
                                 </div>';
-                        } else if($error == "wa"){
+                        } else if($error == "nc"){
                             echo '<div class="form-group text-center" style="padding-left:100px;">
-                                    <label class="form-control" style="height:35px;">Amount Should Be In The Format Of 100.00</label>
+                                    <label class="form-control label-success" style="height:35px;">Commuter Cannot Use This Service As Contact Number Has Not Added Yet.</label>
                                 </div>';
-                        } else if($error == "wc"){
+                        } else if($error == "wn"){
                             echo '<div class="form-group text-center" style="padding-left:100px;">
-                                    <label class="form-control" style="height:35px;">Invalid Commuter.</label>
+                                    <label class="form-control" style="height:35px;">Entered NIC Is Not Valid.</label>
+                                </div>';
+                        } else if($error == "wp"){
+                            echo '<div class="form-group text-center" style="padding-left:100px;">
+                                    <label class="form-control" style="height:35px;">Entered Pin Is Not Valid.</label>
+                                </div>';
+                        } else if($error == "dm"){
+                            echo '<div class="form-group text-center" style="padding-left:100px;">
+                                    <label class="form-control" style="height:35px;">Entered Pin Does Not Match.</label>
+                                </div>';
+                        } else if($error == "sc"){
+                            echo '<div class="form-group text-center" style="padding-left:100px;">
+                                    <label class="form-control label-success" style="height:35px;">Both Commuter One And Two Cannot Be Same.</label>
+                                </div>';
+                        } else if($error == "ia"){
+                            echo '<div class="form-group text-center" style="padding-left:100px;">
+                                    <label class="form-control label-success" style="height:35px;">Amount Should Be In The Format Of 100.00</label>
+                                </div>';
+                        } else if($error == "cde"){
+                            echo '<div class="form-group text-center" style="padding-left:100px;">
+                                    <label class="form-control label-success" style="height:35px;">Commuter Does Not Exists.</label>
+                                </div>';
+                        } else if($error == "ib"){
+                            echo '<div class="form-group text-center" style="padding-left:100px;">
+                                    <label class="form-control label-success" style="height:35px;">Could Not Complete The Transaction As Balance Is Insufficient. Will Receive A SMS With Existing Balance Shortly.</label>
                                 </div>';
                         } else if($error == "qf"){
                             echo '<div class="form-group text-center" style="padding-left:100px;">
-                                    <label class="form-control" style="height:35px;">Could Not Top-Up The Card. Please Try Again Later.</label>
+                                    <label class="form-control label-success" style="height:35px;">Could Not Complete The Transaction. Please Try Again Later.</label>
+                                </div>';
+                        } else if($error == "qf"){
+                            echo '<div class="form-group text-center" style="padding-left:100px;">
+                                    <label class="form-control label-success" style="height:35px;">Transfer Completed. Couldn\'t Send The SMS.</label>
                                 </div>';
                         } else if($error == "su"){
                             echo '<div class="form-group text-center" style="padding-left:100px;">
-                                    <label class="form-control label-success" style="height:35px;">Top-Up The Card Successfully.</label>
+                                    <label class="form-control label-success" style="height:35px;">Successfully Transfer The Credits. Will Receive A SMS With Existing Balance Shortly.</label>
                                 </div>';
                         }
                     }
@@ -66,7 +94,7 @@ if(isset($_SESSION['position'])){
             	<div class="form-group">
                     <label for="employeeId" class="control-label col-md-3">Search By : </label>
                     <div class="col-md-8">
-                    	<select onchange="load(this);" name="searchBy" id="searchBy" class="form-control">
+                    	<select onchange="load(this);"  class="form-control">
                           <option selected="selected" disabled="disabled">--Select the search criteria--</option>
                           <option value="cNo">Card Number</option>
                           <option value="nic">NIC</option>      
@@ -107,19 +135,19 @@ if(isset($_SESSION['position'])){
 			</script>
             <!--second time data-->
             <script type="text/javascript">
-				 function another(selectObj) { 
+				 function loadAgain(selectObj) { 
 					 var idx = selectObj.selectedIndex; 
 					 var which = selectObj.options[idx].value; 
-					 if(which=='cNo'){
-						 document.getElementById('again').innerHTML = '<div class="form-group"><label for="Card" class="control-label col-md-3">Card Number</label><div class="col-md-8"><input class="form-control" type="text" name="Card" id="Card"/></div><div><input type="button" value="Search" class="btn btn-success" onClick="showAnother(document.getElementById(\'Card\').value, document.getElementById(\'Card\').id);"/></div></div><hr/>'; 
-					 } else if(which=='nic'){
-						 document.getElementById('again').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="enic" id="enic" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showAnother(document.getElementById(\'enic\').value, document.getElementById(\'enic\').id);"/></div></div><hr/>';
+					 if(which=='cardNumber'){
+						 document.getElementById('again').innerHTML = '<div class="form-group"><label for="CardNo" class="control-label col-md-3">Card Number</label><div class="col-md-8"><input class="form-control" type="text" name="Card" id="Card"/></div><div><input type="button" value="Search" class="btn btn-success" onClick="showAnother(document.getElementById(\'Card\').value, document.getElementById(\'Card\').id);"/></div></div><hr/>'; 
+					 } else if(which=='commuterNic'){
+						 document.getElementById('again').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="commuter" id="commuter" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showAnother(document.getElementById(\'commuter\').value, document.getElementById(\'commuter\').id);"/></div></div><hr/>';
 					 } else {
 						 document.getElementById('again').innerHTML = '';
 					 }
 				 } 
-			</script>
-            <script>
+			</script> 
+			<script>
 			function showAnother(str, id) {
 				if (str.length == 0) { 
 					document.getElementById("txtAnother").innerHTML = "";
@@ -138,10 +166,12 @@ if(isset($_SESSION['position'])){
 			</script>
             <div class="form-horizontal">
             	<div id="new"></div>
+                <form role="form" method="post" action="controller/transferController.php">
             	<div style="padding-left:70px;" id="txtHint"></div>
                 <!--second time-->
                 <div id="again"></div>
                 <div style="padding-left:70px;" id="txtAnother"></div>
+                </form>
             </div>
         </div>
     </div>

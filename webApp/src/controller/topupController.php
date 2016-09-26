@@ -21,13 +21,32 @@
 						$get = "SELECT * FROM commuter WHERE nic='".$nic."' AND card_card_no='".$cardNo."'";
 						$result = mysqli_query($con, $get);
 						if(mysqli_num_rows($result) != 0){
+							while($rowCom = mysqli_fetch_array($result)){
+								$contactNo = $rowCom['contact_no'];
+							}
 							$update = "UPDATE commuter SET credit=credit+'".$amount."' WHERE nic='".$nic."'";
 							if(mysqli_query($con, $update)){
 								$date = date("Y-m-d H:i:s");
 								$employee = $_SESSION['nic'];
 								$insert = "INSERT INTO recharge(recharge_date_time, amount, card_card_no, employee_nic) VALUES('".$date."','".$amount."','".$cardNo."','".$employee."')";
 								if(mysqli_query($con, $insert)){
+									
+									
 									//send sms to commuter
+									$getBalance = "SELECT credit FROM commuter WHERE nic='".$nic."'";
+									$resultBalance = mysqli_query($con, $getBalance);
+									if(mysqli_num_rows($resultBalance) != 0){
+										while($rowBalance = mysqli_fetch_array($resultBalance)){
+											$creditLimit = $rowBalance['credit'];
+										}
+										if(!empty($contactNo)){
+											//send sms to commuter with balance
+											
+											
+										}
+									}
+									
+									
 									
 									//success
 									header('Location:../topup.php?error=su');
