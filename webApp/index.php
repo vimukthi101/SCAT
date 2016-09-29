@@ -18,7 +18,7 @@
     </div>
 <!--header end-->    
 <!--body start-->
-	<div class="col-md-12" style="background-image:url(images/wallpaper.jpg);background-repeat:no-repeat;background-size:cover;width:100%;height:83vh;">
+	<div class="col-md-12" style="background-image:url(images/wallpaper.jpg);background-repeat:no-repeat;background-size:cover;width:100%;height:85vh;">
         <div>
             <div style="background-color:rgba(0,153,255,0.4);padding:10px;top:20vh;left:60%;" class="col-md-4 text-center">
             	<font size="+2" face="Verdana, Geneva, sans-serif" color="#000000" style="padding:10px;">Log In</font>
@@ -75,6 +75,10 @@
 						} else if($error == 'in'){
 							echo '<div style="padding:10px;">
 									<label class="form-control" style="height:35px;">Please Enter A Valid NIC Of 9 Digits And \'v\'.</label>
+								</div>';
+						} else if($error == 'ns'){
+							echo '<div style="padding:10px;">
+									<label class="form-control" style="height:35px;">You Are Not Assigned To Any Station Yet.</label>
 								</div>';
 						}
 					}

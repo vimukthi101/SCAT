@@ -24,7 +24,11 @@ if(isset($_SESSION['position'])){
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-			include_once('../ssi/registrarLeftPanelCards.php');
+			if($_SESSION['position'] == "topupAgent"){
+				include_once('../ssi/topupAgentLeftPanel.php');
+			} else if($_SESSION['position'] == "registrar"){
+				include_once('../ssi/registrarLeftPanelCards.php');	
+			}
         ?>
     </div>
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
@@ -60,23 +64,23 @@ if(isset($_SESSION['position'])){
                                 </div>';
                         } else if($error == "sc"){
                             echo '<div class="form-group text-center" style="padding-left:100px;">
-                                    <label class="form-control label-success" style="height:35px;">Both Commuter One And Two Cannot Be Same.</label>
+                                    <label class="form-control" style="height:35px;">Both Commuter One And Two Cannot Be Same.</label>
                                 </div>';
                         } else if($error == "ia"){
                             echo '<div class="form-group text-center" style="padding-left:100px;">
-                                    <label class="form-control label-success" style="height:35px;">Amount Should Be In The Format Of 100.00</label>
+                                    <label class="form-controls" style="height:35px;">Amount Should Be In The Format Of 100.00</label>
                                 </div>';
                         } else if($error == "cde"){
                             echo '<div class="form-group text-center" style="padding-left:100px;">
-                                    <label class="form-control label-success" style="height:35px;">Commuter Does Not Exists.</label>
+                                    <label class="form-control" style="height:35px;">Commuter Does Not Exists.</label>
                                 </div>';
                         } else if($error == "ib"){
                             echo '<div class="form-group text-center" style="padding-left:100px;">
-                                    <label class="form-control label-success" style="height:35px;">Could Not Complete The Transaction As Balance Is Insufficient. Will Receive A SMS With Existing Balance Shortly.</label>
+                                    <label class="form-control" style="height:35px;">Could Not Complete The Transaction As Balance Is Insufficient. Will Receive A SMS With Existing Balance Shortly.</label>
                                 </div>';
                         } else if($error == "qf"){
                             echo '<div class="form-group text-center" style="padding-left:100px;">
-                                    <label class="form-control label-success" style="height:35px;">Could Not Complete The Transaction. Please Try Again Later.</label>
+                                    <label class="form-control" style="height:35px;">Could Not Complete The Transaction. Please Try Again Later.</label>
                                 </div>';
                         } else if($error == "qf"){
                             echo '<div class="form-group text-center" style="padding-left:100px;">

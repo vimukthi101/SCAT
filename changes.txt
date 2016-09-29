@@ -1,0 +1,9 @@
+removed staff management from the manager
+
+change DB tables staff and topup agent. add station as a new column
+
+new updaters, rechargers, registrars will be assigned to a station
+
+station masters who are not assigned to a station cannot access the system
+
+registrars cannot do topup

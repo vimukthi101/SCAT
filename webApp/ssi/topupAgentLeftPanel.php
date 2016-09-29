@@ -18,6 +18,11 @@
 	<div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">S.C.A.T. Account Management</label>
     </div>
+    <a href="../src/topup.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Top-up</font>
+        </div>
+    </a>
     <a href="../src/transfer.php" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Credit Transfer</font>
@@ -26,11 +31,6 @@
     <a href="../src/balance.php" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Check Balance</font>
-        </div>
-    </a>
-    <a href="../src/activateCards.php" style="text-decoration:none;">
-        <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Activate/ Deactivate Cards</font>
         </div>
     </a>
 </div>

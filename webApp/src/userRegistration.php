@@ -3,7 +3,7 @@ if(!isset($_SESSION[''])){
 	session_start();
 }
 if(isset($_SESSION['position'])){
-	if($_SESSION['position'] == "sysadmin" || $_SESSION['position'] == "stationMaster" || $_SESSION['position'] == "manager"){
+	if($_SESSION['position'] == "sysadmin" || $_SESSION['position'] == "stationMaster"){
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -29,9 +29,7 @@ if(isset($_SESSION['position'])){
 				include_once('../ssi/adminLeftPanelUsers.php');
 			} else if($_SESSION['position']=="stationMaster"){
 				include_once('../ssi/stationMasterLeftPanelUsers.php');
-			} else if($_SESSION['position']=="manager"){
-				include_once('../ssi/managerLeftPanelUsers.php');
-			}  
+			} 
         ?>
     </div>
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">

@@ -10,7 +10,16 @@ if(isset($_SESSION['position'])){
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
-	include_once('../ssi/links.html');
+		include_once('../ssi/links.html');
+		include_once('../ssi/db.php');
+		$nic = $_SESSION['nic'];
+		$getStation = "SELECT station_code FROM staff WHERE employee_nic='".$nic."'";
+		$resultStation = mysqli_query($con, $getStation);
+		if(mysqli_num_rows($resultStation)!=0){
+			while($row = mysqli_fetch_array($resultStation)){
+				$station = $row['station_code'];
+			}
+			if($station != "none"){
 ?>
 <title>Station Master Home</title>
 </head>
@@ -52,6 +61,12 @@ if(isset($_SESSION['position'])){
 </body>
 </html>
 <?php
+			} else {
+				header('Location:../index.php?error=ns');	
+			}
+		} else {
+			header('Location:../404.php');
+		}
 	} else {
 		header('Location:../404.php');	
 	}

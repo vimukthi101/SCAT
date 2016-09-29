@@ -65,7 +65,15 @@ if(isset($_SESSION['position'])){
 							</div>';
 					} else if($error == "sur"){
 						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control label-success" style="height:35px;">Cards Successfully Rejected.</label>
+								<label class="form-control label-danger" style="height:35px;">Cards Successfully Rejected.</label>
+							</div>';
+					} else if($error == "nc"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">There Are No Cards To Issue.</label>
+							</div>';
+					} else if($error == "ne"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Not Enough Cards To Send. There Are Only '.$_GET['num'].' Cards On The System.</label>
 							</div>';
 					}
 				}
@@ -102,7 +110,9 @@ if(isset($_SESSION['position'])){
 										$lName = $rowSM['last_name'];
 									}
 								}
-                            }
+                            } else {
+								echo '<option disabled="disabled">No Cards Requests.</option>';	
+							}
                         ?>
                     	</select>
                 	</div>

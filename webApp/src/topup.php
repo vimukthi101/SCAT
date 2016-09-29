@@ -3,7 +3,7 @@ if(!isset($_SESSION[''])){
 	session_start();
 }
 if(isset($_SESSION['position'])){
-	if($_SESSION['position'] == "topupAgent" || $_SESSION['position'] == "registrar"){
+	if($_SESSION['position'] == "topupAgent"){
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -24,7 +24,7 @@ if(isset($_SESSION['position'])){
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-			include_once('../ssi/registrarLeftPanelCards.php');
+			include_once('../ssi/topupAgentLeftPanel.php');
         ?>
     </div>
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">

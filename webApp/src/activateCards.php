@@ -19,7 +19,11 @@
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
 	<div>
 		<?php
-        	include_once('../ssi/registrarLeftPanelCards.php'); 
+        	if($_SESSION['position'] == "topupAgent"){
+				include_once('../ssi/topupAgentLeftPanel.php');
+			} else if($_SESSION['position'] == "registrar"){
+				include_once('../ssi/registrarLeftPanelCards.php');	
+			}
         ?>
     </div>
     <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">

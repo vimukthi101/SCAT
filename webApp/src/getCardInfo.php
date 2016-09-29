@@ -256,7 +256,7 @@ if($p != ""){
 					<div class="form-group">
 						<label for="nSend" class="control-label col-md-3">Number of Cards to Send</label>
 						<div class="col-md-8">
-							<input class="form-control" type="text" name="nSend" id="nSend"/>
+							<input class="form-control" type="text" name="nSend" id="nSend" pattern="^\d+$" title="Should Be A Valid Number." required/>
 						</div>
 					</div>
 					<div class="form-group col-md-11 text-center">

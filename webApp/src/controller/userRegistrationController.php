@@ -72,7 +72,7 @@
 																					}
 																					$addUserEmployee = "INSERT INTO employee VALUES ('".$contactNo."', '".$employeeNic."', '".$addressId."', '".$nameId."', '".$password."', '', '1', '0', '1', '".$employeeEmail."')";
 																					if(mysqli_query($con, $addUserEmployee)){
-																						$addUserStaff = "INSERT INTO staff VALUES ('".$employeeId."', '".$positionId."', '".$employeeNic."')";
+																						$addUserStaff = "INSERT INTO staff VALUES ('".$employeeId."', '".$positionId."', '".$employeeNic."', 'all')";
 																						if(mysqli_query($con, $addUserStaff)){
 																							//send email to new user
 																							$to = $employeeEmail;
@@ -224,7 +224,7 @@ $message = "<p>Dear Manager,</p>
 																					}
 																					$addUserEmployee = "INSERT INTO employee VALUES ('".$contactNo."', '".$employeeNic."', '".$addressId."', '".$nameId."', '".$password."', '', '1', '0', '1', '".$employeeEmail."')";
 																					if(mysqli_query($con, $addUserEmployee)){
-																						$addUserStaff = "INSERT INTO staff VALUES ('".$employeeId."', '".$positionId."', '".$employeeNic."')";
+																						$addUserStaff = "INSERT INTO staff VALUES ('".$employeeId."', '".$positionId."', '".$employeeNic."', 'none')";
 																						if(mysqli_query($con, $addUserStaff)){
 																							//send email to new user
 																							$to = $employeeEmail;
@@ -376,10 +376,18 @@ $message = "<p>Dear Station Master,</p>
 																					}
 																					$addUserEmployee = "INSERT INTO employee VALUES ('".$contactNo."', '".$employeeNic."', '".$addressId."', '".$nameId."', '".$password."', '', '1', '0', '1', '".$employeeEmail."')";
 																					if(mysqli_query($con, $addUserEmployee)){
-																						$addUserStaff = "INSERT INTO staff VALUES ('".$employeeId."', '".$positionId."', '".$employeeNic."')";
-																						if(mysqli_query($con, $addUserStaff)){
-																							//send email to new user
-																							$to = $employeeEmail;
+																						$SM = $_SESSION['nic'];
+																						
+																						$station = "SELECT * FROM station WHERE employee_nic='".$SM."'";
+																						$resultStation = mysqli_query($con, $station);
+																						if(mysqli_num_rows($resultStation)!=0){
+																							while($rowStation = mysqli_fetch_array($resultStation)){
+																								$stationCode = $rowStation['station_code'];
+																							}
+																							$addUserStaff = "INSERT INTO staff VALUES ('".$employeeId."', '".$positionId."', '".$employeeNic."','".$stationCode."')";
+																							if(mysqli_query($con, $addUserStaff)){
+																								//send email to new user
+																								$to = $employeeEmail;
 $subject = "Profile Created";
 $message = "<p>Dear Registrar,</p>
 <br/>
@@ -387,16 +395,18 @@ $message = "<p>Dear Registrar,</p>
 <br/>
 <h4>User Name : ".$nic."</h4>
 <h4>Password : ".$rand."</h4>
+<h4>Station : ".$stationCode."</h4>
 <br/>
 <p>p.s. : Please do not reply to this email</p>
 <br/>
 <p>Thank You!</p>
 <p>S.C.A.T Admin</p>";
-																							$headers = "MIME-Version: 1.0" . "\r\n";
-																							$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-																							mail($to, $subject, $message, $headers);
-																							//user added successfully
-																							header('Location:../userRegistration.php?position=registrar&error=as');
+																								$headers = "MIME-Version: 1.0" . "\r\n";
+																								$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+																								mail($to, $subject, $message, $headers);
+																								//user added successfully
+																								header('Location:../userRegistration.php?position=registrar&error=as');
+																							} 
 																						}
 																					}
 																				}
@@ -528,10 +538,17 @@ $message = "<p>Dear Registrar,</p>
 																					}
 																					$addUserEmployee = "INSERT INTO employee VALUES ('".$contactNo."', '".$employeeNic."', '".$addressId."', '".$nameId."', '".$password."', '', '1', '0', '1', '".$employeeEmail."')";
 																					if(mysqli_query($con, $addUserEmployee)){
-																						$addUserStaff = "INSERT INTO staff VALUES ('".$employeeId."', '".$positionId."', '".$employeeNic."')";
-																						if(mysqli_query($con, $addUserStaff)){
-																							//send email to new user
-																							$to = $employeeEmail;
+																						$SM = $_SESSION['nic'];
+																						$station = "SELECT * FROM station WHERE employee_nic='".$SM."'";
+																						$resultStation = mysqli_query($con, $station);
+																						if(mysqli_num_rows($resultStation)!=0){
+																							while($rowStation = mysqli_fetch_array($resultStation)){
+																								$stationCode = $rowStation['station_code'];
+																							}
+																							$addUserStaff = "INSERT INTO staff VALUES ('".$employeeId."', '".$positionId."', '".$employeeNic."','".$stationCode."')";
+																							if(mysqli_query($con, $addUserStaff)){
+																								//send email to new user
+																								$to = $employeeEmail;
 $subject = "Profile Created";
 $message = "<p>Dear Updater,</p>
 <br/>
@@ -539,16 +556,18 @@ $message = "<p>Dear Updater,</p>
 <br/>
 <h4>User Name : ".$nic."</h4>
 <h4>Password : ".$rand."</h4>
+<h4>Station : ".$stationCode."</h4>
 <br/>
 <p>p.s. : Please do not reply to this email</p>
 <br/>
 <p>Thank You!</p>
 <p>S.C.A.T Admin</p>";
-																							$headers = "MIME-Version: 1.0" . "\r\n";
-																							$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-																							mail($to, $subject, $message, $headers);
-																							//user added successfully
-																							header('Location:../userRegistration.php?position=updater&error=as');
+																								$headers = "MIME-Version: 1.0" . "\r\n";
+																								$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+																								mail($to, $subject, $message, $headers);
+																								//user added successfully
+																								header('Location:../userRegistration.php?position=updater&error=as');
+																							}	
 																						}
 																					}
 																				}
@@ -682,28 +701,37 @@ $message = "<p>Dear Updater,</p>
 																					}
 																					$addUserEmployee = "INSERT INTO employee VALUES ('".$contactNo."', '".$employeeNic."', '".$addressId."', '".$nameId."', '".$password."', '', '1', '0', '0', '".$employeeEmail."')";
 																					if(mysqli_query($con, $addUserEmployee)){
-																						$date = date("Y-m-d H:i:s");
-																						$addUserStaff = "INSERT INTO topup_agent VALUES ('".$date."', '".$statusId."', '".$regFee."', '".$employeeNic."', '".$employeeId."')";
-																						if(mysqli_query($con, $addUserStaff)){
-																							//send email to new user
-																							$to = $employeeEmail;
+																						$SM = $_SESSION['nic'];
+																						$station = "SELECT * FROM station WHERE employee_nic='".$SM."'";
+																						$resultStation = mysqli_query($con, $station);
+																						if(mysqli_num_rows($resultStation)!=0){
+																							while($rowStation = mysqli_fetch_array($resultStation)){
+																								$stationCode = $rowStation['station_code'];
+																							}
+																							$date = date("Y-m-d H:i:s");
+																							$addUserStaff = "INSERT INTO topup_agent VALUES ('".$date."', '".$statusId."', '".$regFee."', '".$employeeNic."', '".$employeeId."','".$stationCode."')";
+																							if(mysqli_query($con, $addUserStaff)){
+																								//send email to new user
+																								$to = $employeeEmail;
 $subject = "Profile Created";
-$message = "<p>Dear Updater,</p>
+$message = "<p>Dear Top-Up Agent,</p>
 <br/>
 <p>A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
 <br/>
 <h4>User Name : ".$nic."</h4>
 <h4>Password : ".$rand."</h4>
+<h4>Station : ".$stationCode."</h4>
 <br/>
 <p>p.s. : Please do not reply to this email</p>
 <br/>
 <p>Thank You!</p>
 <p>S.C.A.T Admin</p>";
-																							$headers = "MIME-Version: 1.0" . "\r\n";
-																							$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-																							mail($to, $subject, $message, $headers);
-																							//user added successfully
-																							header('Location:../userRegistration.php?position=topupAgent&error=as');
+																								$headers = "MIME-Version: 1.0" . "\r\n";
+																								$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+																								mail($to, $subject, $message, $headers);
+																								//user added successfully
+																								header('Location:../userRegistration.php?position=topupAgent&error=as');
+																							}
 																						}
 																					}
 																				}

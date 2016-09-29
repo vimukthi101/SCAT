@@ -29,6 +29,31 @@
 							}
 							$insert = "INSERT INTO card_request(no_of_cards_requested, station_station_code, card_request_status_status_id, requested_date) VALUES ('".$Cards."','".$stationId."','".$statusId."','".$date."')";
 							if(mysqli_query($con, $insert)){
+								$getUsers = "SELECT employee_email FROM employee WHERE status=1 AND nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager' OR POSITION='sysadmin'))";
+								$resultUsers = mysqli_query($con, $getUsers);
+								if(mysqli_num_rows($resultUsers)!=0){
+									while($rowUsers = mysqli_fetch_array($resultUsers)){
+										$email = $rowUsers['employee_email'];
+										//send mail
+$to = $email;
+$subject = "New Card Request";
+$message = "<p>Dear Manager/Sys Admin,</p>
+<br/>
+<p>A new card request has being notified by the S.C.A.T. System. Please check below for more information,</p>
+<br/>
+<h4>Requested Date : ".$date."</h4>
+<h4>Requested Cards : ".$Cards."</h4>
+<h4>Station Code : ".$stationId."</h4>
+<br/>
+<p>p.s. : Please do not reply to this email</p>
+<br/>
+<p>Thank You!</p>
+<p>S.C.A.T System</p>";
+										$headers = "MIME-Version: 1.0" . "\r\n";
+										$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+										mail($to, $subject, $message, $headers);
+									}
+								}
 								//success
 								header('Location:../requestCards.php?error=su');
 							} else {
