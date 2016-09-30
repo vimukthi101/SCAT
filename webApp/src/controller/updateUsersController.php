@@ -70,46 +70,168 @@
 																					//update address
 																					$updateEmployeeAddress = "UPDATE address SET address_no='".$addressNo."', address_lane='".$addressLane."', address_city='".$addressCity."' WHERE address_id='".$addressId."'";
 																					if(mysqli_query($con, $updateEmployeeAddress)){
-																						//update position
-																						$updatePosition = "UPDATE staff SET employee_position_position_id='".$positionId."' WHERE employee_nic='".$employeeNic."'";
-																						if(mysqli_query($con, $updatePosition)){
-																							$updateEmployeeAll = "UPDATE employee SET contact_no='".$contactNo."', employee_email='".$email."' WHERE nic='".$employeeNic."'";
-																							if(mysqli_query($con, $updateEmployeeAll)){
-																								//success
-																								if($employeePosition == "manager"){
-																									header('Location:../updateUsers.php?position=manager&error=su');
-																								} else if($employeePosition == "stationMaster"){
-																									header('Location:../updateUsers.php?position=stationMaster&error=su');											
-																								}  else if($employeePosition == "registrar"){
-																									header('Location:../updateUsers.php?position=registrar&error=su');	
-																								} else if($employeePosition == "updater"){
-																									header('Location:../updateUsers.php?position=updater&error=su');	
+																						//get existing posiion
+																						$getEPosition = "SELECT POSITION FROM employee_position WHERE position_id IN (SELECT employee_position_position_id FROM staff WHERE employee_nic='".$employeeNic."')";
+																						$resultEPosition = mysqli_query($con, $getPosition);
+																						if(mysqli_num_rows($resultEPosition)!=0){
+																							while($rowEPosition = mysqli_fetch_array($resultEPosition)){
+																								$ePos = $rowEPosition['position'];
+																							}
+																							if($ePos == $positionId){
+																								//position not changed
+																								$updateEmployeeAll = "UPDATE employee SET contact_no='".$contactNo."', employee_email='".$email."' WHERE nic='".$employeeNic."'";
+																								if(mysqli_query($con, $updateEmployeeAll)){
+																									//success
+																									if($employeePosition == "manager"){
+																										header('Location:../updateUsers.php?position=manager&error=su');
+																									} else if($employeePosition == "stationMaster"){
+																										header('Location:../updateUsers.php?position=stationMaster&error=su');											
+																									}  else if($employeePosition == "registrar"){
+																										header('Location:../updateUsers.php?position=registrar&error=su');	
+																									} else if($employeePosition == "updater"){
+																										header('Location:../updateUsers.php?position=updater&error=su');	
+																									}
+																								} else {
+																									//redirect to form query faile
+																									if($employeePosition == "manager"){
+																										
+																										header('Location:../updateUsers.php?position=manager&error=qf');
+																									} else if($employeePosition == "stationMaster"){
+																										header('Location:../updateUsers.php?position=stationMaster&error=qf');											
+																									}  else if($employeePosition == "registrar"){
+																										header('Location:../updateUsers.php?position=registrar&error=qf');	
+																									} else if($employeePosition == "updater"){
+																										header('Location:../updateUsers.php?position=updater&error=qf');	
+																									}
 																								}
 																							} else {
-																								//redirect to form query faile
+																								//position changed
 																								if($employeePosition == "manager"){
-																									
-																									header('Location:../updateUsers.php?position=manager&error=qf');
+																									//update position
+																									$updatePosition = "UPDATE staff SET employee_position_position_id='".$positionId."',station_code='all' WHERE employee_nic='".$employeeNic."'";
+																									if(mysqli_query($con, $updatePosition)){
+																										$updateEmployeeAll = "UPDATE employee SET contact_no='".$contactNo."', employee_email='".$email."' WHERE nic='".$employeeNic."'";
+																										if(mysqli_query($con, $updateEmployeeAll)){
+																											//success
+																											if($employeePosition == "manager"){
+																												header('Location:../updateUsers.php?position=manager&error=su');
+																											} else if($employeePosition == "stationMaster"){
+																												header('Location:../updateUsers.php?position=stationMaster&error=su');											
+																											}  else if($employeePosition == "registrar"){
+																												header('Location:../updateUsers.php?position=registrar&error=su');	
+																											} else if($employeePosition == "updater"){
+																												header('Location:../updateUsers.php?position=updater&error=su');	
+																											}
+																										} else {
+																											//redirect to form query faile
+																											if($employeePosition == "manager"){
+																												
+																												header('Location:../updateUsers.php?position=manager&error=qf');
+																											} else if($employeePosition == "stationMaster"){
+																												header('Location:../updateUsers.php?position=stationMaster&error=qf');											
+																											}  else if($employeePosition == "registrar"){
+																												header('Location:../updateUsers.php?position=registrar&error=qf');	
+																											} else if($employeePosition == "updater"){
+																												header('Location:../updateUsers.php?position=updater&error=qf');	
+																											}
+																										}
+																									} else {
+																										//query failed
+																										if($employeePosition == "manager"){
+																											header('Location:../updateUsers.php?position=manager&error=qf');
+																										} else if($employeePosition == "stationMaster"){
+																											header('Location:../updateUsers.php?position=stationMaster&error=qf');																								
+																										}  else if($employeePosition == "registrar"){
+																											header('Location:../updateUsers.php?position=registrar&error=qf');	
+																										} else if($employeePosition == "updater"){
+																											header('Location:../updateUsers.php?position=updater&error=qf');	
+																										}
+																									}
 																								} else if($employeePosition == "stationMaster"){
-																									header('Location:../updateUsers.php?position=stationMaster&error=qf');											
-																								}  else if($employeePosition == "registrar"){
-																									header('Location:../updateUsers.php?position=registrar&error=qf');	
-																								} else if($employeePosition == "updater"){
-																									header('Location:../updateUsers.php?position=updater&error=qf');	
+																									//update position
+																									$updatePosition = "UPDATE staff SET employee_position_position_id='".$positionId."',station_code='none' WHERE employee_nic='".$employeeNic."'";
+																									if(mysqli_query($con, $updatePosition)){
+																										$updateEmployeeAll = "UPDATE employee SET contact_no='".$contactNo."', employee_email='".$email."' WHERE nic='".$employeeNic."'";
+																										if(mysqli_query($con, $updateEmployeeAll)){
+																											//success
+																											if($employeePosition == "manager"){
+																												header('Location:../updateUsers.php?position=manager&error=su');
+																											} else if($employeePosition == "stationMaster"){
+																												header('Location:../updateUsers.php?position=stationMaster&error=su');											
+																											}  else if($employeePosition == "registrar"){
+																												header('Location:../updateUsers.php?position=registrar&error=su');	
+																											} else if($employeePosition == "updater"){
+																												header('Location:../updateUsers.php?position=updater&error=su');	
+																											}
+																										} else {
+																											//redirect to form query faile
+																											if($employeePosition == "manager"){
+																												
+																												header('Location:../updateUsers.php?position=manager&error=qf');
+																											} else if($employeePosition == "stationMaster"){
+																												header('Location:../updateUsers.php?position=stationMaster&error=qf');											
+																											}  else if($employeePosition == "registrar"){
+																												header('Location:../updateUsers.php?position=registrar&error=qf');	
+																											} else if($employeePosition == "updater"){
+																												header('Location:../updateUsers.php?position=updater&error=qf');	
+																											}
+																										}
+																									} else {
+																										//query failed
+																										if($employeePosition == "manager"){
+																											header('Location:../updateUsers.php?position=manager&error=qf');
+																										} else if($employeePosition == "stationMaster"){
+																											header('Location:../updateUsers.php?position=stationMaster&error=qf');																								
+																										}  else if($employeePosition == "registrar"){
+																											header('Location:../updateUsers.php?position=registrar&error=qf');	
+																										} else if($employeePosition == "updater"){
+																											header('Location:../updateUsers.php?position=updater&error=qf');	
+																										}
+																									}
+																								} else {
+																									//update position
+																									$updatePosition = "UPDATE staff SET employee_position_position_id='".$positionId."' WHERE employee_nic='".$employeeNic."'";
+																									if(mysqli_query($con, $updatePosition)){
+																										$updateEmployeeAll = "UPDATE employee SET contact_no='".$contactNo."', employee_email='".$email."' WHERE nic='".$employeeNic."'";
+																										if(mysqli_query($con, $updateEmployeeAll)){
+																											//success
+																											if($employeePosition == "manager"){
+																												header('Location:../updateUsers.php?position=manager&error=su');
+																											} else if($employeePosition == "stationMaster"){
+																												header('Location:../updateUsers.php?position=stationMaster&error=su');											
+																											}  else if($employeePosition == "registrar"){
+																												header('Location:../updateUsers.php?position=registrar&error=su');	
+																											} else if($employeePosition == "updater"){
+																												header('Location:../updateUsers.php?position=updater&error=su');	
+																											}
+																										} else {
+																											//redirect to form query faile
+																											if($employeePosition == "manager"){
+																												
+																												header('Location:../updateUsers.php?position=manager&error=qf');
+																											} else if($employeePosition == "stationMaster"){
+																												header('Location:../updateUsers.php?position=stationMaster&error=qf');											
+																											}  else if($employeePosition == "registrar"){
+																												header('Location:../updateUsers.php?position=registrar&error=qf');	
+																											} else if($employeePosition == "updater"){
+																												header('Location:../updateUsers.php?position=updater&error=qf');	
+																											}
+																										}
+																									} else {
+																										//query failed
+																										if($employeePosition == "manager"){
+																											header('Location:../updateUsers.php?position=manager&error=qf');
+																										} else if($employeePosition == "stationMaster"){
+																											header('Location:../updateUsers.php?position=stationMaster&error=qf');																								
+																										}  else if($employeePosition == "registrar"){
+																											header('Location:../updateUsers.php?position=registrar&error=qf');	
+																										} else if($employeePosition == "updater"){
+																											header('Location:../updateUsers.php?position=updater&error=qf');	
+																										}
+																									}
 																								}
 																							}
-																						} else {
-																							//query failed
-																							if($employeePosition == "manager"){
-																								header('Location:../updateUsers.php?position=manager&error=qf');
-																							} else if($employeePosition == "stationMaster"){
-																								header('Location:../updateUsers.php?position=stationMaster&error=qf');																								
-																							}  else if($employeePosition == "registrar"){
-																								header('Location:../updateUsers.php?position=registrar&error=qf');	
-																							} else if($employeePosition == "updater"){
-																								header('Location:../updateUsers.php?position=updater&error=qf');	
-																							}
-																						}
+																						} 
 																					} else {
 																						//query fails
 																						if($employeePosition == "manager"){
@@ -175,43 +297,166 @@
 																			//update address
 																			$updateEmployeeAddress = "UPDATE address SET address_no='".$addressNo."', address_lane='".$addressLane."', address_city='".$addressCity."' WHERE address_id='".$addressId."'";
 																			if(mysqli_query($con, $updateEmployeeAddress)){
-																				//update position
-																				$updatePosition = "UPDATE staff SET employee_position_position_id='".$positionId."' WHERE employee_nic='".$employeeNic."'";
-																				if(mysqli_query($con, $updatePosition)){
-																					$updateEmployeeAll = "UPDATE employee SET contact_no='".$contactNo."', employee_email='".$email."' WHERE nic='".$employeeNic."'";
-																					if(mysqli_query($con, $updateEmployeeAll)){
-																						//success
-																						if($employeePosition == "manager"){
-																							header('Location:../updateUsers.php?position=manager&error=su');
-																						} else if($employeePosition == "stationMaster"){
-																							header('Location:../updateUsers.php?position=stationMaster&error=su');
-																						}  else if($employeePosition == "registrar"){
-																							header('Location:../updateUsers.php?position=registrar&error=su');	
-																						} else if($employeePosition == "updater"){
-																							header('Location:../updateUsers.php?position=updater&error=su');	
+																				//get existing posiion
+																				$getEPosition = "SELECT POSITION FROM employee_position WHERE position_id IN (SELECT employee_position_position_id FROM staff WHERE employee_nic='".$employeeNic."')";
+																				$resultEPosition = mysqli_query($con, $getPosition);
+																				if(mysqli_num_rows($resultEPosition)!=0){
+																					while($rowEPosition = mysqli_fetch_array($resultEPosition)){
+																						$ePos = $rowEPosition['position'];
+																					}
+																					if($ePos == $positionId){
+																						//position not changed
+																						$updateEmployeeAll = "UPDATE employee SET contact_no='".$contactNo."', employee_email='".$email."' WHERE nic='".$employeeNic."'";
+																						if(mysqli_query($con, $updateEmployeeAll)){
+																							//success
+																							if($employeePosition == "manager"){
+																								header('Location:../updateUsers.php?position=manager&error=su');
+																							} else if($employeePosition == "stationMaster"){
+																								header('Location:../updateUsers.php?position=stationMaster&error=su');											
+																							}  else if($employeePosition == "registrar"){
+																								header('Location:../updateUsers.php?position=registrar&error=su');	
+																							} else if($employeePosition == "updater"){
+																								header('Location:../updateUsers.php?position=updater&error=su');	
+																							}
+																						} else {
+																							//redirect to form query faile
+																							if($employeePosition == "manager"){
+																								
+																								header('Location:../updateUsers.php?position=manager&error=qf');
+																							} else if($employeePosition == "stationMaster"){
+																								header('Location:../updateUsers.php?position=stationMaster&error=qf');											
+																							}  else if($employeePosition == "registrar"){
+																								header('Location:../updateUsers.php?position=registrar&error=qf');	
+																							} else if($employeePosition == "updater"){
+																								header('Location:../updateUsers.php?position=updater&error=qf');	
+																							}
 																						}
 																					} else {
-																						//redirect to form query failed
+																						//position changed
 																						if($employeePosition == "manager"){
-																							header('Location:../updateUsers.php?position=manager&error=qf');
+																							//update position
+																							$updatePosition = "UPDATE staff SET employee_position_position_id='".$positionId."',station_code='all' WHERE employee_nic='".$employeeNic."'";
+																							if(mysqli_query($con, $updatePosition)){
+																								$updateEmployeeAll = "UPDATE employee SET contact_no='".$contactNo."', employee_email='".$email."' WHERE nic='".$employeeNic."'";
+																								if(mysqli_query($con, $updateEmployeeAll)){
+																									//success
+																									if($employeePosition == "manager"){
+																										header('Location:../updateUsers.php?position=manager&error=su');
+																									} else if($employeePosition == "stationMaster"){
+																										header('Location:../updateUsers.php?position=stationMaster&error=su');											
+																									}  else if($employeePosition == "registrar"){
+																										header('Location:../updateUsers.php?position=registrar&error=su');	
+																									} else if($employeePosition == "updater"){
+																										header('Location:../updateUsers.php?position=updater&error=su');	
+																									}
+																								} else {
+																									//redirect to form query faile
+																									if($employeePosition == "manager"){
+																										
+																										header('Location:../updateUsers.php?position=manager&error=qf');
+																									} else if($employeePosition == "stationMaster"){
+																										header('Location:../updateUsers.php?position=stationMaster&error=qf');											
+																									}  else if($employeePosition == "registrar"){
+																										header('Location:../updateUsers.php?position=registrar&error=qf');	
+																									} else if($employeePosition == "updater"){
+																										header('Location:../updateUsers.php?position=updater&error=qf');	
+																									}
+																								}
+																							} else {
+																								//query failed
+																								if($employeePosition == "manager"){
+																									header('Location:../updateUsers.php?position=manager&error=qf');
+																								} else if($employeePosition == "stationMaster"){
+																									header('Location:../updateUsers.php?position=stationMaster&error=qf');																								
+																								}  else if($employeePosition == "registrar"){
+																									header('Location:../updateUsers.php?position=registrar&error=qf');	
+																								} else if($employeePosition == "updater"){
+																									header('Location:../updateUsers.php?position=updater&error=qf');	
+																								}
+																							}
 																						} else if($employeePosition == "stationMaster"){
-																							header('Location:../updateUsers.php?position=stationMaster&error=qf');
-																						}  else if($employeePosition == "registrar"){
-																							header('Location:../updateUsers.php?position=registrar&error=qf');	
-																						} else if($employeePosition == "updater"){
-																							header('Location:../updateUsers.php?position=updater&error=qf');	
+																							//update position
+																							$updatePosition = "UPDATE staff SET employee_position_position_id='".$positionId."',station_code='none' WHERE employee_nic='".$employeeNic."'";
+																							if(mysqli_query($con, $updatePosition)){
+																								$updateEmployeeAll = "UPDATE employee SET contact_no='".$contactNo."', employee_email='".$email."' WHERE nic='".$employeeNic."'";
+																								if(mysqli_query($con, $updateEmployeeAll)){
+																									//success
+																									if($employeePosition == "manager"){
+																										header('Location:../updateUsers.php?position=manager&error=su');
+																									} else if($employeePosition == "stationMaster"){
+																										header('Location:../updateUsers.php?position=stationMaster&error=su');											
+																									}  else if($employeePosition == "registrar"){
+																										header('Location:../updateUsers.php?position=registrar&error=su');	
+																									} else if($employeePosition == "updater"){
+																										header('Location:../updateUsers.php?position=updater&error=su');	
+																									}
+																								} else {
+																									//redirect to form query faile
+																									if($employeePosition == "manager"){
+																										
+																										header('Location:../updateUsers.php?position=manager&error=qf');
+																									} else if($employeePosition == "stationMaster"){
+																										header('Location:../updateUsers.php?position=stationMaster&error=qf');											
+																									}  else if($employeePosition == "registrar"){
+																										header('Location:../updateUsers.php?position=registrar&error=qf');	
+																									} else if($employeePosition == "updater"){
+																										header('Location:../updateUsers.php?position=updater&error=qf');	
+																									}
+																								}
+																							} else {
+																								//query failed
+																								if($employeePosition == "manager"){
+																									header('Location:../updateUsers.php?position=manager&error=qf');
+																								} else if($employeePosition == "stationMaster"){
+																									header('Location:../updateUsers.php?position=stationMaster&error=qf');																								
+																								}  else if($employeePosition == "registrar"){
+																									header('Location:../updateUsers.php?position=registrar&error=qf');	
+																								} else if($employeePosition == "updater"){
+																									header('Location:../updateUsers.php?position=updater&error=qf');	
+																								}
+																							}
+																						} else {
+																							//update position
+																							$updatePosition = "UPDATE staff SET employee_position_position_id='".$positionId."' WHERE employee_nic='".$employeeNic."'";
+																							if(mysqli_query($con, $updatePosition)){
+																								$updateEmployeeAll = "UPDATE employee SET contact_no='".$contactNo."', employee_email='".$email."' WHERE nic='".$employeeNic."'";
+																								if(mysqli_query($con, $updateEmployeeAll)){
+																									//success
+																									if($employeePosition == "manager"){
+																										header('Location:../updateUsers.php?position=manager&error=su');
+																									} else if($employeePosition == "stationMaster"){
+																										header('Location:../updateUsers.php?position=stationMaster&error=su');											
+																									}  else if($employeePosition == "registrar"){
+																										header('Location:../updateUsers.php?position=registrar&error=su');	
+																									} else if($employeePosition == "updater"){
+																										header('Location:../updateUsers.php?position=updater&error=su');	
+																									}
+																								} else {
+																									//redirect to form query faile
+																									if($employeePosition == "manager"){
+																										
+																										header('Location:../updateUsers.php?position=manager&error=qf');
+																									} else if($employeePosition == "stationMaster"){
+																										header('Location:../updateUsers.php?position=stationMaster&error=qf');											
+																									}  else if($employeePosition == "registrar"){
+																										header('Location:../updateUsers.php?position=registrar&error=qf');	
+																									} else if($employeePosition == "updater"){
+																										header('Location:../updateUsers.php?position=updater&error=qf');	
+																									}
+																								}
+																							} else {
+																								//query failed
+																								if($employeePosition == "manager"){
+																									header('Location:../updateUsers.php?position=manager&error=qf');
+																								} else if($employeePosition == "stationMaster"){
+																									header('Location:../updateUsers.php?position=stationMaster&error=qf');																								
+																								}  else if($employeePosition == "registrar"){
+																									header('Location:../updateUsers.php?position=registrar&error=qf');	
+																								} else if($employeePosition == "updater"){
+																									header('Location:../updateUsers.php?position=updater&error=qf');	
+																								}
+																							}
 																						}
-																					}
-																				} else {
-																					//query failed
-																					if($employeePosition == "manager"){
-																						header('Location:../updateUsers.php?position=manager&error=qf');
-																					} else if($employeePosition == "stationMaster"){
-																						header('Location:../updateUsers.php?position=stationMaster&error=qf');
-																					}  else if($employeePosition == "registrar"){
-																						header('Location:../updateUsers.php?position=registrar&error=qf');	
-																					} else if($employeePosition == "updater"){
-																						header('Location:../updateUsers.php?position=updater&error=qf');	
 																					}
 																				}
 																			} else {

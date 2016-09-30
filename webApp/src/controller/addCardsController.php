@@ -8,43 +8,25 @@
 	if(isset($_SESSION['position'])){
 		if($_SESSION['position'] == "sysadmin"){
 			if(isset($_POST['submit'])){
-				if(!empty($_POST['cardNo']) || !empty($_POST['pin']) || !empty($_POST['cPin'])){
+				if(!empty($_POST['cardNo'])){
 					$cno = trim($_POST['cardNo']);
-					$p = trim($_POST['pin']);
-					$cp = trim($_POST['cPin']);
 					$cardNo = htmlspecialchars(mysqli_real_escape_string($con, $cno));
-					$pin = htmlspecialchars(mysqli_real_escape_string($con, $p));
-					$cPin = htmlspecialchars(mysqli_real_escape_string($con, $cp));
 					if(preg_match('/^\d{16}$/',$cardNo)){
-						if(preg_match('/^\d{4}$/',$pin)){
-							if(preg_match('/^\d{4}$/',$cPin)){
-								if($pin == $cPin){
-									$getCard = "SELECT * FROM card WHERE card_no='".$cardNo."'";
-									$resultCard = mysqli_query($con, $getCard);
-									if(mysqli_num_rows($resultCard) == 0){
-										$addCard = "INSERT INTO card (card_no, pin) VALUES('".$cardNo."','".$pin."')";
-										if(mysqli_query($con, $addCard)){
-											//success
-											header('Location:../addCard.php?error=su');
-										} else {
-											//query failed
-											header('Location:../addCard.php?error=qf');
-										}
-									} else {
-										//card exists
-										header('Location:../addCard.php?error=ce');
-									}
-								} else {
-									//pin and cpin does not match
-									header('Location:../addCard.php?error=dm');
-								}
+						$pin = rand(1000, 9999);
+						$getCard = "SELECT * FROM card WHERE card_no='".$cardNo."'";
+						$resultCard = mysqli_query($con, $getCard);
+						if(mysqli_num_rows($resultCard) == 0){
+							$addCard = "INSERT INTO card (card_no, pin) VALUES('".$cardNo."','".$pin."')";
+							if(mysqli_query($con, $addCard)){
+								//success
+								header('Location:../addCard.php?error=su');
 							} else {
-								//wrong confirm pin format
-								header('Location:../addCard.php?error=wc');
+								//query failed
+								header('Location:../addCard.php?error=qf');
 							}
 						} else {
-							//wrong pin format
-							header('Location:../addCard.php?error=wp');
+							//card exists
+							header('Location:../addCard.php?error=ce');
 						}
 					} else {
 						//wrong card number format

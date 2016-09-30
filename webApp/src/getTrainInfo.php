@@ -28,7 +28,36 @@ if($p != ""){
 	if($r != ""){
 		if($p == "view"){
 			if ($q != "") {
-				if($r == "TrainCode"){
+				if($r == "all"){
+					$getTrain = "SELECT * FROM train";
+					$resultTrain = mysqli_query($con, $getTrain);
+					if(mysqli_num_rows($resultTrain) != 0){
+						echo '<div class="form-group">
+							<div class="container-fluid center-block">
+								<table style="width:100%;" class="table table-striped">
+								  <tr>
+									<th>Train ID</th>
+									<th>Train Name</th>
+									<th>Train Type</th>
+								  </tr>';
+						while($rowTrain = mysqli_fetch_array($resultTrain)){
+							$trainName = $rowTrain['train_name'];
+							$trainId = $rowTrain['train_id'];
+							$trainType = $rowTrain['train_type_type_id'];
+							echo '<tr>
+							<td>'.$trainId.'</td>
+							<td>'.$trainName.'</td>
+							<td>'.$trainType.'</td>
+						  </tr>';
+						}
+						echo '</table>
+							</div>
+						</div>';
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+					}
+				} else if($r == "TrainCode"){
 					$getTrain = "SELECT * FROM train WHERE train_id LIKE '".$q."%'";
 					$resultTrain = mysqli_query($con, $getTrain);
 					if(mysqli_num_rows($resultTrain) != 0){

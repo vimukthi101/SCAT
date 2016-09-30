@@ -29,70 +29,143 @@ $hint = "";
 if($p != ""){
 	if($p == "view"){
 		if ($q != "") {
-			$getCard = "SELECT * FROM card WHERE card_no LIKE '".$q."%' ORDER BY card_no";
-			$resultGetCard = mysqli_query($con, $getCard);
-			if(mysqli_num_rows($resultGetCard) != 0){
-				echo '<div class="form-group">
-							<div class="container-fluid center-block">
-								<table style="width:100%;" class="table table-striped">
-								  <tr>
-									<th>Card No</th>
-									<th>Pin</th>
-									<th>Station Name</th>
-									<th>Station Master\'s Name</th>
-								  </tr>';
-				while($rowCards = mysqli_fetch_array($resultGetCard)){
-					$cardNo = $rowCards['card_no'];
-					$pin = $rowCards['pin'];
-					$station = $rowCards['station_station_code'];
-					if(!is_null($station)){
-						//send to station
-						$getStation = "SELECT station_name, employee_nic FROM station WHERE station_code='".$station."'";
-						$resultStation = mysqli_query($con, $getStation);
-						if(mysqli_num_rows($resultStation) != 0){
-							while($rowStation = mysqli_fetch_array($resultStation)){
-								$stationName = $rowStation['station_name'];
-								$employeeNic = $rowStation['employee_nic'];
-								$getSM = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$employeeNic."')";
-								$resultSM = mysqli_query($con, $getSM);
-								if(mysqli_num_rows($resultSM) != 0){
-									while($rowSM = mysqli_fetch_array($resultSM)){
-										$fName = $rowSM['first_name'];
-										$sName = $rowSM['second_name'];
-										$lName = $rowSM['last_name'];
-										echo '<tr>
-										<td>'.$cardNo.'</td>
-										<td>'.$pin.'</td>
-										<td>'.$stationName.'</td>
-										<td>'.$fName." ".$sName." ".$lName.'</td>
-									  </tr>';
+			$r = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["r"])));
+			if($r != ""){
+				if($r == "all"){
+					$getCard = "SELECT * FROM card WHERE station_station_code IS NULL";
+					$resultGetCard = mysqli_query($con, $getCard);
+					if(mysqli_num_rows($resultGetCard) != 0){
+						echo '<div class="form-group">
+									<div class="container-fluid center-block">
+										<table style="width:100%;" class="table table-striped">
+										  <tr>
+											<th>Card No</th>
+											<th>Pin</th>
+											<th>Station Name</th>
+											<th>Station Master\'s Name</th>
+										  </tr>';
+						while($rowCards = mysqli_fetch_array($resultGetCard)){
+							$cardNo = $rowCards['card_no'];
+							$pin = $rowCards['pin'];
+							$station = $rowCards['station_station_code'];
+							if(!is_null($station)){
+								//send to station
+								$getStation = "SELECT station_name, employee_nic FROM station WHERE station_code='".$station."'";
+								$resultStation = mysqli_query($con, $getStation);
+								if(mysqli_num_rows($resultStation) != 0){
+									while($rowStation = mysqli_fetch_array($resultStation)){
+										$stationName = $rowStation['station_name'];
+										$employeeNic = $rowStation['employee_nic'];
+										$getSM = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$employeeNic."')";
+										$resultSM = mysqli_query($con, $getSM);
+										if(mysqli_num_rows($resultSM) != 0){
+											while($rowSM = mysqli_fetch_array($resultSM)){
+												$fName = $rowSM['first_name'];
+												$sName = $rowSM['second_name'];
+												$lName = $rowSM['last_name'];
+												echo '<tr>
+												<td>'.$cardNo.'</td>
+												<td>'.$pin.'</td>
+												<td>'.$stationName.'</td>
+												<td>'.$fName." ".$sName." ".$lName.'</td>
+											  </tr>';
+											}
+										} else {
+											//no SM
+											echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+										}
 									}
 								} else {
-									//no SM
+									//no station	
 									echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
 								}
+							} else {
+								//not send to anywhere yet
+								echo '<tr>
+									<td>'.$cardNo.'</td>
+									<td>'.$pin.'</td>
+									<td>Haven\'t Send to a Station Yet</td>
+									<td>Haven\'t Send to a Station Yet</td>
+								  </tr>';
 							}
-						} else {
-							//no station	
-							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
 						}
+						echo '</table>
+									</div>
+								</div>';
 					} else {
-						//not send to anywhere yet
-						echo '<tr>
-							<td>'.$cardNo.'</td>
-							<td>'.$pin.'</td>
-							<td>Haven\'t Send to a Station Yet</td>
-							<td>Haven\'t Send to a Station Yet</td>
-						  </tr>';
-					}
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+					}	
+				} else if($r == "stationCode"){
+					$getCard = "SELECT * FROM card WHERE station_station_code LIKE '".$q."%'";
+					$resultGetCard = mysqli_query($con, $getCard);
+					if(mysqli_num_rows($resultGetCard) != 0){
+						echo '<div class="form-group">
+									<div class="container-fluid center-block">
+										<table style="width:100%;" class="table table-striped">
+										  <tr>
+											<th>Card No</th>
+											<th>Station Name</th>
+											<th>Station Master\'s Name</th>
+										  </tr>';
+						while($rowCards = mysqli_fetch_array($resultGetCard)){
+							$cardNo = $rowCards['card_no'];
+							$station = $rowCards['station_station_code'];
+							if(!is_null($station)){
+								//send to station
+								$getStation = "SELECT station_name, employee_nic FROM station WHERE station_code='".$station."'";
+								$resultStation = mysqli_query($con, $getStation);
+								if(mysqli_num_rows($resultStation) != 0){
+									while($rowStation = mysqli_fetch_array($resultStation)){
+										$stationName = $rowStation['station_name'];
+										$employeeNic = $rowStation['employee_nic'];
+										$getSM = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$employeeNic."')";
+										$resultSM = mysqli_query($con, $getSM);
+										if(mysqli_num_rows($resultSM) != 0){
+											while($rowSM = mysqli_fetch_array($resultSM)){
+												$fName = $rowSM['first_name'];
+												$sName = $rowSM['second_name'];
+												$lName = $rowSM['last_name'];
+												echo '<tr>
+												<td>'.$cardNo.'</td>
+												<td>'.$stationName.'</td>
+												<td>'.$fName." ".$sName." ".$lName.'</td>
+											  </tr>';
+											}
+										} else {
+											//no SM
+											echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+										}
+									}
+								} else {
+									//no station	
+									echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+								}
+							} else {
+								//not send to anywhere yet
+								echo '<tr>
+									<td>'.$cardNo.'</td>
+									<td>'.$pin.'</td>
+									<td>Haven\'t Send to a Station Yet</td>
+									<td>Haven\'t Send to a Station Yet</td>
+								  </tr>';
+							}
+						}
+						echo '</table>
+									</div>
+								</div>';
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+					}	
+				} else {
+					//wrong id
+					header('Location:../404.php');
 				}
-				echo '</table>
-							</div>
-						</div>';
 			} else {
-				//if no result to show
-				echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
-			}				  
+				//no id
+				header('Location:../404.php');
+			}
 		} else {
 			//if empty q
 			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';

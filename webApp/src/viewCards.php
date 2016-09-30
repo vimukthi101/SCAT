@@ -36,15 +36,32 @@ if(isset($_SESSION['position'])){
         <div style="padding:10px;"> 
             <form role="form" class="form-horizontal">
             	<div class="form-group">
-                    <label for="employeeId" class="control-label col-md-3">Search By Card No : </label>
+                    <label for="search" class="control-label col-md-3">Search By : </label>
                     <div class="col-md-8">
-                    	<input class="form-control" onkeyup="showHint(this.value)" type="text" name="eId" id="eId" />
+                    	<select onchange="load(this);" name="searchBy" id="searchBy" class="form-control">
+                          <option selected="selected" disabled="disabled">--Select the search criteria--</option>
+                          <option value="avail">Available</option>
+                          <option value="send">Send To Station</option>
+                        </select>
                 	</div>
                 </div>
                 <hr/>
             </form>
+            <script type="text/javascript">
+                 function load(selectObj) { 
+                     var idx = selectObj.selectedIndex; 
+                     var which = selectObj.options[idx].value; 
+                     if(which=='send'){
+                         document.getElementById('new').innerHTML = '<div class="form-group"><label for="stationCode" class="control-label col-md-3">Station Code</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id);" type="text" name="stationCode" id="stationCode" /></div></div><hr/>'; 
+                     } else if(which=='avail'){
+                         showHint('all', 'all');
+                     } else {
+                         document.getElementById('new').innerHTML = '';
+                     } 
+                 } 
+            </script>
             <script>
-			function showHint(str) {
+			function showHint(str, id) {
 				if (str.length == 0) { 
 					document.getElementById("txtHint").innerHTML = "";
 					return;
@@ -55,12 +72,13 @@ if(isset($_SESSION['position'])){
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getCardInfo.php?p=view&q=" + str, true);
+					xmlhttp.open("GET", "getCardInfo.php?p=view&q=" + str + "&r=" + id, true);
 					xmlhttp.send();
 				}
 			}
 			</script>
             <div class="form-horizontal">
+            	<div id="new"></div>
             	<div style="padding-left:100px;" id="txtHint"></div>
             </div>
         </div>

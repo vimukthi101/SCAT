@@ -58,7 +58,7 @@
             </a>
         </div>
     <?php			
-			} else if ($_SESSION['position'] == "timeTableUpdater"){
+			} else if ($_SESSION['position'] == "updater"){
 	?>
         <div class="col-md-3" style="padding:10px;text-align:left;"> 
             <a href="../src/timeTableUpdaterHome.php" style="text-decoration:none;color:rgb(0,0,0);">

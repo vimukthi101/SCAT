@@ -55,33 +55,19 @@ if(isset($_SESSION['position'])){
                 </div>
                 <hr/>
             </form>
-            <?php if($_SESSION['position'] == "sysadmin"){ ?>
-				<script type="text/javascript">
-                     function load(selectObj) { 
-                         var idx = selectObj.selectedIndex; 
-                         var which = selectObj.options[idx].value; 
-                         if(which=='station'){
-                             document.getElementById('new').innerHTML = '<div class="form-group"><label for="stationName" class="control-label col-md-3">Station Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id);" type="text" name="stationName" id="stationName" /></div></div><hr/>'; 
-                         } else if(which=='status'){
-                             document.getElementById('new').innerHTML = '<div class="form-group"><label for="cardStatus" class="control-label col-md-3">Status</label><div class="col-md-8"><select onchange="showHint(this.value, this.id);" name="cardStatus" id="cardStatus" class="form-control"><option selected="selected" disabled="disabled">--Select the Card Status--</option><option value="all">All</option><option value="issued">Issued By Admin</option><option value="received">Received By Station</option><option value="rejected">Rejected By Admin</option></select></div></div><hr/>';
-                         } else {
-                             document.getElementById('new').innerHTML = '';
-                         } 
+			<script type="text/javascript">
+                 function load(selectObj) { 
+                     var idx = selectObj.selectedIndex; 
+                     var which = selectObj.options[idx].value; 
+                     if(which=='station'){
+                         document.getElementById('new').innerHTML = '<div class="form-group"><label for="stationName" class="control-label col-md-3">Station Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id);" type="text" name="stationName" id="stationName" /></div></div><hr/>'; 
+                     } else if(which=='status'){
+                         document.getElementById('new').innerHTML = '<div class="form-group"><label for="cardStatus" class="control-label col-md-3">Status</label><div class="col-md-8"><select onchange="showHint(this.value, this.id);" name="cardStatus" id="cardStatus" class="form-control"><option selected="selected" disabled="disabled">--Select the Card Status--</option><option value="all">All</option><option value="issued">Issued By Admin</option><option value="received">Received By Station</option><option value="rejected">Rejected By Admin</option></select></div></div><hr/>';
+                     } else {
+                         document.getElementById('new').innerHTML = '';
                      } 
-                </script>
-            <?php } else if($_SESSION['position'] == "stationMaster"){?>
-				<script type="text/javascript">
-                     function load(selectObj) { 
-                         var idx = selectObj.selectedIndex; 
-                         var which = selectObj.options[idx].value; 
-                         if(which=='status'){
-                             document.getElementById('new').innerHTML = '<div class="form-group"><label for="cardStatus" class="control-label col-md-3">Status</label><div class="col-md-8"><select onchange="showHint(this.value, this.id);" name="cardStatus" id="cardStatus" class="form-control"><option selected="selected" disabled="disabled">--Select the Card Status--</option><option value="all">All</option><option value="issued">Issued By Admin</option><option value="received">Received By Station</option><option value="rejected">Rejected By Admin</option></select></div></div><hr/>';
-                         } else {
-                             document.getElementById('new').innerHTML = '';
-                         } 
-                     } 
-                </script>
-            <?php }?>
+                 } 
+            </script>
             <script>
 			function showHint(str, id) {
 				if (str.length == 0) { 
@@ -99,10 +85,10 @@ if(isset($_SESSION['position'])){
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+            <div class="form-horizontal">
             	<div id="new"></div>
             	<div style="padding-left:100px;" id="txtHint"></div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

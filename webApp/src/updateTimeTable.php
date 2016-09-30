@@ -1,3 +1,10 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+if(isset($_SESSION['position'])){
+	if($_SESSION['position'] == "updater"){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -55,22 +62,22 @@ a:visited{
                 	</div>
                 </div>
                 <script>
-			function showHint(str) {
-				if (str.length == 0) { 
-					document.getElementById("txtHint").innerHTML = "";
-					return;
-				} else {
-					var xmlhttp = new XMLHttpRequest();
-					xmlhttp.onreadystatechange = function() {
-						if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+					function showHint(str) {
+						if (str.length == 0) { 
+							document.getElementById("txtHint").innerHTML = "";
+							return;
+						} else {
+							var xmlhttp = new XMLHttpRequest();
+							xmlhttp.onreadystatechange = function() {
+								if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+									document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+								}
+							};
+							xmlhttp.open("GET", "getTimeTableInfo.php?p=update&q=" + str, true);
+							xmlhttp.send();
 						}
-					};
-					xmlhttp.open("GET", "getTimeTableInfo.php?p=update&q=" + str, true);
-					xmlhttp.send();
-				}
-			}
-			</script>
+					}
+				</script>
             </form>
             <form role="form" class="form-horizontal">
             	<div id="txtHint"></div>
@@ -108,3 +115,11 @@ a:visited{
 ?>
 </body>
 </html>
+<?php
+	} else {
+		header('Location:../404.php');	
+	}
+} else {
+	header('Location:../404.php');
+}
+?>

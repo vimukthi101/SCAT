@@ -46,18 +46,6 @@ if(isset($_SESSION['position'])){
 						echo '<div class="form-group text-center" style="padding-left:100px;">
 								<label class="form-control" style="height:35px;">Card Number Should Be 16 Digits Number.</label>
 							</div>';
-					} else if($error == "wp"){
-						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control" style="height:35px;">Pin Should Be 4 Digits Number.</label>
-							</div>';
-					} else if($error == "wc"){
-						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control" style="height:35px;">Confirm Pin Should Be 4 Digits Number.</label>
-							</div>';
-					} else if($error == "dm"){
-						echo '<div class="form-group text-center" style="padding-left:100px;">
-								<label class="form-control" style="height:35px;">Pin And Confirm Pin Does Not Match.</label>
-							</div>';
 					} else if($error == "ce"){
 						echo '<div class="form-group text-center" style="padding-left:100px;">
 								<label class="form-control" style="height:35px;">Card Number Already Exists.</label>
@@ -79,18 +67,6 @@ if(isset($_SESSION['position'])){
                     <label for="cardNo" class="control-label col-md-3">Card No</label>
                     <div class="col-md-8">
                     	<input class="form-control" type="text" name="cardNo" id="cardNo" maxlength="16" required="required" pattern="^\d{16}$" title="Should Be 16 Digits Number."/>
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="pin" class="control-label col-md-3">Pin</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="pin" id="pin" maxlength="4" pattern="^\d{4}$" title="Should Be 4 Digits Number." required="required" />
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="confirmPin" class="control-label col-md-3">Confirm Pin</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="cPin" id="cPin" maxlength="4" pattern="^\d{4}$" title="Should Be 4 Digits Number." required="required" />
                 	</div>
                 </div>
                 <div class="form-group col-md-11 text-center">

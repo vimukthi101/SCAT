@@ -40,6 +40,7 @@ if(isset($_SESSION['position'])){
                     <div class="col-md-8">
                     	<select onchange="load(this);" name="searchBy" id="searchBy" class="form-control">
                           <option selected="selected" disabled="disabled">--Select the search criteria--</option>
+                          <option value="all">All</option>
                           <option value="tCode">Train Code</option>
                           <option value="tName">Name of the Train</option>
                         </select>
@@ -55,6 +56,8 @@ if(isset($_SESSION['position'])){
 						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="TrainCode" class="control-label col-md-3">Train Code</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id)" type="text" name="TrainCode" id="TrainCode" /></div></div><hr/>'; 
 					 } else if(which=='tName'){
 						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="TrainName" class="control-label col-md-3">Train Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id)" type="text" name="TrainName" id="TrainName" /></div></div><hr/>';
+					 } else if(which=='all'){
+						 showHint('all', 'all');
 					 } else {
 						 document.getElementById('new').innerHTML = '';
 					 }

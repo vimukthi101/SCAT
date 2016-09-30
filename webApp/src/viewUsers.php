@@ -50,6 +50,7 @@ if(isset($_SESSION['position'])){
                     <div class="col-md-8">
                     	<select onchange="load(this);" name="searchBy" id="searchBy" class="form-control">
                           <option selected="selected" disabled="disabled">--Select the search criteria--</option>
+                          <option value="all">All</option>
                           <option value="eid">Employee ID</option>
                           <option value="nic">NIC</option>
                           <option value="eMail">E-mail</option>
@@ -74,6 +75,8 @@ if(isset($_SESSION['position'])){
 						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeefName" class="control-label col-md-3">First Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id, this.name)" type="text" name="<?php echo $sendPos ?>" id="fname" required /></div></div><hr/>';
 					 } else if(which=='lname'){
 						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelName" class="control-label col-md-3">Last Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value, this.id, this.name)" type="text" name="<?php echo $sendPos ?>" id="lname" required /></div></div><hr/>';
+					 } else if(which=='all'){
+						 showHint('all', 'all', '<?php echo $sendPos; ?>');
 					 } else {
 						 document.getElementById('new').innerHTML = '';
 					 }

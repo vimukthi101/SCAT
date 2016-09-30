@@ -50,7 +50,7 @@
 													$pin = $rowSet['pin'];
 													$updateSet = "UPDATE card SET station_station_code='".$stationCode."' WHERE card_no='".$cardNo."'";
 													if(mysqli_query($con, $updateSet)){
-														$forMail .= "<tr><td>".$cardNo."</td><td>".$pin."</td><tr/>";
+														$forMail .= "<tr><td>".$cardNo."</td><td>****</td><tr/>";
 														$date = date('Y-m-d H:i:s');
 														$update = "UPDATE card_request SET no_of_cards_sent='".$send."', card_request_status_status_id='".$statusId."', send_date='".$date."' WHERE request_id='".$rID."'";
 														if(mysqli_query($con, $update)){

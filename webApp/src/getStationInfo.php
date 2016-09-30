@@ -28,7 +28,48 @@ if($p != ""){
 	if($r != ""){
 		if($p == "view"){
 			if ($q != "") {
-				if($r == "StationCode"){
+				if($r == "all"){
+				$getStation = "SELECT * FROM station";
+					$resultStation = mysqli_query($con, $getStation);
+					if(mysqli_num_rows($resultStation) != 0){
+						echo '<div class="form-group">
+							<div class="container-fluid center-block">
+								<table style="width:100%;" class="table table-striped">
+								  <tr>
+									<th>Station Code</th>
+									<th>Station Name</th>
+									<th>Available Cards</th>
+									<th>Station Master</th>
+								  </tr>';
+						while($rowStation = mysqli_fetch_array($resultStation)){
+							$stationCode = $rowStation['station_code'];
+							$stationName = $rowStation['station_name'];
+							$cards = $rowStation['available_cards'];
+							$stationMaster = $rowStation['employee_nic'];
+							$get = "SELECT * FROM NAME WHERE name_id IN (SELECT name_id FROM employee WHERE nic='".$stationMaster."')";
+							$resultGet = mysqli_query($con, $get);
+							if(mysqli_num_rows($resultGet) != 0){
+								while($rowGet = mysqli_fetch_array($resultGet)){
+									$fname = $rowGet['first_name'];
+									$sname = $rowGet['second_name'];
+									$lname = $rowGet['last_name'];
+								}
+							}
+							echo '<tr>
+							<td>'.$stationCode.'</td>
+							<td>'.$stationName.'</td>
+							<td>'.$cards.'</td>
+							<td>'.$stationMaster.' - '.$fname.' '.$sname.' '.$lname.'</td>
+						  </tr>';
+						}
+						echo '</table>
+							</div>
+						</div>';
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+					}
+				} else if($r == "StationCode"){
 					$getStation = "SELECT * FROM station WHERE station_code LIKE '".$q."%'";
 					$resultStation = mysqli_query($con, $getStation);
 					if(mysqli_num_rows($resultStation) != 0){
