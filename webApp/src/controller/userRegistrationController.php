@@ -244,7 +244,7 @@ $message = "<p>Dear Station Master,</p>
 																							$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 																							mail($to, $subject, $message, $headers);
 																							//user added successfully
-																							header('Location:../userRegistration.php?position=manager&error=as');
+																							header('Location:../userRegistration.php?position=stationMaster&error=as');
 																						}
 																					}
 																				}

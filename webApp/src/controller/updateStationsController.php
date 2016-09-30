@@ -78,11 +78,15 @@ $message = "<p>Dear All,</p>
 									if(mysqli_num_rows($resultStation) == 0){
 										$updateStation = "UPDATE station SET employee_nic='".$stationMaster."' WHERE station_code='".$stationCode."'";
 										if(mysqli_query($con, $updateStation)){
-											$getEmp = "SELECT employee_email FROM employee WHERE nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager' OR POSITION='stationMaster'))";
-											$resultEmp = mysqli_query($con, $getEmp);
-											if(mysqli_num_rows($resultEmp) != 0){
-												while($rowEmail = mysqli_fetch_array($resultEmp)){
-													//send email with new station
+											$update = "UPDATE staff SET station_code='".$stationCode."' WHERE employee_nic='".$stationMaster."'";
+											if(mysqli_query($con,$update)){
+												$remove = "UPDATE staff SET station_code='none' WHERE employee_nic='".$OldstationMaster."'";
+												if(mysqli_query($con, $remove)){
+													$getEmp = "SELECT employee_email FROM employee WHERE nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager' OR POSITION='stationMaster'))";
+													$resultEmp = mysqli_query($con, $getEmp);
+													if(mysqli_num_rows($resultEmp) != 0){
+														while($rowEmail = mysqli_fetch_array($resultEmp)){
+															//send email with new station
 $to = $rowEmail['employee_email'];														
 $subject = "Station Has Being Updated";
 $message = "<p>Dear All,</p>
@@ -95,13 +99,21 @@ $message = "<p>Dear All,</p>
 <br/>
 <p>Thank You!</p>
 <p>S.C.A.T Admin</p>";
-													$headers = "MIME-Version: 1.0" . "\r\n";
-													$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-													mail($to, $subject, $message, $headers);
+															$headers = "MIME-Version: 1.0" . "\r\n";
+															$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+															mail($to, $subject, $message, $headers);
+														}
+													}
+													//success
+													header('Location:../updateStations.php?error=su');
+												} else {
+													//query failed
+													header('Location:../updateStations.php?error=qf');
 												}
+											} else {
+												//query failed
+												header('Location:../updateStations.php?error=qf');
 											}
-											//success
-											header('Location:../updateStations.php?error=su');
 										} else {
 											//query failed
 											header('Location:../updateStations.php?error=qf');
@@ -117,11 +129,15 @@ $message = "<p>Dear All,</p>
 									if(mysqli_num_rows($resultStation) == 0){
 										$updateStation = "UPDATE station SET station_name='".$stationName."', employee_nic='".$stationMaster."' WHERE station_code='".$stationCode."'";
 										if(mysqli_query($con, $updateStation)){
-											$getEmp = "SELECT employee_email FROM employee WHERE nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager' OR POSITION='stationMaster'))";
-											$resultEmp = mysqli_query($con, $getEmp);
-											if(mysqli_num_rows($resultEmp) != 0){
-												while($rowEmail = mysqli_fetch_array($resultEmp)){
-													//send email with new station
+											$update = "UPDATE staff SET station_code='".$stationCode."' WHERE employee_nic='".$stationMaster."'";
+											if(mysqli_query($con,$update)){
+												$remove = "UPDATE staff SET station_code='none' WHERE employee_nic='".$OldstationMaster."'";
+												if(mysqli_query($con, $remove)){
+													$getEmp = "SELECT employee_email FROM employee WHERE nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager' OR POSITION='stationMaster'))";
+													$resultEmp = mysqli_query($con, $getEmp);
+													if(mysqli_num_rows($resultEmp) != 0){
+														while($rowEmail = mysqli_fetch_array($resultEmp)){
+															//send email with new station
 $to = $rowEmail['employee_email'];														
 $subject = "Station Has Being Updated";
 $message = "<p>Dear All,</p>
@@ -134,13 +150,21 @@ $message = "<p>Dear All,</p>
 <br/>
 <p>Thank You!</p>
 <p>S.C.A.T Admin</p>";
-													$headers = "MIME-Version: 1.0" . "\r\n";
-													$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-													mail($to, $subject, $message, $headers);
+															$headers = "MIME-Version: 1.0" . "\r\n";
+															$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+															mail($to, $subject, $message, $headers);
+														}
+													}
+													//success
+													header('Location:../updateStations.php?error=su');
+												} else {
+													//query failed
+													header('Location:../updateStations.php?error=qf');
 												}
+											} else {
+												//query failed
+												header('Location:../updateStations.php?error=qf');
 											}
-											//success
-											header('Location:../updateStations.php?error=su');
 										} else {
 											//query failed
 											header('Location:../updateStations.php?error=qf');

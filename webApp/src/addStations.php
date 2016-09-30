@@ -90,7 +90,7 @@ if(isset($_SESSION['position'])){
                         <select class="form-control" name="smID" id="smID">
                         <option selected="selected" disabled="disabled">--Select The Station Master--</option>
                         <?php
-                        $getTypes = "SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='stationMaster')";
+                        $getTypes = "SELECT employee_nic FROM staff WHERE station_code='none' AND employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='stationMaster')";
                         $result = mysqli_query($con, $getTypes);
                         if(mysqli_num_rows($result) != 0){
                             while($row = mysqli_fetch_array($result)){
@@ -107,7 +107,7 @@ if(isset($_SESSION['position'])){
 								}
                             }
                         } else {
-                            echo '<option>No Station Masters</option>';
+                            echo '<option disabled="disabled">No Station Masters</option>';
                         }
                         ?> 
                         </select>

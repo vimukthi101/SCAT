@@ -50,25 +50,25 @@ if($p != "" && $r != ""){
 									<div class="form-group">
 										<label for="CardNumber" class="control-label col-md-3">Card Number</label>
 										<div class="col-md-8">
-											<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
+											<input class="form-control" type="text" name="CardNumber2" value="'.$cardNo.'" id="CardNumber2" readonly/>
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="employeelNIC" class="control-label col-md-3">NIC</label>
 										<div class="col-md-8">
-											<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+											<input class="form-control" type="text" name="nic2" id="nic2" value="'.$nic.'" readonly/>
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="fName" class="control-label col-md-3">Full Name</label>
 										<div class="col-md-8">
-											<input class="form-control" type="text" name="name" id="name" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
+											<input class="form-control" type="text" name="name2" id="name2" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="contact" class="control-label col-md-3">Contact Number</label>
 										<div class="col-md-8">
-											<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+											<input class="form-control" type="text" name="contact2" id="contact2" value="'.$contactNo.'" readonly/>
 										</div>
 									</div>
 									<div class="form-group">
