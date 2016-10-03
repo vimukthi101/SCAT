@@ -71,7 +71,7 @@ if(isset($_SESSION['position'])){
 							$tFee = $rowFee['reg_fee'];
 						}
 					} else {
-						$tFee = "200.00";
+						$tFee = "100.00";
 					}
 					?>
                     	<input class="form-control" type="text" name="rFee" id="rFee" readonly="readonly" value="<?php echo $tFee; ?>"/>
