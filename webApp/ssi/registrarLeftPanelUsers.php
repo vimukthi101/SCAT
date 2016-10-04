@@ -32,6 +32,11 @@
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Commuters</font>
         </div>
     </a>
+    <a href="../src/activateCards.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Activate/ Deactivate Cards</font>
+        </div>
+    </a>
 </div>
 </body>
 </html>

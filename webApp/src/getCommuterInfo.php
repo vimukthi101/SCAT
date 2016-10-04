@@ -26,125 +26,377 @@ $p = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["p"])));
 $r = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["r"])));
 if($p != "" && $r != ""){
 	if($p == "view"){
-		if ($q != "") {
-			$hint .= '<div class="form-group">
-							<div class="container-fluid">
-								<table style="width:100%;" class="table table-striped">
-								  <tr>
-									<th>Card Number</th>
-									<th>NIC</th> 
-									<th>First Name</th>
-									<th>Middle Name</th>
-									<th>Last Name</th>
-									<th>Address</th>
-									<th>Contact No</th>
-									<th>Settings</th>
-								  </tr>
-								  <tr>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td>ad</td>
-									<td>asd</td>
-									<td>ada</td>
-									<td>add</td>
-									<td><a href="#"><i class="fa fa-2x fa-cog" style="padding-left:5px;" aria-hidden="true"></i></a></td>
-								  </tr>
-								  <tr>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td>ad</td>
-									<td>asd</td>
-									<td>ada</td>
-									<td>add</td>
-									<td>add</td>
-								  </tr>
-								  <tr>
-									<td>asd</td>
-									<td>asd</td>
-									<td>asd</td>
-									<td>add</td>
-									<td>ad</td>
-									<td>asd</td>
-									<td>ada</td>
-									<td>add</td>
-								  </tr>
-								</table>
-							</div>
-						</div>';
+		if($q != ""){
+			if($r == "CardNo"){
+				$getCommuter = "SELECT * FROM commuter WHERE card_card_no LIKE '".$q."%'";
+				$resultCommuter = mysqli_query($con, $getCommuter);
+				if(mysqli_num_rows($resultCommuter) != 0){
+					echo '<div class="form-group">
+									<div class="container-fluid center-block">
+										<table style="width:100%;" class="table table-striped">
+										  <tr>
+											<th>Card No</th>
+											<th>NIC</th>
+											<th>Full Name</th>
+											<th>Address</th>
+											<th>Contact No</th>
+											<th>Status</th>
+										  </tr>';
+					while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+						$cardNo = $rowCommuter['card_card_no'];
+						$nic = $rowCommuter['nic'];
+						$nameId = $rowCommuter['name_name_id'];
+						$addressId = $rowCommuter['address_address_id'];
+						$contactNo = $rowCommuter['contact_no'];
+						if($rowCommuter['status'] == 1){
+							$status = "Active";	
+						} else {
+							$status = "Disabled";
+						}
+						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+						$resultName = mysqli_query($con, $getName);
+						if(mysqli_num_rows($resultName) != 0){
+							while($rowName = mysqli_fetch_array($resultName)){
+								$fName = $rowName['first_name'];
+								$sName = $rowName['second_name'];
+								$lName = $rowName['last_name'];
+							}
+						} else {
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
+						$getAddress = "SELECT * FROM address WHERE address_id='".$addressId."'";
+						$resultAddress = mysqli_query($con, $getAddress);
+						if(mysqli_num_rows($resultAddress) != 0){
+							while($rowName = mysqli_fetch_array($resultAddress)){
+								$aNo = $rowName['address_no'];
+								$aLane = $rowName['address_lane'];
+								$aCity = $rowName['address_city'];
+							}
+						} else {
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
+						echo '<tr>
+								<td>'.$cardNo.'</td>
+								<td>'.$nic.'</td>
+								<td>'.$fName." ".$sName." ".$lName.'</td>
+								<td>'.$aNo.", ".$aLane.", ".$aCity.'</td>
+								<td>'.$contactNo.'</td>
+								<td>'.$status.'</td>
+							  </tr>';
+					}
+					echo '</table>
+									</div>
+								</div>';
+				} else {
+					//if no result to show
+					echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+				}
+			} else if($r == "nic"){
+				$getCommuter = "SELECT * FROM commuter WHERE nic LIKE '".$q."%'";
+				$resultCommuter = mysqli_query($con, $getCommuter);
+				if(mysqli_num_rows($resultCommuter) != 0){
+					echo '<div class="form-group">
+									<div class="container-fluid center-block">
+										<table style="width:100%;" class="table table-striped">
+										  <tr>
+											<th>Card No</th>
+											<th>NIC</th>
+											<th>Full Name</th>
+											<th>Address</th>
+											<th>Contact No</th>
+											<th>Status</th>
+										  </tr>';
+					while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+						$cardNo = $rowCommuter['card_card_no'];
+						$nic = $rowCommuter['nic'];
+						$nameId = $rowCommuter['name_name_id'];
+						$addressId = $rowCommuter['address_address_id'];
+						$contactNo = $rowCommuter['contact_no'];
+						if($rowCommuter['status'] == 1){
+							$status = "Active";	
+						} else {
+							$status = "Disabled";
+						}
+						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+						$resultName = mysqli_query($con, $getName);
+						if(mysqli_num_rows($resultName) != 0){
+							while($rowName = mysqli_fetch_array($resultName)){
+								$fName = $rowName['first_name'];
+								$sName = $rowName['second_name'];
+								$lName = $rowName['last_name'];
+							}
+						} else {
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
+						$getAddress = "SELECT * FROM address WHERE address_id='".$addressId."'";
+						$resultAddress = mysqli_query($con, $getAddress);
+						if(mysqli_num_rows($resultAddress) != 0){
+							while($rowName = mysqli_fetch_array($resultAddress)){
+								$aNo = $rowName['address_no'];
+								$aLane = $rowName['address_lane'];
+								$aCity = $rowName['address_city'];
+							}
+						} else {
+							//if no result to show
+							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+						}
+						echo '<tr>
+								<td>'.$cardNo.'</td>
+								<td>'.$nic.'</td>
+								<td>'.$fName." ".$sName." ".$lName.'</td>
+								<td>'.$aNo.", ".$aLane.", ".$aCity.'</td>
+								<td>'.$contactNo.'</td>
+								<td>'.$status.'</td>
+							  </tr>';
+					}
+					echo '</table>
+									</div>
+								</div>';
+				} else {
+					//if no result to show
+					echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+				}
+			} else {
+				//wrong html id
+				header('Location:../404.php');
+			}
 		} else {
 			//no value entered for search
 			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 		}
 	} else if($p == "update"){
 		if($q != ""){
-			$hint .= '<form role="form" class="form-horizontal">
-				<div class="form-group text-center">
-                    <label class="col-md-11">S.C.A.T. Card Information</label> 
-                </div>
-            	<div class="form-group">
-                    <label for="CardNumber" class="control-label col-md-3">Card Number</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="CardNumber" id="CardNumber" />
-                	</div>
-                </div>
-                <div class="form-group text-center">
-                    <label class="col-md-11">Personal Information</label> 
-                </div>
-                <div class="form-group">
-                    <label for="employeelNIC" class="control-label col-md-3">NIC</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="nic" id="nic" />
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="employeefName" class="control-label col-md-3">First Name</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="fname" id="fname" />
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="employeemName" class="control-label col-md-3">Middle Name</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="mname" id="mname" />
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="employeelName" class="control-label col-md-3">Last Name</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="lname" id="lname" />
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="addressNo" class="control-label col-md-3">Address Number</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="addresNo" id="addressNo" />
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="addressLane" class="control-label col-md-3">Lane/ Street</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="lane" id="lane" />
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="addressCity" class="control-label col-md-3">City</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="city" id="city" />
-                	</div>
-                </div>
-                <div class="form-group">
-                    <label for="employeeContact" class="control-label col-md-3">Contact Number</label>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="text" name="contact" id="contact" />
-                	</div>
-                </div>
-                <div class="form-group col-md-11 text-center">
-                    <input type="submit" value="Update" class="btn btn-success" />
-                    <input type="reset" value="Clear" class="btn btn-danger" />
-                </div>
-            </form>';
+			if($r == "CardNo"){
+				$getCommuter = "SELECT * FROM commuter WHERE card_card_no='".$q."'";
+				$resultCommuter = mysqli_query($con, $getCommuter);
+				if(mysqli_num_rows($resultCommuter) != 0){
+					while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+						$cardNo = $rowCommuter['card_card_no'];
+						$nic = $rowCommuter['nic'];
+						$nameId = $rowCommuter['name_name_id'];
+						$addressId = $rowCommuter['address_address_id'];
+						$contactNo = $rowCommuter['contact_no'];
+						if($rowCommuter['status'] == 1){
+							$status = "Active";	
+						} else {
+							$status = "Disabled";
+						}
+						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+						$resultName = mysqli_query($con, $getName);
+						if(mysqli_num_rows($resultName) != 0){
+							while($rowName = mysqli_fetch_array($resultName)){
+								$fName = $rowName['first_name'];
+								$sName = $rowName['second_name'];
+								$lName = $rowName['last_name'];
+							}
+						}
+						$getAddress = "SELECT * FROM address WHERE address_id='".$addressId."'";
+						$resultAddress = mysqli_query($con, $getAddress);
+						if(mysqli_num_rows($resultAddress) != 0){
+							while($rowName = mysqli_fetch_array($resultAddress)){
+								$aNo = $rowName['address_no'];
+								$aLane = $rowName['address_lane'];
+								$aCity = $rowName['address_city'];
+							}
+						}
+						echo '<form role="form" class="form-horizontal" method="post" action="controller/updateCommuterController.php">
+								<div class="form-group text-center">
+									<label class="col-md-11">S.C.A.T. Card Information</label> 
+								</div>
+								<div class="form-group">
+									<label for="CardNumber" class="control-label col-md-3">Card Number <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="CardNumber" id="CardNumber" value="'.$cardNo.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="status" class="control-label col-md-3">Status <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="status" id="status" value="'.$status.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group text-center">
+									<label class="col-md-11">Personal Information</label> 
+								</div>
+								<div class="form-group">
+									<label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeefName" class="control-label col-md-3">First Name <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="fname" id="fname" value="'.$fName.'"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeemName" class="control-label col-md-3">Middle Name</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="mname" id="mname" value="'.$sName.'"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeelName" class="control-label col-md-3">Last Name <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="lname" id="lname" value="'.$lName.'"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="addressNo" class="control-label col-md-3">Address Number <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="addresNo" id="addressNo" value="'.$aNo.'"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="addressLane" class="control-label col-md-3">Lane/ Street <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="lane" id="lane" value="'.$aLane.'"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="addressCity" class="control-label col-md-3">City <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="city" id="city" value="'.$aCity.'"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeeContact" class="control-label col-md-3">Contact Number</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'"/>
+									</div>
+								</div>
+								<div class="form-group" style="text-align:center;">
+										<label for="employeeContact" style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+								</div>
+								<div class="form-group col-md-11 text-center">
+									<input type="submit" name="submit" id="submit" value="Update" class="btn btn-success" onclick="return confirm(\'Do You Wish to Update Commuter?\');return false;"/>
+								</div>
+							</form>';
+					}
+				} else {
+					//if no result to show
+					echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+				}
+			}  else if($r == "nic"){
+				$getCommuter = "SELECT * FROM commuter WHERE nic='".$q."'";
+				$resultCommuter = mysqli_query($con, $getCommuter);
+				if(mysqli_num_rows($resultCommuter) != 0){
+					while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+						$cardNo = $rowCommuter['card_card_no'];
+						$nic = $rowCommuter['nic'];
+						$nameId = $rowCommuter['name_name_id'];
+						$addressId = $rowCommuter['address_address_id'];
+						$contactNo = $rowCommuter['contact_no'];
+						if($rowCommuter['status'] == 1){
+							$status = "Active";	
+						} else {
+							$status = "Disabled";
+						}
+						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+						$resultName = mysqli_query($con, $getName);
+						if(mysqli_num_rows($resultName) != 0){
+							while($rowName = mysqli_fetch_array($resultName)){
+								$fName = $rowName['first_name'];
+								$sName = $rowName['second_name'];
+								$lName = $rowName['last_name'];
+							}
+						}
+						$getAddress = "SELECT * FROM address WHERE address_id='".$addressId."'";
+						$resultAddress = mysqli_query($con, $getAddress);
+						if(mysqli_num_rows($resultAddress) != 0){
+							while($rowName = mysqli_fetch_array($resultAddress)){
+								$aNo = $rowName['address_no'];
+								$aLane = $rowName['address_lane'];
+								$aCity = $rowName['address_city'];
+							}
+						}
+						echo '<form role="form" class="form-horizontal" method="post" action="controller/updateCommuterController.php">
+								<div class="form-group text-center">
+									<label class="col-md-11">S.C.A.T. Card Information</label> 
+								</div>
+								<div class="form-group">
+									<label for="CardNumber" class="control-label col-md-3">Card Number <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="CardNumber" id="CardNumber" value="'.$cardNo.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="status" class="control-label col-md-3">Status <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="status" id="status" value="'.$status.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group text-center">
+									<label class="col-md-11">Personal Information</label> 
+								</div>
+								<div class="form-group">
+									<label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeefName" class="control-label col-md-3">First Name <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="fname" id="fname" value="'.$fName.'"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeemName" class="control-label col-md-3">Middle Name</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="mname" id="mname" value="'.$sName.'"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeelName" class="control-label col-md-3">Last Name <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="lname" id="lname" value="'.$lName.'"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="addressNo" class="control-label col-md-3">Address Number <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="addresNo" id="addressNo" value="'.$aNo.'"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="addressLane" class="control-label col-md-3">Lane/ Street <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="lane" id="lane" value="'.$aLane.'"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="addressCity" class="control-label col-md-3">City <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="city" id="city" value="'.$aCity.'"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeeContact" class="control-label col-md-3">Contact Number</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'"/>
+									</div>
+								</div>
+								<div class="form-group" style="text-align:center;">
+										<label for="employeeContact" style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+								</div>
+								<div class="form-group col-md-11 text-center">
+									<input type="submit" name="submit" id="submit" value="Update" class="btn btn-success" onclick="return confirm(\'Do You Wish to Update Commuter?\');return false;"/>
+								</div>
+							</form>';
+					}
+				} else {
+					//if no result to show
+					echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+				}
+			} else {
+				//wrong html id
+				header('Location:../404.php');
+			} 
 		}  else {
 			//no value entered for search
 			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
@@ -632,8 +884,243 @@ if($p != "" && $r != ""){
 		}
 	} else if($p == "activate"){
 		if($q != ""){
-			
-		} else {
+			if($r == "CardNo"){
+				$getCommuter = "SELECT * FROM commuter WHERE card_card_no='".$q."'";
+				$resultCommuter = mysqli_query($con, $getCommuter);
+				if(mysqli_num_rows($resultCommuter) != 0){
+					while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+						$cardNo = $rowCommuter['card_card_no'];
+						$nic = $rowCommuter['nic'];
+						$nameId = $rowCommuter['name_name_id'];
+						$addressId = $rowCommuter['address_address_id'];
+						$contactNo = $rowCommuter['contact_no'];
+						if($rowCommuter['status'] == 1){
+							$status = "Active";	
+						} else {
+							$status = "Disabled";
+						}
+						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+						$resultName = mysqli_query($con, $getName);
+						if(mysqli_num_rows($resultName) != 0){
+							while($rowName = mysqli_fetch_array($resultName)){
+								$fName = $rowName['first_name'];
+								$sName = $rowName['second_name'];
+								$lName = $rowName['last_name'];
+							}
+						}
+						$getAddress = "SELECT * FROM address WHERE address_id='".$addressId."'";
+						$resultAddress = mysqli_query($con, $getAddress);
+						if(mysqli_num_rows($resultAddress) != 0){
+							while($rowName = mysqli_fetch_array($resultAddress)){
+								$aNo = $rowName['address_no'];
+								$aLane = $rowName['address_lane'];
+								$aCity = $rowName['address_city'];
+							}
+						}
+						echo '<form role="form" class="form-horizontal" method="post" action="controller/activateCommuterController.php">
+								<div class="form-group text-center">
+									<label class="col-md-11">S.C.A.T. Card Information</label> 
+								</div>
+								<div class="form-group">
+									<label for="CardNumber" class="control-label col-md-3">Card Number <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="CardNumber" id="CardNumber" value="'.$cardNo.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="status" class="control-label col-md-3">Status <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="status" id="status" value="'.$status.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group text-center">
+									<label class="col-md-11">Personal Information</label> 
+								</div>
+								<div class="form-group">
+									<label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeefName" class="control-label col-md-3">First Name <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="fname" id="fname" value="'.$fName.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeemName" class="control-label col-md-3">Middle Name</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="mname" id="mname" value="'.$sName.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeelName" class="control-label col-md-3">Last Name <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="lname" id="lname" value="'.$lName.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="addressNo" class="control-label col-md-3">Address Number <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="addresNo" id="addressNo" value="'.$aNo.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="addressLane" class="control-label col-md-3">Lane/ Street <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="lane" id="lane" value="'.$aLane.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="addressCity" class="control-label col-md-3">City <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="city" id="city" value="'.$aCity.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeeContact" class="control-label col-md-3">Contact Number</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group" style="text-align:center;">
+										<label for="employeeContact" style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+								</div>
+								<div class="form-group col-md-11 text-center">';
+								if($status == "Active"){
+									echo '<input type="submit" name="submit" id="submit" value="Disable" class="btn btn-danger" onclick="return confirm(\'Do You Wish to Disable Commuter?\');return false;"/>';	
+								} else {
+									echo '<input type="submit" name="submit" id="submit" value="Activate" class="btn btn-success" onclick="return confirm(\'Do You Wish to Activate Commuter?\');return false;"/>';
+								}
+								echo	'</div>
+								</form>';
+					}
+				} else {
+					//if no result to show
+					echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+				}
+			}  else if($r == "nic"){
+				$getCommuter = "SELECT * FROM commuter WHERE nic='".$q."'";
+				$resultCommuter = mysqli_query($con, $getCommuter);
+				if(mysqli_num_rows($resultCommuter) != 0){
+					while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+						$cardNo = $rowCommuter['card_card_no'];
+						$nic = $rowCommuter['nic'];
+						$nameId = $rowCommuter['name_name_id'];
+						$addressId = $rowCommuter['address_address_id'];
+						$contactNo = $rowCommuter['contact_no'];
+						if($rowCommuter['status'] == 1){
+							$status = "Active";	
+						} else {
+							$status = "Disabled";
+						}
+						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+						$resultName = mysqli_query($con, $getName);
+						if(mysqli_num_rows($resultName) != 0){
+							while($rowName = mysqli_fetch_array($resultName)){
+								$fName = $rowName['first_name'];
+								$sName = $rowName['second_name'];
+								$lName = $rowName['last_name'];
+							}
+						}
+						$getAddress = "SELECT * FROM address WHERE address_id='".$addressId."'";
+						$resultAddress = mysqli_query($con, $getAddress);
+						if(mysqli_num_rows($resultAddress) != 0){
+							while($rowName = mysqli_fetch_array($resultAddress)){
+								$aNo = $rowName['address_no'];
+								$aLane = $rowName['address_lane'];
+								$aCity = $rowName['address_city'];
+							}
+						}
+						echo '<form role="form" class="form-horizontal" method="post" action="controller/activateCommuterController.php">
+								<div class="form-group text-center">
+									<label class="col-md-11">S.C.A.T. Card Information</label> 
+								</div>
+								<div class="form-group">
+									<label for="CardNumber" class="control-label col-md-3">Card Number <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="CardNumber" id="CardNumber" value="'.$cardNo.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="status" class="control-label col-md-3">Status <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="status" id="status" value="'.$status.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group text-center">
+									<label class="col-md-11">Personal Information</label> 
+								</div>
+								<div class="form-group">
+									<label for="employeelNIC" class="control-label col-md-3">NIC <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeefName" class="control-label col-md-3">First Name <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="fname" id="fname" value="'.$fName.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeemName" class="control-label col-md-3">Middle Name</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="mname" id="mname" value="'.$sName.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeelName" class="control-label col-md-3">Last Name <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="lname" id="lname" value="'.$lName.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="addressNo" class="control-label col-md-3">Address Number <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="addresNo" id="addressNo" value="'.$aNo.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="addressLane" class="control-label col-md-3">Lane/ Street <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="lane" id="lane" value="'.$aLane.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="addressCity" class="control-label col-md-3">City <span style="color:rgb(255,0,0);">*</span></label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="city" id="city" value="'.$aCity.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="employeeContact" class="control-label col-md-3">Contact Number</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+									</div>
+								</div>
+								<div class="form-group" style="text-align:center;">
+										<label for="employeeContact" style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+								</div>
+								<div class="form-group col-md-11 text-center">';
+								if($status == "Active"){
+									echo '<input type="submit" name="submit" id="submit" value="Disable" class="btn btn-danger" onclick="return confirm(\'Do You Wish to Disable Commuter?\');return false;"/>';	
+								} else {
+									echo '<input type="submit" name="submit" id="submit" value="Activate" class="btn btn-success" onclick="return confirm(\'Do You Wish to Activate Commuter?\');return false;"/>';
+								}
+								echo	'</div>
+								</form>';
+					}
+				} else {
+					//if no result to show
+					echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+				}
+			} else {
+				//wrong html id
+				header('Location:../404.php');
+			} 
+		}  else {
 			//no value entered for search
 			echo '<h3 class="text-center" style="padding:50px;">Please Enter A Value To Search.</h3>';
 		}

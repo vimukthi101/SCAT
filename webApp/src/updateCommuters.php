@@ -34,6 +34,66 @@ if(isset($_SESSION['position'])){
             </font>
         </div>
         <div style="padding:10px;"> 
+        <?php
+			if(isset($_GET['error'])){
+				if(!empty($_GET['error'])){
+					$error = $_GET['error'];
+					if($error == "ef"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Please Fill The Required Fields.</label>
+							</div>';
+					} else if($error == "wcn"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Invalid Card Number.</label>
+							</div>';
+					} else if($error == "wnic"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Should be a valid NIC of 9 digits and \'v\'.</label>
+							</div>';
+					} else if($error == "wf"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">First Name Should Be Letters. Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wm"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Second Name Should Be Letters. Can Be Empty.</label>
+							</div>';
+					} else if($error == "wl"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Last Name Should Be Letters. Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wn"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Address Number Should Be Letters, Numbers, / or \. Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wa"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Lane Should Be Letters. Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wc"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">City Should Be Letters. Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "wp"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Should Be A Valid Number With 10 Digits.</label>
+							</div>';
+					} else if($error == "iu"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Commuter Is Not Valid.</label>
+							</div>';
+					} else if($error == "qf"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Could Not Update The Commuter. Please Try Again Later.</label>
+							</div>';
+					} else if($error == "su"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control label-success" style="height:35px;">Commuter Updated Succesfully.</label>
+							</div>';
+					}
+				}
+			}
+			?>
             <form role="form" class="form-horizontal">
             	<div class="form-group">
                     <label for="employeeId" class="control-label col-md-3">Search By : </label>
@@ -42,8 +102,6 @@ if(isset($_SESSION['position'])){
                           <option selected="selected" disabled="disabled">--Select the search criteria--</option>
                           <option value="cNo">Card Number</option>
                           <option value="nic">NIC</option>
-                          <option value="fname">First Name</option>
-                          <option value="lname">Last Name</option>
                         </select>
                 	</div>
                 </div>
@@ -54,20 +112,16 @@ if(isset($_SESSION['position'])){
 					 var idx = selectObj.selectedIndex; 
 					 var which = selectObj.options[idx].value; 
 					 if(which=='cNo'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="CardNo" class="control-label col-md-3">Card Number</label><div class="col-md-8"><input class="form-control" type="text" name="CardNo" id="CardNo" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>'; 
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="CardNo" class="control-label col-md-3">Card Number</label><div class="col-md-8"><input class="form-control" type="text" name="CardNo" id="CardNo" required/></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(document.getElementById(\'CardNo\').value, document.getElementById(\'CardNo\').id);"/></div></div><hr/>'; 
 					 } else if(which=='nic'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="nic" id="nic" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>';
-					 } else if(which=='fname'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeefName" class="control-label col-md-3">First Name</label><div class="col-md-8"><input class="form-control" type="text" name="fname" id="fname" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>';
-					 } else if(which=='lname'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelName" class="control-label col-md-3">Last Name</label><div class="col-md-8"><input class="form-control" type="text" name="lname" id="lname" /></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(this.value);"/></div></div><hr/>';
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="nic" id="nic" required/></div><div><input type="button" value="Search" class="btn btn-success" onClick="showHint(document.getElementById(\'nic\').value, document.getElementById(\'nic\').id);"/></div></div><hr/>';
 					 } else {
 						 document.getElementById('new').innerHTML = '';
 					 }
 				 } 
 			</script>
             <script>
-			function showHint(str) {
+			function showHint(str, id) {
 				if (str.length == 0) { 
 					document.getElementById("txtHint").innerHTML = "";
 					return;
@@ -78,15 +132,15 @@ if(isset($_SESSION['position'])){
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getCommuterInfo.php?p=update&q=" + str, true);
+					xmlhttp.open("GET", "getCommuterInfo.php?p=update&q=" + str + "&r=" + id, true);
 					xmlhttp.send();
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+            <div class="form-horizontal">
             	<div id="new"></div>
             	<div style="padding-left:70px;" id="txtHint"></div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

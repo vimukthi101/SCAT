@@ -42,8 +42,6 @@ if(isset($_SESSION['position'])){
                           <option selected="selected" disabled="disabled">--Select the search criteria--</option>
                           <option value="cNo">Card Number</option>
                           <option value="nic">NIC</option>
-                          <option value="fname">First Name</option>
-                          <option value="lname">Last Name</option>
                         </select>
                 	</div>
                 </div>
@@ -54,20 +52,16 @@ if(isset($_SESSION['position'])){
 					 var idx = selectObj.selectedIndex; 
 					 var which = selectObj.options[idx].value; 
 					 if(which=='cNo'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="cardNo" class="control-label col-md-3">Card Number</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value)" type="text" name="cardNo" id="cardNo" /></div></div><hr/>'; 
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="CardNo" class="control-label col-md-3">Card Number</label><div class="col-md-8"><input class="form-control" type="text" name="CardNo" id="CardNo" onkeyup="showHint(this.value, this.id);"/></div></div><hr/>'; 
 					 } else if(which=='nic'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value)" type="text" name="nic" id="nic" /></div></div><hr/>';
-					 } else if(which=='fname'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeefName" class="control-label col-md-3">First Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value)" type="text" name="fname" id="fname" /></div></div><hr/>';
-					 } else if(which=='lname'){
-						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelName" class="control-label col-md-3">Last Name</label><div class="col-md-8"><input class="form-control" onkeyup="showHint(this.value)" type="text" name="lname" id="lname" /></div></div><hr/>';
+						 document.getElementById('new').innerHTML = '<div class="form-group"><label for="employeelNIC" class="control-label col-md-3">NIC</label><div class="col-md-8"><input class="form-control" type="text" name="nic" id="nic" onkeyup="showHint(this.value, this.id);" /></div></div><hr/>';
 					 } else {
 						 document.getElementById('new').innerHTML = '';
 					 }
 				 } 
 			</script>
             <script>
-			function showHint(str) {
+			function showHint(str, id) {
 				if (str.length == 0) { 
 					document.getElementById("txtHint").innerHTML = "";
 					return;
@@ -78,15 +72,15 @@ if(isset($_SESSION['position'])){
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getCommuterInfo.php?p=view&q=" + str, true);
+					xmlhttp.open("GET", "getCommuterInfo.php?p=view&q=" + str + "&r=" + id, true);
 					xmlhttp.send();
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+            <div class="form-horizontal">
             	<div id="new"></div>
             	<div style="padding-left:70px;" id="txtHint"></div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
