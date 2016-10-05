@@ -11,6 +11,7 @@ if(isset($_SESSION['position'])){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('../ssi/links.html');
+	include_once('../ssi/db.php');
 ?>
 <title>Time Table Management</title>
 <style>
@@ -45,7 +46,47 @@ a:visited{
             </font>
         </div>
         <div style="padding:10px;"> 
-            <form role="form" class="form-horizontal">
+        <?php
+			if(isset($_GET['error'])){
+				if(!empty($_GET['error'])){
+					$error = $_GET['error'];
+					if($error == "ef"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Required Fields Cannot Be Empty.</label>
+							</div>';
+					} else if($error == "ss"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Destination Station Cannot Be Your Station.</label>
+							</div>';
+					} else if($error == "ae"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Already A Time Table Has Being Added For The Same Date Time On Same Line.</label>
+							</div>';
+					}  else if($error == "ws"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Station Invalid.</label>
+							</div>';
+					} else if($error == "wt"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Train Invalid.</label>
+							</div>';
+					} else if($error == "te"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Train Has Being Already Added At The Same Date And Time For Another Time Table.</label>
+							</div>';
+					} else if($error == "qf"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control" style="height:35px;">Could Not Add The Time Table. Please Try Again Later.</label>
+							</div>';
+					} else if($error == "su"){
+						echo '<div class="form-group text-center" style="padding-left:100px;">
+								<label class="form-control label-success" style="height:35px;">Time Table Successfully Added.</label>
+							</div>';
+					}
+				}
+			}
+		?>
+            <form role="form" class="form-horizontal" method="post" action="controller/addTimeTableController.php">
             	<div class="form-group">
                     <label for="day" class="control-label col-md-3">Select the Day : </label>
                     <div class="col-md-8">
@@ -62,82 +103,79 @@ a:visited{
                 	</div>
                 </div>
                 <div class="form-group">
-                    <label for="day" class="control-label col-md-3">Fill Following Information</label>
+                    <label for="line" class="control-label col-md-3">Select the Line : </label>
+                    <div class="col-md-8">
+                    	<select name="line" id="line" class="form-control">
+                          <option selected="selected" disabled="disabled">--Select the Line--</option>
+                          <option value="kandy">Colombo - Kandy</option>
+                          <option value="matara">Colombo - Matara</option>
+                          <option value="vauniya">Colombo - Vauniya</option>
+                          <option value="taleimannar">Colombo - Taleimannar</option>
+                          <option value="jaffna">Colombo - Jaffna</option>
+                        </select>
+                	</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Fill Following Information</label>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12" style="padding-left:150px;">
                     	<table style="width:100%;" class="table table-striped" id="table">
                           <tr>
-                            <th>Train Number</th>
-                            <th>Train Name</th>
+                            <th>Train</th>
                             <th>Time</th>
-                            <th>Type</th>
-                            <th>Setthings</th>
+         					<th>Destination</th>
                           </tr>
                           <tr>
                             <td>
-                            	<select name="tNo" id="tNo" class="form-control">
-                                  <option selected="selected" disabled="disabled">--Select the Train Number--</option>
-                                  <option value="109">109</option>
-                                  <option value="125">125</option>
-                                  <option value="1055">1055</option>
-                                  <option value="4077">4077</option>
+                                <select name="tNo" id="tNo" class="form-control">
+                                      <option selected="selected" disabled="disabled">--Select the Train--</option>
+										<?php
+                                            $getTrain = "SELECT * FROM train";
+                                            $resultTrain = mysqli_query($con, $getTrain);
+                                            if(mysqli_num_rows($resultTrain)!=0){
+                                                while($rowTrain = mysqli_fetch_array($resultTrain)){
+                                                    $trainId = $rowTrain['train_id'];
+                                                    $trainName = $rowTrain['train_name'];
+                                                    $trainType = $rowTrain['train_type_type_id'];
+                                                    echo '<option value="'.$trainId.'">'.$trainId.' - '.$trainName.' - '.$trainType.'</option>';
+                                                }
+                                            } else {
+                                                echo '<option disabled="disabled">No Trains Added To The System Yet.</option>';
+                                            }
+                                        ?>
                                 </select>
                             </td>
                             <td>
-                            	<input type="text" class="form-control" name="tName" id="tName" value="" readonly="readonly" />
+                            	<input type="time" class="form-control" id="time" name="time" required="required"/>
                             </td>
                             <td>
-                            	<input type="time" class="form-control" id="time" name="time" />
-                            </td>
-                            <td>
-                            	<select name="type" id="type" class="form-control">
-                                  <option selected="selected" disabled="disabled">--Select the Train Type--</option>
-                                  <option value="exp">Express</option>
-                                  <option value="ice">Intercity</option>
-                                  <option value="slow">Slow</option>
-                                  <option value="sem">Semi</option>
+                                <select name="station" id="station" class="form-control">
+                                  <option selected="selected" disabled="disabled">--Select the Station--</option>
+                                    <?php
+                                        $getStation = "SELECT * FROM station";
+                                        $resultStation = mysqli_query($con, $getStation);
+                                        if(mysqli_num_rows($resultStation)!=0){
+                                            while($rowTrain = mysqli_fetch_array($resultStation)){
+                                                $stationId = $rowTrain['station_code'];
+                                                $stationName = $rowTrain['station_name'];
+                                                echo '<option value="'.$stationId.'">'.$stationId.' - '.$stationName.'</option>';
+                                            }
+                                        } else {
+                                            echo '<option disabled="disabled">No Stations Added To The System Yet.</option>';
+                                        }
+                                    ?>
                                 </select>
                             </td>
-                            <td>
-                            	<a href="#" onclick="addRow();">
-                                	<i class="fa fa-2x fa-plus" style="padding-right:10px;" aria-hidden="true"></i>
-                                </a>
-                            </td> 
                           </tr>
                         </table>
                 	</div>
                 </div>
                 <div class="form-group col-md-11 text-center">
-                    <input type="submit" value="Update" class="btn btn-success" />
+                    <input type="submit" name="submit" id="submit" onclick="return confirm('Do You Wish to Add Time Table?');return false;" value="Add" class="btn btn-success" />
                     <input type="reset" value="Clear" class="btn btn-danger"/>
                 </div>
             </form>
-            <script type="text/javascript">
-				 function addRow() {
-					var table = document.getElementById("table");
-					var row = table.insertRow(-1);
-					var cell0 = row.insertCell(0);
-					var cell1 = row.insertCell(1);
-					var cell2 = row.insertCell(2);
-					var cell3 = row.insertCell(3);
-					var cell4 = row.insertCell(4);
-					cell0.innerHTML = '<select name="tNo" id="tNo" class="form-control"><option selected="selected" disabled="disabled">--Select the Train Number--</option><option value="109">109</option><option value="125">125</option><option value="1055">1055</option><option value="4077">4077</option></select>';
-					cell1.innerHTML = '<input type="text" class="form-control" name="tName" id="tName" value="" readonly="readonly" />';
-					cell2.innerHTML = '<input type="time" class="form-control" id="time" name="time" />';
-					cell3.innerHTML = '<select name="type" id="type" class="form-control"><option selected="selected" disabled="disabled">--Select the Train Type--</option><option value="exp">Express</option><option value="ice">Intercity</option><option value="slow">Slow</option><option value="sem">Semi</option></select>';
-					cell4.innerHTML = '<a href="#" onclick="addRow();"><i class="fa fa-2x fa-plus" style="padding-right:10px;" aria-hidden="true"></i></a><a href="#" onclick="deleteRow(this);"><i class="fa fa-2x fa-minus" style="padding-left:5px;" aria-hidden="true"></i></a>';
-				}
-				
-				function deleteRow(x) {
-					var rows = document.getElementById('table').getElementsByTagName('tr');
-					for (i = 0; i < rows.length; i++) {
-						rows[i].onclick = function() {
-							document.getElementById("table").deleteRow(this.rowIndex);
-						}
-					}
-				}
-			</script>
         </div>
     </div>
 </div>

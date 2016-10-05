@@ -36,10 +36,10 @@ if(isset($_SESSION['position'])){
         <div style="padding:10px;"> 
             <form role="form" class="form-horizontal">
             	<div class="form-group">
-                    <label for="day" class="control-label col-md-3">Search By : </label>
+                    <label for="day" class="control-label col-md-3">Select the Day : </label>
                     <div class="col-md-8">
-                    	<select onchange="showHint(this);" name="day" id="day" class="form-control">
-                          <option selected="selected" disabled="disabled">--Select the search criteria--</option>
+                    	<select name="day" id="day" class="form-control" onchange="showHint(document.getElementById('line').value, this.value);">
+                          <option selected="selected" disabled="disabled">--Select the Day--</option>
                           <option value="sun">Sunday</option>
                           <option value="mon">Monday</option>
                           <option value="tus">Tuesday</option>
@@ -50,10 +50,23 @@ if(isset($_SESSION['position'])){
                         </select>
                 	</div>
                 </div>
+                <div class="form-group">
+                    <label for="line" class="control-label col-md-3">Select the Line : </label>
+                    <div class="col-md-8">
+                    	<select name="line" id="line" class="form-control" onchange="showHint(this.value, document.getElementById('day').value);">
+                          <option selected="selected" disabled="disabled">--Select the Line--</option>
+                          <option value="kandy">Colombo - Kandy</option>
+                          <option value="matara">Colombo - Matara</option>
+                          <option value="vauniya">Colombo - Vauniya</option>
+                          <option value="taleimannar">Colombo - Taleimannar</option>
+                          <option value="jaffna">Colombo - Jaffna</option>
+                        </select>
+                	</div>
+                </div>
                 <hr/>
             </form>
             <script>
-			function showHint(str) {
+			function showHint(str, id) {
 				if (str.length == 0) { 
 					document.getElementById("txtHint").innerHTML = "";
 					return;
@@ -64,14 +77,14 @@ if(isset($_SESSION['position'])){
 							document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 						}
 					};
-					xmlhttp.open("GET", "getTimeTableInfo.php?p=view&q=" + str, true);
+					xmlhttp.open("GET", "getTimeTableInfo.php?p=view&q=" + str + "&r=" + id, true);
 					xmlhttp.send();
 				}
 			}
 			</script>
-            <form role="form" class="form-horizontal">
+            <div class="form-horizontal">
             	<div style="padding-left:70px;" id="txtHint"></div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
