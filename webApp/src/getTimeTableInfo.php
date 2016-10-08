@@ -7,7 +7,7 @@ include_once('../ssi/db.php');
 <head>
 </head>
 <?php
-//line
+//user input
 $q = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["q"])));
 //operation : view/update/delete
 $p = trim(htmlspecialchars(mysqli_real_escape_string($con,$_REQUEST["p"])));
@@ -78,16 +78,121 @@ if($p != ""){
 				//if empty q
 				echo '<h3 class="text-center" style="padding:50px;">Please Select A Value To Search.</h3>';
 			}
+		} else if($p == "delete"){
+			if ($q != "") {
+				$get = "SELECT * FROM timetable WHERE timetable_id='".$q."'";
+				$result = mysqli_query($con, $get);
+				if(mysqli_num_rows($result) != 0){
+					while($row = mysqli_fetch_array($result)){
+						$ttId = $row['timetable_id'];
+						$time = $row['train_time'];
+						$l = $row['line'];
+						$train = $row['train_train_id'];
+						$d = $row['train_date'];
+						$nic = $row['employee_nic'];
+						$station = $row['station_station_code'];
+						switch($l){
+							case 'matara':
+								$line = 'Colombo - Matara';
+								break;
+							case 'kandy':
+								$line = 'Colombo - Kandy';
+								break;
+							case 'vauniya':
+								$line = 'Colombo - Vauniya';
+								break;
+							case 'taleimannar':
+								$line = 'Colombo - Taleimannar';
+								break;
+							case 'jaffna':
+								$line = 'Colombo - Jaffna';
+								break;
+							default :
+								break;
+						}
+						switch($d){
+							case 'sun':
+								$date = 'Sunday';
+								break;
+							case 'mon':
+								$date = 'Monday';
+								break;
+							case 'tus':
+								$date = 'Tuesday';
+								break;
+							case 'wed':
+								$date = 'Wednesday';
+								break;
+							case 'thu':
+								$date = 'Thursday';
+								break;
+							case 'fri':
+								$date = 'Friday';
+								break;
+							case 'sat':
+								$date = 'Saturday';
+								break;
+							default :
+								break;
+						}
+						echo '<form role="form" class="form-horizontal" method="post" action="controller/deleteTimeTableController.php">
+								<input class="form-control" type="hidden" name="tId" id="tId" value="'.$ttId.'" readonly/>
+								<div class="form-group">
+									<label for="line" class="control-label col-md-3">Line</label>
+									<div class="col-md-8">
+										<input type="text" class="form-control" value="'.$line.'" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="date" class="control-label col-md-3">Date</label>
+									<div class="col-md-8">
+										<input type="text" class="form-control" value="'.$date.'" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="time" class="control-label col-md-3">Time</label>
+									<div class="col-md-8">
+										<input type="text" class="form-control" value="'.$time.'" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="train" class="control-label col-md-3">Train</label>
+									<div class="col-md-8">
+										<input type="text" class="form-control" value="'.$train.'" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="station" class="control-label col-md-3">Station</label>
+									<div class="col-md-8">
+										<input type="text" class="form-control" value="'.$station.'" readonly>
+									</div>
+								</div>
+								<div class="form-group col-md-11 text-center">
+									<input type="submit" id="submit" name="submit" value="Delete" class="btn btn-danger"  onclick="return confirm(\'Do You Wish to Delete Time Table?\');return false;"/>
+								</div>
+							</form>';
+					}
+					echo '</table>
+						</div>
+					</div>';
+				} else {
+					//if no result to show
+					echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
+				}			  
+			} else {
+				//if empty q
+				echo '<h3 class="text-center" style="padding:50px;">Please Select A Value To Search.</h3>';
+			}
 		} else { 
-			//if empty q
+			//wrong operation
 			echo '<h3 class="text-center" style="padding:50px;">Please Select A Value To Search.</h3>';
 		}
 	} else { 
-		//if empty q
+		//if empty r
 		echo '<h3 class="text-center" style="padding:50px;">Please Select A Value To Search.</h3>';
 	}
 } else { 
-	//if empty q
+	//if empty p
 	echo '<h3 class="text-center" style="padding:50px;">Please Select A Value To Search.</h3>';
 }
 ?>

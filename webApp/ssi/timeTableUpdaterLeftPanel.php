@@ -28,14 +28,14 @@
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Time Table</font>
         </div>
     </a>
-    <a href="../src/updateTimeTable.php" style="text-decoration:none;">
-        <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Update Time Table</font>
-        </div>
-    </a>
     <a href="../src/deleteTimeTable.php" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Time Table</font>
+        </div>
+    </a>
+    <a href="" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Send To Screen</font>
         </div>
     </a>
 </div>

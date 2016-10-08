@@ -15,8 +15,8 @@
 				if(preg_match('/^\d{16}$/',$cardNo)){
 					if(preg_match('/^\d{4}$/',$pin)){
 						$getCard = "SELECT * FROM card WHERE card_no='".$cardNo."'";
-						$resultGetCard = mysqli_query($getCard);
-						if(mysqli_num_rows($resultGetCard) == 0){
+						$resultGetCard = mysqli_query($con, $getCard);
+						if(mysqli_num_rows($resultGetCard) != 0){
 							$deleteCards = "DELETE FROM card WHERE card_no='".$cardNo."'";
 							if(mysqli_query($con, $deleteCards)){
 								//success
