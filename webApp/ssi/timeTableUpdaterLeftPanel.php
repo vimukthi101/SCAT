@@ -33,7 +33,7 @@
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Remove Time Table</font>
         </div>
     </a>
-    <a href="" style="text-decoration:none;">
+    <a href="../src/timeTable.php" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Send To Screen</font>
         </div>

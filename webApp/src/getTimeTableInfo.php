@@ -68,7 +68,7 @@ if($p != ""){
 					  </tr>';
 					}
 					echo '</table>
-						</div>
+						</div><a style="text-decoration:none;" href="timeTable.php?r='.$r.'&q='.$q.'"><input type="button" onClick="return confirm(\'Do You Wish to Go to Screen Preview?\');return false;" value="Screen View" class="btn btn-success center-block"/></a>
 					</div>';
 				} else {
 					//if no result to show

@@ -10,7 +10,7 @@ if(isset($_SESSION['position'])){
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
-	include_once('../ssi/links.html');
+	include('../ssi/links.html');
 ?>
 <title>Time Table Management</title>
 </head>
