@@ -1,3 +1,6 @@
-
+create a set preferecne kind of page.
+SM can set the in station for a session and the stations to show on the particular payment screen.
+when the session is closed redirect to preference page.
+when the payment is finished redirect to welcome page.
 
 
