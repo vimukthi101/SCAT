@@ -1,3 +1,9 @@
+<?php
+if(!isset($_SESSION[''])){
+	session_start();
+}
+if(isset($_SESSION['nic'])){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,7 +17,7 @@
 <body style="background-image:url(../images/4.jpg);background-repeat:no-repeat;background-size:cover;">
 <div>
 	<?php
-        include_once('../ssi/commuterHeader.php');
+        include_once('../ssi/Header.php');
     ?>
 </div>
 <div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
@@ -27,27 +33,56 @@
             </font>
         </div>
         <div style="padding:10px;"> 
-			<form role="form" class="form-horizontal">
+			<form role="form" class="form-horizontal" action="controller/changePasswordController.php" method="post">
             	<div class="form-group">
-                    <label for="pass" class="control-label col-md-3">Existing Password</label>
+                    <label for="pass" class="control-label col-md-3">Existing Password <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="password" name="pass" id="pass" />
+                    	<input class="form-control" type="password" name="pass" id="pass" pattern="\S*" title="Password Cannot Be Empty" required="required"/>
                 	</div>
                 </div>
                 <div class="form-group">
-                    <label for="nPass" class="control-label col-md-3">New Password</label>
+                    <label for="nPass" class="control-label col-md-3">New Password <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="password" name="nPass" id="nPass"/>
+                    	<input class="form-control" type="password" name="nPass" id="nPass" pattern="\S*" title="Password Cannot Be Empty" required="required"/>
                 	</div>
                 </div>
 				<div class="form-group">
-                    <label for="cnPass" class="control-label col-md-3">Confirm New Password</label>
+                    <label for="cnPass" class="control-label col-md-3">Confirm New Password <span style="color:rgb(255,0,0);">*</span></label>
                     <div class="col-md-8">
-                    	<input class="form-control" type="password" name="cnPass" id="cnPass"/>
+                    	<input class="form-control" type="password" name="cnPass" id="cnPass" pattern="\S*" title="Password Cannot Be Empty" required="required"/>
                 	</div>
                 </div>
+               	<div class="form-group" style="text-align:center;">
+                    <label style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
+                </div>
+                <?php
+					if(isset($_GET['error'])){
+						$error = $_GET['error'];
+						if($error == "ns"){
+							echo '<div class="form-group col-md-10 text-center" style="padding:10px;margin-left:100px;">
+								<label class="form-control col-md-3">Please Submit The Form To Continue</label>
+							</div>';
+						} else if($error == "pe"){
+							echo '<div class="form-group col-md-10 text-center" style="padding:10px;margin-left:100px;">
+								<label class="form-control col-md-3">Above FIelds Cannot Be Empty.</label>
+							</div>';
+						} else if($error == "dm"){
+							echo '<div class="form-group col-md-10 text-center" style="padding:10px;margin-left:100px;">
+								<label class="form-control col-md-3">New Password And Confirm Password Does Not Match.</label>
+							</div>';
+						} else if($error == "tl"){
+							echo '<div class="form-group col-md-10 text-center" style="padding:10px;margin-left:100px;">
+								<label class="form-control col-md-3">Could Not Change Your Password. Please Try Again Later.</label>
+							</div>';
+						} else if($error == "wp"){
+							echo '<div class="form-group col-md-10 text-center" style="padding:10px;margin-left:100px;">
+								<label class="form-control col-md-3">Your Existing Password Does Not Match With What You Enter.</label>
+							</div>';
+						}
+					}
+				?>
                 <div class="form-group col-md-11 text-center">
-                    <input type="submit" value="Update" class="btn btn-success" />
+                    <input type="submit" name="submit" id="submit" value="Update" class="btn btn-success" />
                     <input type="reset" value="Clear" class="btn btn-danger" />
                 </div>
             </form>
@@ -59,3 +94,8 @@
 ?>
 </body>
 </html>
+<?php
+} else {
+	header('Location:../404.php');
+}
+?>

@@ -9,17 +9,6 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="css/animate.css" />
-<style>
-a:link, a:visited {
-    color: rgb(255,255,255);
-    text-align: center;
-    text-decoration: none;
-}
-
-a:hover, a:active {
-    color: rgb(255,0,0);
-}
-</style>
 </head>
 
 <body>
@@ -29,17 +18,63 @@ a:hover, a:active {
     </div>
 <!--header end-->    
 <!--body start-->
-	<div class="col-md-12" style="background-image:url(images/wallpaper.jpg);background-repeat:no-repeat;background-size:cover;width:100%;height:83vh;">
+	<div class="col-md-12" style="background-image:url(images/wallpaper.jpg);background-repeat:no-repeat;background-size:cover;width:100%;height:85vh;">
         <div>
             <div style="background-color:rgba(0,153,255,0.4);padding:10px;top:20vh;left:60%;" class="col-md-4 text-center">
             	<font size="+2" face="Verdana, Geneva, sans-serif" color="#000000" style="padding:10px;">Log In</font>
-            	<form role="form" class="form-group" action="" method="post">
+            	<form role="form" class="form-group" action="src/controller/login.php" method="post">
                     <div style="padding:10px;">
-                     <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter User Name">
+                     <input type="text" pattern="^(\d){9}[v|V]$" title="Should be a valid NIC of 9 digits and 'v'" class="form-control" id="userNIC" name="userNIC" placeholder="Enter User NIC" required="required" maxlength="10">
                     </div>
                     <div style="padding:10px;">
-                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+                     <input type="password" class="form-control" pattern="\S+" title="Password should not be empty" id="password" name="password" placeholder="Enter Password" required="required">
                     </div>
+                    <?php
+					if(isset($_GET['error'])){
+						$error = $_GET['error'];
+						if($error == 'ep'){
+							echo '<div style="padding:10px;">
+									<label class="form-control">User Name Or Password Cannot Be Empty.</label>
+								</div>';
+						} else if($error == 'na'){
+							echo '<div style="padding:10px;">
+									<label class="form-control">Your Account Is Deactivated. Please Meet A Registrar.</label>
+								</div>';
+						} else if($error == 'np'){
+							echo '<div style="padding:10px;">
+									<label class="form-control">Please Login To Continue.</label>
+								</div>';
+						} else if($error == 'wu'){
+							echo '<div style="padding:10px;">
+									<label class="form-control">Entered NIC Is Not Valid. Please Enter a Valid NIC.</label>
+								</div>';
+						} else if($error == 'wp'){
+							echo '<div style="padding:10px;">
+									<label class="form-control" style="height:55px;">Entered Password Is Mismatching. Please Enter The Correct Password.</label>
+								</div>';
+						} else if($error == 'da'){
+							echo '<div style="padding:10px;">
+									<label class="form-control" style="height:55px;">Your Account Is Deactivated Due To Three Unsuccessfull Login Attempts. Please Meet A Registrar.</label>
+								</div>';
+						} else if($error == 'lo'){
+							echo '<div style="padding:10px;">
+									<label class="form-control">Logout Successfully. Please Login To Continue.</label>
+								</div>';
+						} else if($error == 'cp'){
+							echo '<div style="padding:10px;">
+									<label class="form-control" style="height:55px;">Password Changed Successfully. Please Login To Continue.</label>
+								</div>';
+						} else if($error == 'ip'){
+							echo '<div style="padding:10px;">
+									<label class="form-control" style="height:35px;">Password Does Not Match The Input Criteria.</label>
+								</div>';
+						} else if($error == 'in'){
+							echo '<div style="padding:10px;">
+									<label class="form-control" style="height:35px;">Please Enter A Valid NIC Of 9 Digits And \'v\'.</label>
+								</div>';
+						}
+					}
+					?>
                     <div class="row" style="padding:10px;">
                         <div class="center-block">
                              <input type="submit" class="btn btn-default" id="submit" name="submit" value="Log In" />
@@ -47,9 +82,6 @@ a:hover, a:active {
                          </div>
                     </div>
                 </form>
-                <div style="padding:10px;">
-                     <a href="src/userRegistration.php">Not a Registered User? Register for a S.C.A.T. Card from here.</a>
-                </div>
             </div>        
         </div>
     </div>
