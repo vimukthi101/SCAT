@@ -28,7 +28,18 @@ if(isset($_SESSION['position'])){
 <?php
 	include_once('../ssi/Header.php');
 ?>
-<div class="container-fluid" style="padding:50px;margin:40px;">
+<div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
+	<div>
+		<?php
+            include_once('../ssi/stationMasterLeftPanelTerminal.php');
+        ?>
+    </div>
+    <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
+        <div class="text-center" style="padding:10px;">
+            <font face="Verdana, Geneva, sans-serif" size="+1">
+            	<u>View Payment Terminals</u>
+            </font>
+        </div>
     <div class="row text-center" style="padding-top:40px;">
     	<font face="Verdana, Geneva, sans-serif" size="+2">Payemnt Preferences</font><br/><br/><br/>
     	<font face="Verdana, Geneva, sans-serif" size="+2">STEP 02 : Terminal</font><br/><br/><br/>

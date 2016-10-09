@@ -35,16 +35,27 @@ if(isset($_SESSION['position'])){
 <?php
 	include_once('../ssi/Header.php');
 ?>
-<div class="container-fluid" style="padding:50px;margin:40px;">
-    <div class="row text-center" style="padding-top:60px;">
-    	<font face="Verdana, Geneva, sans-serif" size="+2">Welcome To The Payemnt Preferences</font><br/><br/><br/>
-        <font face="Verdana, Geneva, sans-serif" size="+2">Follow these steps to make it ready for the payments.</font><br/>
-    	<font face="Verdana, Geneva, sans-serif" size="+2">STEP 01 : In Station</font><br/><br/><br/>
-        <font face="Verdana, Geneva, sans-serif" size="+2">Check your in station is correct. If not please logout and continue.</font><br/>
-        <font face="Verdana, Geneva, sans-serif" size="+2">In Station : <?php echo $station.' - '.$name; ?></font><br/><br/><br/>
-        <input type="button" onclick="location.href='selectTerminal.php'" name="submit" value="Correct" class="btn btn-success" />
-        <input type="button" onclick="location.href='controller/logout.php'" value="InCorrect" class="btn btn-danger" />
+<div class="container-fluid text-capitalize" style="padding:0px;margin:0px;">
+	<div>
+		<?php
+            include_once('../ssi/stationMasterLeftPanelTerminal.php');
+        ?>
     </div>
+    <div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
+        <div class="text-center" style="padding:10px;">
+            <font face="Verdana, Geneva, sans-serif" size="+1">
+                <u>View Payment Terminals</u>
+            </font>
+        </div>
+        <div class="row text-center" style="padding-top:60px;">
+            <font face="Verdana, Geneva, sans-serif" size="+2">Welcome To The Payemnt Preferences</font><br/><br/><br/>
+            <font face="Verdana, Geneva, sans-serif" size="+2">Follow these steps to make it ready for the payments.</font><br/>
+            <font face="Verdana, Geneva, sans-serif" size="+2">STEP 01 : In Station</font><br/><br/><br/>
+            <font face="Verdana, Geneva, sans-serif" size="+2">Check your in station is correct. If not please logout and continue.</font><br/>
+            <font face="Verdana, Geneva, sans-serif" size="+2">In Station : <?php echo $station.' - '.$name; ?></font><br/><br/><br/>
+            <input type="button" onclick="location.href='selectTerminal.php'" name="submit" value="Correct" class="btn btn-success" />
+            <input type="button" onclick="location.href='controller/logout.php'" value="InCorrect" class="btn btn-danger" />
+        </div>
 </div>
 <?php
 	include_once('../ssi/footer.php');
