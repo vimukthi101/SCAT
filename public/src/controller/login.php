@@ -57,10 +57,12 @@
 							$employeeNameId = $row['name_name_id'];
 							$employeeAddressID = $row['address_address_id'];
 							$employeePassword = $row['password'];
+							$commuterCardNo = $row['card_card_no'];
 							$employeeStatus = $row['status'];
 							$employeePreviousPassword = $row['previous_password'];
 							//sessions
 							$_SESSION['name_id'] = $employeeNameId;
+							$_SESSION['card_no'] = $commuterCardNo;
 							$_SESSION['nic'] = $employeeNIC;
 							$_SESSION['address_id'] = $employeeAddressID;
 							if($employeeStatus == "1"){

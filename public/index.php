@@ -56,6 +56,10 @@
 							echo '<div style="padding:10px;">
 									<label class="form-control" style="height:55px;">Your Account Is Deactivated Due To Three Unsuccessfull Login Attempts. Please Meet A Registrar.</label>
 								</div>';
+						} else if($error == 'bl'){
+							echo '<div style="padding:10px;">
+									<label class="form-control" style="height:55px;">You Have Successfully Deactivated Your Account. Please Meet A Registrar To Re-Activate Again.</label>
+								</div>';
 						} else if($error == 'lo'){
 							echo '<div style="padding:10px;">
 									<label class="form-control">Logout Successfully. Please Login To Continue.</label>

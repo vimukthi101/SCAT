@@ -4,8 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('links.html');
-	//remove this when the login is done
-	$_SESSION['position'] = "commuter";
 ?>
 <style>
 #side:hover {
@@ -20,37 +18,19 @@
 	<div class="row" style="padding:10px;">
     	<label style="color:rgb(204,204,204)">S.C.A.T. Account Management</label>
     </div>
+    <a href="../src/balance.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Check Balance</font>
+        </div>
+    </a>
     <a href="../src/transfer.php" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Credit Transfer</font>
         </div>
     </a>
-    <a href="../src/activateCards.php" style="text-decoration:none;">
+    <a href="../src/disableUsers.php" style="text-decoration:none;">
         <div class="row" style="padding:10px;" id="side">
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Deactivate Cards</font>
-        </div>
-    </a>
-    <div class="row" style="padding:10px;">
-    	<label style="color:rgb(204,204,204)">Travel Management</label>
-    </div>
-    <a href="../src/dailyReports.php" style="text-decoration:none;">
-        <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">My Daily Travels</font>
-        </div>
-    </a>
-    <a href="../src/weeklyReports.php" style="text-decoration:none;">
-        <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">My Weekly Travels</font>
-        </div>
-    </a>
-    <a href="../src/monthlyReports.php" style="text-decoration:none;">
-        <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">My Monthly Travels</font>
-        </div>
-    </a>
-    <a href="../src/annualReports.php" style="text-decoration:none;">
-        <div class="row" style="padding:10px;" id="side">
-            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">My Annual Travels</font>
         </div>
     </a>
 </div>
