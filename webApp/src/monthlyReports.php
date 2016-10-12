@@ -11,6 +11,7 @@ if(isset($_SESSION['position'])){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 	include_once('../ssi/links.html');
+	include_once('../ssi/db.php');
 ?>
 <title>Reports Management</title>
 </head>
@@ -41,18 +42,30 @@ if(isset($_SESSION['position'])){
                     	<input type="month" class="form-control" name="date" id="date" />
                 	</div>
                 </div>
-                <div class="form-group">
-                    <label for="employeeId" class="control-label col-md-3">Select Station : </label>
+                <?php
+				if($_SESSION['position'] == "manager"){
+					echo '<div class="form-group">
+                    <label for="station" class="control-label col-md-3">Select Station : </label>
                     <div class="col-md-8">
-                    	<select name="searchBy" id="searchBy" class="form-control">
-                          <option selected="selected" disabled="disabled">--Select the Station--</option>
-                          <option value="eid">Fort</option>
-                          <option value="nic">maradana</option>
-                          <option value="fname">galle</option>
-                          <option value="lname">trinco</option>
-                        </select>
+                    	<select name="station" id="station" class="form-control">
+                          <option selected="selected" disabled="disabled">--Select the Station--</option>';
+						  echo '<option value="all">All Stations</option>';
+					$getStation = "SELECT station_code, station_name FROM station";
+					$resultStation = mysqli_query($con, $getStation);
+					if(mysqli_num_rows($resultStation)!=0){
+						while($rowStation = mysqli_fetch_array($resultStation)){
+							$sCode = $rowStation['station_code'];
+							$sName = $rowStation['station_name'];
+							echo '<option value="'.$sCode.'">'.$sCode.' - '.$sName.'</option>';
+						}
+					} else {
+						echo '<option disabled="disabled">No Stations Added Yet.</option>';
+					}
+					 echo    '</select>
                 	</div>
-                </div>
+                	</div>';
+				}
+				?>s
                 <div class="form-group">
                     <div class="col-md-12 text-center">
                         <input type="submit" value="Generate" class="btn btn-success" />

@@ -57,10 +57,10 @@ if(isset($_SESSION['nic'])){
 		<div class="form-horizontal">
         <?php
 		if(isset($_GET['date']) && !empty($_GET['date'])){
-			$q = $_GET['date'];
+			$q = trim(htmlspecialchars(mysqli_real_escape_string($con, $_GET['date'])));
 			$strQuery = "SELECT * FROM payment WHERE payment_date_time LIKE '".$q."%' AND commuter_nic='".$_SESSION['nic']."'";
-			$result = $con->query($strQuery) or die();
-			  if ($result) {
+			$result = mysqli_query($con, $strQuery);
+				if (mysqli_num_rows($result)!=0) {
 				$arrData = array(
 				  "chart" => array(
 					  "caption" => "Daily Travels of ".$q."",
@@ -96,24 +96,22 @@ if(isset($_SESSION['nic'])){
 								  )
 							  );
 						}
-					}  else {
-					echo "<h3>No Data To Display</h3>";	
-				}
+					}
 				}
 				$jsonEncodedData = json_encode($arrData);
 				$columnChart = new FusionCharts("column3d", "myFirstChart" , 400, 300, "chart-1", "json", $jsonEncodedData);
 				$columnChart->render();
 			  }  else {
-					echo "<h3>No Data To Display</h3>";	
+					echo "<h3 style=\"padding-left:450px;padding-top:100px;\">No Data To Display</h3>";	
 				}
 		}
 		?>
         <?php
 		if(isset($_GET['date']) && !empty($_GET['date'])){
-			$q = $_GET['date'];
+			$q = trim(htmlspecialchars(mysqli_real_escape_string($con, $_GET['date'])));
 			$strQuery = "SELECT * FROM payment WHERE payment_date_time LIKE '".$q."%' AND commuter_nic='".$_SESSION['nic']."'";
-			$result = $con->query($strQuery) or die();
-			  if ($result) {
+			$result = mysqli_query($con, $strQuery);
+				if (mysqli_num_rows($result)!=0) {
 				$arrData = array(
 				  "chart" => array(
 					  "caption" => "Daily Payment Charges of ".$q."",
@@ -150,16 +148,12 @@ if(isset($_SESSION['nic'])){
 								  )
 							  );
 						}
-					}  else {
-						echo "<h3>No Data To Display</h3>";	
 					}
 				}
 				$jsonEncodedData = json_encode($arrData);
 				$columnChart = new FusionCharts("column3d.swf", "mySecondChart" , 400, 300, "chart-2", "json", $jsonEncodedData);
 				$columnChart->render();
-			  }  else {
-				echo "<h3>No Data To Display</h3>";	
-			}
+			  }
 		}
 		?>
         	<div class="col-md-12">
