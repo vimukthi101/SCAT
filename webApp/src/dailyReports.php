@@ -135,7 +135,7 @@ if(isset($_SESSION['position'])){
 						}
 					}
 					$jsonEncodedData = json_encode($arrData);
-					$columnChart = new FusionCharts("column3d", "myFirstChart" , 400, 300, "chart-1", "json", $jsonEncodedData);
+					$columnChart = new FusionCharts("column3d", "myFirstChart" , 1000, 400, "chart-1", "json", $jsonEncodedData);
 					$columnChart->render();
 				  }  else {
 						echo "<h3 style=\"padding-left:450px;padding-top:100px;\">No Travellings To Display</h3>";	
@@ -145,7 +145,7 @@ if(isset($_SESSION['position'])){
 			if(isset($_GET['date']) && !empty($_GET['date'])){
 				$nic = $_SESSION['nic'];
 				$q = trim(htmlspecialchars(mysqli_real_escape_string($con, $_GET['date'])));
-				$strQuery = "SELECT * FROM payment WHERE payment_date_time LIKE '".$q."%' AND ticket_id IN (SELECT ticket_id FROM ticket WHERE station_in_station_code IN (SELECT station_code FROM station WHERE employee_nic='".$nic."'))";
+				$strQuery = "SELECT SUM(payment.no_of_tickets) AS no_of_tickets, ticket.station_out_station_code FROM payment LEFT JOIN ticket ON payment.ticket_id = ticket.ticket_id WHERE payment_date_time LIKE '".$q."%' AND ticket.station_in_station_code IN (SELECT station_code FROM station WHERE employee_nic='".$nic."') GROUP BY ticket.station_out_station_code";
 				$result = mysqli_query($con, $strQuery);
 					if (mysqli_num_rows($result)!=0) {
 					$arrData = array(
@@ -167,26 +167,17 @@ if(isset($_SESSION['position'])){
 					);
 					$arrData["data"] = array();
 					while($row = mysqli_fetch_array($result)) {
-						$ticketId = $row['ticket_id'];
-						$ticket = "SELECT * FROM ticket WHERE ticket_id='".$ticketId."'";
-						$resultTicket = mysqli_query($con, $ticket);
-						if(mysqli_num_rows($resultTicket)!=0){
-							while($rowTicket = mysqli_fetch_array($resultTicket)){
-								$num = rand(111111,999999);
-								$ticketFee = $rowTicket['ticket_fee'];
-								$inStation = $rowTicket['station_in_station_code'];
-								$outStation = $rowTicket['station_out_station_code'];
-								array_push($arrData["data"], array(
-									  "label" => $rowTicket["station_in_station_code"],
-									  "value" => $row["no_of_tickets"],
-									  "color" => "#".$num
-									  )
-								  );
-							}
-						}
+						$num = rand(111111,999999);
+						$outStation = $row['station_out_station_code'];
+						array_push($arrData["data"], array(
+							  "label" => $outStation,
+							  "value" => $row["no_of_tickets"],
+							  "color" => "#".$num
+							  )
+						  );
 					}
 					$jsonEncodedData = json_encode($arrData);
-					$columnChart = new FusionCharts("column3d", "myFirstChart" , 400, 300, "chart-1", "json", $jsonEncodedData);
+					$columnChart = new FusionCharts("column3d", "myFirstChart" , 1000, 400, "chart-1", "json", $jsonEncodedData);
 					$columnChart->render();
 				  }  else {
 						echo "<h3 style=\"padding-left:450px;padding-top:100px;\">No Travellings To Display</h3>";	
@@ -246,14 +237,15 @@ if(isset($_SESSION['position'])){
 						}
 					}
 					$jsonEncodedData = json_encode($arrData);
-					$columnChart = new FusionCharts("column3d.swf", "mySecondChart" , 400, 300, "chart-2", "json", $jsonEncodedData);
+					$columnChart = new FusionCharts("column3d.swf", "mySecondChart" , 1000, 400, "chart-2", "json", $jsonEncodedData);
 					$columnChart->render();
 				  }
 			}
 		} else {
 			if(isset($_GET['date']) && !empty($_GET['date'])){
+				$nic = $_SESSION['nic'];
 				$q = trim(htmlspecialchars(mysqli_real_escape_string($con, $_GET['date'])));
-				$strQuery = "SELECT * FROM payment WHERE payment_date_time LIKE '".$q."%' AND ticket_id IN (SELECT ticket_id FROM ticket WHERE station_in_station_code IN (SELECT station_code FROM station WHERE employee_nic='".$nic."'))";
+				$strQuery = "SELECT (SUM(payment.no_of_tickets) * ticket.ticket_fee) AS fee, ticket.station_out_station_code FROM payment LEFT JOIN ticket ON payment.ticket_id = ticket.ticket_id WHERE payment_date_time LIKE '".$q."%' AND ticket.station_in_station_code IN (SELECT station_code FROM station WHERE employee_nic='".$nic."') GROUP BY ticket.station_out_station_code";
 				$result = mysqli_query($con, $strQuery);
 					if (mysqli_num_rows($result)!=0) {
 					$arrData = array(
@@ -274,28 +266,19 @@ if(isset($_SESSION['position'])){
 						)
 					);
 					$arrData["data"] = array();
-					while($row = mysqli_fetch_array($result)) {
-						$ticketId = $row['ticket_id'];
-						$ticket = "SELECT * FROM ticket WHERE ticket_id='".$ticketId."'";
-						$resultTicket = mysqli_query($con, $ticket);
-						if(mysqli_num_rows($resultTicket)!=0){
-							while($rowTicket = mysqli_fetch_array($resultTicket)){
-								$num = rand(111111,999999);
-								$ticketFee = $rowTicket['ticket_fee'];
-								$inStation = $rowTicket['station_in_station_code'];
-								$outStation = $rowTicket['station_out_station_code'];
-								$mul =  $row["no_of_tickets"]*$rowTicket['ticket_fee'];
-								array_push($arrData["data"], array(
-									  "label" => $rowTicket['station_in_station_code'],
-									  "value" => $mul,
-									  "color" => "#".$num
-									  )
-								  );
-							}
-						}
+					while($row = mysqli_fetch_array($result)){
+						$num = rand(111111,999999);
+						$outStation = $row['station_out_station_code'];
+						$fee = $row['fee'];
+						array_push($arrData["data"], array(
+							  "label" => $outStation,
+							  "value" => $fee,
+							  "color" => "#".$num
+							  )
+						  );
 					}
 					$jsonEncodedData = json_encode($arrData);
-					$columnChart = new FusionCharts("column3d.swf", "mySecondChart" , 400, 300, "chart-2", "json", $jsonEncodedData);
+					$columnChart = new FusionCharts("column3d.swf", "mySecondChart" , 1000, 400, "chart-2", "json", $jsonEncodedData);
 					$columnChart->render();
 				  }
 			}
@@ -351,7 +334,7 @@ if(isset($_SESSION['position'])){
 						}
 					}
 					$jsonEncodedData = json_encode($arrData);
-					$columnChart = new FusionCharts("column3d", "myThirdChart" , 400, 300, "chart-3", "json", $jsonEncodedData);
+					$columnChart = new FusionCharts("column3d", "myThirdChart" , 1000, 400, "chart-3", "json", $jsonEncodedData);
 					$columnChart->render();
 				  }  else {
 						echo "<h3 style=\"padding-left:450px;padding-top:100px;\">No Rechargings To Display</h3>";	
@@ -391,7 +374,7 @@ if(isset($_SESSION['position'])){
 						  );
 					}
 					$jsonEncodedData = json_encode($arrData);
-					$columnChart = new FusionCharts("column3d", "myThirdChart" , 400, 300, "chart-3", "json", $jsonEncodedData);
+					$columnChart = new FusionCharts("column3d", "myThirdChart" , 1000, 400, "chart-3", "json", $jsonEncodedData);
 					$columnChart->render();
 				  }  else {
 						echo "<h3 style=\"padding-left:450px;padding-top:100px;\">No Rechargings To Display</h3>";	
@@ -439,7 +422,7 @@ if(isset($_SESSION['position'])){
 						);
 					}
 					$jsonEncodedData = json_encode($arrData);
-					$columnChart = new FusionCharts("column3d", "myFourthChart" , 400, 300, "chart-4", "json", $jsonEncodedData);
+					$columnChart = new FusionCharts("column3d", "myFourthChart" , 1000, 400, "chart-4", "json", $jsonEncodedData);
 					$columnChart->render();
 				  }  else {
 						echo "<h3 style=\"padding-left:450px;padding-top:100px;\">No Registrations To Display</h3>";	
@@ -479,7 +462,7 @@ if(isset($_SESSION['position'])){
 						  );
 					}
 					$jsonEncodedData = json_encode($arrData);
-					$columnChart = new FusionCharts("column3d", "myFourthChart" , 400, 300, "chart-4", "json", $jsonEncodedData);
+					$columnChart = new FusionCharts("column3d", "myFourthChart" , 1000, 400, "chart-4", "json", $jsonEncodedData);
 					$columnChart->render();
 				  }  else {
 						echo "<h3 style=\"padding-left:450px;padding-top:100px;\">No Registrations To Display</h3>";	
@@ -488,12 +471,16 @@ if(isset($_SESSION['position'])){
 		}
 		?>
         <div class="col-md-12">
-            <div class="col-md-6" style="padding-left:70px;padding-top:20px;" id="chart-1"></div>
-            <div class="col-md-6" style="padding:20px;" id="chart-2"></div>
+            <div style="padding-left:70px;padding-top:20px;" id="chart-1"></div>
         </div>
         <div class="col-md-12">
-            <div class="col-md-6" style="padding-left:70px;padding-top:20px;" id="chart-3"></div>
-            <div class="col-md-6" style="padding:20px;" id="chart-4"></div>
+            <div style="padding-left:70px;padding-top:20px;" id="chart-2"></div>
+        </div>
+        <div class="col-md-12">
+            <div style="padding-left:70px;padding-top:20px;" id="chart-3"></div>
+        </div>
+        <div class="col-md-12">
+            <div style="padding-left:70px;padding-top:20px;" id="chart-4"></div>
         </div>
     </div>
     </div>
