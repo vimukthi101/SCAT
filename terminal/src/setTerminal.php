@@ -34,7 +34,7 @@ if(!isset($_SESSION[''])){
 						<select name="terminal" class="form-control">
 							<option disabled="disabled" selected="selected">--Select The Terminal--</option>
 							<?php
-							$getTerminal = "SELECT DISTINCT(terminal_line) AS line FROM payment_terminal WHERE in_station_code='kks'";
+							$getTerminal = "SELECT DISTINCT(terminal_line) AS line FROM payment_terminal WHERE in_station_code='".$_SESSION['station']."'";
 							$resultTerminal = mysqli_query($con, $getTerminal);
 							if(mysqli_num_rows($resultTerminal)!=0){
 								while($rowTerminal = mysqli_fetch_array($resultTerminal)){

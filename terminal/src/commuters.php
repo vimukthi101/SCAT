@@ -22,16 +22,15 @@ if(isset($_SESSION['station']) && isset($_SESSION['terminal'])){
 <!--body start-->
 	<div class="col-md-12">
         <div>
-            <div style="background-color:rgba(0,153,255,0.4);padding:10px;top:7vh;background-position:center;left:33%;" class="col-md-4 text-center">
-            	<font size="+2" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Welcome To The Terminal</font>
+            <div style="background-color:rgba(0,153,255,0.4);padding:10px;top:10vh;background-position:center;left:33%;" class="col-md-4 text-center">
             	<form role="form" class="form-group" action="" method="post">
                     <div style="padding:10px;">
-                     <font size="+1" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Please Touch Your S.C.A.T. Card or Enter Your Card Number to Proceed.</font>
+                     <font size="+1" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Please Enter Number of Tickets.</font>
                     </div>
-                    <div style="padding:10px;">
-                     <input type="text" class="form-control" pattern="^\d{16}$" maxlength="16" title="Please enter a valid card number." id="cardNo" name="cardNo" placeholder="Enter Card Number" required="required">
+                    <div  class="row" style="padding:10px;">
+                     <input type="text" class="form-control qtyInput" pattern="^\d+$" title="Please Enter A Valid Number." id="ticket" name="ticket" placeholder="Enter Number of Tickets" required="required">
                     </div>
-                    <?php
+                     <?php
 					 include_once('keyboard.php');
 					 ?>
                 </form>
@@ -40,10 +39,8 @@ if(isset($_SESSION['station']) && isset($_SESSION['terminal'])){
     </div>
     <script>
 	function send(value){
-		old = document.getElementById('cardNo').value;
-		if(old.length<16){
-			document.getElementById('cardNo').value = old + value;	
-		}
+		old = document.getElementById('ticket').value;
+		document.getElementById('ticket').value = old + value;	
 	}
 	</script>
 <!--body end-->
