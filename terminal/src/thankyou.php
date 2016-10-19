@@ -9,7 +9,7 @@ if(!isset($_SESSION[''])){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 include_once('../ssi/links.html');
-if(isset($_SESSION['station']) && isset($_SESSION['terminal'])){
+if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 ?>
 <title>Untitled Document</title>
 </head>
@@ -29,6 +29,7 @@ if(isset($_SESSION['station']) && isset($_SESSION['terminal'])){
                      <font size="+1" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">You will receive a SMS with the ticket information shortly. Please keep it until your journey is completed. Thank You! Please come again.</font>
                     </div> 
                     <?php
+						session_destroy();
 						header("Refresh: 5; URL=welcome.php");
 					?>
                 </div>

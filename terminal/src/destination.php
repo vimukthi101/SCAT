@@ -10,7 +10,8 @@ if(!isset($_SESSION[''])){
 <?php
 include_once('../ssi/links.html');
 include_once('../ssi/db.php');
-if(isset($_SESSION['station']) && isset($_SESSION['terminal'])){
+if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
+	if(isset($_SESSION['pass']) && isset($_SESSION['credit']) && isset($_SESSION['comuuter_nic']) && isset($_SESSION['attempt'])){
 ?>
 <title>Untitled Document</title>
 </head>
@@ -24,15 +25,15 @@ if(isset($_SESSION['station']) && isset($_SESSION['terminal'])){
 	<div class="col-md-12">
         <div>
             <div style="background-color:rgba(0,153,255,0.4);padding:10px;top:4vh;background-position:center;height:500px;" class="col-md-12 text-center">
-            	<form role="form" class="form-group" action="" method="post">
+            	<form role="form" class="form-group" method="post">
                     <div style="padding:5px;">
                      <font size="+1" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Please Select The Destination.</font>
                     </div>
                     <div  class="row" style="padding:10px;">
                      <?php
-					 	$line = $_SESSION['terminal'];
-						$inStation = $_SESSION['station'];
-					 	$get = "SELECT station_name FROM station WHERE station_code IN (SELECT out_station_code FROM payment_terminal WHERE terminal_line='".$line."' AND in_station_code='".$inStation."') ORDER BY station_name ASC";
+					 	$line = $_COOKIE['terminal'];
+						$inStation = $_COOKIE['station'];
+					 	$get = "SELECT station_name, station_code FROM station WHERE station_code IN (SELECT out_station_code FROM payment_terminal WHERE terminal_line='".$line."' AND in_station_code='".$inStation."') ORDER BY station_name ASC";
 						$result = mysqli_query($con, $get);
 						if(mysqli_num_rows($result)!=0){
 							echo '
@@ -40,9 +41,11 @@ if(isset($_SESSION['station']) && isset($_SESSION['terminal'])){
 									<div class="center-block col-md-12">';
 							while($row = mysqli_fetch_array($result)){
 								$outStation = $row['station_name'];
+								$outCode = $row['station_code'];
 								echo '
 									<div class="col-md-2" style="width:10%;padding:10px;">
-										<input type="submit" class="btn btn-default text-center" style="width:120px;height:50px;" id="submit" name="submit" value="'.$outStation.'" />
+										<input type="hidden" id="code" name="code" value="'.$outCode.'">
+										<input type="submit" class="btn btn-default text-center" style="width:120px;height:50px;" id="submit" name="submit" value="'.$outStation.'">
 									</div>';
 							}
 							echo '
@@ -57,6 +60,15 @@ if(isset($_SESSION['station']) && isset($_SESSION['terminal'])){
             </div>        
         </div>
     </div>
+    <?php
+		if(isset($_POST['submit'])){
+			if(!empty($_POST['submit']) && !empty($_POST['code'])){
+				$_SESSION['outStation'] = $_POST['code'];
+				$_SESSION['outStationName'] = $_POST['submit'];
+				header('Location:commuters.php');
+			}
+		}
+	?>
 <!--body end-->
 <!--footer start-->
     <?php
@@ -65,6 +77,10 @@ if(isset($_SESSION['station']) && isset($_SESSION['terminal'])){
 <!--footer end-->
 </body>
 <?php
+	} else {
+		session_destroy();
+		header('Location:welcome.php');
+	}
 } else {
 	session_destroy();
 	header('Location:setup.php');

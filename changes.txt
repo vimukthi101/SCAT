@@ -1,6 +1,6 @@
-create a set preferecne kind of page.
-SM can set the in station for a session and the stations to show on the particular payment screen.
-when the session is closed redirect to preference page.
-when the payment is finished redirect to welcome page.
+need to add the back button in terminal
+should add a login page for the SM to set terminal setup, setup and able to log out from the setup page...but the cookies should be enabled
+remove the terminal module and integrate it to the webApp
+
 
 

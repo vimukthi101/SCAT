@@ -9,7 +9,8 @@ if(!isset($_SESSION[''])){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 include_once('../ssi/links.html');
-if(isset($_SESSION['station']) && isset($_SESSION['terminal'])){
+if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
+	if(isset($_SESSION['pass']) && isset($_SESSION['credit']) && isset($_SESSION['comuuter_nic']) && isset($_SESSION['attempt'])){
 ?>
 <title>Untitled Document</title>
 </head>
@@ -23,7 +24,7 @@ if(isset($_SESSION['station']) && isset($_SESSION['terminal'])){
 	<div class="col-md-12">
         <div>
             <div style="background-color:rgba(0,153,255,0.4);padding:10px;top:10vh;background-position:center;left:33%;" class="col-md-4 text-center">
-            	<form role="form" class="form-group" action="" method="post">
+            	<form role="form" class="form-group" action="controller/pinController.php" method="post">
                     <div style="padding:10px;">
                      <font size="+1" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Please Enter Your PIN.</font>
                     </div>
@@ -53,9 +54,13 @@ if(isset($_SESSION['station']) && isset($_SESSION['terminal'])){
 <!--footer end-->
 </body>
 <?php
+	} else {
+		session_destroy();
+		header('Location:welcome.php');
+	}
 } else {
 	session_destroy();
-	header('Location:setup.php');
+	header('Location:404.php');
 }
 ?>
 </html>

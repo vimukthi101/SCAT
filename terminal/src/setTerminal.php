@@ -1,8 +1,3 @@
-<?php
-if(!isset($_SESSION[''])){
-	session_start();
-}
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -10,7 +5,7 @@ if(!isset($_SESSION[''])){
 <?php
 		include_once('../ssi/links.html');
 		include_once('../ssi/db.php');
-		if(isset($_SESSION['station']) && !isset($_SESSION['terminal'])){
+		if(isset($_COOKIE['station']) && !isset($_COOKIE['terminal'])){
 ?>
 	<title>Terminal Preferences</title>
 </head>
@@ -34,7 +29,7 @@ if(!isset($_SESSION[''])){
 						<select name="terminal" class="form-control">
 							<option disabled="disabled" selected="selected">--Select The Terminal--</option>
 							<?php
-							$getTerminal = "SELECT DISTINCT(terminal_line) AS line FROM payment_terminal WHERE in_station_code='".$_SESSION['station']."'";
+							$getTerminal = "SELECT DISTINCT(terminal_line) AS line FROM payment_terminal WHERE in_station_code='".$_COOKIE['station']."'";
 							$resultTerminal = mysqli_query($con, $getTerminal);
 							if(mysqli_num_rows($resultTerminal)!=0){
 								while($rowTerminal = mysqli_fetch_array($resultTerminal)){
@@ -57,8 +52,8 @@ if(!isset($_SESSION[''])){
 			if(isset($_POST['terminal'])){
 				if(isset($_POST['submit'])){
 					if(!empty($_POST['terminal'])){
-						$_SESSION['terminal'] = $_POST['terminal'];
-						echo $_SESSION['terminal'];
+						$cookieValue2 = $_POST['terminal'];
+						setcookie("terminal", $cookieValue2, time() + (86400 * 365 * 10), '/');
 						header('Location:welcome.php');
 					}
 				}
@@ -72,7 +67,8 @@ if(!isset($_SESSION[''])){
 	</body>
 <?php
 } else {
-	session_destroy();
+	setcookie("terminal", "", time() - 3600, '/');
+	setcookie("station", "", time() - 3600, '/');
 	header('Location:setup.php');
 }
 ?>
