@@ -10,9 +10,9 @@ if(!isset($_SESSION[''])){
 <?php
 include_once('../ssi/links.html');
 if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
-	if(isset($_SESSION['pass']) && isset($_SESSION['credit']) && isset($_SESSION['comuuter_nic']) && isset($_SESSION['attempt'])){
+	if(isset($_SESSION['pass']) && isset($_SESSION['credit']) && isset($_SESSION['commuter_nic']) && isset($_SESSION['attempt']) && $_SESSION['outStation']){
 ?>
-<title>Untitled Document</title>
+<title>Payment Terminal</title>
 </head>
 <body style="background-image:url(../images/home.jpg);background-repeat:no-repeat;background-size:cover;width:100%;">
 <!--header start-->
@@ -24,12 +24,30 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 	<div class="col-md-12">
         <div>
             <div style="background-color:rgba(0,153,255,0.4);padding:10px;top:10vh;background-position:center;left:33%;" class="col-md-4 text-center">
-            	<form role="form" class="form-group" action="controller/pinController.php" method="post">
+            	<form role="form" class="form-group" action="controller/ticketsController.php" method="post">
                     <div style="padding:10px;">
-                     <font size="+1" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Please Enter Your PIN.</font>
+                     <font size="+1" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Please Enter Number of Tickets.</font>
                     </div>
+                    <?php
+						 if(isset($_GET['error']) && !empty($_GET['error'])){
+							 $error = $_GET['error'];
+							 if($error == "et"){
+								 echo '<div style="padding:5px;">
+								 	<label style="font-size:100%" class="label label-danger">Number Of Tickets Cannot Be Empty.</label>
+								   </div>';
+							 } else if($error == "wf"){
+								 echo '<div style="padding:5px;">
+								 	<label style="font-size:100%" class="label label-danger">Invalid Number Of Tickets Format.</label>
+								   </div>';
+							 } else if($error == "ib"){
+								 echo '<div style="padding:5px;">
+								 	<label style="font-size:100%" class="label label-danger">Insufficient Balance. Please Recharge To Continue.</label>
+								   </div>';
+							 }
+						 }
+					 ?>
                     <div  class="row" style="padding:10px;">
-                     <input type="text" class="form-control qtyInput" pattern="^\d{4}$" maxlength="4" title="Please enter a valid PIN." id="pin" name="pin" placeholder="Enter PIN" required="required">
+                     <input type="text" class="form-control qtyInput" pattern="^\d+$" title="Please Enter A Valid Number." id="ticket" name="ticket" placeholder="Enter Number of Tickets" required="required">
                     </div>
                      <?php
 					 include_once('keyboard.php');
@@ -40,10 +58,8 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
     </div>
     <script>
 	function send(value){
-		old = document.getElementById('pin').value;
-		if(old.length<4){
-			document.getElementById('pin').value = old + value;	
-		}
+		old = document.getElementById('ticket').value;
+		document.getElementById('ticket').value = old + value;	
 	}
 	</script>
 <!--body end-->
@@ -60,7 +76,7 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 	}
 } else {
 	session_destroy();
-	header('Location:404.php');
+	header('Location:../505.php');
 }
 ?>
 </html>

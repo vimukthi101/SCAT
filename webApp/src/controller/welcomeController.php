@@ -20,29 +20,29 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 					if($status == 1){
 						//send to enter pin page
 						$_SESSION['pass'] = $pass;
-						$_SESSION['comuuter_nic'] = $nic;
+						$_SESSION['commuter_nic'] = $nic;
 						$_SESSION['credit'] = $credit;
 						$_SESSION['attempt'] = $loginAttempt;
 						header('Location:../enterPin.php');
 					} else {
 						//user is blocked
-						
+						header('Location:../welcome.php?error=ub');
 					}
 				}
 			} else {
 				//wrong card number
-				
+				header('Location:../welcome.php?error=iu');
 			}
 		} else {
 			//wrong card number format
-				
+			header('Location:../welcome.php?error=wf');
 		}
 	} else {
 		//empty card number
-		
+		header('Location:../welcome.php?error=ec');
 	}
 } else {
 	session_destroy();
-	header('Location:404.php');
+	header('Location:../../505.php');
 }
 ?>

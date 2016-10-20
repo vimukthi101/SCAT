@@ -3,4 +3,3 @@ should add a login page for the SM to set terminal setup, setup and able to log 
 remove the terminal module and integrate it to the webApp
 
 
-

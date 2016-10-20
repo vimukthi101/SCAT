@@ -46,7 +46,7 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 <?php
 } else {
 	session_destroy();
-	header('Location:setup.php');
+	header('Location:../505.php');
 }
 ?>
 </html>

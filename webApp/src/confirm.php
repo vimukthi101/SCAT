@@ -10,9 +10,9 @@ if(!isset($_SESSION[''])){
 <?php
 include_once('../ssi/links.html');
 if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
-	if(isset($_SESSION['pass']) && isset($_SESSION['credit']) && isset($_SESSION['comuuter_nic']) && isset($_SESSION['attempt']) && $_SESSION['amount'] && $_SESSION['noOfTickets'] && $_SESSION['ticketId'] && $_SESSION['outStation'] && $_SESSION['outStationName']){
+	if(isset($_SESSION['pass']) && isset($_SESSION['credit']) && isset($_SESSION['commuter_nic']) && isset($_SESSION['attempt']) && $_SESSION['amount'] && $_SESSION['noOfTickets'] && $_SESSION['ticketId'] && $_SESSION['outStation'] && $_SESSION['outStationName']){
 ?>
-<title>Untitled Document</title>
+<title>Payment Terminal</title>
 </head>
 <body style="background-image:url(../images/home.jpg);background-repeat:no-repeat;background-size:cover;width:100%;">
 <!--header start-->
@@ -33,7 +33,7 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 						$date = date("Y-m-d H:i:s");
 						$_SESSION['date'] = $date;
 					?>
-                     <label class="form-control">Commuter NIC : <?php echo $_SESSION['comuuter_nic']; ?></label>
+                     <label class="form-control">Commuter NIC : <?php echo $_SESSION['commuter_nic']; ?></label>
                      <label class="form-control">Date/ Time : <?php echo $date; ?></label>
                      <label class="form-control">In Station : <?php echo $_COOKIE['station']; ?></label>
                      <label class="form-control">Out Station : <?php echo $_SESSION['outStationName']; ?></label>
@@ -78,7 +78,7 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 	}
 } else {
 	session_destroy();
-	header('Location:404.php');
+	header('Location:../505.php');
 }
 ?>
 </html>

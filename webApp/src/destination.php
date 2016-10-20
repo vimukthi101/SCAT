@@ -11,9 +11,9 @@ if(!isset($_SESSION[''])){
 include_once('../ssi/links.html');
 include_once('../ssi/db.php');
 if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
-	if(isset($_SESSION['pass']) && isset($_SESSION['credit']) && isset($_SESSION['comuuter_nic']) && isset($_SESSION['attempt'])){
+	if(isset($_SESSION['pass']) && isset($_SESSION['credit']) && isset($_SESSION['commuter_nic']) && isset($_SESSION['attempt'])){
 ?>
-<title>Untitled Document</title>
+<title>Payment Terminal</title>
 </head>
 <body style="background-image:url(../images/home.jpg);background-repeat:no-repeat;background-size:cover;width:100%;">
 <!--header start-->
@@ -29,6 +29,16 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
                     <div style="padding:5px;">
                      <font size="+1" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Please Select The Destination.</font>
                     </div>
+                    <?php
+						 if(isset($_GET['error']) && !empty($_GET['error'])){
+							 $error = $_GET['error'];
+							 if($error == "it"){
+								 echo '<div style="padding:5px;">
+								 	<label style="font-size:100%" class="label label-danger">Invalid Ticket.</label>
+								   </div>';
+							 }
+						 }
+					 ?>
                     <div  class="row" style="padding:10px;">
                      <?php
 					 	$line = $_COOKIE['terminal'];
@@ -52,7 +62,9 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 									</div>
 								</div>';
 						} else {
-							echo 'no stations added yet';
+							echo '<div class="col-md-12" style="width:10%;padding:10px;margin-top:160px;margin-left:480px;">
+									<h1 class="label label-danger" style="font-size:200%">No Stations Added Yet.</h1>
+								 </div>';
 						}
 					 ?>
                     </div>
@@ -83,7 +95,7 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 	}
 } else {
 	session_destroy();
-	header('Location:setup.php');
+	header('Location:../505.php');
 }
 ?>
 </html>

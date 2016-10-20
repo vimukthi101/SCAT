@@ -12,7 +12,7 @@ include_once('../ssi/links.html');
 if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 	session_destroy();
 ?>
-<title>Untitled Document</title>
+<title>Payment Terminal</title>
 </head>
 <body style="background-image:url(../images/home.jpg);background-repeat:no-repeat;background-size:cover;width:100%;">
 <!--header start-->
@@ -29,13 +29,39 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
                     <div style="padding:10px;">
                      <font size="+1" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Please Touch Your S.C.A.T. Card or Enter Your Card Number to Proceed.</font>
                     </div>
+                     <?php
+						 if(isset($_GET['error']) && !empty($_GET['error'])){
+							 $error = $_GET['error'];
+							 if($error == "ec"){
+								 echo '<div style="padding:5px;">
+								 	<label style="font-size:100%" class="label label-danger">Card Number Cannot Be Empty.</label>
+								   </div>';
+							 } else if($error == "wf"){
+								 echo '<div style="padding:5px;">
+								 	<label style="font-size:100%" class="label label-danger">Invalid Card Number Format.</label>
+								   </div>';
+							 } else if($error == "iu"){
+								 echo '<div style="padding:5px;">
+								 	<label style="font-size:100%" class="label label-danger">User Does Not Exist.</label>
+								   </div>';
+							 } else if($error == "ub"){
+								 echo '<div style="padding:5px;">
+								 	<label style="font-size:100%" class="label label-danger">Please Enable Your Card To Continue.</label>
+								   </div>';
+							 }  else if($error == "bu"){
+								 echo '<div style="padding:5px;">
+								 	<label style="font-size:100%" class="label label-danger">Three Unsucessfull Login Attempts Blocked Your Account.</label>
+								   </div>';
+							 }  
+						 }
+					 ?>
                     <div style="padding:10px;">
                      <input type="text" class="form-control" pattern="^\d{16}$" maxlength="16" title="Please enter a valid card number." id="cardNo" name="cardNo" placeholder="Enter Card Number" required="required">
                     </div>
                     <?php
 					 include_once('keyboard.php');
 					 ?>
-                </form><?php echo $_COOKIE['station'].' '.$_COOKIE['terminal'] ?>
+                </form>
             </div>        
         </div>
     </div>
@@ -57,7 +83,7 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 <?php
 } else {
 	session_destroy();
-	header('Location:404.php');
+	header('Location:../505.php');
 }
 ?>
 </html>

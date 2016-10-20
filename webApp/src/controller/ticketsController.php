@@ -4,7 +4,7 @@ if(!isset($_SESSION[''])){
 }
 include_once('../../ssi/db.php');
 if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
-	if(isset($_SESSION['pass']) && isset($_SESSION['credit']) && isset($_SESSION['comuuter_nic']) && isset($_SESSION['attempt']) && $_SESSION['outStation']){
+	if(isset($_SESSION['pass']) && isset($_SESSION['credit']) && isset($_SESSION['commuter_nic']) && isset($_SESSION['attempt']) && $_SESSION['outStation']){
 		if(!empty($_POST['ticket'])){
 			$p = $_POST['ticket'];
 			if(preg_match('/^\d+$/',$p)){
@@ -28,26 +28,26 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 						header('Location:../confirm.php');
 					} else {
 						//insufficient balance
-						
+						header('Location:../commuters.php?error=ib');
 					}
 				} else {
 					//no ticket
-					
+					header('Location:../destination.php?error=it');
 				}
 			} else {
 				//wrong tickets number format
-					
+				header('Location:../commuters.php?error=wf');
 			}
 		} else {
 			//empty tickets number
-			
+			header('Location:../commuters.php?error=et');
 		}
 	} else {
 		session_destroy();
-		header('Location:welcome.php');
+		header('Location:../welcome.php');
 	}
 } else {
 	session_destroy();
-	header('Location:404.php');
+	header('Location:../../505.php');
 }
 ?>

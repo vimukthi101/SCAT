@@ -11,7 +11,7 @@
 </head>
 	<body style="background-image:url(../images/4.jpg);background-repeat:no-repeat;background-size:cover;">
 	<?php
-	include_once('../ssi/Header.php');
+	include_once('../ssi/terminalHeader.php');
 	?>
 	<div class="container-fluid text-capitalize center-block text-center" style="padding:0px;margin:0px;">
 		<div class="col-md-10" style="padding:70px;margin-top:45px;margin-bottom:30px;margin-left:80px;">
@@ -54,7 +54,7 @@
 					if(!empty($_POST['terminal'])){
 						$cookieValue2 = $_POST['terminal'];
 						setcookie("terminal", $cookieValue2, time() + (86400 * 365 * 10), '/');
-						header('Location:welcome.php');
+						//header('Location:welcome.php');
 					}
 				}
 			}
