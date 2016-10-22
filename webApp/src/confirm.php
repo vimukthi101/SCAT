@@ -19,6 +19,9 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
     <div class="col-md-12 text-center" style="background-color:rgb(0,102,255);padding:15px;height:10vh;">
         <font size="+3" color="#FFFFFF" face="Verdana, Geneva, sans-serif">Smart Card at Travelling for Trains</font>
     </div>
+    <?php 
+		header("Refresh: 15; URL=welcome.php"); 
+	?>
 <!--header end-->    
 <!--body start-->
 	<div class="col-md-12">
@@ -42,14 +45,17 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
                     </div>
                     <div class="row" style="padding:10px;">
                         <div class="center-block col-md-12">
-                        	<div class="col-md-3"></div>
+                        	<div class="col-md-1"></div>
                         	<div class="col-md-3">
                             	<input type="submit" class="btn btn-default" style="width:80px;height:50px;" id="done" name="done" value="Confirm" />
                             </div>
                             <div class="col-md-3">
                             	<input type="button" onclick="document.location.href='welcome.php'" class="btn btn-default" style="width:80px;height:50px;" id="clear" name="clear" value="Clear" />
                             </div>
-                            <div class="col-md-3"></div>
+                            <div class="col-md-3">
+                            	<input type="button" onclick="document.location.href='commuters.php'" class="btn btn-default" style="width:80px;height:50px;" id="back" name="back" value="Back" />
+                            </div>
+                            <div class="col-md-2"></div>
                          </div>
                     </div>
                 </form>

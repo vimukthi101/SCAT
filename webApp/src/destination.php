@@ -20,6 +20,9 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
     <div class="col-md-12 text-center" style="background-color:rgb(0,102,255);padding:15px;height:10vh;">
         <font size="+3" color="#FFFFFF" face="Verdana, Geneva, sans-serif">Smart Card at Travelling for Trains</font>
     </div>
+    <?php 
+		header("Refresh: 20; URL=welcome.php"); 
+	?>
 <!--header end-->    
 <!--body start-->
 	<div class="col-md-12">

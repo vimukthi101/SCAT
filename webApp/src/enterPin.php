@@ -19,6 +19,9 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
     <div class="col-md-12 text-center" style="background-color:rgb(0,102,255);padding:15px;height:10vh;">
         <font size="+3" color="#FFFFFF" face="Verdana, Geneva, sans-serif">Smart Card at Travelling for Trains</font>
     </div>
+	<?php 
+		header("Refresh: 15; URL=welcome.php"); 
+	?>
 <!--header end-->    
 <!--body start-->
 	<div class="col-md-12">
@@ -47,7 +50,7 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 						 }
 					 ?>
                     <div  class="row" style="padding:10px;">
-                     <input type="text" class="form-control qtyInput" pattern="^\d{4}$" maxlength="4" title="Please enter a valid PIN." id="pin" name="pin" placeholder="Enter PIN" required="required">
+                     <input type="password" class="form-control qtyInput" pattern="^\d{4}$" maxlength="4" title="Please enter a valid PIN." id="pin" name="pin" placeholder="Enter PIN" required="required">
                     </div>
                      <?php
 					 include_once('keyboard.php');

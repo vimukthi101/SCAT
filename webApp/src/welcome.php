@@ -13,11 +13,25 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 	session_destroy();
 ?>
 <title>Payment Terminal</title>
+<style>
+a {
+	text-decoration:none;
+	color:rgba(255,255,255,1);
+}
+a:hover {
+	text-decoration:none;
+	color:rgba(255,255,255,0.5);
+}
+a:visited {
+	text-decoration:none;
+	color:rgba(255,255,255,1);
+}
+</style>
 </head>
 <body style="background-image:url(../images/home.jpg);background-repeat:no-repeat;background-size:cover;width:100%;">
 <!--header start-->
     <div class="col-md-12 text-center" style="background-color:rgb(0,102,255);padding:15px;height:10vh;">
-        <font size="+3" color="#FFFFFF" face="Verdana, Geneva, sans-serif">Smart Card at Travelling for Trains</font>
+        <font size="+3" color="#FFFFFF" face="Verdana, Geneva, sans-serif"><a href="../index.php">Smart Card at Travelling for Trains</a></font>
     </div>
 <!--header end-->    
 <!--body start-->

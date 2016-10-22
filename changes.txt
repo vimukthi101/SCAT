@@ -1,5 +1,2 @@
-need to add the back button in terminal
-should add a login page for the SM to set terminal setup, setup and able to log out from the setup page...but the cookies should be enabled
-remove the terminal module and integrate it to the webApp
 
 

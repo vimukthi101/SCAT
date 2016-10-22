@@ -9,6 +9,20 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="css/animate.css" />
+<style>
+a {
+	text-decoration:none;
+	color:rgba(255,0,0,0.5);
+}
+a:hover {
+	text-decoration:none;
+    color:rgba(255,0,0,1);
+}
+a:visited{
+	text-decoration:none;
+	color:rgba(255,0,0,0.5);
+}
+</style>
 </head>
 
 <body>
@@ -80,6 +94,10 @@
 							echo '<div style="padding:10px;">
 									<label class="form-control" style="height:35px;">You Are Not Assigned To Any Station Yet.</label>
 								</div>';
+						} else if($error == 'do'){
+							echo '<div style="padding:10px;">
+									<label class="form-control" style="height:35px;">Terminal Setted Successfully. Click The Below Link.</label>
+								</div>';
 						}
 					}
 					?>
@@ -89,7 +107,10 @@
                              <input type="reset" class="btn btn-default" id="reset" name="reset" value="Clear" />
                          </div>
                     </div>
-                </form>
+                    <div style="padding:10px;">
+                        <label class="label label-info form-control" style="font-size:100%"><a href="src/welcome.php">Click here to go to the terminal.</a></label>
+                    </div>
+    		</form>
             </div>        
         </div>
     </div>

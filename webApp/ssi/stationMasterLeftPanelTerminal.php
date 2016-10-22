@@ -28,6 +28,14 @@
             <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">View Payment Terminals</font>
         </div>
     </a>
+    <div class="row" style="padding:10px;">
+    	<label style="color:rgb(204,204,204)">S.C.A.T. Terminal Setup</label>
+    </div>
+    <a href="../src/setup.php" style="text-decoration:none;">
+        <div class="row" style="padding:10px;" id="side">
+            <font face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Set Termianl</font>
+        </div>
+    </a>
 </div>
 </body>
 </html>
