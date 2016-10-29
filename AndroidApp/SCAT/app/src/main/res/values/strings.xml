@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SCAT For Trains</string>
+    <string name="app_title">SCAT</string>
+    <string name="title_activity_map">Map</string>
+    <string name="button01">View Account Info</string>
+    <string name="button02">View My Balance</string>
+    <string name="button03">Share Credits</string>
+    <string name="button04">View My Travel Info</string>
+    <string name="button05">Disable My Account</string>
+    <string name="button06">Logout</string>
+</resources>
