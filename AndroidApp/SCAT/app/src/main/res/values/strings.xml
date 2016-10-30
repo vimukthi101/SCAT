@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">SCAT For Trains</string>
     <string name="app_title">SCAT</string>
+    <string name="profile_title_one"><u><strong>Card Information</strong></u></string>
+    <string name="profile_title_two"><u><strong>Personal Information</strong></u></string>
     <string name="title_activity_map">Map</string>
     <string name="button01">View Account Info</string>
     <string name="button02">View My Balance</string>
