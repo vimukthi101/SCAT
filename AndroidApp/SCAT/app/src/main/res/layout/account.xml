@@ -20,11 +20,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/accent_material_light"
+                android:background="#0267ff"
                 android:id="@+id/button01"
                 android:src="@mipmap/profile"
-                android:padding="@dimen/abc_action_bar_default_height_material"
-                android:layout_gravity="center" />
+                android:padding="25dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,11 +47,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/accent_material_light"
+                android:background="#0267ff"
                 android:id="@+id/button02"
                 android:src="@mipmap/balance"
-                android:padding="@dimen/abc_action_bar_default_height_material"
-                android:layout_gravity="center"/>
+                android:padding="25dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,11 +82,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/accent_material_light"
+                android:background="#0267ff"
                 android:id="@+id/button03"
                 android:src="@mipmap/train"
-                android:padding="@dimen/abc_action_bar_default_height_material"
-                android:layout_gravity="center"/>
+                android:padding="25dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -103,11 +109,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/accent_material_light"
+                android:background="#0267ff"
                 android:id="@+id/button04"
                 android:src="@mipmap/topup"
-                android:padding="@dimen/abc_action_bar_default_height_material"
-                android:layout_gravity="center"/>
+                android:padding="25dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -136,11 +144,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/accent_material_light"
+                android:background="#0267ff"
                 android:id="@+id/button05"
                 android:src="@mipmap/cards"
-                android:padding="@dimen/abc_action_bar_default_height_material"
-                android:layout_gravity="center"/>
+                android:padding="25dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -161,11 +171,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/accent_material_light"
+                android:background="#0267ff"
                 android:id="@+id/button06"
                 android:src="@mipmap/commuter"
-                android:padding="@dimen/abc_action_bar_default_height_material"
-                android:layout_gravity="center"/>
+                android:padding="25dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
 
             <TextView
                 android:layout_width="wrap_content"

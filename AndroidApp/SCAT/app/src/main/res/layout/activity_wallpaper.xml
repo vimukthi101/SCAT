@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="703dp"
+        android:layout_width="792dp"
         android:layout_height="654dp"
         android:layout_gravity="left|center_vertical"
         android:background="@mipmap/wallpaper"></LinearLayout>

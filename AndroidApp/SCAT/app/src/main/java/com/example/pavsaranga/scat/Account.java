@@ -1,10 +1,13 @@
 package com.example.pavsaranga.scat;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.*;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 /**
  * Created by P.A.V.Saranga on 29-Oct-16.
@@ -65,10 +68,29 @@ public class Account extends Activity {
         btn6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i6 = new Intent("com.example.pavsaranga.scat.LOGOUT");
-                startActivity(i6);
+                open(v);
             }
         });
+    }
+
+    public void open(View view){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Are you sure,You want to Log Out?");
+
+        alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                Toast.makeText(Account.this,"Log Out successfully!",Toast.LENGTH_LONG).show();
+            }
+        });
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
 

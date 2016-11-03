@@ -1,6 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/horizontalScrollView">
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="@dimen/abc_action_bar_content_inset_material"
+        android:background="@mipmap/background"
+        style="@style/AlertDialog.AppCompat"
+        android:accessibilityLiveRegion="@integer/abc_max_action_buttons"
+        android:backgroundTint="#edf5fe"
+        android:backgroundTintMode="multiply"
+        android:baselineAligned="false"
+        android:dividerPadding="@dimen/abc_action_bar_content_inset_material"
+        android:outlineProvider="paddedBounds"
+        android:showDividers="middle|beginning|end"
+        android:touchscreenBlocksFocus="false"
+        android:theme="@style/AppTheme"
+        android:transitionName="@string/abc_action_bar_home_description_format">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Daily Travel Info"
+                android:id="@+id/textView"
+                android:layout_gravity="center_horizontal"
+                android:padding="@dimen/abc_action_bar_content_inset_material"
+                android:layout_column="2" />
+        </TableRow>
+
+        <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/abc_action_bar_content_inset_material">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Date"
+            android:id="@+id/textView1"
+            android:layout_column="0"
+            android:padding="@dimen/abc_action_bar_content_inset_material" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="In Station"
+            android:id="@+id/textView2"
+            android:layout_column="1"
+            android:padding="@dimen/abc_action_bar_content_inset_material"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Out Station"
+            android:id="@+id/textView3"
+            android:layout_column="2"
+            android:padding="@dimen/abc_action_bar_content_inset_material"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Number of Tickets"
+            android:id="@+id/textView4"
+            android:layout_column="3"
+            android:padding="@dimen/abc_action_bar_content_inset_material"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Amount"
+            android:id="@+id/textView5"
+            android:layout_column="4"
+            android:padding="@dimen/abc_action_bar_content_inset_material"/>
+    </TableRow>
+    </TableLayout>
+    </HorizontalScrollView>
 </LinearLayout>

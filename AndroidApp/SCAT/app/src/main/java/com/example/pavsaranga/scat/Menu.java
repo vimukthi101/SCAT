@@ -24,7 +24,7 @@ public class Menu extends ListActivity {
                 Intent loadIntent = new Intent(Menu.this, loadClass);
                 startActivity(loadIntent);
             } else if(item.equals("My Account")) {
-                Class loadClass = Class.forName("com.example.pavsaranga.scat.Account");
+                Class loadClass = Class.forName("com.example.pavsaranga.scat.LogIn");
                 Intent loadIntent = new Intent(Menu.this, loadClass);
                 startActivity(loadIntent);
             }

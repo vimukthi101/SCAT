@@ -2,7 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="My Profile"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/abc_action_bar_content_inset_material" />
 
     <ScrollView
         android:layout_width="match_parent"

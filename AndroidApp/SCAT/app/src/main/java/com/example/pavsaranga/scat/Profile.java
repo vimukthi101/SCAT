@@ -1,12 +1,12 @@
 package com.example.pavsaranga.scat;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by P.A.V.Saranga on 30-Oct-16.
  */
-public class Profile extends Activity {
+public class Profile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
