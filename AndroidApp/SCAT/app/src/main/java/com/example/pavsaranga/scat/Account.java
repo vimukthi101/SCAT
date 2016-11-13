@@ -5,7 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.*;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -76,17 +76,19 @@ public class Account extends Activity {
     public void open(View view){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Are you sure,You want to Log Out?");
-
         alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
+                Intent intent = new Intent("com.example.pavsaranga.scat.MENU");
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 Toast.makeText(Account.this,"Log Out successfully!",Toast.LENGTH_LONG).show();
             }
         });
         alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
+                Toast.makeText(Account.this,"Cancelled.",Toast.LENGTH_LONG).show();
             }
         });
         AlertDialog alertDialog = alertDialogBuilder.create();
