@@ -24,7 +24,8 @@
         android:showDividers="middle|beginning|end"
         android:touchscreenBlocksFocus="false"
         android:theme="@style/AppTheme"
-        android:transitionName="@string/abc_action_bar_home_description_format">
+        android:transitionName="@string/abc_action_bar_home_description_format"
+        android:id="@+id/tlTravel">
 
         <TableRow
             android:layout_width="match_parent"
