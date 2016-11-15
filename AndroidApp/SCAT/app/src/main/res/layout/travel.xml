@@ -31,67 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Daily Travel Info"
-                android:id="@+id/textView"
-                android:layout_gravity="center_horizontal"
-                android:padding="@dimen/abc_action_bar_content_inset_material"
-                android:layout_column="2" />
         </TableRow>
-
-        <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/abc_action_bar_content_inset_material">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Date"
-            android:id="@+id/textView1"
-            android:layout_column="0"
-            android:padding="@dimen/abc_action_bar_content_inset_material" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="In Station"
-            android:id="@+id/textView2"
-            android:layout_column="1"
-            android:padding="@dimen/abc_action_bar_content_inset_material"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Out Station"
-            android:id="@+id/textView3"
-            android:layout_column="2"
-            android:padding="@dimen/abc_action_bar_content_inset_material"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Number of Tickets"
-            android:id="@+id/textView4"
-            android:layout_column="3"
-            android:padding="@dimen/abc_action_bar_content_inset_material"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Amount"
-            android:id="@+id/textView5"
-            android:layout_column="4"
-            android:padding="@dimen/abc_action_bar_content_inset_material"/>
-    </TableRow>
     </TableLayout>
     </HorizontalScrollView>
 </LinearLayout>

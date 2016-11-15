@@ -52,7 +52,7 @@ public class Transfer_Controller extends Activity {
     }
 
     private void getPrefs() {
-        SharedPreferences userDetails = Transfer_Controller.this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences userDetails = getApplicationContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         amount = userDetails.getString("transferAmount", "");
         fullName = userDetails.getString("transferName", "");
         id = userDetails.getString("transferNIC", "");

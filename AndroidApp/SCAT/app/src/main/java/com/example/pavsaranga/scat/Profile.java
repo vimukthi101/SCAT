@@ -37,7 +37,7 @@ public class Profile extends AppCompatActivity {
     }
 
     private void getPrefs() {
-        SharedPreferences userDetails = Profile.this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences userDetails = getApplicationContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         id = userDetails.getString("NIC", "");
         f_Name = userDetails.getString("fName", "");
         m_Name = userDetails.getString("mName", "");

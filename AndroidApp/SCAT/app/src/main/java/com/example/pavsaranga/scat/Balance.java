@@ -32,7 +32,7 @@ public class Balance extends AppCompatActivity {
     }
 
     private void getPrefs() {
-        SharedPreferences userDetails = Balance.this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences userDetails = getApplicationContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         id = userDetails.getString("NIC", "");
         contact_no = userDetails.getString("contactNo", "");
         card_No = userDetails.getString("cardNo", "");

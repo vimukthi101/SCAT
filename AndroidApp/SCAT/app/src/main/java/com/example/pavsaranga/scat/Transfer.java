@@ -38,7 +38,7 @@ public class Transfer extends AppCompatActivity {
         nic = (EditText) findViewById(R.id.etNic);
         amount = (EditText)findViewById(R.id.etAmount);
         search = (Button)findViewById(R.id.btnSearch);
-        SharedPreferences userDetails = Transfer.this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences userDetails = getApplicationContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         myNic = userDetails.getString("NIC", "");
         search.setOnClickListener(new View.OnClickListener() {
             @Override
