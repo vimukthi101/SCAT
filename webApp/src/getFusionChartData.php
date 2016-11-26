@@ -222,6 +222,26 @@ if(isset($_GET['key']) && !empty($_GET['key'])){
 					echo '&value=0';
 				}	
 			}
+		} else if($key == "topup"){
+			$mydate = getdate(date("U"));
+			$date = $mydate['year']."-".$mydate['mon']."-".$mydate['mday'];
+			$nic = $_SESSION['nic'];
+			if($value == "recharge"){
+				$getSM = "SELECT SUM(amount) AS amount FROM recharge WHERE recharge_date_time LIKE '".$date."%' AND employee_nic='".$nic."'";
+				$resultSM = mysqli_query($con, $getSM);
+				if(mysqli_num_rows($resultSM)!=0){
+					while($rowSM = mysqli_fetch_array($resultSM)){
+						$amount = $rowSM['amount'];
+						if($amount == null){
+							echo '&value=0';
+						} else {
+							echo '&value='.$amount;		
+						}
+					}
+				} else {
+					echo '&value=0';
+				}
+			}
 		}
 	}
 }
