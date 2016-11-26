@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(isset($_SESSION['position'])){
 		if($_SESSION['position'] == "stationMaster" || $_SESSION['position'] == "manager"){
 			if(isset($_GET['position']) && isset($_GET['nic']) && isset($_GET['email'])){
@@ -27,18 +28,21 @@
 						}
 						//send email with new password
 						$to = $email;
-						$subject = "Account Activated";
-$message = "<p>Dear ".$position.",</p>
-<br/>
-<p>Your account has been deactivated. You won't be able to login to the system with your credentials. If you think this is a mistake, then please meet the relevant station master.</p>
-<br/>
-<p>p.s. : Please do not reply to this email</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T System</p>";
-						$headers = "MIME-Version: 1.0" . "\r\n";
-						$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-						mail($to, $subject, $message, $headers);
+						//Set who the message is to be sent to
+						$mail->addAddress($to, $to);
+						//Set the subject line
+						$mail->Subject = "Account Activated";
+$mail->Body ="Dear ".$position.",
+
+Your account has been deactivated. You won't be able to login to the system with your credentials. If you think this is a mistake, then please meet the relevant station master.
+
+p.s. : Please do not reply to this email
+
+Thank You!
+S.C.A.T System";
+						if (!$mail->send()) {
+							echo "Mailer Error: " . $mail->ErrorInfo;
+						}
 						//sucessfully activated
 						if($position == "updater"){
 							header('Location:../disableUsers.php?position=updater&error=su');

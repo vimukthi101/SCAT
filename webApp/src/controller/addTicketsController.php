@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(isset($_SESSION['position'])){
 		if($_SESSION['position'] == "sysadmin"){
 			if(isset($_POST['submit'])){
@@ -33,22 +34,25 @@
 											$resultEmp = mysqli_query($con, $getEmp);
 											if(mysqli_num_rows($resultEmp) != 0){
 												while($rowEmail = mysqli_fetch_array($resultEmp)){
-												//send email with new ticket fee
-$to = $rowEmail['employee_email'];														
-$subject = "New Ticket Fee Has Being Added";
-$message = "<p>Dear Manager,</p>
-<br/>
-<p>New ticket fee has being added between following stations to the system. Please find more information,</p>
-<br/>
-<h4>In Station Code : ".$iStation."</h4>
-<h4>Out Station Code : ".$oStation."</h4>
-<h4>Ticket Fee : ".$tFee."</h4>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-													$headers = "MIME-Version: 1.0" . "\r\n";
-													$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-													mail($to, $subject, $message, $headers);
+													//send email with new ticket fee
+													$to = $rowEmail['employee_email'];
+													//Set who the message is to be sent to
+													$mail->addAddress($to, $to);
+													//Set the subject line
+													$mail->Subject = "New Ticket Fee Has Being Added";
+$mail->Body ="Dear Manager,
+
+New ticket fee has being added between following stations to the system. Please find more information,
+
+	In Station Code : ".$iStation."
+	Out Station Code : ".$oStation."
+	Ticket Fee : ".$tFee."
+
+Thank You!
+S.C.A.T Admin";
+													if (!$mail->send()) {
+														echo "Mailer Error: " . $mail->ErrorInfo;
+													}
 												}
 											}
 											//get station masters
@@ -56,22 +60,25 @@ $message = "<p>Dear Manager,</p>
 											$resultEmp = mysqli_query($con, $getEmp);
 											if(mysqli_num_rows($resultEmp) != 0){
 												while($rowEmail = mysqli_fetch_array($resultEmp)){
-												//send email with new ticket fee
-$to = $rowEmail['employee_email'];														
-$subject = "New Ticket Fee Has Being Added";
-$message = "<p>Dear Station Master,</p>
-<br/>
-<p>New ticket fee has being added between your station and the following station to the system. Please find more information,</p>
-<br/>
-<h4>In Station Code : ".$iStation."</h4>
-<h4>Out Station Code : ".$oStation."</h4>
-<h4>Ticket Fee : ".$tFee."</h4>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-													$headers = "MIME-Version: 1.0" . "\r\n";
-													$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-													mail($to, $subject, $message, $headers);
+													//send email with new ticket fee
+													$to = $rowEmail['employee_email'];		
+													//Set who the message is to be sent to
+													$mail->addAddress($to, $to);
+													//Set the subject line
+													$mail->Subject = "New Ticket Fee Has Being Added";
+$mail->Body ="Dear Station Master,
+
+New ticket fee has being added between your station and the following station to the system. Please find more information,
+
+	In Station Code : ".$iStation."
+	Out Station Code : ".$oStation."
+	Ticket Fee : ".$tFee."
+
+Thank You!
+S.C.A.T Admin";
+													if (!$mail->send()) {
+														echo "Mailer Error: " . $mail->ErrorInfo;
+													}
 												}
 											}
 											//success

@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(!empty($_POST['position'])){
 		$pos = trim($_POST['position']);
 		$employeePosition = htmlspecialchars(mysqli_real_escape_string($con, $pos));
@@ -30,19 +31,22 @@
 										$deleteAddress = "DELETE FROM address WHERE address_id='".$address_id."'";
 										if(mysqli_query($con, $deleteAddress)){
 											//send email with account deleted
-$to = $_POST['email'];
-$subject = "Account Deleted";
-$message = "<p>Dear ".$employeePosition.",</p>
-<br/>
-<p>Your account has been deleted. No longer you will be able to login to the system. If you think this is a mistake, please meet the system admin.</p>
-<br/>
-<p>p.s. : Please do not reply to this email</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T System Admin</p>";
-											$headers = "MIME-Version: 1.0" . "\r\n";
-											$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-											mail($to, $subject, $message, $headers);
+											$to = $_POST['email'];
+											//Set who the message is to be sent to
+											$mail->addAddress($to, $to);
+											//Set the subject line
+											$mail->Subject = "Account Deleted";
+$mail->Body ="Dear ".$employeePosition.",
+
+Your account has been deleted. No longer you will be able to login to the system. If you think this is a mistake, please meet the system admin.
+
+p.s. : Please do not reply to this email.
+
+Thank You!
+S.C.A.T System Admin";
+											if (!$mail->send()) {
+												echo "Mailer Error: " . $mail->ErrorInfo;
+											}
 											//success
 											if($employeePosition == "manager"){
 												header('Location:../deleteUsers.php?position=manager&error=su');		

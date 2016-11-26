@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(isset($_SESSION['position'])){
 		if($_SESSION['position'] == "sysadmin"){
 			if(isset($_POST['submit'])){
@@ -32,43 +33,49 @@
 											if(mysqli_num_rows($resultEmp) != 0){
 												while($rowEmail = mysqli_fetch_array($resultEmp)){
 													//send email with new station
-$to = $rowEmail['employee_email'];														
-$subject = "New Station Has Being Added";
-$message = "<p>Dear Manager,</p>
-<br/>
-<p>New station has being added to the system with following details.</p>
-<br/>
-<h4>Station Code : ".$code."</h4>
-<h4>Station Name : ".$name."</h4>
-<h4>Station Master NIC : ".$smNic."</h4>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-													$headers = "MIME-Version: 1.0" . "\r\n";
-													$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-													mail($to, $subject, $message, $headers);
+													$to = $rowEmail['employee_email'];		
+													//Set who the message is to be sent to
+													$mail->addAddress($to, $to);
+													//Set the subject line
+													$mail->Subject = "New Station Has Being Added";
+$mail->Body ="Dear Manager,
+
+New station has being added to the system with following details.
+
+	Station Code : ".$code."
+	Station Name : ".$name."
+	Station Master NIC : ".$smNic."
+
+Thank You!
+S.C.A.T Admin";
+													if (!$mail->send()) {
+														echo "Mailer Error: " . $mail->ErrorInfo;
+													}
 												}
 											}
 											$getSM = "SELECT employee_email FROM employee WHERE nic='".$smNic."'";
 											$resultSM = mysqli_query($con, $getSM);
 											if(mysqli_num_rows($resultSM) != 0){
 												while($rowSM = mysqli_fetch_array($resultSM)){
-$toSm =  $rowSM['employee_email'];														
-$subjectSm = "Assigned to a Station";
-$messageSm = "<p>Dear Station Master,</p>
-<br/>
-<p>With in Effect from ".date("l jS \of F Y h:i:s A")." you have being assigned to following station as the station master. Please find the information,</p>
-<br/>
-<h4>Station Code : ".$code."</h4>
-<h4>Station Name : ".$name."</h4>
-<br/>
-<p>Congratulations!</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-													$headersSm = "MIME-Version: 1.0" . "\r\n";
-													$headersSm .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-													mail($toSm, $subjectSm, $messageSm, $headersSm);
+													$toSm =  $rowSM['employee_email'];
+													//Set who the message is to be sent to
+													$mail->addAddress($to, $to);
+													//Set the subject line
+													$mail->Subject = "Assigned to a Station";
+$mail->Body ="Dear Station Master,
+
+With in Effect from ".date("l jS \of F Y h:i:s A")." you have being assigned to following station as the station master. Please find the information,
+
+	Station Code : ".$code."
+	Station Name : ".$name."
+
+Congratulations!
+
+Thank You!
+S.C.A.T Admin";
+														if (!$mail->send()) {
+															echo "Mailer Error: " . $mail->ErrorInfo;
+														}
 													}
 											}
 											//success

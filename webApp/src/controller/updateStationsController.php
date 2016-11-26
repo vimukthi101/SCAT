@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(isset($_SESSION['position']) && $_SESSION['position'] == "sysadmin"){
 		if(isset($_POST['submit'])){
 			if(!empty($_POST['sCode']) && !empty($_POST['sName']) && !empty($_POST['smID']) && !empty($_POST['oldNIC']) && !empty($_POST['oldName'])){
@@ -41,21 +42,24 @@
 											if(mysqli_num_rows($resultEmp) != 0){
 												while($rowEmail = mysqli_fetch_array($resultEmp)){
 													//send email with new station
-$to = $rowEmail['employee_email'];														
-$subject = "Station Has Being Updated";
-$message = "<p>Dear All,</p>
-<br/>
-<p>Station has being updated with following information,</p>
-<br/>
-<h4>Station Code : ".$stationCode."</h4>
-<h4>Station Name : ".$stationName."</h4>
-<h4>Station Master NIC : ".$stationMaster."</h4>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-													$headers = "MIME-Version: 1.0" . "\r\n";
-													$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-													mail($to, $subject, $message, $headers);
+													$to = $rowEmail['employee_email'];		
+													//Set who the message is to be sent to
+													$mail->addAddress($to, $to);
+													//Set the subject line
+													$mail->Subject = "Station Has Being Updated";
+$mail->Body ="Dear All,
+
+Station has being updated with following information,
+
+	Station Code : ".$stationCode."
+	Station Name : ".$stationName."
+	Station Master NIC : ".$stationMaster."
+
+Thank You!
+S.C.A.T Admin";
+													if (!$mail->send()) {
+														echo "Mailer Error: " . $mail->ErrorInfo;
+													}
 												}
 											}
 											//success
@@ -87,21 +91,24 @@ $message = "<p>Dear All,</p>
 													if(mysqli_num_rows($resultEmp) != 0){
 														while($rowEmail = mysqli_fetch_array($resultEmp)){
 															//send email with new station
-$to = $rowEmail['employee_email'];														
-$subject = "Station Has Being Updated";
-$message = "<p>Dear All,</p>
-<br/>
-<p>Station has being updated with following information,</p>
-<br/>
-<h4>Station Code : ".$stationCode."</h4>
-<h4>Station Name : ".$stationName."</h4>
-<h4>Station Master NIC : ".$stationMaster."</h4>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-															$headers = "MIME-Version: 1.0" . "\r\n";
-															$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-															mail($to, $subject, $message, $headers);
+															$to = $rowEmail['employee_email'];			
+															//Set who the message is to be sent to
+															$mail->addAddress($to, $to);
+															//Set the subject line
+															$mail->Subject = "Station Has Being Updated";
+$mail->Body ="Dear All,
+
+Station has being updated with following information,
+
+	Station Code : ".$stationCode."
+	Station Name : ".$stationName."
+	Station Master NIC : ".$stationMaster."
+
+Thank You!
+S.C.A.T Admin";
+															if (!$mail->send()) {
+																echo "Mailer Error: " . $mail->ErrorInfo;
+															}
 														}
 													}
 													//success
@@ -138,21 +145,24 @@ $message = "<p>Dear All,</p>
 													if(mysqli_num_rows($resultEmp) != 0){
 														while($rowEmail = mysqli_fetch_array($resultEmp)){
 															//send email with new station
-$to = $rowEmail['employee_email'];														
-$subject = "Station Has Being Updated";
-$message = "<p>Dear All,</p>
-<br/>
-<p>Station has being updated with following information,</p>
-<br/>
-<h4>Station Code : ".$stationCode."</h4>
-<h4>Station Name : ".$stationName."</h4>
-<h4>Station Master NIC : ".$stationMaster."</h4>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-															$headers = "MIME-Version: 1.0" . "\r\n";
-															$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-															mail($to, $subject, $message, $headers);
+															$to = $rowEmail['employee_email'];	
+															//Set who the message is to be sent to
+															$mail->addAddress($to, $to);
+															//Set the subject line
+															$mail->Subject = "Station Has Being Updated";
+$mail->Body ="Dear All,
+
+Station has being updated with following information,
+
+	Station Code : ".$stationCode."
+	Station Name : ".$stationName."
+	Station Master NIC : ".$stationMaster."
+
+Thank You!
+S.C.A.T Admin";
+															if (!$mail->send()) {
+																echo "Mailer Error: " . $mail->ErrorInfo;
+															}
 														}
 													}
 													//success

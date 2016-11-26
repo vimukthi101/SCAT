@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(isset($_POST['submit'])){
 		if(!empty($_POST['userNIC']) && !empty($_POST['password'])){
 			//get user name and password
@@ -50,43 +51,49 @@
 															if(mysqli_query($con, $updateBlockedAdmin)){
 																//send email with new password
 																$to = $email;
-$subject = "Password Reset";
-$message = "<p>Dear SysAdmin,</p>
-<br/>
-<p>Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please use the below auto generated one time password to re activate your account and to change your password.</p>
-<br/>
-<h4>User Name : ".$userName."</h4>
-<h4>Passowrd : ".$rand."</h4>
-<br/>
-<p>Please try to minimize such errors in the future</p>
-<br/>
-<p>p.s. : Please do not reply to this email</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Systm</p>";
-																$headers = "MIME-Version: 1.0" . "\r\n";
-																$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-																mail($to, $subject, $message, $headers);
+																//Set who the message is to be sent to
+																$mail->addAddress($to, $to);
+																//Set the subject line
+																$mail->Subject = "Password Reset";
+$mail->Body = "Dear SysAdmin,
+
+Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please use the below auto generated one time password to re activate your account and to change your password.
+
+	User Name : ".$userName."
+	Passowrd : ".$rand."
+
+Please try to minimize such errors in the future.
+
+p.s. : Please do not reply to this email
+
+Thank You!
+S.C.A.T Systm";
+																if (!$mail->send()) {
+																	echo "Mailer Error: " . $mail->ErrorInfo;
+																}
 																//account deactivated, contact admin error message
 																header('Location:../../index.php?error=ab');
 															}
 														} else {
 															//send email to meet admin
 															$to = $email;
-$subject = "Account Deactivated";
-$message = "<p>Dear User,</p>
-<br/>
-<p>Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please meet the SysAdmin to re activate your account.</p>
-<br/>
-<p>Please try to minimize such errors in the future</p>
-<br/>
-<p>p.s. : Please do not reply to this email</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Systm</p>";
-															$headers = "MIME-Version: 1.0" . "\r\n";
-															$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-															mail($to, $subject, $message, $headers);
+															//Set who the message is to be sent to
+															$mail->addAddress($to, $to);
+															//Set the subject line
+															$mail->Subject = "Account Deactivated";
+$mail->Body = "Dear User,
+
+Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please meet the SysAdmin to re activate your account.
+
+Please try to minimize such errors in the future
+
+p.s. : Please do not reply to this email.
+
+Thank You!
+S.C.A.T Systm";
+															if (!$mail->send()) {
+																echo "Mailer Error: " . $mail->ErrorInfo;
+															}
 															//account deactivated, contact admin error message
 															header('Location:../../index.php?error=da');
 														}	
@@ -95,20 +102,23 @@ $message = "<p>Dear User,</p>
 											} else {
 												//send email to meet admin
 												$to = $email;
-$subject = "Account Deactivated";
-$message = "<p>Dear Top-Up Agent,</p>
-<br/>
-<p>Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please meet the Station Master to re activate your account.</p>
-<br/>
-<p>Please try to minimize such errors in the future</p>
-<br/>
-<p>p.s. : Please do not reply to this email</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Systm</p>";
-												$headers = "MIME-Version: 1.0" . "\r\n";
-												$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-												mail($to, $subject, $message, $headers);
+												//Set who the message is to be sent to
+												$mail->addAddress($to, $to);
+												//Set the subject line
+												$mail->Subject = "Account Deactivated";
+$mail->Body ="Dear Top-Up Agent,
+
+Your account has been deactivated due to a three unsuccessfull login attempts. System detects it as an unauthorized login attempt. Please meet the Station Master to re activate your account.
+
+Please try to minimize such errors in the future.
+
+p.s. : Please do not reply to this email
+
+Thank You!
+S.C.A.T Systm";
+												if (!$mail->send()) {
+													echo "Mailer Error: " . $mail->ErrorInfo;
+												}
 												//account deactivated, contact admin error message
 												header('Location:../../index.php?error=da');
 											}

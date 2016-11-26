@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(isset($_SESSION['position'])){
 		if($_SESSION['position'] == "sysadmin"){
 			if(isset($_POST['submit']) || isset($_POST['reject'])){
@@ -69,9 +70,12 @@
 												$resultGetEmp = mysqli_query($con, $getEmp);
 												if(mysqli_num_rows($resultGetEmp) != 0){
 													while($rowEmp = mysqli_fetch_array($resultGetEmp)){
-$toSM = $rowEmp['employee_email'];													
-$subjectSM = "Card Request Has Being Approved";
-$messageSM = "<p>Dear Station Master,</p>
+														$toSM = $rowEmp['employee_email'];
+														//Set who the message is to be sent to
+														$mail->addAddress($to, $to);
+														//Set the subject line
+														$mail->Subject = "Card Request Has Being Approved";
+$mail->Body ="<p>Dear Station Master,</p>
 <br/>
 <p>Your Card request on ".$rDate." of ".$nReq." has being approved,</p>
 <br/>
@@ -92,18 +96,21 @@ $messageSM = "<p>Dear Station Master,</p>
 <p>S.C.A.T Admin</p>";
 													}
 												}
-												$headersSM = "MIME-Version: 1.0" . "\r\n";
-												$headersSM .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-												mail($toSM, $subjectSM, $messageSM, $headersSM);
+												if (!$mail->send()) {
+													echo "Mailer Error: " . $mail->ErrorInfo;
+												}
 												//send mail to managers
 												$getEmp = "SELECT employee_email FROM employee WHERE status=1 AND nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager'))";
 													$resultEmp = mysqli_query($con, $getEmp);
 													if(mysqli_num_rows($resultEmp) != 0){
 														while($rowEmail = mysqli_fetch_array($resultEmp)){
 															//send email with rejected
-$to = $rowEmail['employee_email'];														
-$subject = "Card Request Has Being Approved";
-$message = "<p>Dear Manager,</p>
+															$to = $rowEmail['employee_email'];				
+															//Set who the message is to be sent to
+															$mail->addAddress($to, $to);
+															//Set the subject line
+															$mail->Subject = "Card Request Has Being Approved";
+$mail->Body ="<p>Dear Manager,</p>
 <br/>
 <p>Card request on ".$rDate." of ".$nReq." from ".$station." has being approved,</p>
 <br/>
@@ -121,9 +128,9 @@ $message = "<p>Dear Manager,</p>
 <br/>
 <p>Thank You!</p>
 <p>S.C.A.T Admin</p>";
-															$headers = "MIME-Version: 1.0" . "\r\n";
-															$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-															mail($to, $subject, $message, $headers);
+															if (!$mail->send()) {
+																echo "Mailer Error: " . $mail->ErrorInfo;
+															}
 														}
 													}
 												//success
@@ -181,43 +188,49 @@ $message = "<p>Dear Manager,</p>
 								$resultGetEmp = mysqli_query($con, $getEmp);
 								if(mysqli_num_rows($resultGetEmp) != 0){
 									while($rowEmp = mysqli_fetch_array($resultGetEmp)){
-$toSM = $rowEmp['employee_email'];													
-$subjectSM = "Card Request Has Being Rejected";
-$messageSM = "<p>Dear Station Master,</p>
-<br/>
-<p>Your Card request on ".$rDate." of ".$nReq." has being rejected,</p>
-<br/>
-<h4>Rejected Date : ".$date."</h4>
-<br/>
-<p>Please put another request if you think this is a mistake.</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
+										$toSM = $rowEmp['employee_email'];	
+										//Set who the message is to be sent to
+										$mail->addAddress($to, $to);
+										//Set the subject line
+										$mail->Subject = "Card Request Has Being Rejected";
+$mail->Body ="Dear Station Master,
+
+Your Card request on ".$rDate." of ".$nReq." has being rejected,
+
+	Rejected Date : ".$date."
+
+Please put another request if you think this is a mistake.
+
+Thank You!
+S.C.A.T Admin";
 									}
 								}
-								$headersSM = "MIME-Version: 1.0" . "\r\n";
-								$headersSM .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-								mail($toSM, $subjectSM, $messageSM, $headersSM);
+								if (!$mail->send()) {
+									echo "Mailer Error: " . $mail->ErrorInfo;
+								}
 								//send mail to managers
 								$getEmp = "SELECT employee_email FROM employee WHERE nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager'))";
 									$resultEmp = mysqli_query($con, $getEmp);
 									if(mysqli_num_rows($resultEmp) != 0){
 										while($rowEmail = mysqli_fetch_array($resultEmp)){
 											//send email with rejected
-$to = $rowEmail['employee_email'];														
-$subject = "Card Request Has Being Rejected";
-$message = "<p>Dear Manager,</p>
-<br/>
-<p>Card request on ".$rDate." of ".$nReq." from ".$station." has being rejected,</p>
-<br/>
-<h4>Station Master : ".$sm."</h4>
-<h4>Rejected Date : ".$date."</h4>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-											$headers = "MIME-Version: 1.0" . "\r\n";
-											$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-											mail($to, $subject, $message, $headers);
+											$to = $rowEmail['employee_email'];	
+											//Set who the message is to be sent to
+											$mail->addAddress($to, $to);
+											//Set the subject line
+											$mail->Subject = "Card Request Has Being Rejected";
+$mail->Body ="Dear Manager,
+
+Card request on ".$rDate." of ".$nReq." from ".$station." has being rejected,
+
+	Station Master : ".$sm."
+	Rejected Date : ".$date."
+
+Thank You!
+S.C.A.T Admin";
+											if (!$mail->send()) {
+												echo "Mailer Error: " . $mail->ErrorInfo;
+											}
 										}
 									}
 								//success

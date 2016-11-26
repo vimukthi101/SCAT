@@ -6,6 +6,7 @@
 	//error_reporting(0);
 	$nic = $_SESSION['nic'];
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(isset($_POST['submit'])){
 		if(!empty($_POST['cards']) && !empty($_POST['cCards'])){
 			$op = trim($_POST['cards']);
@@ -34,24 +35,27 @@
 								if(mysqli_num_rows($resultUsers)!=0){
 									while($rowUsers = mysqli_fetch_array($resultUsers)){
 										$email = $rowUsers['employee_email'];
+										$to = $email;
 										//send mail
-$to = $email;
-$subject = "New Card Request";
-$message = "<p>Dear Manager/Sys Admin,</p>
-<br/>
-<p>A new card request has being notified by the S.C.A.T. System. Please check below for more information,</p>
-<br/>
-<h4>Requested Date : ".$date."</h4>
-<h4>Requested Cards : ".$Cards."</h4>
-<h4>Station Code : ".$stationId."</h4>
-<br/>
-<p>p.s. : Please do not reply to this email</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T System</p>";
-										$headers = "MIME-Version: 1.0" . "\r\n";
-										$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-										mail($to, $subject, $message, $headers);
+										//Set who the message is to be sent to
+										$mail->addAddress($to, $to);
+										//Set the subject line
+										$mail->Subject = "New Card Request";
+$mail->Body = "Dear Manager/Sys Admin,
+
+A new card request has being notified by the S.C.A.T. System. Please check below for more information,
+
+	Requested Date : ".$date."
+	Requested Cards : ".$Cards."
+	Station Code : ".$stationId."
+
+p.s. : Please do not reply to this email.
+
+Thank You!
+S.C.A.T System";
+										if (!$mail->send()) {
+											echo "Mailer Error: " . $mail->ErrorInfo;
+										}
 									}
 								}
 								//success

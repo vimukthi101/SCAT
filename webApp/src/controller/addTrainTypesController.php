@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(isset($_SESSION['position'])){
 		if($_SESSION['position'] == "sysadmin"){
 			if(isset($_POST['submit'])){
@@ -25,20 +26,23 @@
 									if(mysqli_num_rows($resultEmp) != 0){
 										while($rowEmail = mysqli_fetch_array($resultEmp)){
 											//send email with new station
-$to = $rowEmail['employee_email'];														
-$subject = "Train Type Has Being Added";
-$message = "<p>Dear Manager,</p>
-<br/>
-<p>Following train type has being added to the system,</p>
-<br/>
-<h4>Train Type ID : ".$trainTypeId."</h4>
-<h4>Train Type : ".$trainType."</h4>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-											$headers = "MIME-Version: 1.0" . "\r\n";
-											$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-											mail($to, $subject, $message, $headers);
+											$to = $rowEmail['employee_email'];	
+											//Set who the message is to be sent to
+											$mail->addAddress($to, $to);
+											//Set the subject line
+											$mail->Subject = "Train Type Has Being Added";
+$mail->Body ="Dear Manager,
+
+Following train type has being added to the system,
+
+	Train Type ID : ".$trainTypeId."
+	Train Type : ".$trainType."
+
+Thank You!
+S.C.A.T Admin";
+											if (!$mail->send()) {
+												echo "Mailer Error: " . $mail->ErrorInfo;
+											}
 										}
 									}
 									//success

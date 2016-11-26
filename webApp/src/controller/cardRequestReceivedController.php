@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(isset($_SESSION['position'])){
 		if($_SESSION['position'] == "stationMaster"){
 			if(isset($_POST['submit'])){
@@ -38,22 +39,25 @@
 									$resultEmp = mysqli_query($con, $getEmp);
 									if(mysqli_num_rows($resultEmp) != 0){
 										while($rowEmail = mysqli_fetch_array($resultEmp)){
-										//send email with received
-$to = $rowEmail['employee_email'];														
-$subject = "Card Request Has Being Received";
-$message = "<p>Dear Manager,</p>
-<br/>
-<p>Card request sent on ".$dSend." of ".$nSend." to ".$sName." station has being received,</p>
-<br/>
-<h4>Station : ".$sCode." - ".$sName."</h4>
-<h4>Received Date : ".$date."</h4>
-<h4>Received Number Of Cards : ".$nSend."</h4>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T System</p>";
-											$headers = "MIME-Version: 1.0" . "\r\n";
-											$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-											mail($to, $subject, $message, $headers);
+											//send email with received
+											$to = $rowEmail['employee_email'];	
+											//Set who the message is to be sent to
+											$mail->addAddress($to, $to);
+											//Set the subject line
+											$mail->Subject = "Card Request Has Being Received";
+$mail->Body ="Dear Manager,
+
+Card request sent on ".$dSend." of ".$nSend." to ".$sName." station has being received,
+
+	Station : ".$sCode." - ".$sName."
+	Received Date : ".$date."
+	Received Number Of Cards : ".$nSend."
+
+Thank You!
+S.C.A.T System";
+											if (!$mail->send()) {
+												echo "Mailer Error: " . $mail->ErrorInfo;
+											}
 										}
 									}
 									//success

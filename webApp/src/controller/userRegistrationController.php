@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(isset($_POST['position'])){
 		if($_POST['position'] == "manager"){
 			if(isset($_POST['submit'])){
@@ -76,21 +77,24 @@
 																						if(mysqli_query($con, $addUserStaff)){
 																							//send email to new user
 																							$to = $employeeEmail;
-$subject = "Profile Created";
-$message = "<p>Dear Manager,</p>
-<br/>
-<p>A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
-<br/>
-<h4>User Name : ".$nic."</h4>
-<h4>Password : ".$rand."</h4>
-<br/>
-<p>p.s. : Please do not reply to this email</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-																							$headers = "MIME-Version: 1.0" . "\r\n";
-																							$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-																							mail($to, $subject, $message, $headers);
+																							//Set who the message is to be sent to
+																							$mail->addAddress($to, $to);
+																							//Set the subject line
+																							$mail->Subject = "Profile Created";
+$mail->Body ="Dear Manager,
+
+A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.
+
+	User Name : ".$nic."
+	Password : ".$rand."
+
+p.s. : Please do not reply to this email.
+
+Thank You!
+S.C.A.T Admin";
+																							if (!$mail->send()) {
+																								echo "Mailer Error: " . $mail->ErrorInfo;
+																							}
 																							//user added successfully
 																							header('Location:../userRegistration.php?position=manager&error=as');
 																						}
@@ -228,21 +232,24 @@ $message = "<p>Dear Manager,</p>
 																						if(mysqli_query($con, $addUserStaff)){
 																							//send email to new user
 																							$to = $employeeEmail;
-$subject = "Profile Created";
-$message = "<p>Dear Station Master,</p>
-<br/>
-<p>A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
-<br/>
-<h4>User Name : ".$nic."</h4>
-<h4>Password : ".$rand."</h4>
-<br/>
-<p>p.s. : Please do not reply to this email</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-																							$headers = "MIME-Version: 1.0" . "\r\n";
-																							$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-																							mail($to, $subject, $message, $headers);
+																							//Set who the message is to be sent to
+																							$mail->addAddress($to, $to);
+																							//Set the subject line
+																							$mail->Subject = "Profile Created";
+$mail->Body ="Dear Station Master,
+
+A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.
+
+	User Name : ".$nic."
+	Password : ".$rand."
+
+p.s. : Please do not reply to this email.
+
+Thank You!
+S.C.A.T Admin";
+																							if (!$mail->send()) {
+																								echo "Mailer Error: " . $mail->ErrorInfo;
+																							}
 																							//user added successfully
 																							header('Location:../userRegistration.php?position=stationMaster&error=as');
 																						}
@@ -388,22 +395,25 @@ $message = "<p>Dear Station Master,</p>
 																							if(mysqli_query($con, $addUserStaff)){
 																								//send email to new user
 																								$to = $employeeEmail;
-$subject = "Profile Created";
-$message = "<p>Dear Registrar,</p>
-<br/>
-<p>A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
-<br/>
-<h4>User Name : ".$nic."</h4>
-<h4>Password : ".$rand."</h4>
-<h4>Station : ".$stationCode."</h4>
-<br/>
-<p>p.s. : Please do not reply to this email</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-																								$headers = "MIME-Version: 1.0" . "\r\n";
-																								$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-																								mail($to, $subject, $message, $headers);
+																								//Set who the message is to be sent to
+																								$mail->addAddress($to, $to);
+																								//Set the subject line
+																								$mail->Subject = "Profile Created";
+$mail->Body ="Dear Registrar,
+
+A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
+
+	User Name : ".$nic."
+	Password : ".$rand."
+	Station : ".$stationCode."
+
+p.s. : Please do not reply to this email.
+
+Thank You!
+S.C.A.T Admin";
+																								if (!$mail->send()) {
+																									echo "Mailer Error: " . $mail->ErrorInfo;
+																								}
 																								//user added successfully
 																								header('Location:../userRegistration.php?position=registrar&error=as');
 																							} 
@@ -549,22 +559,25 @@ $message = "<p>Dear Registrar,</p>
 																							if(mysqli_query($con, $addUserStaff)){
 																								//send email to new user
 																								$to = $employeeEmail;
-$subject = "Profile Created";
-$message = "<p>Dear Updater,</p>
-<br/>
-<p>A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
-<br/>
-<h4>User Name : ".$nic."</h4>
-<h4>Password : ".$rand."</h4>
-<h4>Station : ".$stationCode."</h4>
-<br/>
-<p>p.s. : Please do not reply to this email</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-																								$headers = "MIME-Version: 1.0" . "\r\n";
-																								$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-																								mail($to, $subject, $message, $headers);
+																								//Set who the message is to be sent to
+																								$mail->addAddress($to, $to);
+																								//Set the subject line
+																								$mail->Subject = "Profile Created";
+$mail->Body ="Dear Updater,
+
+A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.
+
+User Name : ".$nic."
+Password : ".$rand."
+Station : ".$stationCode."
+
+p.s. : Please do not reply to this email.
+
+Thank You!
+S.C.A.T Admin";
+																								if (!$mail->send()) {
+																									echo "Mailer Error: " . $mail->ErrorInfo;
+																								}
 																								//user added successfully
 																								header('Location:../userRegistration.php?position=updater&error=as');
 																							}	
@@ -713,22 +726,25 @@ $message = "<p>Dear Updater,</p>
 																							if(mysqli_query($con, $addUserStaff)){
 																								//send email to new user
 																								$to = $employeeEmail;
-$subject = "Profile Created";
-$message = "<p>Dear Top-Up Agent,</p>
-<br/>
-<p>A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.</p>
-<br/>
-<h4>User Name : ".$nic."</h4>
-<h4>Password : ".$rand."</h4>
-<h4>Station : ".$stationCode."</h4>
-<br/>
-<p>p.s. : Please do not reply to this email</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-																								$headers = "MIME-Version: 1.0" . "\r\n";
-																								$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-																								mail($to, $subject, $message, $headers);
+																								//Set who the message is to be sent to
+																								$mail->addAddress($to, $to);
+																								//Set the subject line
+																								$mail->Subject = "Profile Created";
+$mail->Body ="Dear Top-Up Agent,
+
+A new user account has been created for you at S.C.A.T. System with below credentials. Please use following user name and password for your first time login. Please change your password as you first login to the system.
+
+	User Name : ".$nic."
+	Password : ".$rand."
+	Station : ".$stationCode."
+
+p.s. : Please do not reply to this email.
+
+Thank You!
+S.C.A.T Admin";
+																								if (!$mail->send()) {
+																									echo "Mailer Error: " . $mail->ErrorInfo;
+																								}
 																								//user added successfully
 																								header('Location:../userRegistration.php?position=topupAgent&error=as');
 																							}

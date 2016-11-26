@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(isset($_SESSION['position'])){
 		if($_SESSION['position'] == "sysadmin" || $_SESSION['position'] == "stationMaster" || $_SESSION['position'] == "manager"){
 			if(isset($_GET['position']) && isset($_GET['nic']) && isset($_GET['email'])){
@@ -29,23 +30,26 @@
 						}
 						//send email with new password
 						$to = $email;
-						$subject = "Account Activated";
-$message = "<p>Dear ".$position.",</p>
-<br/>
-<p>Your account has been reactivated. Please use following credentials to login to your account. Please change your password when you logged in.</p>
-<br/>
-<h4>User Name : ".$nic."</h4>
-<h4>Passowrd : ".$rand."</h4>
-<br/>
-<p>Please try to minimize such errors in the future</p>
-<br/>
-<p>p.s. : Please do not reply to this email</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T System Admin</p>";
-						$headers = "MIME-Version: 1.0" . "\r\n";
-						$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-						mail($to, $subject, $message, $headers);
+						//Set who the message is to be sent to
+						$mail->addAddress($to, $to);
+						//Set the subject line
+						$mail->Subject = "Account Activated";
+$mail->Body ="Dear ".$position.",
+
+Your account has been reactivated. Please use following credentials to login to your account. Please change your password when you logged in.
+
+	User Name : ".$nic."
+	Passowrd : ".$rand."
+
+Please try to minimize such errors in the future.
+
+p.s. : Please do not reply to this email.
+
+Thank You!
+S.C.A.T System Admin";
+						if (!$mail->send()) {
+							echo "Mailer Error: " . $mail->ErrorInfo;
+						}
 						//sucessfully activated
 						if($position == "manager"){
 							header('Location:../enableUsers.php?position=manager&error=su');

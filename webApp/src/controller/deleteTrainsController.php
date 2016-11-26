@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smtpSettings.php');
 	if(isset($_SESSION['position']) && $_SESSION['position'] == "sysadmin"){
 		if(isset($_POST['submit'])){
 			if(!empty($_POST['tCode']) && !empty($_POST['tName']) && !empty($_POST['tType'])){
@@ -31,21 +32,24 @@
 										if(mysqli_num_rows($resultEmp) != 0){
 											while($rowEmail = mysqli_fetch_array($resultEmp)){
 												//send email with new station
-$to = $rowEmail['employee_email'];														
-$subject = "Train Has Being Deleted";
-$message = "<p>Dear Manager,</p>
-<br/>
-<p>Following train has being removed from the system,</p>
-<br/>
-<h4>Train Code : ".$trainCode."</h4>
-<h4>Train Name : ".$trainName."</h4>
-<h4>Train Type : ".$trainType."</h4>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
-												$headers = "MIME-Version: 1.0" . "\r\n";
-												$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-												mail($to, $subject, $message, $headers);
+												$to = $rowEmail['employee_email'];	
+												//Set who the message is to be sent to
+												$mail->addAddress($to, $to);
+												//Set the subject line
+												$mail->Subject = "Train Has Being Deleted";
+$mail->Body ="Dear Manager,
+
+Following train has being removed from the system,
+
+	Train Code : ".$trainCode."
+	Train Name : ".$trainName."
+	Train Type : ".$trainType."
+
+Thank You!
+S.C.A.T Admin";
+												if (!$mail->send()) {
+													echo "Mailer Error: " . $mail->ErrorInfo;
+												}
 											}
 										}
 										//success
