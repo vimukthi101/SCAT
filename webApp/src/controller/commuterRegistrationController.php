@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smsSettings.php');
 	if(isset($_SESSION['position'])){
 		if($_SESSION['position'] == "registrar"){
 			if(isset($_POST['submit'])){
@@ -77,27 +78,36 @@
 																						//payment
 																						$payment = "INSERT INTO registrar_payment(payment_date_time,commuter_nic,commuter_regfee_regfee_id,employee_nic,STATUS) VALUES ('".$date."','".$commuterNic."','".$regId."','".$Enic."','0')";
 																						if(mysqli_query($con, $payment)){
+																							//send sms with activated and with new pin
 																							if(!empty($contactNo)){
-																								//send SMS with pin
-																								
-																								
-																								
-																								
-																								
-																								
-																								
-																								
-																								
-																								
-																								
-																								
-																								
+																								$newContact = "94". trim($contactNo,"0");
+																								$DestinationAddress = $newContact;
+$Message = "Your SCAT Account is created!
+
+PIN : ".$pin."
+
+Thank You!
+-SCAT System-";
+																								try
+																								{
+																									// Send SMS through the HTTP API
+																									$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+																									// Check result object returned and give response to end user according to success or not.
+																									if ($Result->Success == true)
+																										$Message = "Message successfully sent!";
+																									else
+																										$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+																								}
+																								catch (Exception $e)
+																								{
+																									//Error occured while connecting to server.
+																									$Message = $e->getMessage();
+																								}
 																							}
 																							//success
 																							header('Location:../commuterRegistration.php?position=manager&error=as');
 																						} else {
 																							//query failed
-	
 																							header('Location:../commuterRegistration.php?position=manager&error=fq');
 																						}
 																					} else {

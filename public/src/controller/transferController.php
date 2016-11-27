@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smsSettings.php');
 	if(isset($_SESSION['nic'])){
 		if(isset($_POST['submit'])){
 			if(!empty($_POST['CardNumber']) || !empty($_POST['nic']) || !empty($_POST['name']) || !empty($_POST['pin']) || !empty($_POST['amount'])){
@@ -31,6 +32,9 @@
 										$getCommuterTwo = "SELECT * FROM commuter WHERE nic='".$commuterTwo."'";
 										$resultCommuterTwo = mysqli_query($con, $getCommuterTwo);
 										if(mysqli_num_rows($resultCommuterTwo) != 0){
+											while($rowComTwo = mysqli_fetch_array($resultCommuterTwo)){
+												$contactTwo = $rowComTwo['contact_no'];
+											}
 											$reduce = "UPDATE commuter SET credit=credit-'".$amount."' WHERE nic='".$commuterOne."'";
 											if(mysqli_query($con, $reduce)){
 												$increase = "UPDATE commuter SET credit=credit+'".$amount."' WHERE nic='".$commuterTwo."'";
@@ -48,18 +52,30 @@
 															while($rowC2 = mysqli_fetch_array($resultBalanceC2)){
 																$creditTwo = $rowC2['credit'];
 															}
-															
 															if(!empty($contactTwo)){
 																//send sms to commuter two with balance
-																
-																
-																
-																
-																
-																
-																
+																$newContact = "94". trim($contactTwo,"0");
+																$DestinationAddress = $newContact;
+$Message = "You received a transfer of Rs.".$amount." from ".$commuterOne." successfully!
+
+Thank You!
+-SCAT System-";
+																try
+																{
+																	// Send SMS through the HTTP API
+																	$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+																	// Check result object returned and give response to end user according to success or not.
+																	if ($Result->Success == true)
+																		$Message = "Message successfully sent!";
+																	else
+																		$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+																}
+																catch (Exception $e)
+																{
+																	//Error occured while connecting to server.
+																	$Message = $e->getMessage();
+																}
 															}
-															
 														} else {
 															//no result
 															header('Location:../transfer.php?error=nr');

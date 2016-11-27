@@ -1,6 +1,7 @@
 <?php
 include_once('../ssi/links.html');
 include_once('../ssi/db.php');
+include_once("../ssi/smsSettings.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -570,6 +571,31 @@ if($p != "" && $r != ""){
 							}
 							//send sms with random pin
 							$rand = rand(1000,9999);
+							if(!empty($contactNo)){
+								$newContact = "94". trim($contactNo,"0");
+								$DestinationAddress = $newContact;
+$Message = "Please enter the below PIN to proceed with credit transfer.
+
+PIN : ".$rand."
+
+Thank You!
+-SCAT System-";
+								try
+								{
+									// Send SMS through the HTTP API
+									$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+									// Check result object returned and give response to end user according to success or not.
+									if ($Result->Success == true)
+										$Message = "Message successfully sent!";
+									else
+										$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+								}
+								catch (Exception $e)
+								{
+									//Error occured while connecting to server.
+									$Message = $e->getMessage();
+								}
+							}
 							//echo data back
 							if(!empty($contactNo)){
 								echo '<div class="form-horizontal">
@@ -656,11 +682,31 @@ if($p != "" && $r != ""){
 							}
 							//send sms with random pin
 							$rand = rand(1000,9999);
-							
-							
-							
-							
-							
+							if(!empty($contactNo)){
+								$newContact = "94". trim($contactNo,"0");
+								$DestinationAddress = $newContact;
+$Message = "Please enter the below PIN to proceed with credit transfer.
+
+PIN : ".$rand."
+
+Thank You!
+-SCAT System-";
+								try
+								{
+									// Send SMS through the HTTP API
+									$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+									// Check result object returned and give response to end user according to success or not.
+									if ($Result->Success == true)
+										$Message = "Message successfully sent!";
+									else
+										$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+								}
+								catch (Exception $e)
+								{
+									//Error occured while connecting to server.
+									$Message = $e->getMessage();
+								}
+							}
 							//echo data back
 							if(!empty($contactNo)){
 								echo '<div class="form-horizontal">
@@ -755,19 +801,30 @@ if($p != "" && $r != ""){
 								$sName = $rowName['second_name'];
 								$lName = $rowName['last_name'];
 							}
-							
-							
-							
 							//send sms to commuter
 							if(!empty($contactNo)){
-								//send sms to commuter with balance
-								
-								
+								$newContact = "94". trim($contactNo,"0");
+								$DestinationAddress = $newContact;
+$Message = "Your existing balance is Rs.".$balance.".
+
+Thank You!
+-SCAT System-";
+								try
+								{
+									// Send SMS through the HTTP API
+									$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+									// Check result object returned and give response to end user according to success or not.
+									if ($Result->Success == true)
+										$Message = "Message successfully sent!";
+									else
+										$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+								}
+								catch (Exception $e)
+								{
+									//Error occured while connecting to server.
+									$Message = $e->getMessage();
+								}
 							}
-							
-							
-							
-							
 							echo '<div class="form-horizontal">
 									<div class="form-group">
 										<label for="CardNumber" class="control-label col-md-3">Card Number</label>
@@ -830,6 +887,30 @@ if($p != "" && $r != ""){
 								$fName = $rowName['first_name'];
 								$sName = $rowName['second_name'];
 								$lName = $rowName['last_name'];
+							}
+							//send sms to commuter
+							if(!empty($contactNo)){
+								$newContact = "94". trim($contactNo,"0");
+								$DestinationAddress = $newContact;
+$Message = "Your existing balance is Rs.".$balance.".
+
+Thank You!
+-SCAT System-";
+								try
+								{
+									// Send SMS through the HTTP API
+									$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+									// Check result object returned and give response to end user according to success or not.
+									if ($Result->Success == true)
+										$Message = "Message successfully sent!";
+									else
+										$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+								}
+								catch (Exception $e)
+								{
+									//Error occured while connecting to server.
+									$Message = $e->getMessage();
+								}
 							}
 							echo '<div class="form-horizontal">
 									<div class="form-group">

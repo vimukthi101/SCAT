@@ -2,6 +2,7 @@
 //errors will not be shown
 //error_reporting(0);
 include_once('../ssi/db.php');
+include_once('../ssi/smsSettings.php');
 if(!empty($_POST['nic']) || !empty($_POST['amount']) || !empty($_POST['user'])){
 	$c = trim($_POST['nic']);
 	$a = trim($_POST['amount']);
@@ -45,13 +46,27 @@ if(!empty($_POST['nic']) || !empty($_POST['amount']) || !empty($_POST['user'])){
 										}
 										if(!empty($contactTwo)){
 											//send sms to commuter two with balance
-											
-											
-											
-											
-											
-											
-											
+											$newContact = "94". trim($contactTwo,"0");
+											$DestinationAddress = $newContact;
+$Message = "You received a transfer of Rs.".$amount." from ".$commuterOne." successfully!
+
+Thank You!
+-SCAT System-";
+											try
+											{
+												// Send SMS through the HTTP API
+												$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+												// Check result object returned and give response to end user according to success or not.
+												if ($Result->Success == true)
+													$Message = "Message successfully sent!";
+												else
+													$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+											}
+											catch (Exception $e)
+											{
+												//Error occured while connecting to server.
+												$Message = $e->getMessage();
+											}
 										}
 									} else {
 										//no result

@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smsSettings.php');
 	if(isset($_SESSION['position'])){
 		if($_SESSION['position'] == "topupAgent" || $_SESSION['position'] == "registrar"){
 			if(isset($_POST['submit'])){
@@ -60,22 +61,54 @@
 																				}
 																				//send sms to commuter one with balance
 																				
-																				
-																				
-																				
-																				
-																				
-																				
-																				if(!empty($contactTwo)){
-																					//send sms to commuter two with balance
-																					
-																					
-																					
-																					
-																					
-																					
-																					
+																				if(!empty($contact)){
+																					$newContact = "94". trim($contact,"0");
+																					$DestinationAddress = $newContact;
+$Message = "You transfered Rs.".$amount." to ".$commuterTwo." successfuly! Your new balance is Rs.".$creditOne.".
+
+Thank You!
+-SCAT System-";
+																					try
+																					{
+																						// Send SMS through the HTTP API
+																						$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+																						// Check result object returned and give response to end user according to success or not.
+																						if ($Result->Success == true)
+																							$Message = "Message successfully sent!";
+																						else
+																							$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+																					}
+																					catch (Exception $e)
+																					{
+																						//Error occured while connecting to server.
+																						$Message = $e->getMessage();
+																					}
+											
 																				}
+																				if(!empty($contactTwo)){
+																					$newContact = "94". trim($contactTwo,"0");
+																					$DestinationAddress = $newContactTwo;
+$Message = "You received a credit transfer of Rs.".$amount." from ".$commuterOne." successfully! Your new balance is Rs.".$creditTwo.".
+
+Thank You!
+-SCAT System-";
+																					try
+																					{
+																						// Send SMS through the HTTP API
+																						$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+																						// Check result object returned and give response to end user according to success or not.
+																						if ($Result->Success == true)
+																							$Message = "Message successfully sent!";
+																						else
+																							$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+																					}
+																					catch (Exception $e)
+																					{
+																						//Error occured while connecting to server.
+																						$Message = $e->getMessage();
+																					}
+											
+																				}	
 																			} else {
 																				//no result
 																				header('Location:../transfer.php?error=nr');
@@ -108,13 +141,30 @@
 																}
 															}
 															//send sms with balance to commuter one
-															
-															
-															
-															
-															
-															
-															
+															if(!empty($contact)){
+																$newContact = "94". trim($contact,"0");
+																$DestinationAddress = $newContact;
+$Message = "Couldn't proceed the transfer as insufficient balance. Please recharge and continue. Your balance is Rs.".$IB.".
+
+Thank You!
+-SCAT System-";
+																try
+																{
+																	// Send SMS through the HTTP API
+																	$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+																	// Check result object returned and give response to end user according to success or not.
+																	if ($Result->Success == true)
+																		$Message = "Message successfully sent!";
+																	else
+																		$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+																}
+																catch (Exception $e)
+																{
+																	//Error occured while connecting to server.
+																	$Message = $e->getMessage();
+																}
+						
+															}
 															//insufficient credits
 															header('Location:../transfer.php?error=ib');
 														}

@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smsSettings.php');
 	if(isset($_SESSION['position'])){
 		if($_SESSION['position'] == "topupAgent" || $_SESSION['position'] == "registrar"){
 			if(isset($_POST['submit'])){
@@ -30,8 +31,6 @@
 								$employee = $_SESSION['nic'];
 								$insert = "INSERT INTO recharge(recharge_date_time, amount, card_card_no, employee_nic) VALUES('".$date."','".$amount."','".$cardNo."','".$employee."')";
 								if(mysqli_query($con, $insert)){
-									
-									
 									//send sms to commuter
 									$getBalance = "SELECT credit FROM commuter WHERE nic='".$nic."'";
 									$resultBalance = mysqli_query($con, $getBalance);
@@ -39,15 +38,31 @@
 										while($rowBalance = mysqli_fetch_array($resultBalance)){
 											$creditLimit = $rowBalance['credit'];
 										}
-										if(!empty($contactNo)){
-											//send sms to commuter with balance
-											
-											
-										}
 									}
-									
-									
-									
+									if(!empty($contactNo)){
+										$newContact = "94". trim($contactNo,"0");
+										$DestinationAddress = $newContact;
+$Message = "Your SCAT account is reloaded with Rs.".$amount.". New balance is Rs.".$creditLimit.".
+
+Thank You!
+-SCAT System-";
+										try
+										{
+											// Send SMS through the HTTP API
+											$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+											// Check result object returned and give response to end user according to success or not.
+											if ($Result->Success == true)
+												$Message = "Message successfully sent!";
+											else
+												$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+										}
+										catch (Exception $e)
+										{
+											//Error occured while connecting to server.
+											$Message = $e->getMessage();
+										}
+
+									}
 									//success
 									header('Location:../topup.php?error=su');
 								} else {

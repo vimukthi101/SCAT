@@ -5,6 +5,7 @@
 	//errors will not be shown
 	//error_reporting(0);
 	include_once('../../ssi/db.php');
+	include_once('../../ssi/smsSettings.php');
 	if(isset($_SESSION['position']) && ($_SESSION['position'] == "registrar")){
 		if(isset($_POST['submit'])){
 			if(!empty($_POST['CardNumber']) || !empty($_POST['status']) || !empty($_POST['nic']) || !empty($_POST['fname']) || !empty($_POST['lname']) || !empty($_POST['addressNo']) || !empty($_POST['lane']) || !empty($_POST['city'])){
@@ -43,18 +44,32 @@
 														if($st == "Active"){
 															$update = "UPDATE commuter SET STATUS='0' WHERE nic='".$commuterNic."'";
 															if(mysqli_query($con, $update)){
+																//send sms with activated and with new pin
+																if(!empty($contactNo)){
+																	$newContact = "94". trim($contactNo,"0");
+																	$DestinationAddress = $newContact;
+$Message = "Your SCAT Account is disabled! Please meet a registrar to reactivate.
+
+Thank You!
+-SCAT System-";
+																	try
+																	{
+																		// Send SMS through the HTTP API
+																		$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+																		// Check result object returned and give response to end user according to success or not.
+																		if ($Result->Success == true)
+																			$Message = "Message successfully sent!";
+																		else
+																			$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+																	}
+																	catch (Exception $e)
+																	{
+																		//Error occured while connecting to server.
+																		$Message = $e->getMessage();
+																	}
+																}
 																//success
 																header('Location:../activateCards.php?error=sud');
-																//send sms with disabled
-																
-																
-																
-																
-																
-																
-																
-																
-																
 															} else {
 																//query failed
 																header('Location:../activateCards.php?error=qfd');
@@ -65,14 +80,33 @@
 															$update = "UPDATE commuter SET STATUS='1', PASSWORD='".$pass."', previous_password='', login_attempt='0' WHERE nic='".$commuterNic."'";
 															if(mysqli_query($con, $update)){
 																//success
-																header('Location:../activateCards.php?error=sua');
 																//send sms with activated and with new pin
-																
-																
-																
-																
-																
-																
+																if(!empty($contactNo)){
+																	$newContact = "94". trim($contactNo,"0");
+																	$DestinationAddress = $newContact;
+$Message = "Your SCAT Account is activated!
+
+PIN : ".$rand."
+
+Thank You!
+-SCAT System-";
+																	try
+																	{
+																		// Send SMS through the HTTP API
+																		$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+																		// Check result object returned and give response to end user according to success or not.
+																		if ($Result->Success == true)
+																			$Message = "Message successfully sent!";
+																		else
+																			$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+																	}
+																	catch (Exception $e)
+																	{
+																		//Error occured while connecting to server.
+																		$Message = $e->getMessage();
+																	}
+																}
+																header('Location:../activateCards.php?error=sua');
 															} else {
 																//query failed
 																header('Location:../activateCards.php?error=qfa');
