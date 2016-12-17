@@ -1,0 +1,10 @@
+RFID = MEGA
+
+SDA = 53 
+SCK = 52
+MOSI = 51
+MISO = 50
+IRQ = -
+GND = GND
+RST = 5
+3.3v = 3.3v
