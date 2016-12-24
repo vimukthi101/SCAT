@@ -65,6 +65,13 @@ if(isset($_SESSION['position'])){
                 </a>
             </div>
         </div> 
+        <div class="col-md-2 main-box" style="background-image:url(../images/users.png);">
+        	<div class="inner-box">
+                <a href="checkRegistrarAmount.php" style="text-decoration:none;color:rgb(255,255,255);">
+                    <font class="font">Manage My Account</font>
+                </a>
+            </div>
+        </div>
         <div class="col-md-2" id="chart-registration" style="margin-top:1px;margin-left:10px;padding:10px;">Could not load the chart!</div>  
         <div class="col-md-2" id="chart-commuter" style="margin-top:2px;margin-left:20px;padding:10px;">Could not load the chart!</div>   
     </div>

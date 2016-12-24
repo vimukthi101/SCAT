@@ -29,7 +29,7 @@
 							if(mysqli_query($con, $update)){
 								$date = date("Y-m-d H:i:s");
 								$employee = $_SESSION['nic'];
-								$insert = "INSERT INTO recharge(recharge_date_time, amount, card_card_no, employee_nic) VALUES('".$date."','".$amount."','".$cardNo."','".$employee."')";
+								$insert = "INSERT INTO recharge(recharge_date_time, amount, card_card_no, employee_nic, send_status) VALUES('".$date."','".$amount."','".$cardNo."','".$employee."',0)";
 								if(mysqli_query($con, $insert)){
 									//send sms to commuter
 									$getBalance = "SELECT credit FROM commuter WHERE nic='".$nic."'";

@@ -88,10 +88,17 @@ if(isset($_SESSION['position'])){
                 </a>
             </div>
         </div>
-        <div class="col-md-2" id="chart-registration" style="margin-top:1px;margin-left:10px;padding:10px;">Could not load the chart!</div>
+        <div class="col-md-2 main-box" style="background-image:url(../images/pos.png);">
+        	<div class="inner-box">
+                <a href="topupIncome.php" style="text-decoration:none;color:rgb(255,255,255);">
+                    <font class="font">Internal Payments</font>
+                </a>
+            </div>
+        </div>
     </div>
     <div div class="col-md-12 text-center">
     	<div class="col-md-2" id="chart-recharge" style="margin-left:3px;padding:10px;">Could not load the chart!</div>
+        <div class="col-md-2" id="chart-registration" style="margin-top:1px;margin-left:20px;padding:10px;">Could not load the chart!</div>
         <div class="col-md-2" id="chart-travel" style="margin-top:2px;margin-left:20px;padding:10px;">Could not load the chart!</div>
         <div class="col-md-2" id="chart-commuter" style="margin-top:2px;margin-left:20px;padding:10px;">Could not load the chart!</div>
     </div>
