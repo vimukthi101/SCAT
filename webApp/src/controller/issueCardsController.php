@@ -11,7 +11,6 @@
 			if(isset($_POST['submit']) || isset($_POST['reject'])){
 				if(isset($_POST['submit']) && $_POST['submit']){
 					if(!empty($_POST['rID']) || !empty($_POST['nic']) || !empty($_POST['station']) || !empty($_POST['stationMaster']) || !empty($_POST['nRequest']) || !empty($_POST['date']) || !empty($_POST['nSend'])){
-						$forMail = "";
 						$id = trim($_POST['rID']);
 						$n = trim($_POST['nSend']);
 						$ic = trim($_POST['nic']);
@@ -51,7 +50,6 @@
 													$pin = $rowSet['pin'];
 													$updateSet = "UPDATE card SET station_station_code='".$stationCode."' WHERE card_no='".$cardNo."'";
 													if(mysqli_query($con, $updateSet)){
-														$forMail .= "<tr><td>".$cardNo."</td><td>****</td><tr/>";
 														$date = date('Y-m-d H:i:s');
 														$update = "UPDATE card_request SET no_of_cards_sent='".$send."', card_request_status_status_id='".$statusId."', send_date='".$date."' WHERE request_id='".$rID."'";
 														if(mysqli_query($con, $update)){
@@ -75,25 +73,17 @@
 														$mail->addAddress($to, $to);
 														//Set the subject line
 														$mail->Subject = "Card Request Has Being Approved";
-$mail->Body ="<p>Dear Station Master,</p>
-<br/>
-<p>Your Card request on ".$rDate." of ".$nReq." has being approved,</p>
-<br/>
-<h4>Approved Date : ".$date."</h4>
-<h4>Approved Number Of Cards : ".$send."</h4>
-<h4>Card List : </h4>
-<table border cellpadding=\"5\" cellspacing=\"0\" rules=\"all\">
-<tr>
-<th>Card No</th>
-<th>PIN</th>
-</tr>
-".$forMail."
-</table>
-<br/>
-<p>Please change the status of card request to 'Received' when you received the set of cards.</p>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
+$mail->Body ="Dear Station Master,
+
+Your Card request on ".$rDate." of ".$nReq." has being approved,
+
+Approved Date : ".$date."
+Approved Number Of Cards : ".$send."
+
+Please change the status of card request to 'Received' when you received the set of cards.
+
+Thank You!
+S.C.A.T Admin";
 													}
 												}
 												if (!$mail->send()) {
@@ -110,24 +100,16 @@ $mail->Body ="<p>Dear Station Master,</p>
 															$mail->addAddress($to, $to);
 															//Set the subject line
 															$mail->Subject = "Card Request Has Being Approved";
-$mail->Body ="<p>Dear Manager,</p>
-<br/>
-<p>Card request on ".$rDate." of ".$nReq." from ".$station." has being approved,</p>
-<br/>
-<h4>Station Master : ".$sm."</h4>
-<h4>Approved Date : ".$date."</h4>
-<h4>Approved Number Of Cards : ".$send."</h4>
-<h4>Card List : </h4>
-<table border cellpadding=\"5\" cellspacing=\"0\" rules=\"all\">
-<tr>
-<th>Card No</th>
-<th>PIN</th>
-</tr>
-".$forMail."
-</table>
-<br/>
-<p>Thank You!</p>
-<p>S.C.A.T Admin</p>";
+$mail->Body ="Dear Manager,
+
+Card request on ".$rDate." of ".$nReq." from ".$station." has being approved,
+
+Station Master : ".$sm."
+Approved Date : ".$date."
+Approved Number Of Cards : ".$send."
+
+Thank You!
+S.C.A.T Admin";
 															if (!$mail->send()) {
 																echo "Mailer Error: " . $mail->ErrorInfo;
 															}
