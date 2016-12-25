@@ -81,7 +81,7 @@ if(isset($_SESSION['position'])){
     dataSource: {
         "chart": {
             "theme": "fint",
-            "caption": "Registartion Income",
+            "caption": "Recharge Income",
             "lowerLimit": "0",
             "upperLimit": "10000",
             "chartBottomMargin": "20",
