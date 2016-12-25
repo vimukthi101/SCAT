@@ -72,7 +72,7 @@ CREATE TABLE `card_request` (
 
 /*Data for the table `card_request` */
 
-insert  into `card_request`(`request_id`,`no_of_cards_requested`,`no_of_cards_sent`,`station_station_code`,`card_request_status_status_id`,`requested_date`,`send_date`,`received_date`) values (10,100,2,'COL',1,'2016-09-30 14:02:45','2016-09-30 14:03:16','2016-09-30 14:08:00'),(11,100,0,'COL',3,'2016-09-30 14:07:51','2016-09-30 14:09:43','0000-00-00 00:00:00');
+insert  into `card_request`(`request_id`,`no_of_cards_requested`,`no_of_cards_sent`,`station_station_code`,`card_request_status_status_id`,`requested_date`,`send_date`,`received_date`) values (10,100,2,'COL',4,'2016-09-30 14:02:45','2016-09-30 14:03:16','2016-09-30 14:08:00'),(11,100,0,'COL',3,'2016-09-30 14:07:51','2016-09-30 14:09:43','0000-00-00 00:00:00');
 
 /*Table structure for table `card_request_status` */
 
@@ -116,7 +116,7 @@ CREATE TABLE `commuter` (
 
 /*Data for the table `commuter` */
 
-insert  into `commuter`(`nic`,`contact_no`,`registered_date_time`,`status`,`credit`,`address_address_id`,`card_card_no`,`name_name_id`,`password`,`previous_password`,`login_attempt`) values ('000000000v','0711790372','2016-10-03 23:12:10',1,'68.00',41,'1234567890123456',41,'6b4e2b9376139fa09a68b94ec04dbe94','',0),('891340098v','0774567777','2016-10-13 22:21:23',1,'0.00',43,'1234567890123457',43,'56c3b2c6ea3a83aaeeff35eeb45d700d','',0),('931340034v','0711790372','2016-09-05 15:10:05',0,'557.00',4,'1234567890123457',4,'81dc9bdb52d04dc20036dbd8313ed055','81dc9bdb52d04dc20036dbd8313ed055',0);
+insert  into `commuter`(`nic`,`contact_no`,`registered_date_time`,`status`,`credit`,`address_address_id`,`card_card_no`,`name_name_id`,`password`,`previous_password`,`login_attempt`) values ('000000000v','0778899447','2016-10-03 23:12:10',1,'5.00',41,'1234567890123456',41,'81dc9bdb52d04dc20036dbd8313ed055','6562c5c1f33db6e05a082a88cddab5ea',0),('891340098v','0774567777','2016-10-13 22:21:23',1,'0.00',43,'1234567890123457',43,'56c3b2c6ea3a83aaeeff35eeb45d700d','',0),('931340034v','0711790372','2016-09-05 15:10:05',1,'25.00',4,'1234567890123457',4,'81dc9bdb52d04dc20036dbd8313ed055','81dc9bdb52d04dc20036dbd8313ed055',0);
 
 /*Table structure for table `commuter_regfee` */
 
@@ -157,7 +157,7 @@ CREATE TABLE `employee` (
 
 /*Data for the table `employee` */
 
-insert  into `employee`(`contact_no`,`nic`,`address_id`,`name_id`,`password`,`previous_password`,`status`,`login_attempt`,`internal`,`employee_email`) values ('','012345678v',42,42,'ef8f94395be9fd78b7d0aeecf7864a03','',1,0,0,'sanga@hotmail.com'),('0784561230','111111111v',31,31,'81dc9bdb52d04dc20036dbd8313ed055','fcdf698a5d673435e0a5a6f9ffea05ca',0,3,1,'v.saranga@yahoo.com'),('','111222333v',44,44,'81dc9bdb52d04dc20036dbd8313ed055','81dc9bdb52d04dc20036dbd8313ed055',1,0,1,'lol@gmail.com'),('0774567777','222222222v',33,33,'81dc9bdb52d04dc20036dbd8313ed055','6eb6e75fddec0218351dc5c0c8464104',1,0,1,'supun@gmail.com'),('0778899445','333333333v',35,35,'81dc9bdb52d04dc20036dbd8313ed055','81dc9bdb52d04dc20036dbd8313ed055',1,1,1,'darshana@gmail.com'),('0764567891','555555555v',36,36,'81dc9bdb52d04dc20036dbd8313ed055','81dc9bdb52d04dc20036dbd8313ed055',1,0,1,'aruni@gmail.com'),('0789994445','666666666v',37,37,'81dc9bdb52d04dc20036dbd8313ed055','81dc9bdb52d04dc20036dbd8313ed055',1,0,1,'thilina@gmail.com'),('0784561230','777777777v',38,38,'81dc9bdb52d04dc20036dbd8313ed055','81dc9bdb52d04dc20036dbd8313ed055',1,0,0,'gihan@gmail.com'),('0711790372','931340034v',4,4,'cb953f6ca5923f7517125db46ed1293d','',1,0,1,'v.saranga@yahoo.com'),('','931555534v',39,39,'ddd993b2fef3fdff101872bb03cfded8','',1,0,1,'v@gmail.com');
+insert  into `employee`(`contact_no`,`nic`,`address_id`,`name_id`,`password`,`previous_password`,`status`,`login_attempt`,`internal`,`employee_email`) values ('','012345678v',42,42,'ef8f94395be9fd78b7d0aeecf7864a03','',1,0,0,'sanga@hotmail.com'),('0784561230','111111111v',31,31,'81dc9bdb52d04dc20036dbd8313ed055','fcdf698a5d673435e0a5a6f9ffea05ca',1,0,1,'rajitha@gmail.lk'),('','111222333v',44,44,'81dc9bdb52d04dc20036dbd8313ed055','81dc9bdb52d04dc20036dbd8313ed055',1,0,1,'lol@gmail.com'),('0774567777','222222222v',33,33,'81dc9bdb52d04dc20036dbd8313ed055','6eb6e75fddec0218351dc5c0c8464104',1,0,1,'supun@gmail.com'),('0778899445','333333333v',35,35,'81dc9bdb52d04dc20036dbd8313ed055','81dc9bdb52d04dc20036dbd8313ed055',1,1,1,'darshana@gmail.com'),('0764567891','555555555v',36,36,'81dc9bdb52d04dc20036dbd8313ed055','81dc9bdb52d04dc20036dbd8313ed055',1,0,1,'aruni@gmail.com'),('0789994445','666666666v',37,37,'81dc9bdb52d04dc20036dbd8313ed055','81dc9bdb52d04dc20036dbd8313ed055',1,0,1,'thilina@gmail.com'),('0784561230','777777777v',38,38,'81dc9bdb52d04dc20036dbd8313ed055','81dc9bdb52d04dc20036dbd8313ed055',1,0,0,'gihan@gmail.com'),('0711790372','931340034v',4,4,'81dc9bdb52d04dc20036dbd8313ed055','18cdf49ea54eec029238fcc95f76ce41',1,0,1,'v.saranga@yahoo.com'),('','931555534v',39,39,'ddd993b2fef3fdff101872bb03cfded8','',1,0,1,'v@gmail.com');
 
 /*Table structure for table `employee_position` */
 
@@ -173,24 +173,6 @@ CREATE TABLE `employee_position` (
 /*Data for the table `employee_position` */
 
 insert  into `employee_position`(`position_id`,`position`) values (2,'manager'),(4,'registrar'),(3,'stationMaster'),(1,'sysadmin'),(6,'topupAgent'),(5,'updater');
-
-/*Table structure for table `gps` */
-
-DROP TABLE IF EXISTS `gps`;
-
-CREATE TABLE `gps` (
-  `train_train_id` int(11) NOT NULL,
-  `time_stamp` datetime NOT NULL,
-  `lat` double NOT NULL,
-  `lon` double NOT NULL,
-  PRIMARY KEY (`train_train_id`),
-  KEY `fk_gps_train_idx` (`train_train_id`),
-  CONSTRAINT `fk_gps_train` FOREIGN KEY (`train_train_id`) REFERENCES `train` (`train_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `gps` */
-
-insert  into `gps`(`train_train_id`,`time_stamp`,`lat`,`lon`) values (12,'2016-12-23 10:05:20',6.60592066,73.4567956),(22,'2016-12-23 15:31:38',6.80592077,79.91177703);
 
 /*Table structure for table `name` */
 
@@ -223,11 +205,11 @@ CREATE TABLE `payment` (
   KEY `fk_payment_commuter1_idx` (`commuter_nic`),
   CONSTRAINT `fk_payment_commuter1` FOREIGN KEY (`commuter_nic`) REFERENCES `commuter` (`nic`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `ticket_id` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`ticket_id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `payment` */
 
-insert  into `payment`(`payment_id`,`ticket_id`,`payment_date_time`,`no_of_tickets`,`commuter_nic`) values (1,1,'2016-09-10 15:05:06',2,'000000000v'),(4,1,'2016-10-19 23:12:12',1,'000000000v'),(5,1,'2016-10-22 22:59:01',3,'000000000v'),(6,1,'2016-11-25 11:07:37',4,'931340034v'),(7,1,'2016-11-26 11:07:37',1,'000000000v');
+insert  into `payment`(`payment_id`,`ticket_id`,`payment_date_time`,`no_of_tickets`,`commuter_nic`) values (1,1,'2016-09-10 15:05:06',2,'000000000v'),(2,2,'2016-09-10 10:05:06',5,'000000000v');
 
 /*Table structure for table `payment_terminal` */
 
@@ -247,7 +229,7 @@ CREATE TABLE `payment_terminal` (
 
 /*Data for the table `payment_terminal` */
 
-insert  into `payment_terminal`(`payment_terminal_id`,`out_station_code`,`terminal_line`,`in_station_code`) values (30,'KKS','ptm','COL'),(31,'COL','ptm','COL'),(34,'KKS','kv','COL'),(35,'KKS','main','COL');
+insert  into `payment_terminal`(`payment_terminal_id`,`out_station_code`,`terminal_line`,`in_station_code`) values (30,'COL','ptm','KKS'),(31,'kks','ptm','KKS'),(34,'COL','kv','KKS'),(35,'COL','main','KKS');
 
 /*Table structure for table `recharge` */
 
@@ -259,39 +241,16 @@ CREATE TABLE `recharge` (
   `amount` decimal(7,2) NOT NULL,
   `card_card_no` varchar(16) NOT NULL,
   `employee_nic` varchar(10) NOT NULL,
-  `send_status` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`topup_id`),
   KEY `fk_recharge_card1_idx` (`card_card_no`),
   KEY `fk_recharge_employee1_idx` (`employee_nic`),
   CONSTRAINT `fk_recharge_card1` FOREIGN KEY (`card_card_no`) REFERENCES `card` (`card_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_recharge_employee1` FOREIGN KEY (`employee_nic`) REFERENCES `employee` (`nic`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `recharge` */
 
-insert  into `recharge`(`topup_id`,`recharge_date_time`,`amount`,`card_card_no`,`employee_nic`,`send_status`) values (1,'2016-11-26 14:39:19','100.00','1234567890123456','777777777v',1),(2,'2016-11-25 14:40:06','50.00','1234567890123456','777777777v',1),(3,'2016-11-26 02:05:20','20.00','1234567890123455','012345678v',0),(4,'2016-09-25 05:05:20','100.00','1234567890123456','012345678v',0),(5,'2016-12-25 09:36:01','5.00','1234567890123457','777777777v',1);
-
-/*Table structure for table `registrar_final_payment` */
-
-DROP TABLE IF EXISTS `registrar_final_payment`;
-
-CREATE TABLE `registrar_final_payment` (
-  `payment_fee` decimal(7,2) NOT NULL,
-  `payment_status` int(11) NOT NULL DEFAULT '0',
-  `payment_date` datetime NOT NULL,
-  `payment_id` int(11) NOT NULL AUTO_INCREMENT,
-  `employee_nic` varchar(10) NOT NULL,
-  `payment_received_by` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`payment_id`),
-  KEY `fk_registrar_final_payment_employee_idx` (`employee_nic`),
-  KEY `fk_registrar_final_payment_employee1_idx` (`payment_received_by`),
-  CONSTRAINT `fk_registrar_final_payment_employee` FOREIGN KEY (`employee_nic`) REFERENCES `employee` (`nic`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_registrar_final_payment_employee1` FOREIGN KEY (`payment_received_by`) REFERENCES `employee` (`nic`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-/*Data for the table `registrar_final_payment` */
-
-insert  into `registrar_final_payment`(`payment_fee`,`payment_status`,`payment_date`,`payment_id`,`employee_nic`,`payment_received_by`) values ('150.00',1,'2016-12-24 13:11:34',2,'111222333v','222222222v');
+insert  into `recharge`(`topup_id`,`recharge_date_time`,`amount`,`card_card_no`,`employee_nic`) values (1,'2016-09-10 14:39:19','100.00','1234567890123456','777777777v'),(2,'2016-09-10 14:40:06','50.00','1234567890123456','777777777v'),(3,'2016-09-10 02:05:20','20.00','1234567890123455','012345678v'),(4,'2016-09-10 05:05:20','100.00','1234567890123456','012345678v');
 
 /*Table structure for table `registrar_payment` */
 
@@ -315,7 +274,7 @@ CREATE TABLE `registrar_payment` (
 
 /*Data for the table `registrar_payment` */
 
-insert  into `registrar_payment`(`payment_id`,`payment_date_time`,`commuter_nic`,`commuter_regfee_regfee_id`,`employee_nic`,`status`) values (6,'2016-11-25 23:12:10','000000000v',9,'555555555v',0),(7,'2016-11-25 22:21:23','891340098v',10,'111222333v',1);
+insert  into `registrar_payment`(`payment_id`,`payment_date_time`,`commuter_nic`,`commuter_regfee_regfee_id`,`employee_nic`,`status`) values (6,'2016-09-10 23:12:10','000000000v',10,'555555555v',0),(7,'2016-09-10 22:21:23','891340098v',10,'111222333v',0);
 
 /*Table structure for table `staff` */
 
@@ -335,7 +294,7 @@ CREATE TABLE `staff` (
 
 /*Data for the table `staff` */
 
-insert  into `staff`(`employee_id`,`employee_position_position_id`,`employee_nic`,`station_code`) values ('c01',2,'931555534v','all'),('E001',1,'931340034v','all'),('E0010',4,'111222333v','KKS'),('E002',2,'111111111v','all'),('E003',3,'222222222v','COL'),('E004',3,'333333333v','KKS'),('E005',2,'555555555v','COL'),('E006',5,'666666666v','COL');
+insert  into `staff`(`employee_id`,`employee_position_position_id`,`employee_nic`,`station_code`) values ('c01',2,'931555534v','all'),('E001',1,'931340034v','all'),('E0010',4,'111222333v','KKS'),('E002',2,'111111111v','all'),('E003',3,'222222222v','COL'),('E004',3,'333333333v','KKS'),('E005',4,'555555555v','COL'),('E006',5,'666666666v','COL');
 
 /*Table structure for table `station` */
 
@@ -369,11 +328,11 @@ CREATE TABLE `ticket` (
   KEY `fk_ticket_station2_idx` (`station_out_station_code`),
   CONSTRAINT `fk_ticket_station1` FOREIGN KEY (`station_in_station_code`) REFERENCES `station` (`station_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_ticket_station2` FOREIGN KEY (`station_out_station_code`) REFERENCES `station` (`station_code`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `ticket` */
 
-insert  into `ticket`(`ticket_id`,`ticket_fee`,`station_in_station_code`,`station_out_station_code`) values (1,'50.00','COL','KKS');
+insert  into `ticket`(`ticket_id`,`ticket_fee`,`station_in_station_code`,`station_out_station_code`) values (1,'50.00','KKS','COL'),(2,'100.00','COL','KKS');
 
 /*Table structure for table `timetable` */
 
@@ -394,9 +353,11 @@ CREATE TABLE `timetable` (
   CONSTRAINT `fk_timetable_employee1` FOREIGN KEY (`employee_nic`) REFERENCES `employee` (`nic`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_timetable_station1` FOREIGN KEY (`station_station_code`) REFERENCES `station` (`station_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_timetable_train1` FOREIGN KEY (`train_train_id`) REFERENCES `train` (`train_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `timetable` */
+
+insert  into `timetable`(`timetable_id`,`train_time`,`train_train_id`,`employee_nic`,`station_station_code`,`line`,`train_date`) values (4,'16:05:00',100,'666666666v','KKS','matara','sun'),(5,'22:12:00',200,'666666666v','KKS','taleimannar','sun');
 
 /*Table structure for table `topup_agent` */
 
@@ -432,17 +393,12 @@ CREATE TABLE `topup_agent_payment` (
   `employee_nic` varchar(10) NOT NULL,
   `topup_agent_payment_date` datetime NOT NULL,
   `topup_agent_payment_id` int(11) NOT NULL AUTO_INCREMENT,
-  `payment_received_by` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`topup_agent_payment_id`),
   KEY `fk_topup_agent_payment_employee1_idx` (`employee_nic`),
-  KEY `fk_topup_agent_payment_employee2_idx` (`payment_received_by`),
-  CONSTRAINT `fk_topup_agent_payment_employee1` FOREIGN KEY (`employee_nic`) REFERENCES `employee` (`nic`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_topup_agent_payment_employee2` FOREIGN KEY (`payment_received_by`) REFERENCES `employee` (`nic`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_topup_agent_payment_employee1` FOREIGN KEY (`employee_nic`) REFERENCES `employee` (`nic`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `topup_agent_payment` */
-
-insert  into `topup_agent_payment`(`topup_agent_payment_fee`,`topup_agent_payment_status`,`employee_nic`,`topup_agent_payment_date`,`topup_agent_payment_id`,`payment_received_by`) values ('150.00',1,'777777777v','2016-12-24 11:53:17',6,'222222222v'),('50005.00',1,'777777777v','2016-12-25 09:38:15',7,'222222222v');
 
 /*Table structure for table `topup_agent_regfee` */
 
@@ -487,7 +443,7 @@ CREATE TABLE `train` (
 
 /*Data for the table `train` */
 
-insert  into `train`(`train_id`,`train_name`,`train_type_type_id`) values (2,NULL,'SLOW'),(12,'Yaldevi','EXP'),(22,NULL,'INC'),(32,'ruhunu','SEMI');
+insert  into `train`(`train_id`,`train_name`,`train_type_type_id`) values (1,'Yaldevi','EXP'),(5,NULL,'SLOW'),(100,NULL,'INC'),(200,'ruhunu','SEMI');
 
 /*Table structure for table `train_type` */
 
