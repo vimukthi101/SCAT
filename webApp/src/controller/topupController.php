@@ -25,7 +25,7 @@
 							while($rowCom = mysqli_fetch_array($result)){
 								$contactNo = $rowCom['contact_no'];
 							}
-							$update = "UPDATE commuter SET credit=credit+'".$amount."' WHERE nic='".$nic."'";
+							$update = "UPDATE commuter SET credit=credit+'".$amount."',status='1' WHERE nic='".$nic."'";
 							if(mysqli_query($con, $update)){
 								$date = date("Y-m-d H:i:s");
 								$employee = $_SESSION['nic'];

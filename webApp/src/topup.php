@@ -50,8 +50,8 @@ if(isset($_SESSION['position'])){
 						if($total >= $regFee){
 							echo '<h3 class="text-center center-block col-md-12" style="padding-top:250px;padding-left:200px;">please send money to the station before proceed with topup.<h3>';
 						} else {
-		?>
 							//success flow
+		?>
 							<div class="col-md-10" style="padding:20px;margin-left:160px;margin-top:45px;margin-bottom:30px;">
 								<div class="text-center" style="padding:10px;">
 									<font face="Verdana, Geneva, sans-serif" size="+1">

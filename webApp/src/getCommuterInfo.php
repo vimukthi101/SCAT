@@ -556,54 +556,177 @@ if($p != "" && $r != ""){
 					if(mysqli_num_rows($resultCommuter) != 0){
 						while($rowCommuter = mysqli_fetch_array($resultCommuter)){
 							$cardNo = $rowCommuter['card_card_no'];
+							$commuterStatus = $rowCommuter['status'];
 							$nic = $rowCommuter['nic'];
 							$nameId = $rowCommuter['name_name_id'];
 							$contactNo = $rowCommuter['contact_no'];
 							$balance = $rowCommuter['credit'];
 						}
-						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
-						$resultName = mysqli_query($con, $getName);
-						if(mysqli_num_rows($resultName) != 0){
-							while($rowName = mysqli_fetch_array($resultName)){
-								$fName = $rowName['first_name'];
-								$sName = $rowName['second_name'];
-								$lName = $rowName['last_name'];
-							}
-							//send sms with random pin
-							$rand = rand(1000,9999);
-							if(!empty($contactNo)){
-								$newContact = "94". trim($contactNo,"0");
-								$DestinationAddress = $newContact;
+						if($commuterStatus == 1){
+							$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+							$resultName = mysqli_query($con, $getName);
+							if(mysqli_num_rows($resultName) != 0){
+								while($rowName = mysqli_fetch_array($resultName)){
+									$fName = $rowName['first_name'];
+									$sName = $rowName['second_name'];
+									$lName = $rowName['last_name'];
+								}
+								//send sms with random pin
+								$rand = rand(1000,9999);
+								if(!empty($contactNo)){
+									$newContact = "94". trim($contactNo,"0");
+									$DestinationAddress = $newContact;
 $Message = "Please enter the below PIN to proceed with credit transfer.
 
 PIN : ".$rand."
 
 Thank You!
 -SCAT System-";
-								try
-								{
-									// Send SMS through the HTTP API
-									$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
-									// Check result object returned and give response to end user according to success or not.
-									if ($Result->Success == true)
-										$Message = "Message successfully sent!";
-									else
-										$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+									try
+									{
+										// Send SMS through the HTTP API
+										$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+										// Check result object returned and give response to end user according to success or not.
+										if ($Result->Success == true)
+											$Message = "Message successfully sent!";
+										else
+											$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+									}
+									catch (Exception $e)
+									{
+										//Error occured while connecting to server.
+										$Message = $e->getMessage();
+									}
 								}
-								catch (Exception $e)
-								{
-									//Error occured while connecting to server.
-									$Message = $e->getMessage();
-								}
+								//echo data back
+								if(!empty($contactNo)){
+									echo '<div class="form-horizontal">
+											<div class="form-group">
+												<label for="CardNumber" class="control-label col-md-3">Card Number</label>
+												<div class="col-md-8">
+													<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="employeelNIC" class="control-label col-md-3">NIC</label>
+												<div class="col-md-8">
+													<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="fName" class="control-label col-md-3">Full Name</label>
+												<div class="col-md-8">
+													<input class="form-control" type="text" name="name" id="name" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="contact" class="control-label col-md-3">Contact Number</label>
+												<div class="col-md-8">
+													<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="contact" class="control-label col-md-3">PIN <span style="color:rgb(255,0,0);">*</span></label>
+												<div class="col-md-8">
+													<input class="form-control" type="text" name="pin" id="pin" required/>
+												</div>
+											</div>
+											<input type="text" name="hpin" id="hpin" value="'.$rand.'" readonly hidden="hidden"/>
+											<div class="form-group">
+												<label for="CardNumber" class="control-label col-md-5 text-center"><u>To</u></label>
+											</div>
+											<div class="form-group">
+												<label for="employeeId" class="control-label col-md-3">Search By : </label>
+												<div class="col-md-8">
+													<select onchange="loadAgain(this);"  class="form-control">
+													  <option selected="selected" disabled="disabled">--Select the search criteria--</option>
+													  <option value="cardNumber">Card Number</option>
+													  <option value="commuterNic">NIC</option>      
+													</select>
+												</div>
+											</div>
+											<hr/>
+										</div>';
+									} else {
+										//if no contact number
+										echo '<h3 class="text-center" style="padding:50px;">Commuter Cannot Use This Service As Contact Number Has Not Added Yet.</h3>';
+									}
+							} else {
+								//if no result to show
+								echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
 							}
-							//echo data back
-							if(!empty($contactNo)){
-								echo '<div class="form-horizontal">
+						} else {
+							//disabled
+							echo '<h3 class="text-center" style="padding:50px;">Commuter is disabled. Please enable before transfer credits.</h3>';	
+						}
+					} else {
+						//if no result to show
+						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+					}
+				} else {
+					echo '<h3 class="text-center" style="padding:50px;">Wrong Card Number Format.</h3>';
+				}
+			} else if($r == "nic"){
+				if(preg_match('/^(\d){9}[v|V]$/',$q)){
+					$getCommuter = "SELECT * FROM commuter WHERE nic='".$q."'";
+					$resultCommuter = mysqli_query($con, $getCommuter);
+					if(mysqli_num_rows($resultCommuter) != 0){
+						while($rowCommuter = mysqli_fetch_array($resultCommuter)){
+							$cardNo = $rowCommuter['card_card_no'];
+							$nic = $rowCommuter['nic'];
+							$nameId = $rowCommuter['name_name_id'];
+							$contactNo = $rowCommuter['contact_no'];
+							$balance = $rowCommuter['credit'];
+							$commuterStatus = $rowCommuter['status'];
+						}
+						if($commuterStatus == 1){
+							$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
+							$resultName = mysqli_query($con, $getName);
+							if(mysqli_num_rows($resultName) != 0){
+								while($rowName = mysqli_fetch_array($resultName)){
+									$fName = $rowName['first_name'];
+									$sName = $rowName['second_name'];
+									$lName = $rowName['last_name'];
+								}
+								//send sms with random pin
+								$rand = rand(1000,9999);
+								if(!empty($contactNo)){
+									$newContact = "94". trim($contactNo,"0");
+									$DestinationAddress = $newContact;
+$Message = "Please enter the below PIN to proceed with credit transfer.
+
+PIN : ".$rand."
+
+Thank You!
+-SCAT System-";
+									try
+									{
+										// Send SMS through the HTTP API
+										$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
+										// Check result object returned and give response to end user according to success or not.
+										if ($Result->Success == true)
+											$Message = "Message successfully sent!";
+										else
+											$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
+									}
+									catch (Exception $e)
+									{
+										//Error occured while connecting to server.
+										$Message = $e->getMessage();
+									}
+								}
+								//echo data back
+								if(!empty($contactNo)){
+									echo '<div class="form-horizontal">
+										<div class="form-group">
+											<label for="CardNumber" class="control-label col-md-5 text-center"><u>From</u></label>
+										</div>
 										<div class="form-group">
 											<label for="CardNumber" class="control-label col-md-3">Card Number</label>
 											<div class="col-md-8">
 												<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
 											</div>
+	
 										</div>
 										<div class="form-group">
 											<label for="employeelNIC" class="control-label col-md-3">NIC</label>
@@ -644,129 +767,18 @@ Thank You!
 											</div>
 										</div>
 										<hr/>
-									</div>';
+									</div>';	
 								} else {
 									//if no contact number
 									echo '<h3 class="text-center" style="padding:50px;">Commuter Cannot Use This Service As Contact Number Has Not Added Yet.</h3>';
 								}
-						} else {
-							//if no result to show
-							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
-						}
-					} else {
-						//if no result to show
-						echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
-					}
-				} else {
-					echo '<h3 class="text-center" style="padding:50px;">Wrong Card Number Format.</h3>';
-				}
-			} else if($r == "nic"){
-				if(preg_match('/^(\d){9}[v|V]$/',$q)){
-					$getCommuter = "SELECT * FROM commuter WHERE nic='".$q."'";
-					$resultCommuter = mysqli_query($con, $getCommuter);
-					if(mysqli_num_rows($resultCommuter) != 0){
-						while($rowCommuter = mysqli_fetch_array($resultCommuter)){
-							$cardNo = $rowCommuter['card_card_no'];
-							$nic = $rowCommuter['nic'];
-							$nameId = $rowCommuter['name_name_id'];
-							$contactNo = $rowCommuter['contact_no'];
-							$balance = $rowCommuter['credit'];
-						}
-						$getName = "SELECT * FROM NAME WHERE name_id='".$nameId."'";
-						$resultName = mysqli_query($con, $getName);
-						if(mysqli_num_rows($resultName) != 0){
-							while($rowName = mysqli_fetch_array($resultName)){
-								$fName = $rowName['first_name'];
-								$sName = $rowName['second_name'];
-								$lName = $rowName['last_name'];
-							}
-							//send sms with random pin
-							$rand = rand(1000,9999);
-							if(!empty($contactNo)){
-								$newContact = "94". trim($contactNo,"0");
-								$DestinationAddress = $newContact;
-$Message = "Please enter the below PIN to proceed with credit transfer.
-
-PIN : ".$rand."
-
-Thank You!
--SCAT System-";
-								try
-								{
-									// Send SMS through the HTTP API
-									$Result = $ViaNettSMS->SendSMS($MsgSender, $DestinationAddress, $Message);
-									// Check result object returned and give response to end user according to success or not.
-									if ($Result->Success == true)
-										$Message = "Message successfully sent!";
-									else
-										$Message = "Error occured while sending SMS<br />Errorcode: " . $Result->ErrorCode . "<br />Errormessage: " . $Result->ErrorMessage;
-								}
-								catch (Exception $e)
-								{
-									//Error occured while connecting to server.
-									$Message = $e->getMessage();
-								}
-							}
-							//echo data back
-							if(!empty($contactNo)){
-								echo '<div class="form-horizontal">
-									<div class="form-group">
-										<label for="CardNumber" class="control-label col-md-5 text-center"><u>From</u></label>
-									</div>
-									<div class="form-group">
-										<label for="CardNumber" class="control-label col-md-3">Card Number</label>
-										<div class="col-md-8">
-											<input class="form-control" type="text" name="CardNumber" value="'.$cardNo.'" id="CardNumber" readonly/>
-										</div>
-
-									</div>
-									<div class="form-group">
-										<label for="employeelNIC" class="control-label col-md-3">NIC</label>
-										<div class="col-md-8">
-											<input class="form-control" type="text" name="nic" id="nic" value="'.$nic.'" readonly/>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="fName" class="control-label col-md-3">Full Name</label>
-										<div class="col-md-8">
-											<input class="form-control" type="text" name="name" id="name" value="'.$fName.' '.$sName.' '.$lName.'" readonly/>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="contact" class="control-label col-md-3">Contact Number</label>
-										<div class="col-md-8">
-											<input class="form-control" type="text" name="contact" id="contact" value="'.$contactNo.'" readonly/>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="contact" class="control-label col-md-3">PIN <span style="color:rgb(255,0,0);">*</span></label>
-										<div class="col-md-8">
-											<input class="form-control" type="text" name="pin" id="pin" required/>
-										</div>
-									</div>
-									<input type="text" name="hpin" id="hpin" value="'.$rand.'" readonly hidden="hidden"/>
-									<div class="form-group">
-										<label for="CardNumber" class="control-label col-md-5 text-center"><u>To</u></label>
-									</div>
-									<div class="form-group">
-										<label for="employeeId" class="control-label col-md-3">Search By : </label>
-										<div class="col-md-8">
-											<select onchange="loadAgain(this);"  class="form-control">
-											  <option selected="selected" disabled="disabled">--Select the search criteria--</option>
-											  <option value="cardNumber">Card Number</option>
-											  <option value="commuterNic">NIC</option>      
-											</select>
-										</div>
-									</div>
-									<hr/>
-								</div>';	
 							} else {
-								//if no contact number
-								echo '<h3 class="text-center" style="padding:50px;">Commuter Cannot Use This Service As Contact Number Has Not Added Yet.</h3>';
+								//if no result to show
+								echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
 							}
 						} else {
-							//if no result to show
-							echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
+							//disabled
+							echo '<h3 class="text-center" style="padding:50px;">Commuter is disabled. Please enable before transfer credits.</h3>';	
 						}
 					} else {
 						//if no result to show

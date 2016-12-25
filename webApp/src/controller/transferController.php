@@ -44,7 +44,7 @@
 															if(mysqli_num_rows($resultCommuterTwo) != 0){
 																$reduce = "UPDATE commuter SET credit=credit-'".$amount."' WHERE nic='".$commuterOne."'";
 																if(mysqli_query($con, $reduce)){
-																	$increase = "UPDATE commuter SET credit=credit+'".$amount."' WHERE nic='".$commuterTwo."'";
+																	$increase = "UPDATE commuter SET credit=credit+'".$amount."',status='1' WHERE nic='".$commuterTwo."'";
 																	if(mysqli_query($con, $increase)){
 																		//get credit of commuter one and commuter two
 																		$getBalanceC1 = "SELECT credit FROM commuter WHERE nic='".$commuterOne."'";
