@@ -629,7 +629,7 @@ Thank You!
 												<input class="form-control" type="text" name="pin" id="pin" required/>
 											</div>
 										</div>
-										<input class="form-control" type="text" name="hpin" id="hpin" value="'.$rand.'"/>
+										<input type="text" name="hpin" id="hpin" value="'.$rand.'" readonly hidden="hidden"/>
 										<div class="form-group">
 											<label for="CardNumber" class="control-label col-md-5 text-center"><u>To</u></label>
 										</div>
@@ -744,7 +744,7 @@ Thank You!
 											<input class="form-control" type="text" name="pin" id="pin" required/>
 										</div>
 									</div>
-									<input class="form-control" type="text" name="hpin" id="hpin" value="'.$rand.'"/>
+									<input type="text" name="hpin" id="hpin" value="'.$rand.'" readonly hidden="hidden"/>
 									<div class="form-group">
 										<label for="CardNumber" class="control-label col-md-5 text-center"><u>To</u></label>
 									</div>
