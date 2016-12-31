@@ -7,8 +7,10 @@ if(!isset($_SESSION[''])){
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="refresh" content="5" />
 <?php
 include_once('../ssi/links.html');
+include_once('../ssi/db.php');
 if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 	session_destroy();
 ?>
@@ -35,13 +37,27 @@ a:visited {
     </div>
 <!--header end-->    
 <!--body start-->
-	<div class="col-md-12">
+	<div class="col-md-12" style="padding-top:130px;">
         <div>
             <div style="background-color:rgba(0,153,255,0.4);padding:10px;top:7vh;background-position:center;left:33%;" class="col-md-4 text-center">
             	<font size="+2" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Welcome To The Terminal</font>
-            	<form role="form" class="form-group" action="controller/welcomeController.php" method="post">
+                <?php
+					$get = "SELECT card_number FROM card_reading WHERE STATUS=0 AND id IN (SELECT MAX(id) FROM card_reading)";
+					$result = mysqli_query($con, $get);
+					if(mysqli_num_rows($result)!=0){
+						while($row = mysqli_fetch_array($result)){
+							$cardNo = $row['card_number'];
+						}
+						if(isset($cardNo)){
+							if(!empty($cardNo)){
+								header('Location:controller/welcomeController.php?cardNo='.$cardNo);
+							}
+						}
+					}
+				?>
+            	<div class="form-group">
                     <div style="padding:10px;">
-                     <font size="+1" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Please Touch Your S.C.A.T. Card or Enter Your Card Number to Proceed.</font>
+                     <font size="+1" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Please Touch Your S.C.A.T. Card to Proceed.</font>
                     </div>
                      <?php
 						 if(isset($_GET['error']) && !empty($_GET['error'])){
@@ -69,24 +85,10 @@ a:visited {
 							 }  
 						 }
 					 ?>
-                    <div style="padding:10px;">
-                     <input type="text" class="form-control" pattern="^\d{16}$" maxlength="16" title="Please enter a valid card number." id="cardNo" name="cardNo" placeholder="Enter Card Number" required="required">
-                    </div>
-                    <?php
-					 include_once('keyboard.php');
-					 ?>
-                </form>
+                </div>
             </div>        
         </div>
     </div>
-    <script>
-	function send(value){
-		old = document.getElementById('cardNo').value;
-		if(old.length<16){
-			document.getElementById('cardNo').value = old + value;	
-		}
-	}
-	</script>
 <!--body end-->
 <!--footer start-->
     <?php

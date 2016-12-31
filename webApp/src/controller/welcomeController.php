@@ -4,8 +4,8 @@ if(!isset($_SESSION[''])){
 }
 include_once('../../ssi/db.php');
 if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
-	if(!empty($_POST['cardNo'])){
-		$cNo = $_POST['cardNo'];
+	if(!empty($_GET['cardNo'])){
+		$cNo = $_GET['cardNo'];
 		if(preg_match('/^\d{16}$/',$cNo)){
 			$cardNo = trim(htmlspecialchars(mysqli_real_escape_string($con, $cNo)));
 			$get = "SELECT * FROM commuter WHERE card_card_no='".$cardNo."'";
