@@ -1,2 +1,1 @@
-need to implement the arduino part to send the output read by RFID reader to the php script.
-
+change the code to update card read status to 1 every where, where it will redirect to the welcome page
