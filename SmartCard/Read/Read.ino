@@ -63,7 +63,7 @@ void loop()
       Serial.write (readbackblock[j]);//Serial.write() transmits the ASCII numbers as human readable characters to serial monitor
       cardNumber += (char)readbackblock[j];
     }
-    data = "temp1="+cardNumber+"&hum1=20";
+    data = "cardNo="+cardNumber;
     Serial.println();
     sendRequest();
     if (client.connected()) {
@@ -80,8 +80,8 @@ void loop()
 void sendRequest(){
   if (client.connect(server,1234)) { // REPLACE WITH YOUR SERVER ADDRESS
       Serial.println("connected");
-      client.println("POST /add.php HTTP/1.1"); 
-      Serial.println("POST /add.php HTTP/1.1"); 
+      client.println("POST /SCAT/webApp/src/addCardReading.php HTTP/1.1"); 
+      Serial.println("POST /SCAT/webApp/src/addCardReading.php HTTP/1.1"); 
       client.println("Host: localhost"); // SERVER ADDRESS HERE TOO
       Serial.println("Host: localhost");
       client.println("Content-Type: application/x-www-form-urlencoded"); 
