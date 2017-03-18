@@ -1,1 +1,2 @@
-change the code to update card read status to 1 every where, where it will redirect to the welcome page
+put the block top up agent to the login.
+
