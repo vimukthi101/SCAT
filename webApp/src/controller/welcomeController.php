@@ -23,26 +23,37 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 						$_SESSION['commuter_nic'] = $nic;
 						$_SESSION['credit'] = $credit;
 						$_SESSION['attempt'] = $loginAttempt;
+						$update = "UPDATE card_reading SET STATUS='1'";
+						if(mysqli_query($con, $update));
 						header('Location:../enterPin.php');
 					} else {
 						//user is blocked
+						$update = "UPDATE card_reading SET STATUS='1'";
+						if(mysqli_query($con, $update));
 						header('Location:../welcome.php?error=ub');
 					}
 				}
 			} else {
 				//wrong card number
+				$update = "UPDATE card_reading SET STATUS='1'";
+				if(mysqli_query($con, $update));
 				header('Location:../welcome.php?error=iu');
 			}
 		} else {
 			//wrong card number format
+			$update = "UPDATE card_reading SET STATUS='1'";
+			if(mysqli_query($con, $update));
 			header('Location:../welcome.php?error=wf');
 		}
 	} else {
 		//empty card number
+		$update = "UPDATE card_reading SET STATUS='1'";
+		if(mysqli_query($con, $update));
 		header('Location:../welcome.php?error=ec');
 	}
 } else {
 	session_destroy();
+	$update = "UPDATE card_reading SET STATUS='1'";
 	header('Location:../../505.php');
 }
 ?>

@@ -7,12 +7,12 @@
 /******************** ETHERNET SETTINGS ********************/
 
 byte mac[] = { 0x90, 0xA2, 0xDA, 0x0D, 0x85, 0xD9 };   //physical mac address
-byte subnet[] = { 255, 255, 255, 0 };              //subnet mask
-byte gateway[] = { 192, 168, 0, 1 };              // default gateway
 
 /*change following*/
-byte ip[] = { 192, 168, 1, 120 };                   // ip for shield
-IPAddress server(192,168,1,4);                      // ip of lap
+byte subnet[] = { 255, 255, 255, 0 };              //subnet mask (using the ipconfig command)
+byte gateway[] = { 192, 168, 43, 1 };              // default gateway (using the ipconfig command)
+byte ip[] = { 192, 168, 43, 120 };                   // ip for shield
+IPAddress server(192,168,43,73);                      // ip of lap (using the ipconfig command)
 
 EthernetClient client;
 String data, cardNumber;
