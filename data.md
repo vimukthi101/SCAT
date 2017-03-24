@@ -47,3 +47,23 @@
 > topupagentcolombo@gmail.com
 
 > 931340034v
+
+## E-MAILS FOR VIANETT
+
+* admin
+
+> scatfortrains@gmail.com
+
+> mxhwr
+
+* manager
+
+> scatfortrainsmanager@gmail.com
+
+> 9c8qn
+
+* station master - colombo
+
+> scatsmcolombo@gmail.com
+
+> wui36
