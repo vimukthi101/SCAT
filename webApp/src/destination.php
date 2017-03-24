@@ -80,7 +80,7 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 			if(!empty($_POST['submit']) && !empty($_POST['code'])){
 				$_SESSION['outStation'] = $_POST['code'];
 				$_SESSION['outStationName'] = $_POST['submit'];
-				header('Location:commuters.php');
+				header('Location:ticketClass.php');
 			}
 		}
 	?>

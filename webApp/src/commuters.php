@@ -10,7 +10,7 @@ if(!isset($_SESSION[''])){
 <?php
 include_once('../ssi/links.html');
 if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
-	if(isset($_SESSION['pass']) && isset($_SESSION['credit']) && isset($_SESSION['commuter_nic']) && isset($_SESSION['attempt']) && $_SESSION['outStation']){
+	if(isset($_SESSION['pass']) && isset($_SESSION['credit']) && isset($_SESSION['commuter_nic']) && isset($_SESSION['attempt']) && $_SESSION['outStation'] && isset($_SESSION['outStationName']) && isset($_SESSION['ticketClass'])){
 ?>
 <title>Payment Terminal</title>
 </head>
@@ -59,15 +59,13 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
             </div>        
         </div>
     </div>
-    <script>
+    <script type="text/javascript">
 	function send(value){
 		old = document.getElementById('ticket').value;
 		document.getElementById('ticket').value = old + value;	
 	}
-	</script>
-    <script>
 	function backTo(){
-		window.location.assign("destination.php");
+		window.location.assign("ticketClass.php");
 	}
 	</script>
 <!--body end-->

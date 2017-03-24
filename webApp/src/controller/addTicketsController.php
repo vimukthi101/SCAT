@@ -9,13 +9,15 @@
 	if(isset($_SESSION['position'])){
 		if($_SESSION['position'] == "sysadmin"){
 			if(isset($_POST['submit'])){
-				if(!empty($_POST['iStation']) || !empty($_POST['oStation']) || !empty($_POST['tFee'])){
+				if(!empty($_POST['iStation']) && !empty($_POST['oStation']) && !empty($_POST['tFee']) && !empty($_POST['class'])){
 					$c = trim($_POST['iStation']);
 					$n = trim($_POST['oStation']);
 					$i = trim($_POST['tFee']);
+					$j = trim($_POST['class']);
 					$iStation = htmlspecialchars(mysqli_real_escape_string($con, $c));
 					$oStation = htmlspecialchars(mysqli_real_escape_string($con, $n));
 					$tFee = htmlspecialchars(mysqli_real_escape_string($con, $i));
+					$ticket_class = htmlspecialchars(mysqli_real_escape_string($con, $j));
 					if($iStation != $oStation){
 						if(preg_match('/^\d+\.(\d{2})$/',$tFee)){
 							$getType = "SELECT station_code FROM station WHERE station_code='".$iStation."'";
@@ -24,10 +26,10 @@
 								$getStation = "SELECT station_code FROM station WHERE station_code='".$oStation."'";
 								$resultStation = mysqli_query($con, $getStation);
 								if(mysqli_num_rows($resultStation) != 0){
-									$getTickets = "SELECT * FROM ticket WHERE (station_in_station_code='".$iStation."' AND station_out_station_code='".$oStation."') OR (station_in_station_code='".$oStation."' AND station_out_station_code='".$iStation."')";
+									$getTickets = "SELECT * FROM ticket WHERE (station_in_station_code='".$iStation."' AND station_out_station_code='".$oStation."' AND class='".$ticket_class."') OR (station_in_station_code='".$oStation."' AND station_out_station_code='".$iStation."' AND class='".$ticket_class."')";
 									$resultTickets = mysqli_query($con, $getTickets);
 									if(mysqli_num_rows($resultTickets) == 0){
-										$insertTicket = "INSERT INTO ticket(ticket_fee, station_in_station_code, station_out_station_code) VALUES('".$tFee."','".$iStation."','".$oStation."')";
+										$insertTicket = "INSERT INTO ticket(ticket_fee, station_in_station_code, station_out_station_code, class) VALUES('".$tFee."','".$iStation."','".$oStation."','".$ticket_class."')";
 										if(mysqli_query($con, $insertTicket)){
 											//get managers
 											$getEmp = "SELECT employee_email FROM employee WHERE nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager'))";
@@ -46,12 +48,14 @@ New ticket fee has being added between following stations to the system. Please 
 
 	In Station Code : ".$iStation."
 	Out Station Code : ".$oStation."
+	Class : ".$ticket_class."
 	Ticket Fee : ".$tFee."
 
 Thank You!
 S.C.A.T Admin";
 													if (!$mail->send()) {
-														echo "Mailer Error: " . $mail->ErrorInfo;
+														//mail did not send
+														header('Location:../addTickets.php?error=nm');
 													}
 												}
 											}
@@ -72,12 +76,14 @@ New ticket fee has being added between your station and the following station to
 
 	In Station Code : ".$iStation."
 	Out Station Code : ".$oStation."
+	Class : ".$ticket_class."
 	Ticket Fee : ".$tFee."
 
 Thank You!
 S.C.A.T Admin";
 													if (!$mail->send()) {
-														echo "Mailer Error: " . $mail->ErrorInfo;
+														//mail did not send
+														header('Location:../addTickets.php?error=nm');
 													}
 												}
 											}

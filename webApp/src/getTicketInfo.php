@@ -42,15 +42,18 @@ if($p != "" && $r != ""){
 								  <tr>
 									<th>In Station Code</th>
 									<th>Out Station Code</th>
+									<th>Class</th>
 									<th>Ticket Fee</th>
 								  </tr>';
 				while($rowTypes = mysqli_fetch_array($resultGetType)){
 					$iCode = $rowTypes['station_in_station_code'];
 					$oCode = $rowTypes['station_out_station_code'];
+					$class = $rowTypes['class'];
 					$fee = $rowTypes['ticket_fee'];			
 						echo '<tr>
 						<td>'.$iCode.'</td>
 						<td>'.$oCode.'</td>
+						<td>'.$class.'</td>
 						<td>'.$fee.'</td>
 					  </tr>';
 				}
@@ -74,42 +77,36 @@ if($p != "" && $r != ""){
 			}
 			$resultGetTicket = mysqli_query($con, $getTicket);
 			if(mysqli_num_rows($resultGetTicket) != 0){
-				echo '<form role="form" class="form-horizontal" method="post" action="controller/updateTicketsController.php">
-						<div class="form-group">
-							<label class="control-label col-md-3">New Ticket Fee <span style="color:rgb(255,0,0);">*</span></label>
-							<div class="col-md-8">
-								<input class="form-control" type="text" name="tFee" id="tFee"/>
-							</div>
-						</div>
-						<input class="form-control" type="hidden" name="oldtFee" id="oldtFee" value="'.$q.'"/>
-						<div class="form-group" style="text-align:center;">
-							<label style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
-						</div>
-						<div class="form-group col-md-11 text-center">
-							<input type="submit" id="submit" name="submit" value="Update" class="btn btn-success"  onclick="return confirm(\'Do You Wish to Update Ticket Fee?\');return false;"/>
-						</div>
-					</form>';
-				echo '<div class="form-group">
-							<div class="container-fluid center-block">
-								<table style="width:100%;" class="table table-striped">
-								  <tr>
-									<th>In Station Code</th>
-									<th>Out Station Code</th>
-									<th>Ticket Fee</th>
-								  </tr>';
 				while($rowGetTicket = mysqli_fetch_array($resultGetTicket)){
 					$iStation = $rowGetTicket['station_in_station_code'];
 					$oStation = $rowGetTicket['station_out_station_code'];
+					$class = $rowGetTicket['class'];
 					$fee = $rowGetTicket['ticket_fee'];
-					echo '<tr>
-						<td>'.$iStation.'</td>
-						<td>'.$oStation.'</td>
-						<td>'.$fee.'</td>
-					  </tr>';
+					echo '<form role="form" class="form-horizontal" method="post" action="controller/updateTicketsController.php">
+					  <div class="col-md-12">
+						<div class="col-md-3">
+							<label>In Station</label>
+							<input class="form-control" readonly name="iStation" type="text" value="'.$iStation.'"/>
+						</div>
+						<div class="col-md-3">
+							<label>Out Station</label>
+							<input class="form-control" readonly type="text" name="oStation" value="'.$oStation.'"/>
+						</div>
+						<div class="col-md-1">
+							<label>Class</label>
+							<input class="form-control" readonly type="text" value="'.$class.'" name="class"/>
+						</div>
+						<div class="col-md-2">
+							<label>Fee</label>
+							<input class="form-control" type="text" value="'.$fee.'" name="fee"/>
+						</div>
+						<div class="col-md-2">
+							<label>Operation</label>
+							<input class="form-control btn btn-success" type="submit" id="submit" name="submit"/>
+						</div>
+					  </div>
+					  </form>';
 				}
-				echo '</table>
-							</div>
-						</div>';
 			} else {
 				//no data	
 				echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';
@@ -123,33 +120,36 @@ if($p != "" && $r != ""){
 			$getTicket = "SELECT * FROM ticket WHERE station_in_station_code='".$q."' OR station_out_station_code='".$q."'";
 			$resultGetTicket = mysqli_query($con, $getTicket);
 			if(mysqli_num_rows($resultGetTicket) != 0){
-				echo '<form role="form" class="form-horizontal" method="post" action="controller/deleteTicketsController.php">
-						<input class="form-control" type="hidden" name="oldtFee" id="oldtFee" value="'.$q.'"/>
-						<div class="form-group col-md-11 text-center">
-							<input type="submit" id="submit" name="submit" value="Delete" class="btn btn-danger"  onclick="return confirm(\'Do You Wish to Delete Ticket Fee?\');return false;"/>
-						</div>
-					</form>';
 				echo '<div class="form-group">
 							<div class="container-fluid center-block">
 								<table style="width:100%;" class="table table-striped">
 								  <tr>
 									<th>In Station Code</th>
 									<th>Out Station Code</th>
+									<th>Class</th>
 									<th>Ticket Fee</th>
 								  </tr>';
 				while($rowGetTicket = mysqli_fetch_array($resultGetTicket)){
 					$iStation = $rowGetTicket['station_in_station_code'];
 					$oStation = $rowGetTicket['station_out_station_code'];
+					$class = $rowGetTicket['class'];
 					$fee = $rowGetTicket['ticket_fee'];
 					echo '<tr>
 						<td>'.$iStation.'</td>
 						<td>'.$oStation.'</td>
+						<td>'.$class.'</td>
 						<td>'.$fee.'</td>
 					  </tr>';
 				}
 				echo '</table>
 							</div>
 						</div>';
+				echo '<form role="form" class="form-horizontal" method="post" action="controller/deleteTicketsController.php">
+				<input class="form-control" type="hidden" name="oldtFee" id="oldtFee" value="'.$q.'"/>
+				<div class="form-group col-md-11 text-center">
+					<input type="submit" id="submit" name="submit" value="Delete" class="btn btn-danger"  onclick="return confirm(\'Do You Wish to Delete Ticket Fee?\');return false;"/>
+				</div>
+			</form>';
 			} else {
 				//no data	
 				echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';

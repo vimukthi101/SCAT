@@ -71,6 +71,10 @@ if(isset($_SESSION['position'])){
 							echo '<div class="form-group text-center" style="padding-left:100px;">
 									<label class="form-control label-success" style="height:35px;">Ticket Fee Successfully Added.</label>
 								</div>';
+						} else if($error == "nm"){
+							echo '<div class="form-group text-center" style="padding-left:100px;">
+									<label class="form-control label-success" style="height:35px;">Ticket Fee Successfully Added. Couldn\' send the email.</label>
+								</div>';
 						}
 					}
 				}
@@ -126,6 +130,16 @@ if(isset($_SESSION['position'])){
                     	<input class="form-control" type="text" name="tFee" id="tFee" pattern="^\d+\.(\d{2})$" title="Should Be Like 100.00 Format." required="required"/>
                 	</div>
                 </div> 
+                <div class="form-group">
+                    <label for="class" class="control-label col-md-3">Class <span style="color:rgb(255,0,0);">*</span></label>
+                    <div class="col-md-8">
+                    	<select class="form-control" id="class" name="class">
+                        	<option value="1">1<sup>st</sup> Class</option>
+                            <option value="2">2<sup>nd</sup> Class</option>
+                            <option value="3">3<sup>rd</sup> Class</option>
+                        </select>
+                	</div>
+                </div>
                 <div class="form-group" style="text-align:center;">
 							<label style="text-align:center;" class="control-label col-md-11"><span style="color:rgb(255,0,0);">*</span> Mandatory Fields</label> 
 						</div>
