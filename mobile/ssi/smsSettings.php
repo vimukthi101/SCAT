@@ -2,8 +2,8 @@
 include_once("ViaNettSMS.php");
 
 //Change following two 
-$Username = "scatsmcolombo@gmail.com";
-$Password = "wui36";
+$Username = "scatsmextra@gmail.com";
+$Password = "jp92";
 
 $MsgSender = "94718891700";
 // Create ViaNettSMS object with params $Username and $Password

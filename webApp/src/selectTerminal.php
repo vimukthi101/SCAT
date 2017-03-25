@@ -53,6 +53,7 @@ if(isset($_SESSION['position'])){
                         <option value="ptm">PTM Line</option>
                         <option value="kv">KV Line</option>
                         <option value="coast">Coast Line</option>
+                        <option value="kks">KKS Line</option>
                     </select>
                 </div>
             </div>

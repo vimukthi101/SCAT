@@ -9,8 +9,13 @@ if(isset($_GET['key']) && !empty($_GET['key'])){
 		$key = $_GET['key'];
 		if($key == "commuter"){
 			$nic = $_SESSION['nic'];
-			$mydate = getdate(date("U"));
-			$date = $mydate['year']."-".$mydate['mon']."-".$mydate['mday'];
+			$getDate = "SELECT	CURDATE()";
+			$resultGetDate = mysqli_query($con, $getDate);
+			if(mysqli_num_rows($resultGetDate)!=0){
+				while($rowGetDate = mysqli_fetch_array($resultGetDate)){
+					$date = $rowGetDate['amount'];
+				}
+			}
 			if($value == "payment"){
 				$in = 0;
 				$getSM = "SELECT ticket_id,no_of_tickets FROM payment WHERE payment_date_time LIKE '".$date."%' AND commuter_nic='".$nic."'";

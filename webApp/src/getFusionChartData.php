@@ -63,8 +63,13 @@ if(isset($_GET['key']) && !empty($_GET['key'])){
 				echo '&value=0';
 			}
 		} else if($key == "income"){
-			$mydate = getdate(date("U"));
-			$date = $mydate['year']."-".$mydate['mon']."-".$mydate['mday'];
+			$getDate = "SELECT	CURDATE()";
+			$resultGetDate = mysqli_query($con, $getDate);
+			if(mysqli_num_rows($resultGetDate)!=0){
+				while($rowGetDate = mysqli_fetch_array($resultGetDate)){
+					$date = $rowGetDate['amount'];
+				}
+			}
 			if($value == "travel"){
 				$in = 0;
 				$getSM = "SELECT ticket_id,no_of_tickets FROM payment WHERE payment_date_time LIKE '".$date."%'";
@@ -126,8 +131,13 @@ if(isset($_GET['key']) && !empty($_GET['key'])){
 					$station = $rowStation['station_code'];
 				}
 			}
-			$mydate = getdate(date("U"));
-			$date = $mydate['year']."-".$mydate['mon']."-".$mydate['mday'];
+			$getDate = "SELECT	CURDATE()";
+			$resultGetDate = mysqli_query($con, $getDate);
+			if(mysqli_num_rows($resultGetDate)!=0){
+				while($rowGetDate = mysqli_fetch_array($resultGetDate)){
+					$date = $rowGetDate['amount'];
+				}
+			}
 			if($value == "travel"){
 				$in = 0;
 				$getSM = "SELECT ticket_id,no_of_tickets FROM payment WHERE payment_date_time LIKE '".$date."%'";
@@ -193,18 +203,23 @@ if(isset($_GET['key']) && !empty($_GET['key'])){
 			}
 		} else if($key == "registrar"){
 			$nic = $_SESSION['nic'];
-			$mydate = getdate(date("U"));
-			$date = $mydate['year']."-".$mydate['mon']."-".$mydate['mday'];
+			$getDate = "SELECT	CURDATE()";
+			$resultGetDate = mysqli_query($con, $getDate);
+			if(mysqli_num_rows($resultGetDate)!=0){
+				while($rowGetDate = mysqli_fetch_array($resultGetDate)){
+					$date = $rowGetDate['amount'];
+				}
+			}
 			if($value == "registration"){
-				$getSM = "SELECT SUM(reg_fee) AS amount FROM commuter_regfee WHERE regfee_id IN (SELECT commuter_regfee_regfee_id FROM registrar_payment WHERE payment_date_time LIKE '".$date."%' AND employee_nic='".$nic."')";
-				$resultSM = mysqli_query($con, $getSM);
-				if(mysqli_num_rows($resultSM)!=0){
-					while($rowSM = mysqli_fetch_array($resultSM)){
-						$amount = $rowSM['amount'];
-						if($amount == null){
+				$getSMValue = "SELECT SUM(reg_fee) AS amount FROM commuter_regfee WHERE regfee_id IN (SELECT commuter_regfee_regfee_id FROM registrar_payment WHERE payment_date_time LIKE '".$date."%' AND employee_nic='".$nic."')";
+				$resultSMValue = mysqli_query($con, $getSMValue);
+				if(mysqli_num_rows($resultSMValue)!=0){
+					while($rowSMValue = mysqli_fetch_array($resultSMValue)){
+						$amountValue = $rowSMValue['amount'];
+						if($amountValue == null){
 							echo '&value=0';
 						} else {
-							echo '&value='.$amount;		
+							echo '&value='.$amountValue;		
 						}
 					}
 				} else {
@@ -223,8 +238,13 @@ if(isset($_GET['key']) && !empty($_GET['key'])){
 				}	
 			}
 		} else if($key == "topup"){
-			$mydate = getdate(date("U"));
-			$date = $mydate['year']."-".$mydate['mon']."-".$mydate['mday'];
+			$getDate = "SELECT	CURDATE()";
+			$resultGetDate = mysqli_query($con, $getDate);
+			if(mysqli_num_rows($resultGetDate)!=0){
+				while($rowGetDate = mysqli_fetch_array($resultGetDate)){
+					$date = $rowGetDate['amount'];
+				}
+			}
 			$nic = $_SESSION['nic'];
 			if($value == "recharge"){
 				$getSM = "SELECT SUM(amount) AS amount FROM recharge WHERE recharge_date_time LIKE '".$date."%' AND employee_nic='".$nic."'";

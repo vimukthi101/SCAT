@@ -6,13 +6,13 @@ if(isset($_POST['submit'])){
 	if(!empty($_POST['code']) && !empty($_POST['name'])){
 		$_SESSION['outStation'] = $_POST['code'];
 		$_SESSION['outStationName'] = $_POST['name'];
-		header('Location:ticketClass.php');
+		header('Location:../ticketClass.php');
 	} else {
 		session_destroy();
-		header('Location:welcome.php');	
+		header('Location:../welcome.php');	
 	}
 } else {
 	session_destroy();
-	header('Location:welcome.php');	
+	header('Location:../welcome.php');	
 }
 ?>

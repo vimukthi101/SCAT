@@ -7,7 +7,7 @@ $mail->Port = 587;
 $mail->SMTPSecure = 'tls';
 $mail->SMTPAuth = true;
 //change following to admin@gmail.com or scat@gmail.com
-$mail->Username = "scatfortrains@gmail.com";
+$mail->Username = "scatsmextra@gmail.com";
 $mail->Password = "931340034v";
-$mail->setFrom('scatfortrains@gmail.com', 'SCAT SYSTEM');
+$mail->setFrom('scatsmextra@gmail.com', 'SCAT SYSTEM');
 ?>

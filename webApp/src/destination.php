@@ -27,8 +27,13 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 <!--body start-->
 	<div class="col-md-12">
         <div>
-            <div style="background-color:rgba(0,153,255,0.4);padding:10px;top:4vh;background-position:center;height:500px;" class="col-md-12 text-center">
-            	<form role="form" class="form-group" method="post">
+        <?php
+		if($_COOKIE['terminal'] == "coast"){
+			echo '<div style="background-color:rgba(0,153,255,0.4);padding:10px;top:4vh;background-position:center;height:600px;" class="col-md-12 text-center">';
+		} else {
+			echo '<div style="background-color:rgba(0,153,255,0.4);padding:10px;top:4vh;background-position:center;height:500px;" class="col-md-12 text-center">';
+		}
+		?>
                     <div style="padding:5px;">
                      <font size="+1" face="Verdana, Geneva, sans-serif" color="#FFFFFF" style="padding:10px;">Please Select The Destination.</font>
                     </div>
@@ -55,11 +60,13 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 							while($row = mysqli_fetch_array($result)){
 								$outStation = $row['station_name'];
 								$outCode = $row['station_code'];
-								echo '
+								echo '<form role="form" method="post" action="controller/destinationController.php">
 									<div class="col-md-2" style="width:10%;padding:10px;">
-										<input type="hidden" id="code" name="code" value="'.$outCode.'">
+										<input type="text" hidden="hidden" readonly="readonly" id="code" name="code" value="'.$outCode.'">
+										<input type="text" hidden="hidden" readonly="readonly" id="name" name="name" value="'.$outStation.'">
 										<input type="submit" class="btn btn-default text-center" style="width:120px;height:50px;" id="submit" name="submit" value="'.$outStation.'">
-									</div>';
+									</div>
+									</form>';
 							}
 							echo '
 									</div>
@@ -71,19 +78,9 @@ if(isset($_COOKIE['station']) && isset($_COOKIE['terminal'])){
 						}
 					 ?>
                     </div>
-                </form>
             </div>        
         </div>
     </div>
-    <?php
-		if(isset($_POST['submit'])){
-			if(!empty($_POST['submit']) && !empty($_POST['code'])){
-				$_SESSION['outStation'] = $_POST['code'];
-				$_SESSION['outStationName'] = $_POST['submit'];
-				header('Location:ticketClass.php');
-			}
-		}
-	?>
 <!--body end-->
 <!--footer start-->
     <?php
