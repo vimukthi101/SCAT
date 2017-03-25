@@ -26,21 +26,21 @@
 
 * registrar - Colomobo
 
-> 
+> 894752361v
 
-> 1234
+> 1299
 
 * updater - Colombo
 
-> 
+> 853697412v
 
-> 1234
+> 8815
 
 * toup agent - Colombo
 
-> 
+> 789548632v
 
-> 1234
+> 6477
 
 
 ## E-MAILS FOR SCAT
