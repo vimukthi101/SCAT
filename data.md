@@ -6,6 +6,12 @@
 
 > 1234
 
+* manager
+
+> scatfortrainsmanager@gmail.com
+
+> 931340034v
+
 * Station Master - Colombo
 
 > scatsmcolombo@gmail.com
