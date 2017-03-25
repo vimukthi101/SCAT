@@ -2,43 +2,43 @@
 
 * sysadmin
 
-> scatfortrains@gmail.com
+> 931340034v
 
 > 1234
 
 * manager
 
-> scatfortrainsmanager@gmail.com
+> 794384562v
 
 > 1234
 
 * Station Master - Colombo
 
-> scatsmcolombo@gmail.com
+> 657891257v
 
 > 1234
 
 * Station Master - Avissawella
 
-> scatsmbadulla@gmail.com
+> 894532167v
 
 > 1234
 
 * registrar - Colomobo
 
-> registrarcolombo@gmail.com
+> 
 
 > 1234
 
 * updater - Colombo
 
-> updatercolombo@gmail.com
+> 
 
 > 1234
 
 * toup agent - Colombo
 
-> topupagentcolombo@gmail.com
+> 
 
 > 1234
 
@@ -113,3 +113,21 @@
 > scatsmcolombo@gmail.com
 
 > wui36
+
+* station master - Avissawella
+
+> scatsmbadulla@gmail.com
+
+> pssff
+
+* station master - Extra
+
+> scatsmextra@gmail.com
+
+> jp92
+
+* registrar - Colomobo
+
+> registrarcolombo@gmail.com
+
+> xd97u
