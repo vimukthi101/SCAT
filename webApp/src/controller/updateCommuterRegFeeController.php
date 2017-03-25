@@ -33,7 +33,8 @@ With in effect from ".date("l jS \of F Y h:i:s A")." the commuter registration f
 Thank You!
 S.C.A.T Systm";
 								if (!$mail->send()) {
-									echo "Mailer Error: " . $mail->ErrorInfo;
+									//success
+									header('Location:../updateRegistrationFee.php?error=su');
 								}
 							}
 						}

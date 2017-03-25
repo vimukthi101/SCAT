@@ -49,7 +49,8 @@ New station has being added to the system with following details.
 Thank You!
 S.C.A.T Admin";
 													if (!$mail->send()) {
-														echo "Mailer Error: " . $mail->ErrorInfo;
+														//echo "Mailer Error: " . $mail->ErrorInfo;
+														echo "Error Occurred";
 													}
 												}
 											}
@@ -74,7 +75,8 @@ Congratulations!
 Thank You!
 S.C.A.T Admin";
 														if (!$mail->send()) {
-															echo "Mailer Error: " . $mail->ErrorInfo;
+															//success
+															header('Location:../addStations.php?error=su');
 														}
 													}
 											}

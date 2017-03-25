@@ -40,7 +40,8 @@ Following Train type has being updated. Please find the updated information,
 Thank You!
 S.C.A.T Admin";
 										if (!$mail->send()) {
-											echo "Mailer Error: " . $mail->ErrorInfo;
+											//success
+											header('Location:../updateTrainTypes.php?error=su');
 										}
 									}
 								}

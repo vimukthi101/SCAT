@@ -93,7 +93,7 @@ p.s. : Please do not reply to this email.
 Thank You!
 S.C.A.T Admin";
 																							if (!$mail->send()) {
-																								echo "Mailer Error: " . $mail->ErrorInfo;
+																								header('Location:../userRegistration.php?position=manager&error=as');
 																							}
 																							//user added successfully
 																							header('Location:../userRegistration.php?position=manager&error=as');
@@ -248,7 +248,8 @@ p.s. : Please do not reply to this email.
 Thank You!
 S.C.A.T Admin";
 																							if (!$mail->send()) {
-																								echo "Mailer Error: " . $mail->ErrorInfo;
+																								//user added successfully
+																							header('Location:../userRegistration.php?position=stationMaster&error=as');
 																							}
 																							//user added successfully
 																							header('Location:../userRegistration.php?position=stationMaster&error=as');
@@ -412,7 +413,8 @@ p.s. : Please do not reply to this email.
 Thank You!
 S.C.A.T Admin";
 																								if (!$mail->send()) {
-																									echo "Mailer Error: " . $mail->ErrorInfo;
+																									//user added successfully
+																								header('Location:../userRegistration.php?position=registrar&error=as');
 																								}
 																								//user added successfully
 																								header('Location:../userRegistration.php?position=registrar&error=as');
@@ -576,7 +578,8 @@ p.s. : Please do not reply to this email.
 Thank You!
 S.C.A.T Admin";
 																								if (!$mail->send()) {
-																									echo "Mailer Error: " . $mail->ErrorInfo;
+																									//user added successfully
+																								header('Location:../userRegistration.php?position=updater&error=as');
 																								}
 																								//user added successfully
 																								header('Location:../userRegistration.php?position=updater&error=as');
@@ -743,7 +746,8 @@ p.s. : Please do not reply to this email.
 Thank You!
 S.C.A.T Admin";
 																								if (!$mail->send()) {
-																									echo "Mailer Error: " . $mail->ErrorInfo;
+																									//user added successfully
+																								header('Location:../userRegistration.php?position=topupAgent&error=as');
 																								}
 																								//user added successfully
 																								header('Location:../userRegistration.php?position=topupAgent&error=as');

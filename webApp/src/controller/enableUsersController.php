@@ -48,7 +48,18 @@ p.s. : Please do not reply to this email.
 Thank You!
 S.C.A.T System Admin";
 						if (!$mail->send()) {
-							echo "Mailer Error: " . $mail->ErrorInfo;
+							//sucessfully activated
+							if($position == "manager"){
+								header('Location:../enableUsers.php?position=manager&error=su');
+							} else if($position == "stationMaster"){
+								header('Location:../enableUsers.php?position=stationMaster&error=su');
+							} else if($position == "updater"){
+								header('Location:../enableUsers.php?position=updater&error=su');
+							} else if($position == "registrar"){
+								header('Location:../enableUsers.php?position=registrar&error=su');
+							} else if($position == "topupAgent"){
+								header('Location:../enableUsers.php?position=topupAgent&error=su');
+							}
 						}
 						//sucessfully activated
 						if($position == "manager"){

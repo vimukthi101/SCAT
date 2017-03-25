@@ -40,7 +40,8 @@ Following train type has being removed from the system,
 Thank You!
 S.C.A.T Admin";
 										if (!$mail->send()) {
-											echo "Mailer Error: " . $mail->ErrorInfo;
+											//success
+											header('Location:../deleteTrainTypes.php?error=su');
 										}
 									}
 								}

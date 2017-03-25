@@ -69,7 +69,8 @@ p.s. : Please do not reply to this email
 Thank You!
 S.C.A.T Systm";
 																if (!$mail->send()) {
-																	echo "Mailer Error: " . $mail->ErrorInfo;
+																	//account deactivated, contact admin error message
+																	header('Location:../../index.php?error=ab');
 																}
 																//account deactivated, contact admin error message
 																header('Location:../../index.php?error=ab');
@@ -92,7 +93,8 @@ p.s. : Please do not reply to this email.
 Thank You!
 S.C.A.T Systm";
 															if (!$mail->send()) {
-																echo "Mailer Error: " . $mail->ErrorInfo;
+																//account deactivated, contact admin error message
+																header('Location:../../index.php?error=da');
 															}
 															//account deactivated, contact admin error message
 															header('Location:../../index.php?error=da');
@@ -117,7 +119,8 @@ p.s. : Please do not reply to this email
 Thank You!
 S.C.A.T Systm";
 												if (!$mail->send()) {
-													echo "Mailer Error: " . $mail->ErrorInfo;
+													//account deactivated, contact admin error message
+													header('Location:../../index.php?error=da');
 												}
 												//account deactivated, contact admin error message
 												header('Location:../../index.php?error=da');

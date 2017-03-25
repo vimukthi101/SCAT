@@ -54,7 +54,8 @@ p.s. : Please do not reply to this email.
 Thank You!
 S.C.A.T System";
 										if (!$mail->send()) {
-											echo "Mailer Error: " . $mail->ErrorInfo;
+											//success
+											header('Location:../requestCards.php?error=su');
 										}
 									}
 								}

@@ -65,7 +65,9 @@ Thank You!
 																	catch (Exception $e)
 																	{
 																		//Error occured while connecting to server.
-																		$Message = $e->getMessage();
+																		//$Message = $e->getMessage();
+																		//success
+																		header('Location:../activateCards.php?error=sud');
 																	}
 																}
 																//success
@@ -103,7 +105,8 @@ Thank You!
 																	catch (Exception $e)
 																	{
 																		//Error occured while connecting to server.
-																		$Message = $e->getMessage();
+																		//$Message = $e->getMessage();
+																		header('Location:../activateCards.php?error=sua');
 																	}
 																}
 																header('Location:../activateCards.php?error=sua');

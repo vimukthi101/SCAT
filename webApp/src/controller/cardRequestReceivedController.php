@@ -56,7 +56,8 @@ Card request sent on ".$dSend." of ".$nSend." to ".$sName." station has being re
 Thank You!
 S.C.A.T System";
 											if (!$mail->send()) {
-												echo "Mailer Error: " . $mail->ErrorInfo;
+												//success
+												header('Location:../receivedCards.php?error=su');
 											}
 										}
 									}

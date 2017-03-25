@@ -81,7 +81,8 @@ Thank You!
 																					catch (Exception $e)
 																					{
 																						//Error occured while connecting to server.
-																						$Message = $e->getMessage();
+																						//$Message = $e->getMessage();
+																						echo "error occurred";
 																					}
 											
 																				}
@@ -105,7 +106,7 @@ Thank You!
 																					catch (Exception $e)
 																					{
 																						//Error occured while connecting to server.
-																						$Message = $e->getMessage();
+																						echo "error occurred";
 																					}
 											
 																				}	
@@ -161,7 +162,7 @@ Thank You!
 																catch (Exception $e)
 																{
 																	//Error occured while connecting to server.
-																	$Message = $e->getMessage();
+																	echo "error occurred";
 																}
 						
 															}

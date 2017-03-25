@@ -45,7 +45,12 @@ p.s. : Please do not reply to this email.
 Thank You!
 S.C.A.T System Admin";
 											if (!$mail->send()) {
-												echo "Mailer Error: " . $mail->ErrorInfo;
+												//success
+												if($employeePosition == "manager"){
+													header('Location:../deleteUsers.php?position=manager&error=su');		
+												} else if($employeePosition == "stationMaster"){
+													header('Location:../deleteUsers.php?position=stationMaster&error=su');	
+												}
 											}
 											//success
 											if($employeePosition == "manager"){

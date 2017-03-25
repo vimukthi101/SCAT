@@ -41,7 +41,8 @@ Following train type has being added to the system,
 Thank You!
 S.C.A.T Admin";
 											if (!$mail->send()) {
-												echo "Mailer Error: " . $mail->ErrorInfo;
+												//success
+												header('Location:../addTrainTypes.php?error=su');
 											}
 										}
 									}

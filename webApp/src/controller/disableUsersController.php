@@ -41,7 +41,14 @@ p.s. : Please do not reply to this email
 Thank You!
 S.C.A.T System";
 						if (!$mail->send()) {
-							echo "Mailer Error: " . $mail->ErrorInfo;
+							//sucessfully activated
+							if($position == "updater"){
+								header('Location:../disableUsers.php?position=updater&error=su');
+							} else if($position == "registrar"){
+								header('Location:../disableUsers.php?position=registrar&error=su');
+							} else if($position == "topupAgent"){
+								header('Location:../disableUsers.php?position=topupAgent&error=su');
+							}
 						}
 						//sucessfully activated
 						if($position == "updater"){

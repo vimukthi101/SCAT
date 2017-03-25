@@ -65,7 +65,7 @@ Thank You!
 											catch (Exception $e)
 											{
 												//Error occured while connecting to server.
-												$Message = $e->getMessage();
+												echo 'ERROR';
 											}
 										}
 									} else {

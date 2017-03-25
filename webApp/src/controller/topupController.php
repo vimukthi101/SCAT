@@ -59,7 +59,9 @@ Thank You!
 										catch (Exception $e)
 										{
 											//Error occured while connecting to server.
-											$Message = $e->getMessage();
+											//$Message = $e->getMessage();
+											//success
+											header('Location:../topup.php?error=su');
 										}
 
 									}

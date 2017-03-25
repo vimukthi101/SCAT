@@ -58,7 +58,8 @@ Station has being updated with following information,
 Thank You!
 S.C.A.T Admin";
 													if (!$mail->send()) {
-														echo "Mailer Error: " . $mail->ErrorInfo;
+														//success
+														header('Location:../updateStations.php?error=su');
 													}
 												}
 											}
@@ -107,7 +108,8 @@ Station has being updated with following information,
 Thank You!
 S.C.A.T Admin";
 															if (!$mail->send()) {
-																echo "Mailer Error: " . $mail->ErrorInfo;
+																//success
+																header('Location:../updateStations.php?error=su');
 															}
 														}
 													}
@@ -161,7 +163,8 @@ Station has being updated with following information,
 Thank You!
 S.C.A.T Admin";
 															if (!$mail->send()) {
-																echo "Mailer Error: " . $mail->ErrorInfo;
+																//success
+																header('Location:../updateStations.php?error=su');
 															}
 														}
 													}

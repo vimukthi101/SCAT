@@ -87,7 +87,8 @@ S.C.A.T Admin";
 													}
 												}
 												if (!$mail->send()) {
-													echo "Mailer Error: " . $mail->ErrorInfo;
+													//echo "Mailer Error: " . $mail->ErrorInfo;
+													echo "error occurred";
 												}
 												//send mail to managers
 												$getEmp = "SELECT employee_email FROM employee WHERE status=1 AND nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager'))";
@@ -111,7 +112,8 @@ Approved Number Of Cards : ".$send."
 Thank You!
 S.C.A.T Admin";
 															if (!$mail->send()) {
-																echo "Mailer Error: " . $mail->ErrorInfo;
+																//success
+																header('Location:../issueCards.php?error=sui');
 															}
 														}
 													}
@@ -188,7 +190,8 @@ S.C.A.T Admin";
 									}
 								}
 								if (!$mail->send()) {
-									echo "Mailer Error: " . $mail->ErrorInfo;
+									//echo "Mailer Error: " . $mail->ErrorInfo;
+									echo "error occurred";
 								}
 								//send mail to managers
 								$getEmp = "SELECT employee_email FROM employee WHERE nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='manager'))";
@@ -211,7 +214,8 @@ Card request on ".$rDate." of ".$nReq." from ".$station." has being rejected,
 Thank You!
 S.C.A.T Admin";
 											if (!$mail->send()) {
-												echo "Mailer Error: " . $mail->ErrorInfo;
+												//success
+												header('Location:../issueCards.php?error=sur');
 											}
 										}
 									}
