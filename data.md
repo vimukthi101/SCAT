@@ -1,3 +1,42 @@
+## LOGIN DETAILS
+
+* sysadmin
+
+> scatfortrains@gmail.com
+
+> 1234
+
+* Station Master - Colombo
+
+> scatsmcolombo@gmail.com
+
+> 1234
+
+* Station Master - Avissawella
+
+> scatsmbadulla@gmail.com
+
+> 1234
+
+* registrar - Colomobo
+
+> registrarcolombo@gmail.com
+
+> 1234
+
+* updater - Colombo
+
+> updatercolombo@gmail.com
+
+> 1234
+
+* toup agent - Colombo
+
+> topupagentcolombo@gmail.com
+
+> 1234
+
+
 ## E-MAILS FOR SCAT
 
 * sysadmin
@@ -18,7 +57,7 @@
 
 > 931340034v
 
-* station master - Badulla
+* station master - Avissawella
 
 > scatsmbadulla@gmail.com
 
@@ -47,6 +86,7 @@
 > topupagentcolombo@gmail.com
 
 > 931340034v
+
 
 ## E-MAILS FOR VIANETT
 
