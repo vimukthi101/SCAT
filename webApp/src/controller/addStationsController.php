@@ -57,9 +57,9 @@ S.C.A.T Admin";
 											$resultSM = mysqli_query($con, $getSM);
 											if(mysqli_num_rows($resultSM) != 0){
 												while($rowSM = mysqli_fetch_array($resultSM)){
-													$toSm =  $rowSM['employee_email'];
+													$toSM =  $rowSM['employee_email'];
 													//Set who the message is to be sent to
-													$mail->addAddress($to, $to);
+													$mail->addAddress($toSM, $toSM);
 													//Set the subject line
 													$mail->Subject = "Assigned to a Station";
 $mail->Body ="Dear Station Master,

@@ -35,7 +35,7 @@ if($s != ""){
 				if ($q != "") {
 					if($r == "all"){
 						if($s == "topupAgent"){
-							//get employee from EID
+							//get topup agents
 							$getEmp = "SELECT * FROM employee WHERE nic IN (SELECT employee_nic FROM topup_agent)";	
 							$resultGetEmp = mysqli_query($con, $getEmp);
 							if(mysqli_num_rows($resultGetEmp) != 0){
@@ -114,7 +114,7 @@ if($s != ""){
 								echo '<h3 class="text-center" style="padding:50px;">No Records To Display.</h3>';	
 							}
 						} else {
-							//get employee from EID
+							//get other employees
 							$getEmp = "SELECT * FROM employee WHERE nic IN (SELECT employee_nic FROM staff WHERE employee_position_position_id IN (SELECT position_id FROM employee_position WHERE POSITION='".$s."'))";	
 							$resultGetEmp = mysqli_query($con, $getEmp);
 							if(mysqli_num_rows($resultGetEmp) != 0){
